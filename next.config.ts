@@ -88,6 +88,11 @@ const nextConfig: NextConfig = {
       // no longer redirected to /careers. /careers keeps the "What you can hire"
       // postings and links out to the cluster.
       { source: "/hire-software-developers", destination: "/pricing", permanent: true },
+      // Old demo hub URLs still in Google's index (GSC 7 Oct: /demos ~96
+      // impressions, /demos/home 16) now 404. Recover them onto the portfolio,
+      // which is where the demos actually live now.
+      { source: "/demos", destination: "/portfolio", permanent: true },
+      { source: "/demos/:path*", destination: "/portfolio", permanent: true },
       { source: "/favicon.ico", destination: "/icon.svg", permanent: false },
     ];
   },
