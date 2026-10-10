@@ -291,28 +291,9 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Hero stats — moved here from the certifications band at the
-            owner's request (2026-10-08); the dark band under the hero is
-            logos-only again. Same honest data: every value counted from the
-            site's own records (services, industries, markets). */}
-        <div className="container-page mt-10 sm:mt-12">
-          <div className="grid grid-cols-2 gap-x-6 gap-y-6 border-t border-white/10 pt-6 sm:grid-cols-4 sm:gap-8 sm:pt-8">
-            {[
-              { value: "2021", label: "Established · Lahore" },
-              { value: String(services.length), label: "Services & solutions" },
-              { value: String(industries.length), label: "Industries modelled" },
-              { value: String(markets.length), label: "Countries served" },
-            ].map((stat) => (
-              <div key={stat.label}>
-                <p className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">{stat.value}</p>
-                <p className="mt-2 text-xs font-medium uppercase tracking-[0.14em] text-slate-400">{stat.label}</p>
-              </div>
-            ))}
-          </div>
-          <p className="mt-4 max-w-2xl text-xs leading-relaxed text-slate-500">
-            Numbers we can show — every service, industry and market links to its own page on this site.
-          </p>
-        </div>
+        {/* Hero stats row removed (10 Oct): it duplicated the 2021/60/13/6
+            figures that ServiceRingFacts already shows (with bars + the
+            honesty caption) further down. One source, not two. */}
 
         {/* Tech marquee sits flush at the hero's base (no bottom padding on
             the section) so its bottom hairline is the only divider before the

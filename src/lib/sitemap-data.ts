@@ -9,8 +9,6 @@ import { products } from "@/lib/products";
 import { cities } from "@/lib/cities";
 import { markets } from "@/lib/markets";
 import { topics } from "@/lib/topics";
-import { societies } from "@/lib/societies";
-import { techPages } from "@/lib/tech-pages";
 import { isDuplicateTopic, sitemapPriority } from "@/lib/seo-focus";
 import { hirePages } from "@/lib/hire-developers";
 import { geoPages } from "@/lib/geo-pages";
@@ -94,15 +92,19 @@ export function getSitemapGroups(now = staticUpdated): Record<SitemapGroupKey, S
     cities: cities.map((city) =>
       entry(`/software-house/${city.slug}`, { lastModified: now, changeFrequency: "monthly", priority: 0.8 }),
     ),
-    societies: societies.map((society) =>
-      entry(`/societies/${society.slug}`, { lastModified: now, changeFrequency: "monthly", priority: 0.6 }),
-    ),
+    // Intentionally empty (10 Oct 2026): society child pages are noindex AND
+    // Disallowed in robots.txt, so advertising them in the sitemap sent
+    // contradictory signals (GSC 7 Oct: societies.xml = "1 error, 0 discovered";
+    // 18 URLs blocked/excluded). The /societies hub itself stays in `core`.
+    societies: [],
     global: markets.map((market) =>
       entry(`/global/${market.slug}`, { lastModified: now, changeFrequency: "monthly", priority: 0.7 }),
     ),
-    technologies: techPages.map((tech) =>
-      entry(`/technologies/${tech.slug}`, { lastModified: now, changeFrequency: "monthly", priority: 0.4 }),
-    ),
+    // Intentionally empty (10 Oct 2026): technology pages are noindex with a
+    // canonical onto the matching service page, so listing them in the sitemap
+    // contradicted the noindex (GSC 7 Oct: technologies.xml = "1 error,
+    // 0 discovered"). The /technologies hub itself stays in `core`.
+    technologies: [],
     portfolio: projects.map((project) =>
       entry(`/portfolio/${project.slug}`, { lastModified: now, changeFrequency: "monthly", priority: 0.65 }),
     ),
