@@ -699,3 +699,25 @@ Sitemap mein koi indexable page missing nahi — 247 = meri "truly indexable" co
 
 ---
 
+
+---
+
+## 12. Fix batch 2 (10 Oct) — "full website ab ok h?" ka haqeeqi jawab
+
+**Nahi — abhi poori website "ok" nahi hai.** Sitemap theek ho gaya (§11), lekin baaki masle abhi bhi the. Is batch mein maine ye **code-level fixes apply kar diye** (build + `tsc` + `eslint` clean, production par live verify):
+
+| # | Fix | File | Verify (production) |
+|---|---|---|---|
+| 1 | **Inter font ab asal mein load hota hai** — `@fontsource/inter` (self-hosted woff2, koi 3rd-party request nahi). Pehle CSS sirf naam leta tha, font kabhi render nahi hota tha. `next/font/google` sandbox build mein Google Fonts tak pohanch nahi sakta, is liye `@fontsource` use kiya. | `layout.tsx` | CSS mein `@font-face` × 4 (400/500/600/700) + Inter ✔ |
+| 2 | `/global/pakistan` ka **duplicate title** hataya (ab homepage se alag) | `markets.ts` | `<title>Software Development in Pakistan — Lahore Team | WordbitX</title>` ✔ |
+| 3 | **Review POST par per-IP rate limit** (2/24h) — pehle 3 spam foran publish hote the | `api/reviews/route.ts` | POST 1,2 → 200, POST 3 → **429** ✔ |
+| 4 | Homepage ka **"on Google" jhoot** hataya (dono jagah) — ab copy sach kehti hai ke Google reviews GBP par rehte hain | `review-slider.tsx` | `grep "on Google or through the form"` → 0 ✔ |
+| 5 | **Next.js 16.2.6 → 16.4.0** — critical advisory (GHSA middleware/SSRF/DoS) fix | `package.json` | `npm audit`: critical **1 → 0** ✔ |
+
+**Abhi bhi bacha hua (aapke input / external ka intezar):**
+- `REVIEW_ADMIN_SECRET` + `DATABASE_URL` — Vercel env (main nahi set kar sakta)
+- `googleWriteReviewUrl` → GBP direct review link (aapko link dena hoga)
+- Consent banner + GTM Consent Mode v2 (UK/CA/AU compliance)
+- Review moderation (`status` column) — chhota schema change
+- GBP reviews public karwana (§5.0) — Google ke haath mein
+
