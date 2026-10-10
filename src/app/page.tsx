@@ -8,7 +8,6 @@ import { CertificationsBand } from "@/components/certifications-band";
 import { IndustryStrip } from "@/components/industry-strip";
 import { ReviewSlider } from "@/components/review-slider";
 import { ServiceIndex, ServiceNavFootnote } from "@/components/service-nav";
-import { ServiceRingFacts } from "@/components/service-ring";
 import { MarketSphere } from "@/components/market-sphere";
 import { FlagIcon } from "@/components/flag-icon";
 import { AiServicesDeck } from "@/components/ai-services-deck";
@@ -291,10 +290,11 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Hero stats — moved here from the certifications band at the
-            owner's request (2026-10-08); the dark band under the hero is
-            logos-only again. Same honest data: every value counted from the
-            site's own records (services, industries, markets). */}
+        {/* Hero stats — kept at the owner's request (10 Oct): these four
+            counted figures read more trust-worthy right under the hero than
+            further down. The duplicate ServiceRingFacts copy in the team
+            section was removed instead. Same honest data: every value counted
+            from the site's own records (services, industries, markets). */}
         <div className="container-page mt-10 sm:mt-12">
           <div className="grid grid-cols-2 gap-x-6 gap-y-6 border-t border-white/10 pt-6 sm:grid-cols-4 sm:gap-8 sm:pt-8">
             {[
@@ -400,11 +400,8 @@ export default function HomePage() {
                 </div>
               </div>
             </div>
-              {/* The six merged capability cards made the right column taller
-                  than the four photos. The counted facts fill that gap and
-                  match its height, while the ring stays up in the services
-                  deck where its sixteen links sit higher on the page. */}
-              <ServiceRingFacts compact />
+              {/* Counted facts moved back up under the hero (owner, 10 Oct) —
+                  the photos' lg:grow now fills this column on its own. */}
             </div>
 
             <div>
