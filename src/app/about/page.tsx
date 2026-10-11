@@ -425,8 +425,8 @@ export default function AboutPage() {
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <div className="image-sheen relative aspect-[4/3] overflow-hidden rounded-3xl border border-slate-200 bg-slate-100">
             <Image
-              src={media.ownerWorkspace}
-              alt="WordbitX studio, Lahore — engineers at a shared desk"
+              src={media.ownerLounge}
+              alt="WordbitX studio, Lahore — engineer shipping from the lounge sofa under the Ideas, Code, Impact wall"
               fill
               unoptimized
               sizes="(max-width: 1024px) 100vw, 48vw"
