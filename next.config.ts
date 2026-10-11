@@ -28,6 +28,9 @@ const nextConfig: NextConfig = {
         headers: [
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          /* Audit #2 (11 Oct): HSTS was missing. Safe here — the preview host
+             is already served over HTTPS. */
+          { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains" },
         ],
       },
       {
@@ -88,6 +91,15 @@ const nextConfig: NextConfig = {
       // no longer redirected to /careers. /careers keeps the "What you can hire"
       // postings and links out to the cluster.
       { source: "/hire-software-developers", destination: "/pricing", permanent: true },
+      // Old demo hub URLs still in Google's index (GSC 7 Oct: /demos ~96
+      // impressions, /demos/home 16) now 404. Recover them onto the portfolio,
+      // which is where the demos actually live now.
+      // IMPORTANT: match page-like paths only (one segment, no dot). The
+      // earlier "/demos/:path*" version also caught the STATIC screenshots at
+      // /demos/cover/*.jpg (redirects run before the public/ filesystem) and
+      // broke the hero + demo images — 10 Oct 2026 incident.
+      { source: "/demos", destination: "/portfolio", permanent: true },
+      { source: "/demos/:path([^.]+)", destination: "/portfolio", permanent: true },
       { source: "/favicon.ico", destination: "/icon.svg", permanent: false },
     ];
   },

@@ -24,7 +24,7 @@ export const markets: Market[] = [
     h1: "Software Development Company Serving Pakistan and Exporting Globally",
     tagline:
       "Pakistan is our operating base and a core market — not the limit of who we build for.",
-    metaTitle: "Software Development Company in Pakistan | WordbitX",
+    metaTitle: "Software Development in Pakistan — Lahore Team | WordbitX",
     metaDescription:
       "Pakistan-based software company building websites, mobile apps, custom software and industry portals for Pakistani businesses and international clients.",
     overview: [

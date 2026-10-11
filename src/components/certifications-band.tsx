@@ -75,13 +75,13 @@ function OdooMark() {
 
 function PvtLtdMark() {
   return (
-    <svg viewBox="0 0 150 64" className={LOGO_CLASS} aria-label="Registered private limited company" role="img">
+    <svg viewBox="0 0 150 64" className={LOGO_CLASS} aria-label="Registered SMC private limited company" role="img">
       <path
         d="M60 6h30l6 10H54zM54 16h42v6H54zM58 24h6v14h-6zM72 24h6v14h-6zM86 24h6v14h-6zM52 40h46v4H52z"
         fill="currentColor"
       />
-      <text x="75" y="55" textAnchor="middle" fill="currentColor" fontFamily="Georgia, 'Times New Roman', serif" fontSize="16" fontWeight="bold" letterSpacing="2">
-        PVT. LTD.
+      <text x="75" y="55" textAnchor="middle" fill="currentColor" fontFamily="Georgia, 'Times New Roman', serif" fontSize="13" fontWeight="bold" letterSpacing="1.5">
+        SMC-PVT. LTD.
       </text>
       <text x="75" y="62.5" textAnchor="middle" fill="currentColor" fontFamily="Arial, Helvetica, sans-serif" fontSize="6.8" letterSpacing="1.4" opacity="0.85">
         REGISTERED COMPANY
