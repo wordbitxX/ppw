@@ -35,9 +35,6 @@ export type HeroSlide = {
   /** Tailwind object-position class for local portrait shots, so the brand
       wall/logo stays in the 4:3 crop. */
   position?: string;
-  /** "contain" shows the whole photo (zoomed-out) over a blurred copy of
-      itself instead of cropping it into the 4:3 frame. */
-  fit?: "cover" | "contain";
   eyebrow: string;
   title: string;
   /** "Live Project" / "Demo" — taken verbatim from demos.ts so the showcase
@@ -100,9 +97,9 @@ export function getHeroSlides(): HeroSlide[] {
     src: media.ownerReception,
     alt: "WordbitX studio, Lahore — reception with the WordbitX brand wall",
     local: true,
-    /* Owner (11 Oct): show the whole photo, zoomed out — the full frame sits
-       over a blurred copy of itself instead of being cropped. */
-    fit: "contain",
+    /* Portrait shot in a 4:3 frame: nudge the crop up so the logo wall stays
+       in view (owner's setting). */
+    position: "object-[center_22%]",
     eyebrow: "Founder-led delivery",
     title: "Scope, build and launch — one accountable team.",
     badge: "Pakistan · Worldwide",
@@ -123,7 +120,7 @@ export function getHeroSlides(): HeroSlide[] {
         alt: preview.isCover
           ? `Illustration representing ${demo.name} — ${demo.category.toLowerCase()} product built by WordbitX`
           : `${demo.name} — ${demo.category} product built by WordbitX`,
-        eyebrow: eyebrow ?? `Our work · ${demo.name}`,
+        eyebrow: `Our product · ${demo.name}`,
         title,
         badge,
         href: `/products/${demo.id}`,
