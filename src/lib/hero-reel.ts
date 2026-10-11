@@ -32,6 +32,9 @@ export type HeroSlide = {
   alt: string;
   /** Rendered with next/image + priority. Exactly one slide should set this. */
   local?: boolean;
+  /** Tailwind object-position class for local portrait shots, so the brand
+      wall/logo stays in the 4:3 crop. */
+  position?: string;
   eyebrow: string;
   title: string;
   /** "Live Project" / "Demo" — taken verbatim from demos.ts so the showcase
@@ -44,39 +47,66 @@ export type HeroSlide = {
   accent: string;
 };
 
-/** Showcase ids in the order they appear, with the one factual line each. */
-const reelProducts: { id: string; title: string }[] = [
+/** Showcase ids in the order they rotate (owner, 11 Oct): PropertiesPak —
+    the flagship premium product — leads; no "Demo"/"Live" wording on the
+    badges, per owner. Every line below is a fact visible on the live site
+    it describes. */
+const reelProducts: { id: string; title: string; badge: string }[] = [
   {
     id: "properties-pak",
     title: "Pakistan property marketplace — 19 property types across 8 cities.",
-  },
-  {
-    id: "education",
-    title: "School platform — 37 modules, 5 role portals, JazzCash & Easypaisa fees.",
+    badge: "Flagship Product",
   },
   {
     id: "motor",
     title: "Auto marketplace — 21 brands, EV and hybrid, English and اردو.",
+    badge: "Our Product",
+  },
+  {
+    id: "healthcare",
+    title: "Medicare Plus — slot booking, published PKR fees, WhatsApp handoff.",
+    badge: "Our Product",
+  },
+  {
+    id: "education",
+    title: "School platform — 37 modules, 5 role portals, JazzCash & Easypaisa fees.",
+    badge: "Our Product",
   },
   {
     id: "ecommerce",
     title: "Storefront — 9 departments, 8 currencies, full cart and checkout.",
+    badge: "Our Product",
+  },
+  {
+    id: "luxury-restaurant",
+    title: "Maison Noor — 40-dish menu with dietary filters and table reservation.",
+    badge: "Our Product",
+  },
+  {
+    id: "salon-beauty",
+    title: "ÉLAN Beauty Studio — 12 service categories with per-service booking.",
+    badge: "Our Product",
   },
 ];
 
 export function getHeroSlides(): HeroSlide[] {
   const team: HeroSlide = {
     id: "team",
-    src: media.heroTeam,
-    alt: "Illustration of a product team reviewing work together at a laptop in a WordbitX studio",
+    /* Owner's own company photo (11 Oct): the reception shot with the brand
+       wall — owner's pick for the hero's first slide. */
+    src: media.ownerReception,
+    alt: "WordbitX studio, Lahore — reception with the WordbitX brand wall",
     local: true,
+    /* Portrait shot in a 4:3 frame: nudge the crop up so the logo wall stays
+       in view (owner's adjustment, 11 Oct). */
+    position: "object-[center_22%]",
     eyebrow: "Founder-led delivery",
     title: "Scope, build and launch — one accountable team.",
     badge: "Pakistan · Worldwide",
     accent: "from-navy-900 via-navy-800 to-navy-900",
   };
 
-  const products = reelProducts.flatMap<HeroSlide>(({ id, title }) => {
+  const products = reelProducts.flatMap<HeroSlide>(({ id, title, badge }) => {
     const demo = getShowcase(id);
     if (!demo) return [];
     const preview = demoPreview(demo);
@@ -92,7 +122,7 @@ export function getHeroSlides(): HeroSlide[] {
           : `${demo.name} — ${demo.category} product built by WordbitX`,
         eyebrow: `Our product · ${demo.name}`,
         title,
-        badge: demo.label,
+        badge,
         href: `/products/${demo.id}`,
         accent: demo.accent ?? "from-navy-900 via-brand-700 to-navy-800",
       },

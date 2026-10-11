@@ -21,6 +21,34 @@ type Payload = {
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
+// Per-IP rate limit on publishing reviews. Without one (verified 10 Oct —
+// three spam POSTs published instantly) a script can flood the homepage.
+// In-memory per instance, matching review-store.ts; a hard cap of 2 reviews
+// per 24h per IP is generous for a real buyer and useless to a spammer.
+const RATE_LIMIT = 2;
+const RATE_WINDOW_MS = 24 * 60 * 60 * 1000;
+const rateMemory = globalThis as typeof globalThis & {
+  __wordbitxReviewRate?: Map<string, number[]>;
+};
+
+function clientIp(request: Request): string {
+  const fwd = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
+  return fwd || request.headers.get("x-real-ip")?.trim() || "unknown";
+}
+
+function isRateLimited(ip: string): boolean {
+  const map: Map<string, number[]> = (rateMemory.__wordbitxReviewRate ??= new Map<string, number[]>());
+  const now = Date.now();
+  const hits = (map.get(ip) ?? []).filter((t) => now - t < RATE_WINDOW_MS);
+  if (hits.length >= RATE_LIMIT) {
+    map.set(ip, hits);
+    return true;
+  }
+  hits.push(now);
+  map.set(ip, hits);
+  return false;
+}
+
 function isIndustry(value: string): value is ReviewIndustry {
   return (reviewIndustries as string[]).includes(value);
 }
@@ -100,6 +128,13 @@ export async function POST(request: Request) {
 
   if (body.website && body.website.trim().length > 0) {
     return Response.json({ ok: true, message: "Thank you — your review was received." });
+  }
+
+  if (isRateLimited(clientIp(request))) {
+    return Response.json(
+      { ok: false, message: "Too many reviews from this connection — please try again tomorrow." },
+      { status: 429 },
+    );
   }
 
   const name = (body.name ?? "").trim();
