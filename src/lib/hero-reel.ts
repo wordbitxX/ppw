@@ -32,6 +32,9 @@ export type HeroSlide = {
   alt: string;
   /** Rendered with next/image + priority. Exactly one slide should set this. */
   local?: boolean;
+  /** Tailwind object-position class for local portrait shots, so the brand
+      wall/logo stays in the 4:3 crop. */
+  position?: string;
   eyebrow: string;
   title: string;
   /** "Live Project" / "Demo" — taken verbatim from demos.ts so the showcase
@@ -67,9 +70,14 @@ const reelProducts: { id: string; title: string }[] = [
 export function getHeroSlides(): HeroSlide[] {
   const team: HeroSlide = {
     id: "team",
-    src: media.heroTeam,
-    alt: "Illustration of a product team reviewing work together at a laptop in a WordbitX studio",
+    /* Owner's own company photo (11 Oct): the reception shot with the brand
+       wall — owner's pick for the hero's first slide. */
+    src: media.ownerReception,
+    alt: "WordbitX studio, Lahore — reception with the WordbitX brand wall",
     local: true,
+    /* Portrait shot in a 4:3 frame: nudge the crop up so the logo wall stays
+       in view (owner's adjustment, 11 Oct). */
+    position: "object-[center_22%]",
     eyebrow: "Founder-led delivery",
     title: "Scope, build and launch — one accountable team.",
     badge: "Pakistan · Worldwide",
@@ -99,5 +107,111 @@ export function getHeroSlides(): HeroSlide[] {
     ];
   });
 
-  return [team, ...products];
+  /* Studio slides (owner, 11 Oct): the owner's five company photos plus the
+     five generated brand visuals rotate between the team slide and the
+     product screenshots. Product/demo slides below are untouched. */
+  const studio: HeroSlide[] = [
+    {
+      id: "studio-ideas-wall",
+      src: media.ownerCollaboration,
+      alt: "WordbitX studio, Lahore — lounge with the Ideas, Code, Impact wall",
+      local: true,
+      eyebrow: "Our studio · Lahore",
+      title: "The lounge where discovery becomes a written scope.",
+      badge: "WordbitX Studio",
+      href: "/about",
+      accent: "from-navy-900 via-navy-800 to-navy-900",
+    },
+    {
+      id: "studio-open-plan",
+      src: media.ownerLounge,
+      alt: "WordbitX studio, Lahore — open-plan workspace",
+      local: true,
+      eyebrow: "Our studio · Lahore",
+      title: "Open-plan desks — every build happens in-house.",
+      badge: "WordbitX Studio",
+      href: "/about",
+      accent: "from-navy-900 via-navy-800 to-navy-900",
+    },
+    {
+      id: "studio-shared-desk",
+      src: media.ownerWorkspace,
+      alt: "WordbitX studio, Lahore — engineers at a shared desk",
+      local: true,
+      eyebrow: "Our studio · Lahore",
+      title: "Engineers shipping side by side, planning wall behind.",
+      badge: "WordbitX Studio",
+      href: "/about",
+      accent: "from-navy-900 via-navy-800 to-navy-900",
+    },
+    {
+      id: "studio-sprint-review",
+      src: media.ownerMeeting,
+      alt: "WordbitX studio, Lahore — sprint review in the conference room",
+      local: true,
+      eyebrow: "Our studio · Lahore",
+      title: "Weekly sprint reviews — you see working software.",
+      badge: "WordbitX Studio",
+      href: "/about",
+      accent: "from-navy-900 via-navy-800 to-navy-900",
+    },
+    {
+      id: "studio-gen-wall",
+      src: media.genCollaboration,
+      alt: "WordbitX studio visual — lounge with the Ideas, Code, Impact wall",
+      local: true,
+      eyebrow: "Inside WordbitX",
+      title: "One studio, one accountable team.",
+      badge: "WordbitX Studio",
+      href: "/about",
+      accent: "from-navy-900 via-navy-800 to-navy-900",
+    },
+    {
+      id: "studio-gen-sofa",
+      src: media.genLounge,
+      alt: "WordbitX studio visual — workspace with the Build Smart Solutions wall",
+      local: true,
+      eyebrow: "Inside WordbitX",
+      title: "Build smart solutions — the wall says it, the team does it.",
+      badge: "WordbitX Studio",
+      href: "/about",
+      accent: "from-navy-900 via-navy-800 to-navy-900",
+    },
+    {
+      id: "studio-gen-reception",
+      src: media.genReception,
+      alt: "WordbitX studio visual — reception with the brand wall",
+      local: true,
+      position: "object-[center_25%]",
+      eyebrow: "Inside WordbitX",
+      title: "A real front desk in DHA Phase 2, Lahore.",
+      badge: "WordbitX Studio",
+      href: "/about",
+      accent: "from-navy-900 via-navy-800 to-navy-900",
+    },
+    {
+      id: "studio-gen-desks",
+      src: media.genWorkspace,
+      alt: "WordbitX studio visual — team at desks with the planning room behind",
+      local: true,
+      eyebrow: "Inside WordbitX",
+      title: "Code review and QA at the same table.",
+      badge: "WordbitX Studio",
+      href: "/about",
+      accent: "from-navy-900 via-navy-800 to-navy-900",
+    },
+    {
+      id: "studio-gen-review",
+      src: media.genMeeting,
+      alt: "WordbitX studio visual — conference room demo session",
+      local: true,
+      eyebrow: "Inside WordbitX",
+      title: "Demo day — stakeholders see the product, not slides.",
+      badge: "WordbitX Studio",
+      href: "/about",
+      accent: "from-navy-900 via-navy-800 to-navy-900",
+    },
+  ];
+
+  return [team, ...studio, ...products];
 }
