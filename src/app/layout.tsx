@@ -1,5 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/500.css";
+import "@fontsource/inter/600.css";
+import "@fontsource/inter/700.css";
 import "./globals.css";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
@@ -9,6 +13,12 @@ import { TrackingBody, TrackingHead } from "@/components/analytics";
 import { adsenseClientId } from "@/lib/adsense";
 import { siteConfig } from "@/lib/site";
 
+// Self-host the brand face. Previously the CSS only *named* Inter in
+// --font-sans without ever loading it, so every visitor fell back to their
+// OS font (Segoe UI / Roboto / DejaVu) and the brand typography never
+// rendered. @fontsource ships the woff2 files from node_modules (no runtime
+// third-party request), and --font-sans in globals.css already lists
+// "Inter" first, so the whole Tailwind stack now resolves to it.
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
