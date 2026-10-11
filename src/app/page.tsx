@@ -8,7 +8,6 @@ import { CertificationsBand } from "@/components/certifications-band";
 import { IndustryStrip } from "@/components/industry-strip";
 import { ReviewSlider } from "@/components/review-slider";
 import { ServiceIndex, ServiceNavFootnote } from "@/components/service-nav";
-import { ServiceRingFacts } from "@/components/service-ring";
 import { MarketSphere } from "@/components/market-sphere";
 import { FlagIcon } from "@/components/flag-icon";
 import { AiServicesDeck } from "@/components/ai-services-deck";
@@ -291,10 +290,11 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Hero stats — moved here from the certifications band at the
-            owner's request (2026-10-08); the dark band under the hero is
-            logos-only again. Same honest data: every value counted from the
-            site's own records (services, industries, markets). */}
+        {/* Hero stats — kept at the owner's request (10 Oct): these four
+            counted figures read more trust-worthy right under the hero than
+            further down. The duplicate ServiceRingFacts copy in the team
+            section was removed instead. Same honest data: every value counted
+            from the site's own records (services, industries, markets). */}
         <div className="container-page mt-10 sm:mt-12">
           <div className="grid grid-cols-2 gap-x-6 gap-y-6 border-t border-white/10 pt-6 sm:grid-cols-4 sm:gap-8 sm:pt-8">
             {[
@@ -344,77 +344,102 @@ export default function HomePage() {
       <CertificationsBand />
 
       {/* ================= WHY US =================
-          Sits above the services grid at the owner's request: the team
-          photos and the positioning line land before the catalogue. The ring
-          travels with it, so the sixteen service links stay high on the
-          page. */}
+          Sits above the services grid at the owner's request. Left: the real
+          seven-stage delivery process (same data as /process); right: the six
+          capability cards. No stock team illustrations — fake faces under
+          this headline would undercut the point. */}
       <section className="defer-paint relative overflow-hidden bg-navy-950 py-12 text-white sm:py-20 lg:py-24">
         <div className="absolute inset-0 grid-pattern opacity-60" aria-hidden="true" />
         <div className="absolute -left-32 top-10 h-[30rem] w-[30rem] rounded-full bg-brand-500/18 blur-[140px]" aria-hidden="true" />
         <div className="absolute -right-20 bottom-0 h-[26rem] w-[26rem] rounded-full bg-sky-500/12 blur-[130px]" aria-hidden="true" />
         <div className="container-page relative z-10">
-          <div className="grid gap-10 lg:grid-cols-2 lg:gap-14">
-            {/* Photos then the ring. The six merged capability cards made the
-                right column taller than the four photos, leaving a gap; the
-                ring fills it and the photos stay desktop-only as before. */}
-            <div className="flex flex-col gap-10">
-            <div className="hidden grid-cols-2 gap-3.5 lg:grid lg:min-h-[34rem] lg:grow">
-              <div className="flex flex-col gap-3.5">
-                <div className="image-sheen relative aspect-[4/3] grow overflow-hidden rounded-2xl border border-white/10 bg-navy-800 shadow-[0_24px_50px_-28px_rgba(0,0,0,0.75)]">
-                  <Image
-                    src={media.teamHuddle}
-                    alt="Illustration of a delivery team reviewing work together on a laptop"
-                    fill
-                    sizes="22vw"
-                    className="object-cover transition-transform duration-700 hover:scale-105"
-                  />
-                </div>
-                <div className="image-sheen relative aspect-[4/5] grow overflow-hidden rounded-2xl border border-white/10 bg-navy-800 shadow-[0_24px_50px_-28px_rgba(0,0,0,0.75)]">
-                  <Image
-                    src={media.officeSideAngle}
-                    alt="Illustration of engineers talking through a dashboard at a standing desk"
-                    fill
-                    sizes="22vw"
-                    className="object-cover transition-transform duration-700 hover:scale-105"
-                  />
-                </div>
+          <SectionHeading
+            tone="dark"
+            eyebrow="Inside WordbitX"
+            title="The team that will actually build your product"
+            description="Not a sales desk that hands your project to someone else. The engineers who scope your product are the ones who build it and stay on it — an embedded product team that questions requirements, proposes the simplest thing that works, and leaves you a system you can run and extend without us."
+          />
+          <div className="mt-10 grid gap-10 lg:grid-cols-2 lg:gap-14">
+            {/* Studio collage (owner's company visuals, 11 Oct): five branded
+                office shots, visible at every breakpoint. Left column = the
+                collage, right = the seven-stage process panel; the six
+                capability cards drop below at full width so both columns stay
+                level. */}
+            <div className="grid grid-cols-2 gap-3.5">
+              <div className="image-sheen relative col-span-2 aspect-[16/9] overflow-hidden rounded-2xl border border-white/10 bg-navy-800 shadow-[0_24px_50px_-28px_rgba(0,0,0,0.75)]">
+                <Image
+                  src={media.wordbitxStudio}
+                  alt="WordbitX studio, Lahore — lounge with the Ideas, Code, Impact wall"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover transition-transform duration-700 hover:scale-105"
+                />
               </div>
-              <div className="mt-10 flex flex-col gap-3.5">
-                <div className="image-sheen relative aspect-[4/5] grow overflow-hidden rounded-2xl border border-white/10 bg-navy-800 shadow-[0_24px_50px_-28px_rgba(0,0,0,0.75)]">
-                  <Image
-                    src={media.teamMeeting}
-                    alt="Illustration of a working session around a product dashboard"
-                    fill
-                    sizes="22vw"
-                    className="object-cover object-center transition-transform duration-700 hover:scale-105"
-                  />
-                </div>
-                <div className="image-sheen relative aspect-[4/3] grow overflow-hidden rounded-2xl border border-white/10 bg-navy-800 shadow-[0_24px_50px_-28px_rgba(0,0,0,0.75)]">
-                  <Image
-                    src={media.wordbitxStudio}
-                    alt="Illustration of a software studio working session"
-                    fill
-                    sizes="22vw"
-                    className="object-cover object-[center_30%] transition-transform duration-700 hover:scale-105"
-                  />
-                </div>
+              <div className="image-sheen relative aspect-[4/3] overflow-hidden rounded-2xl border border-white/10 bg-navy-800 shadow-[0_24px_50px_-28px_rgba(0,0,0,0.75)]">
+                <Image
+                  src={media.teamOffice}
+                  alt="WordbitX studio, Lahore — open-plan workspace"
+                  fill
+                  sizes="(max-width: 1024px) 50vw, 25vw"
+                  className="object-cover transition-transform duration-700 hover:scale-105"
+                />
               </div>
-            </div>
-              {/* The six merged capability cards made the right column taller
-                  than the four photos. The counted facts fill that gap and
-                  match its height, while the ring stays up in the services
-                  deck where its sixteen links sit higher on the page. */}
-              <ServiceRingFacts compact />
+              <div className="image-sheen relative aspect-[4/3] overflow-hidden rounded-2xl border border-white/10 bg-navy-800 shadow-[0_24px_50px_-28px_rgba(0,0,0,0.75)]">
+                <Image
+                  src={media.aboutProcess}
+                  alt="WordbitX studio, Lahore — engineers shipping at a shared desk"
+                  fill
+                  sizes="(max-width: 1024px) 50vw, 25vw"
+                  className="object-cover transition-transform duration-700 hover:scale-105"
+                />
+              </div>
+              <div className="image-sheen relative aspect-[4/5] overflow-hidden rounded-2xl border border-white/10 bg-navy-800 shadow-[0_24px_50px_-28px_rgba(0,0,0,0.75)]">
+                <Image
+                  src={media.whoWeAreStudio}
+                  alt="WordbitX studio, Lahore — reception"
+                  fill
+                  sizes="(max-width: 1024px) 50vw, 25vw"
+                  className="object-cover transition-transform duration-700 hover:scale-105"
+                />
+              </div>
+              <div className="image-sheen relative aspect-[4/5] overflow-hidden rounded-2xl border border-white/10 bg-navy-800 shadow-[0_24px_50px_-28px_rgba(0,0,0,0.75)]">
+                <Image
+                  src={media.studioMeeting}
+                  alt="WordbitX studio, Lahore — sprint review in the conference room"
+                  fill
+                  sizes="(max-width: 1024px) 50vw, 25vw"
+                  className="object-cover transition-transform duration-700 hover:scale-105"
+                />
+              </div>
             </div>
 
-            <div>
-              <SectionHeading
-                tone="dark"
-                eyebrow="Inside WordbitX"
-                title="The team that will actually build your product"
-                description="Not a sales desk that hands your project to someone else. The engineers who scope your product are the ones who build it and stay on it — an embedded product team that questions requirements, proposes the simplest thing that works, and leaves you a system you can run and extend without us."
-              />
-              <div className="mt-8 grid gap-3 sm:grid-cols-2">
+            <div className="flex flex-col rounded-2xl border border-white/10 bg-navy-900/80 p-6 sm:p-8">
+              <p className="text-sm font-semibold text-brand-300">How we work</p>
+              <h3 className="mt-2 text-xl font-semibold text-white">Seven stages from discovery to support</h3>
+              <ol className="mt-6 flex flex-1 flex-col justify-between gap-5">
+                {processSteps.map((step) => (
+                  <li key={step.step} className="flex gap-4">
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-500/15 text-xs font-bold text-brand-300 ring-1 ring-brand-400/25">
+                      {step.step}
+                    </span>
+                    <span className="block">
+                      <span className="block text-sm font-semibold text-white">{step.title}</span>
+                      <span className="mt-0.5 block text-sm leading-relaxed text-slate-400">{step.text}</span>
+                    </span>
+                  </li>
+                ))}
+              </ol>
+              <Link
+                href="/process"
+                className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-brand-300 transition-colors hover:text-brand-200"
+              >
+                See the full process
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+
+          <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                 {whyCards.map((card) => (
                   <Link
                     key={card.title}
@@ -452,18 +477,6 @@ export default function HomePage() {
                   <WhatsAppIcon className="h-4 w-4 text-[#25D366]" /> Quick WhatsApp chat
                 </a>
               </div>
-            </div>
-          </div>
-
-          <div className="image-sheen relative mt-10 aspect-[16/10] overflow-hidden rounded-2xl border border-white/10 bg-navy-800 lg:hidden">
-            <Image
-              src={media.wordbitxStudio}
-              alt="Illustration of a software studio working session"
-              fill
-              sizes="100vw"
-              className="object-cover object-center"
-            />
-          </div>
         </div>
       </section>
 
