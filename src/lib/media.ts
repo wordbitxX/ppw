@@ -16,7 +16,7 @@ export const media = {
   aiRobotics: px(8386440),
 
   teamDevelopers: px(6804068),
-  teamOffice: px(6804073),
+  teamOffice: "/brand/office-lounge.jpg",
   businessAnalyticsTeam: px(3183126),
   uxTeam: px(8128192),
   pairProgramming: px(6803554),
@@ -141,14 +141,15 @@ export const media = {
    * Replace them with a real shoot and this constraint goes away. Until then,
    * illustration language only.
    */
-  wordbitxStudio: "/brand/team/studio-restore.jpg",
-  whoWeAreStudio: "/brand/team/studio-restore.jpg",
+  wordbitxStudio: "/brand/office-collaboration.jpg",
+  whoWeAreStudio: "/brand/office-reception.jpg",
   productWalkthrough: "/brand/team/walkthrough.jpg",
   officeSideAngle: "/brand/team/office-side-angle.jpg",
   teamMeeting: "/brand/team/meeting-room.jpg",
   teamHuddle: "/brand/team/huddle.jpg",
   heroTeam: "/brand/team/hero-office.jpg",
-  aboutProcess: "/brand/team/about-office-loft.jpg",
+  aboutProcess: "/brand/office-workspace.jpg",
+  studioMeeting: "/brand/office-meeting.jpg",
 } as const;
 
 export type MediaKey = keyof typeof media;

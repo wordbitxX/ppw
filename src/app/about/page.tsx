@@ -130,7 +130,7 @@ export default function AboutPage() {
           <div className="image-sheen relative aspect-[4/3] overflow-hidden rounded-3xl border border-slate-200 bg-slate-100 shadow-[0_30px_60px_-38px_rgba(5,13,33,0.35)]">
             <Image
               src={media.whoWeAreStudio}
-              alt="Illustration of a product team at work in a studio"
+              alt="WordbitX studio, Lahore — reception and logo wall"
               fill
               unoptimized
               sizes="(max-width: 1024px) 100vw, 48vw"
@@ -426,7 +426,7 @@ export default function AboutPage() {
           <div className="image-sheen relative aspect-[4/3] overflow-hidden rounded-3xl border border-slate-200 bg-slate-100">
             <Image
               src={media.aboutProcess}
-              alt="Illustration of a delivery team at work in a studio"
+              alt="WordbitX studio, Lahore — engineers at a shared desk"
               fill
               unoptimized
               sizes="(max-width: 1024px) 100vw, 48vw"
