@@ -129,8 +129,8 @@ export default function AboutPage() {
           </div>
           <div className="image-sheen relative aspect-[4/3] overflow-hidden rounded-3xl border border-slate-200 bg-slate-100 shadow-[0_30px_60px_-38px_rgba(5,13,33,0.35)]">
             <Image
-              src={media.whoWeAreStudio}
-              alt="Illustration of a product team at work in a studio"
+              src={media.ownerReception}
+              alt="WordbitX studio, Lahore — reception and logo wall"
               fill
               unoptimized
               sizes="(max-width: 1024px) 100vw, 48vw"
@@ -333,8 +333,8 @@ export default function AboutPage() {
                     LinkedIn
                   </a>
                   <a
-                    href={`mailto:${siteConfig.email}`}
-                    aria-label={`Email ${founder.name} at ${siteConfig.email}`}
+                    href={`mailto:${siteConfig.ceoEmail}`}
+                    aria-label={`Email the CEO at ${siteConfig.ceoEmail}`}
                     className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-slate-200 px-2 py-2.5 text-[0.7rem] font-semibold text-ink-900 transition-colors hover:border-brand-400 hover:text-brand-700"
                   >
                     <MailIcon className="h-3.5 w-3.5 shrink-0" />
@@ -352,7 +352,7 @@ export default function AboutPage() {
                   </a>
                 </div>
 
-                <CopyEmail email={siteConfig.email} className="mt-2.5" />
+                <CopyEmail email={siteConfig.ceoEmail} className="mt-2.5" />
               </div>
             </div>
           </div>
@@ -425,8 +425,8 @@ export default function AboutPage() {
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <div className="image-sheen relative aspect-[4/3] overflow-hidden rounded-3xl border border-slate-200 bg-slate-100">
             <Image
-              src={media.aboutProcess}
-              alt="Illustration of a delivery team at work in a studio"
+              src={media.ownerWorkspace}
+              alt="WordbitX studio, Lahore — engineers at a shared desk"
               fill
               unoptimized
               sizes="(max-width: 1024px) 100vw, 48vw"

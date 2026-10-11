@@ -206,9 +206,9 @@ export function ReviewSlider() {
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-600">Client reviews</p>
           <h2 className="mt-3 text-3xl font-semibold text-ink-900 sm:text-4xl">Real reviews only — nothing invented</h2>
           <p className="mt-4 text-sm leading-relaxed text-ink-500">
-            We do not buy reviews and we do not write fake testimonials. Reviews here come from people who actually
-            worked with us — on Google or through the form below. If you have, the quickest way to help other buyers
-            is to publish one.
+            We do not buy reviews and we do not write fake testimonials. Every card here was written through the form
+            below by someone who actually worked with us — our Google reviews live on our Google Business Profile.
+            If you have worked with us, the quickest way to help other buyers is to publish one.
           </p>
         </div>
         <div className="flex flex-wrap gap-3">
@@ -382,11 +382,20 @@ export function ReviewSlider() {
       >
         {visible.length === 0 ? (
           <div className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8">
-            <h3 className="text-lg font-semibold text-ink-900">No reviews published yet — here is what you can verify today</h3>
+            <h3 className="text-lg font-semibold text-ink-900">Our Google record is public — on-site reviews start with you</h3>
+            <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 rounded-xl border border-slate-200 bg-slate-50 p-4">
+              <span className="text-2xl font-semibold text-ink-900">
+                {siteConfig.googleRating}
+                <span className="ml-1 text-base text-amber-500">★</span>
+              </span>
+              <span className="text-sm leading-relaxed text-ink-500">
+                {siteConfig.googleReviewCount} Google reviews on our Business Profile — a public record we cannot edit.
+              </span>
+            </div>
             <p className="mt-2 max-w-2xl text-sm leading-relaxed text-ink-500">
               We would rather show you nothing than show you invented praise. The moment a client publishes a review
-              on Google or through the form above, it appears in this slider. Until then, everything below is real and
-              clickable:
+              through the form above, it appears in this slider — our Google reviews stay on our Google Business
+              Profile, linked above. Until then, everything below is real and clickable:
             </p>
             <div className="mt-6 grid gap-4 md:grid-cols-3">
               <a

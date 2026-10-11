@@ -128,14 +128,37 @@ export function HeroReel({ slides }: { slides: HeroSlide[] }) {
             <div className={`absolute inset-0 bg-gradient-to-br ${slide.accent}`} />
 
             {slide.local ? (
+              slide.fit === "contain" ? (
+                <>
+                  {/* Zoomed-out treatment (owner, 11 Oct): the full photo,
+                      letterbox filled by a blurred copy of itself. */}
+                  <Image
+                    src={slide.src}
+                    alt=""
+                    aria-hidden="true"
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 46vw"
+                    className="scale-110 object-cover opacity-50 blur-2xl"
+                  />
+                  <Image
+                    src={slide.src}
+                    alt={slide.alt}
+                    fill
+                    priority
+                    sizes="(max-width: 1024px) 100vw, 46vw"
+                    className="object-contain"
+                  />
+                </>
+              ) : (
               <Image
                 src={slide.src}
                 alt={slide.alt}
                 fill
                 priority
                 sizes="(max-width: 1024px) 100vw, 46vw"
-                className="object-cover object-center"
+                className={`object-cover ${slide.position ?? "object-center"}`}
               />
+              )
             ) : (
               /* eslint-disable-next-line @next/next/no-img-element */
               <img

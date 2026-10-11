@@ -16,7 +16,7 @@ export const media = {
   aiRobotics: px(8386440),
 
   teamDevelopers: px(6804068),
-  teamOffice: px(6804073),
+  teamOffice: "/brand/owner-lounge.jpg",
   businessAnalyticsTeam: px(3183126),
   uxTeam: px(8128192),
   pairProgramming: px(6803554),
@@ -141,14 +141,29 @@ export const media = {
    * Replace them with a real shoot and this constraint goes away. Until then,
    * illustration language only.
    */
-  wordbitxStudio: "/brand/team/studio-restore.jpg",
-  whoWeAreStudio: "/brand/team/studio-restore.jpg",
+  wordbitxStudio: "/brand/owner-collaboration.jpg",
+  whoWeAreStudio: "/brand/owner-reception.jpg",
   productWalkthrough: "/brand/team/walkthrough.jpg",
   officeSideAngle: "/brand/team/office-side-angle.jpg",
   teamMeeting: "/brand/team/meeting-room.jpg",
   teamHuddle: "/brand/team/huddle.jpg",
   heroTeam: "/brand/team/hero-office.jpg",
-  aboutProcess: "/brand/team/about-office-loft.jpg",
+  aboutProcess: "/brand/owner-workspace.jpg",
+  studioMeeting: "/brand/owner-meeting.jpg",
+  /* Owner's original company photos (via Google Drive, 11 Oct) — used on the
+     About studio gallery. The generated stand-ins stay on the homepage. */
+  ownerCollaboration: "/brand/owner-collaboration.jpg",
+  ownerLounge: "/brand/owner-lounge.jpg",
+  ownerReception: "/brand/owner-reception.jpg",
+  ownerWorkspace: "/brand/owner-workspace.jpg",
+  ownerMeeting: "/brand/owner-meeting.jpg",
+  /* Generated brand visuals (restored to the hero reel at owner's request,
+     11 Oct) — sit alongside the owner's real photos. */
+  genCollaboration: "/brand/office-collaboration.jpg",
+  genLounge: "/brand/office-lounge.jpg",
+  genReception: "/brand/office-reception.jpg",
+  genWorkspace: "/brand/office-workspace.jpg",
+  genMeeting: "/brand/office-meeting.jpg",
 } as const;
 
 export type MediaKey = keyof typeof media;
