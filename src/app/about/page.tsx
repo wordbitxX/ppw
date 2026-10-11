@@ -13,19 +13,20 @@ import { media } from "@/lib/media";
 import { siteConfig, whatsappLink, absoluteUrl } from "@/lib/site";
 import { founder, founderMessage, teamValues } from "@/lib/team";
 
-/* Five studio views for the "Inside the studio" gallery — the owner's
-   company visuals (11 Oct). Swap the files in public/brand/ for the original
-   shoot and this gallery updates without code changes. */
+/* Five studio views for the "Inside the studio" gallery — the OWNER'S
+   ORIGINAL company pictures (11 Oct), hot-linked from the public Google
+   Drive upload. Unoptimized so the browser fetches Google's resized copy
+   directly. Homepage keeps its generated set — owner said home ko na chhuna. */
 const studioGallery = [
   {
-    src: media.wordbitxStudio,
+    src: media.ownerCollaboration,
     alt: "WordbitX studio, Lahore — lounge with the Ideas, Code, Impact wall",
     span: true,
   },
-  { src: media.teamOffice, alt: "WordbitX studio, Lahore — open-plan workspace", span: false },
-  { src: media.whoWeAreStudio, alt: "WordbitX studio, Lahore — reception", span: false },
-  { src: media.aboutProcess, alt: "WordbitX studio, Lahore — engineers at a shared desk", span: false },
-  { src: media.studioMeeting, alt: "WordbitX studio, Lahore — sprint review in the conference room", span: false },
+  { src: media.ownerLounge, alt: "WordbitX studio, Lahore — open-plan workspace", span: false },
+  { src: media.ownerReception, alt: "WordbitX studio, Lahore — reception", span: false },
+  { src: media.ownerWorkspace, alt: "WordbitX studio, Lahore — engineers at a shared desk", span: false },
+  { src: media.ownerMeeting, alt: "WordbitX studio, Lahore — sprint review in the conference room", span: false },
 ];
 
 export const metadata: Metadata = {
@@ -180,6 +181,7 @@ export default function AboutPage() {
                 src={item.src}
                 alt={item.alt}
                 fill
+                unoptimized
                 sizes="(max-width: 1024px) 50vw, 33vw"
                 className="object-cover transition-transform duration-700 hover:scale-105"
               />

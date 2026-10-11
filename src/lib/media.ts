@@ -150,6 +150,21 @@ export const media = {
   heroTeam: "/brand/team/hero-office.jpg",
   aboutProcess: "/brand/office-workspace.jpg",
   studioMeeting: "/brand/office-meeting.jpg",
+  /* Owner's ORIGINAL company pictures (11 Oct), uploaded to Google Drive and
+     shared public. The chat-attachment pipeline never delivered the binaries
+     to the workspace, so the About gallery hot-links these through Google's
+     thumbnail endpoint (Google resizes them to w1600). If the files are ever
+     copied into the repo, swap these back to local /brand/ paths. */
+  ownerCollaboration:
+    "https://drive.google.com/thumbnail?id=1du0TL19lgvliKQFYNTSJP7pXxnnQOlp5&sz=w1600",
+  ownerLounge:
+    "https://drive.google.com/thumbnail?id=1AuLoks-P2ECZffdnPgYbMkXOSSch0BYJ&sz=w1600",
+  ownerReception:
+    "https://drive.google.com/thumbnail?id=1CL8oyOIdxmnoE5ZzKxv1D5WY-DrzMXIu&sz=w1600",
+  ownerWorkspace:
+    "https://drive.google.com/thumbnail?id=1rKfG0gGRHVaDTvGuGAFijf9wP9isYhn4&sz=w1600",
+  ownerMeeting:
+    "https://drive.google.com/thumbnail?id=1jYBb1GtKD02Gg1vtCSrTvxqk1vc92A7p&sz=w1600",
 } as const;
 
 export type MediaKey = keyof typeof media;
