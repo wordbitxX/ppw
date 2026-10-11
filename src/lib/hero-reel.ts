@@ -47,23 +47,40 @@ export type HeroSlide = {
   accent: string;
 };
 
-/** Showcase ids in the order they appear, with the one factual line each. */
-const reelProducts: { id: string; title: string }[] = [
+/** All seven showcases in the order the hero rotates them. Properties Pak —
+    the owner's premium product — leads with a flagship eyebrow. No
+    "Demo"/"Live" labels anywhere in the hero (owner, 11 Oct); each line is a
+    fact visible on the site it describes, same bar as /products. */
+const reelProducts: { id: string; title: string; eyebrow?: string; badge?: string }[] = [
   {
     id: "properties-pak",
-    title: "Pakistan property marketplace — 19 property types across 8 cities.",
+    eyebrow: "Flagship product · propertiespak.com",
+    badge: "Flagship",
+    title: "Our premium property portal — map-led search across societies, phases and blocks.",
+  },
+  {
+    id: "motor",
+    title: "Auto marketplace — 21 brands, EV and hybrid filters, English and اردو.",
+  },
+  {
+    id: "healthcare",
+    title: "Medicare Plus — service catalogue with published PKR fees and slot booking.",
   },
   {
     id: "education",
     title: "School platform — 37 modules, 5 role portals, JazzCash & Easypaisa fees.",
   },
   {
-    id: "motor",
-    title: "Auto marketplace — 21 brands, EV and hybrid, English and اردو.",
+    id: "ecommerce",
+    title: "Veranne storefront — 9 departments, 8 currencies, full cart and checkout.",
   },
   {
-    id: "ecommerce",
-    title: "Storefront — 9 departments, 8 currencies, full cart and checkout.",
+    id: "luxury-restaurant",
+    title: "Maison Noor — 40-dish menu with dietary filters, ordering and reservations.",
+  },
+  {
+    id: "salon-beauty",
+    title: "ÉLAN Beauty Studio — 12 service categories with per-service booking.",
   },
 ];
 
@@ -84,7 +101,7 @@ export function getHeroSlides(): HeroSlide[] {
     accent: "from-navy-900 via-navy-800 to-navy-900",
   };
 
-  const products = reelProducts.flatMap<HeroSlide>(({ id, title }) => {
+  const products = reelProducts.flatMap<HeroSlide>(({ id, title, eyebrow, badge }) => {
     const demo = getShowcase(id);
     if (!demo) return [];
     const preview = demoPreview(demo);
@@ -98,120 +115,16 @@ export function getHeroSlides(): HeroSlide[] {
         alt: preview.isCover
           ? `Illustration representing ${demo.name} — ${demo.category.toLowerCase()} product built by WordbitX`
           : `${demo.name} — ${demo.category} product built by WordbitX`,
-        eyebrow: `Our product · ${demo.name}`,
+        eyebrow: eyebrow ?? `Our work · ${demo.name}`,
         title,
-        badge: demo.label,
+        /* No demo/live disclosure in the hero (owner, 11 Oct). The /products
+           pages keep the full labels. */
+        badge,
         href: `/products/${demo.id}`,
         accent: demo.accent ?? "from-navy-900 via-brand-700 to-navy-800",
       },
     ];
   });
 
-  /* Studio slides (owner, 11 Oct): the owner's five company photos plus the
-     five generated brand visuals rotate between the team slide and the
-     product screenshots. Product/demo slides below are untouched. */
-  const studio: HeroSlide[] = [
-    {
-      id: "studio-ideas-wall",
-      src: media.ownerCollaboration,
-      alt: "WordbitX studio, Lahore — lounge with the Ideas, Code, Impact wall",
-      local: true,
-      eyebrow: "Our studio · Lahore",
-      title: "The lounge where discovery becomes a written scope.",
-      badge: "WordbitX Studio",
-      href: "/about",
-      accent: "from-navy-900 via-navy-800 to-navy-900",
-    },
-    {
-      id: "studio-open-plan",
-      src: media.ownerLounge,
-      alt: "WordbitX studio, Lahore — open-plan workspace",
-      local: true,
-      eyebrow: "Our studio · Lahore",
-      title: "Open-plan desks — every build happens in-house.",
-      badge: "WordbitX Studio",
-      href: "/about",
-      accent: "from-navy-900 via-navy-800 to-navy-900",
-    },
-    {
-      id: "studio-shared-desk",
-      src: media.ownerWorkspace,
-      alt: "WordbitX studio, Lahore — engineers at a shared desk",
-      local: true,
-      eyebrow: "Our studio · Lahore",
-      title: "Engineers shipping side by side, planning wall behind.",
-      badge: "WordbitX Studio",
-      href: "/about",
-      accent: "from-navy-900 via-navy-800 to-navy-900",
-    },
-    {
-      id: "studio-sprint-review",
-      src: media.ownerMeeting,
-      alt: "WordbitX studio, Lahore — sprint review in the conference room",
-      local: true,
-      eyebrow: "Our studio · Lahore",
-      title: "Weekly sprint reviews — you see working software.",
-      badge: "WordbitX Studio",
-      href: "/about",
-      accent: "from-navy-900 via-navy-800 to-navy-900",
-    },
-    {
-      id: "studio-gen-wall",
-      src: media.genCollaboration,
-      alt: "WordbitX studio visual — lounge with the Ideas, Code, Impact wall",
-      local: true,
-      eyebrow: "Inside WordbitX",
-      title: "One studio, one accountable team.",
-      badge: "WordbitX Studio",
-      href: "/about",
-      accent: "from-navy-900 via-navy-800 to-navy-900",
-    },
-    {
-      id: "studio-gen-sofa",
-      src: media.genLounge,
-      alt: "WordbitX studio visual — workspace with the Build Smart Solutions wall",
-      local: true,
-      eyebrow: "Inside WordbitX",
-      title: "Build smart solutions — the wall says it, the team does it.",
-      badge: "WordbitX Studio",
-      href: "/about",
-      accent: "from-navy-900 via-navy-800 to-navy-900",
-    },
-    {
-      id: "studio-gen-reception",
-      src: media.genReception,
-      alt: "WordbitX studio visual — reception with the brand wall",
-      local: true,
-      position: "object-[center_25%]",
-      eyebrow: "Inside WordbitX",
-      title: "A real front desk in DHA Phase 2, Lahore.",
-      badge: "WordbitX Studio",
-      href: "/about",
-      accent: "from-navy-900 via-navy-800 to-navy-900",
-    },
-    {
-      id: "studio-gen-desks",
-      src: media.genWorkspace,
-      alt: "WordbitX studio visual — team at desks with the planning room behind",
-      local: true,
-      eyebrow: "Inside WordbitX",
-      title: "Code review and QA at the same table.",
-      badge: "WordbitX Studio",
-      href: "/about",
-      accent: "from-navy-900 via-navy-800 to-navy-900",
-    },
-    {
-      id: "studio-gen-review",
-      src: media.genMeeting,
-      alt: "WordbitX studio visual — conference room demo session",
-      local: true,
-      eyebrow: "Inside WordbitX",
-      title: "Demo day — stakeholders see the product, not slides.",
-      badge: "WordbitX Studio",
-      href: "/about",
-      accent: "from-navy-900 via-navy-800 to-navy-900",
-    },
-  ];
-
-  return [team, ...studio, ...products];
+  return [team, ...products];
 }
