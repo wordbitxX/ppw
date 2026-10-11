@@ -376,15 +376,6 @@ export default function HomePage() {
               </div>
               <div className="image-sheen relative aspect-[16/9] overflow-hidden rounded-2xl border border-white/10 bg-navy-800 shadow-[0_24px_50px_-28px_rgba(0,0,0,0.75)]">
                 <Image
-                  src={media.wordbitxStudio}
-                  alt="WordbitX studio, Lahore — team collaborating by the brand wall"
-                  fill
-                  sizes="(max-width: 1024px) 50vw, 25vw"
-                  className="object-cover transition-transform duration-700 hover:scale-105"
-                />
-              </div>
-              <div className="image-sheen relative aspect-[4/3] overflow-hidden rounded-2xl border border-white/10 bg-navy-800 shadow-[0_24px_50px_-28px_rgba(0,0,0,0.75)]">
-                <Image
                   src={media.teamOffice}
                   alt="WordbitX studio, Lahore — lounge with the Ideas, Code, Impact wall"
                   fill
@@ -392,10 +383,19 @@ export default function HomePage() {
                   className="object-cover transition-transform duration-700 hover:scale-105"
                 />
               </div>
-              <div className="image-sheen relative col-span-2 aspect-[16/9] overflow-hidden rounded-2xl border border-white/10 bg-navy-800 shadow-[0_24px_50px_-28px_rgba(0,0,0,0.75)]">
+              <div className="image-sheen relative aspect-[4/3] overflow-hidden rounded-2xl border border-white/10 bg-navy-800 shadow-[0_24px_50px_-28px_rgba(0,0,0,0.75)]">
                 <Image
                   src={media.studioMeeting}
                   alt="WordbitX studio, Lahore — sprint review in the conference room"
+                  fill
+                  sizes="(max-width: 1024px) 50vw, 25vw"
+                  className="object-cover transition-transform duration-700 hover:scale-105"
+                />
+              </div>
+              <div className="image-sheen relative col-span-2 aspect-[16/9] overflow-hidden rounded-2xl border border-white/10 bg-navy-800 shadow-[0_24px_50px_-28px_rgba(0,0,0,0.75)]">
+                <Image
+                  src={media.wordbitxStudio}
+                  alt="WordbitX studio, Lahore — team collaborating by the brand wall"
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
                   className="object-cover transition-transform duration-700 hover:scale-105"
