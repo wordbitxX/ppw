@@ -16,7 +16,7 @@ export const media = {
   aiRobotics: px(8386440),
 
   teamDevelopers: px(6804068),
-  teamOffice: "/brand/office-lounge.jpg",
+  teamOffice: "/brand/owner-lounge.jpg",
   businessAnalyticsTeam: px(3183126),
   uxTeam: px(8128192),
   pairProgramming: px(6803554),
@@ -141,15 +141,15 @@ export const media = {
    * Replace them with a real shoot and this constraint goes away. Until then,
    * illustration language only.
    */
-  wordbitxStudio: "/brand/office-collaboration.jpg",
-  whoWeAreStudio: "/brand/office-reception.jpg",
+  wordbitxStudio: "/brand/owner-collaboration.jpg",
+  whoWeAreStudio: "/brand/owner-reception.jpg",
   productWalkthrough: "/brand/team/walkthrough.jpg",
   officeSideAngle: "/brand/team/office-side-angle.jpg",
   teamMeeting: "/brand/team/meeting-room.jpg",
   teamHuddle: "/brand/team/huddle.jpg",
   heroTeam: "/brand/team/hero-office.jpg",
-  aboutProcess: "/brand/office-workspace.jpg",
-  studioMeeting: "/brand/office-meeting.jpg",
+  aboutProcess: "/brand/owner-workspace.jpg",
+  studioMeeting: "/brand/owner-meeting.jpg",
   /* Owner's original company photos (via Google Drive, 11 Oct) — used on the
      About studio gallery. The generated stand-ins stay on the homepage. */
   ownerCollaboration: "/brand/owner-collaboration.jpg",
