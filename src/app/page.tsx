@@ -360,54 +360,44 @@ export default function HomePage() {
             description="Not a sales desk that hands your project to someone else. The engineers who scope your product are the ones who build it and stay on it — an embedded product team that questions requirements, proposes the simplest thing that works, and leaves you a system you can run and extend without us."
           />
           <div className="mt-10 grid gap-10 lg:grid-cols-2 lg:gap-14">
-            {/* Studio collage (owner's company visuals, 11 Oct): five branded
-                office shots, visible at every breakpoint. Left column = the
-                collage, right = the seven-stage process panel; the six
-                capability cards drop below at full width so both columns stay
-                level. */}
+            {/* Studio collage (owner's company visuals, 11 Oct): four branded
+                office shots — the pink-dupatta workspace shot removed and the
+                reception moved first, at the owner's direction. Left column =
+                the collage, right = the seven-stage process panel. */}
             <div className="grid grid-cols-2 gap-3.5">
-              <div className="image-sheen relative col-span-2 aspect-[16/9] overflow-hidden rounded-2xl border border-white/10 bg-navy-800 shadow-[0_24px_50px_-28px_rgba(0,0,0,0.75)]">
+              <div className="image-sheen relative row-span-2 overflow-hidden rounded-2xl border border-white/10 bg-navy-800 shadow-[0_24px_50px_-28px_rgba(0,0,0,0.75)]">
+                <Image
+                  src={media.whoWeAreStudio}
+                  alt="WordbitX studio, Lahore — reception with the WordbitX brand wall"
+                  fill
+                  sizes="(max-width: 1024px) 50vw, 25vw"
+                  className="object-cover object-[center_30%] transition-transform duration-700 hover:scale-105"
+                />
+              </div>
+              <div className="image-sheen relative aspect-[16/9] overflow-hidden rounded-2xl border border-white/10 bg-navy-800 shadow-[0_24px_50px_-28px_rgba(0,0,0,0.75)]">
                 <Image
                   src={media.wordbitxStudio}
-                  alt="WordbitX studio, Lahore — lounge with the Ideas, Code, Impact wall"
+                  alt="WordbitX studio, Lahore — team collaborating by the brand wall"
                   fill
-                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  sizes="(max-width: 1024px) 50vw, 25vw"
                   className="object-cover transition-transform duration-700 hover:scale-105"
                 />
               </div>
               <div className="image-sheen relative aspect-[4/3] overflow-hidden rounded-2xl border border-white/10 bg-navy-800 shadow-[0_24px_50px_-28px_rgba(0,0,0,0.75)]">
                 <Image
                   src={media.teamOffice}
-                  alt="WordbitX studio, Lahore — open-plan workspace"
+                  alt="WordbitX studio, Lahore — lounge with the Ideas, Code, Impact wall"
                   fill
                   sizes="(max-width: 1024px) 50vw, 25vw"
                   className="object-cover transition-transform duration-700 hover:scale-105"
                 />
               </div>
-              <div className="image-sheen relative aspect-[4/3] overflow-hidden rounded-2xl border border-white/10 bg-navy-800 shadow-[0_24px_50px_-28px_rgba(0,0,0,0.75)]">
-                <Image
-                  src={media.aboutProcess}
-                  alt="WordbitX studio, Lahore — engineers shipping at a shared desk"
-                  fill
-                  sizes="(max-width: 1024px) 50vw, 25vw"
-                  className="object-cover transition-transform duration-700 hover:scale-105"
-                />
-              </div>
-              <div className="image-sheen relative aspect-[4/5] overflow-hidden rounded-2xl border border-white/10 bg-navy-800 shadow-[0_24px_50px_-28px_rgba(0,0,0,0.75)]">
-                <Image
-                  src={media.whoWeAreStudio}
-                  alt="WordbitX studio, Lahore — reception"
-                  fill
-                  sizes="(max-width: 1024px) 50vw, 25vw"
-                  className="object-cover transition-transform duration-700 hover:scale-105"
-                />
-              </div>
-              <div className="image-sheen relative aspect-[4/5] overflow-hidden rounded-2xl border border-white/10 bg-navy-800 shadow-[0_24px_50px_-28px_rgba(0,0,0,0.75)]">
+              <div className="image-sheen relative col-span-2 aspect-[16/9] overflow-hidden rounded-2xl border border-white/10 bg-navy-800 shadow-[0_24px_50px_-28px_rgba(0,0,0,0.75)]">
                 <Image
                   src={media.studioMeeting}
                   alt="WordbitX studio, Lahore — sprint review in the conference room"
                   fill
-                  sizes="(max-width: 1024px) 50vw, 25vw"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
                   className="object-cover transition-transform duration-700 hover:scale-105"
                 />
               </div>
