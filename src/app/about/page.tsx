@@ -13,6 +13,21 @@ import { media } from "@/lib/media";
 import { siteConfig, whatsappLink, absoluteUrl } from "@/lib/site";
 import { founder, founderMessage, teamValues } from "@/lib/team";
 
+/* Five studio views for the "Inside the studio" gallery — the owner's
+   company visuals (11 Oct). Swap the files in public/brand/ for the original
+   shoot and this gallery updates without code changes. */
+const studioGallery = [
+  {
+    src: media.wordbitxStudio,
+    alt: "WordbitX studio, Lahore — lounge with the Ideas, Code, Impact wall",
+    span: true,
+  },
+  { src: media.teamOffice, alt: "WordbitX studio, Lahore — open-plan workspace", span: false },
+  { src: media.whoWeAreStudio, alt: "WordbitX studio, Lahore — reception", span: false },
+  { src: media.aboutProcess, alt: "WordbitX studio, Lahore — engineers at a shared desk", span: false },
+  { src: media.studioMeeting, alt: "WordbitX studio, Lahore — sprint review in the conference room", span: false },
+];
+
 export const metadata: Metadata = {
   title: "About | Software Company in Pakistan",
   description:
@@ -142,6 +157,34 @@ export default function AboutPage() {
               <p className="mt-1 text-xs text-white">Lahore, Pakistan — where the work gets built.</p>
             </div>
           </div>
+        </div>
+      </Section>
+
+      {/* STUDIO GALLERY — five branded office views (owner's company
+          visuals). Lives only on /about; the homepage collage stays as is. */}
+      <Section id="studio">
+        <SectionHeading
+          eyebrow="Inside the studio"
+          title="The room where your product gets built"
+          description="The lounge, the reception, the desks and the sprint reviews — WordbitX works from a single studio in DHA Phase 2, Lahore. Visits welcome by appointment."
+        />
+        <div className="mt-10 grid grid-cols-2 gap-3.5 lg:grid-cols-3">
+          {studioGallery.map((item) => (
+            <div
+              key={item.alt}
+              className={`image-sheen relative overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 shadow-[0_24px_50px_-30px_rgba(15,23,42,0.35)] ${
+                item.span ? "col-span-2 aspect-[16/9]" : "aspect-[4/3]"
+              }`}
+            >
+              <Image
+                src={item.src}
+                alt={item.alt}
+                fill
+                sizes="(max-width: 1024px) 50vw, 33vw"
+                className="object-cover transition-transform duration-700 hover:scale-105"
+              />
+            </div>
+          ))}
         </div>
       </Section>
 
