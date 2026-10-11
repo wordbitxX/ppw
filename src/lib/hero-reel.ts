@@ -67,10 +67,10 @@ const reelProducts: { id: string; title: string }[] = [
 export function getHeroSlides(): HeroSlide[] {
   const team: HeroSlide = {
     id: "team",
-    /* Owner's own company photo (11 Oct): the studio lounge with the brand
-       wall — replaces the earlier generated hero-office shot. */
-    src: media.ownerCollaboration,
-    alt: "WordbitX studio, Lahore — the team at the Ideas, Code, Impact wall",
+    /* Owner's own company photo (11 Oct): the reception shot with the brand
+       wall — owner's pick for the hero's first slide. */
+    src: media.ownerReception,
+    alt: "WordbitX studio, Lahore — reception with the WordbitX brand wall",
     local: true,
     eyebrow: "Founder-led delivery",
     title: "Scope, build and launch — one accountable team.",
