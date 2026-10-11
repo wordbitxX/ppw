@@ -120,7 +120,7 @@ export function getHeroSlides(): HeroSlide[] {
         alt: preview.isCover
           ? `Illustration representing ${demo.name} — ${demo.category.toLowerCase()} product built by WordbitX`
           : `${demo.name} — ${demo.category} product built by WordbitX`,
-        eyebrow: `Our product · ${demo.name}`,
+        eyebrow: eyebrow ?? `Our work · ${demo.name}`,
         title,
         badge,
         href: `/products/${demo.id}`,
