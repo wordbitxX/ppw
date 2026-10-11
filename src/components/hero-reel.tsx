@@ -134,7 +134,7 @@ export function HeroReel({ slides }: { slides: HeroSlide[] }) {
                 fill
                 priority
                 sizes="(max-width: 1024px) 100vw, 46vw"
-                className="object-cover object-center"
+                className={`object-cover ${slide.position ?? "object-center"}`}
               />
             ) : (
               /* eslint-disable-next-line @next/next/no-img-element */

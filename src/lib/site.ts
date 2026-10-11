@@ -15,6 +15,16 @@ export const siteConfig = {
     "Pakistan software company serving USA, UK, UAE and worldwide. Websites, apps, Shopify, POS, SEO and digital marketing. You own the code.",
   /** Public contact address shown across the website. */
   email: "info@wordbitxtech.com",
+  /** CEO's direct line — shown on the founder card (owner's request, 11 Oct).
+      Should be an alias forwarding to the same inbox. */
+  ceoEmail: "ceo@wordbitxtech.com",
+  /** GBP record as of 11 Oct 2026 (owner's SERP screenshot): 4.3 stars across
+      15 published Google reviews. Update as the profile grows. */
+  googleRating: "4.3",
+  googleReviewCount: 15,
+  /** Paste the GBP public URL (copy from the "15 Google reviews" link) and the
+      review slider will deep-link to it. */
+  googleProfileUrl: "",
   /** Mailbox that actually receives enquiry notifications (overridable with MAIL_TO). */
   inboxEmail: "wordbitx@gmail.com",
   phoneDisplay: "+92 325 1888841",
