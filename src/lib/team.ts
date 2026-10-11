@@ -11,7 +11,7 @@ export const founder: TeamMember = {
   name: "Awais Malick",
   designation: "Founder & CEO, WordbitX",
   bio: "Founded WordbitX in 2021 in Pakistan. Still joins discovery calls, signs off on scope, and stays accountable for delivery — not a distant figurehead.",
-  photo: "/brand/team/awais-malick-enhanced.jpg",
+  photo: "/brand/team/awais-malick.jpg",
   initials: "AM",
   linkedin: "https://www.linkedin.com/in/awais-malick/",
 };
