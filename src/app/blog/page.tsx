@@ -144,7 +144,7 @@ export default async function BlogPage({ searchParams }: PageProps) {
         <div className="rounded-2xl border border-slate-200 bg-white p-5 text-sm text-ink-500">
           <h2 className="text-base font-semibold text-ink-900">Why you can trust these articles</h2>
           <p className="mt-2 leading-relaxed">
-            Every guide is drafted from real delivery work at WordBitX, carries an author and publication date, and is
+            Every guide is drafted from real delivery work at WordbitX, carries an author and publication date, and is
             reviewed by our engineering team before publication. Read our{" "}
             <Link href="/editorial-policy" className="font-medium text-brand-600 underline underline-offset-4 hover:text-brand-700">
               Editorial &amp; Content Standards

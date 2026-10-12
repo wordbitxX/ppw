@@ -1,7 +1,7 @@
 import type { BlogPost } from "@/lib/types";
 import { media } from "@/lib/media";
 
-const author = { name: "WordBitX Editorial Team", role: "Software & Digital Solutions" };
+const author = { name: "WordbitX Editorial Team", role: "Software & Digital Solutions" };
 
 export const morePostsB: BlogPost[] = [
   {

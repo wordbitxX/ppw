@@ -221,7 +221,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
       <CtaBand
         title="Want something similar for your business?"
         description="Tell us what you are trying to solve. We will map a comparable approach, scope and timeline for your context."
-        whatsappMessage={`Hello WordBitX, I saw the ${project.title} project profile and would like to discuss something similar.`}
+        whatsappMessage={`Hello WordbitX, I saw the ${project.title} project profile and would like to discuss something similar.`}
       />
     </>
   );

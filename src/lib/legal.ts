@@ -16,11 +16,11 @@ export const legalDocs: Record<string, LegalDoc> = {
   "privacy-policy": {
     slug: "privacy-policy",
     title: "Privacy Policy",
-    metaTitle: "Privacy Policy | WordBitX",
+    metaTitle: "Privacy Policy | WordbitX",
     metaDescription:
       "How WordbitX collects, uses, stores and protects personal data submitted through wordbitxtech.com, including forms, analytics and third-party services.",
     intro:
-      "This policy explains what information WordBitX collects when you use our website or contact us, why we collect it, and the choices you have.",
+      "This policy explains what information WordbitX collects when you use our website or contact us, why we collect it, and the choices you have.",
     updated: "1 March 2026",
     sections: [
       {
@@ -85,9 +85,9 @@ export const legalDocs: Record<string, LegalDoc> = {
   "terms-conditions": {
     slug: "terms-conditions",
     title: "Terms & Conditions",
-    metaTitle: "Terms & Conditions | WordBitX",
+    metaTitle: "Terms & Conditions | WordbitX",
     metaDescription:
-      "The terms governing use of the WordBitX website and the general conditions that apply to proposals, project engagements, intellectual property and liability.",
+      "The terms governing use of the WordbitX website and the general conditions that apply to proposals, project engagements, intellectual property and liability.",
     intro:
       "These terms govern your use of wordbitxtech.com and set out the general conditions that apply to our proposals and engagements. Specific projects are always governed by a signed proposal or contract.",
     updated: "1 March 2026",
@@ -113,8 +113,8 @@ export const legalDocs: Record<string, LegalDoc> = {
       {
         heading: "Intellectual property",
         paragraphs: [
-          "On full payment, ownership of project-specific source code, designs and documentation transfers to the client, unless a different arrangement is stated in the contract. WordBitX retains ownership of pre-existing tools, libraries and internal frameworks, licensed to the client for use within the delivered solution.",
-          "Website content, branding and materials published on wordbitxtech.com remain the property of WordBitX.",
+          "On full payment, ownership of project-specific source code, designs and documentation transfers to the client, unless a different arrangement is stated in the contract. WordbitX retains ownership of pre-existing tools, libraries and internal frameworks, licensed to the client for use within the delivered solution.",
+          "Website content, branding and materials published on wordbitxtech.com remain the property of WordbitX.",
         ],
       },
       {
@@ -126,7 +126,7 @@ export const legalDocs: Record<string, LegalDoc> = {
       {
         heading: "Limitation of liability",
         paragraphs: [
-          "To the extent permitted by law, WordBitX is not liable for indirect or consequential losses arising from use of this website. Liability under a project contract is limited as set out in that contract.",
+          "To the extent permitted by law, WordbitX is not liable for indirect or consequential losses arising from use of this website. Liability under a project contract is limited as set out in that contract.",
         ],
       },
       {
@@ -144,7 +144,7 @@ export const legalDocs: Record<string, LegalDoc> = {
   "cookie-policy": {
     slug: "cookie-policy",
     title: "Cookie Policy",
-    metaTitle: "Cookie Policy | WordBitX",
+    metaTitle: "Cookie Policy | WordbitX",
     metaDescription:
       "Details of the cookies and similar technologies used on wordbitxtech.com, what they do, and how you can control them in your browser.",
     intro:
@@ -254,7 +254,7 @@ export const legalDocs: Record<string, LegalDoc> = {
       {
         heading: "Human authorship and review",
         paragraphs: [
-          "Content is prepared by the WordBitX editorial team and reviewed by our engineers before publication — including technical accuracy, code references and platform rules. Articles carry an author area and publication dates, and the founder's name and role are published on our About page.",
+          "Content is prepared by the WordbitX editorial team and reviewed by our engineers before publication — including technical accuracy, code references and platform rules. Articles carry an author area and publication dates, and the founder's name and role are published on our About page.",
           "We may use AI tools to assist with research and drafting, but every published page is reviewed, edited and approved by a human before going live. We do not publish unedited machine output.",
         ],
       },
@@ -281,7 +281,7 @@ export const legalDocs: Record<string, LegalDoc> = {
       {
         heading: "Who owns this standard",
         paragraphs: [
-          `Editorial responsibility sits with the WordBitX leadership team. Questions about this policy can be sent to ${siteConfig.email} or via WhatsApp on ${siteConfig.phoneDisplay}.`,
+          `Editorial responsibility sits with the WordbitX leadership team. Questions about this policy can be sent to ${siteConfig.email} or via WhatsApp on ${siteConfig.phoneDisplay}.`,
         ],
       },
     ],

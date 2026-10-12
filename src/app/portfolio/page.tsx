@@ -8,12 +8,12 @@ import { projects, projectCategories, portfolioDisclosure } from "@/lib/portfoli
 export const metadata: Metadata = {
   title: "Portfolio | Web, Mobile & eCommerce Projects",
   description:
-    "Explore WordBitX project profiles: custom POS platforms, delivery apps, Shopify storefronts, booking portals, AI document processing and marketplace websites.",
+    "Explore WordbitX project profiles: custom POS platforms, delivery apps, Shopify storefronts, booking portals, AI document processing and marketplace websites.",
   alternates: { canonical: "/portfolio" },
-  keywords: ["software development portfolio", "web development projects", "mobile app case studies", "WordBitX portfolio"],
+  keywords: ["software development portfolio", "web development projects", "mobile app case studies", "WordbitX portfolio"],
   openGraph: {
     url: "/portfolio",
-    title: "WordBitX Portfolio | Project Profiles",
+    title: "WordbitX Portfolio | Project Profiles",
     description:
       "Project profiles covering software platforms, mobile applications, eCommerce storefronts, AI automation and marketplace websites.",
   },

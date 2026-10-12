@@ -4,7 +4,7 @@ import { moreProjects } from "@/lib/portfolio-more";
 import { projectPhotos, withTopicPhoto } from "@/lib/topic-photos";
 
 export const portfolioDisclosure =
-  "Client names, commercial figures and confidential product screens are shared privately on request. The profiles below describe the scope, architecture and functionality WordBitX delivers. Newer profiles are explicitly labelled Confidential Client / public scope profile when the client has not approved public identification. We use relevant licensed industry photography rather than inventing a client logo, screenshot or result.";
+  "Client names, commercial figures and confidential product screens are shared privately on request. The profiles below describe the scope, architecture and functionality WordbitX delivers. Newer profiles are explicitly labelled Confidential Client / public scope profile when the client has not approved public identification. We use relevant licensed industry photography rather than inventing a client logo, screenshot or result.";
 export const projectCategories: ("All Projects" | ProjectCategory)[] = [
   "All Projects",
   "Websites",
@@ -28,9 +28,9 @@ const originalProjects: Project[] = [
     publicStatus: "Sample project created to demonstrate POS and inventory software capability. It is not presented as a client engagement.",
     summary:
       "A WordbitX demo of an offline-capable point of sale with centralised inventory, branch reporting and supplier management.",
-    metaTitle: "Multi-Branch Retail POS Platform | WordBitX Project Profile",
+    metaTitle: "Multi-Branch Retail POS Platform | WordbitX Project Profile",
     metaDescription:
-      "A custom POS and inventory platform with offline billing, live stock control, supplier management and multi-branch reporting built by WordBitX.",
+      "A custom POS and inventory platform with offline billing, live stock control, supplier management and multi-branch reporting built by WordbitX.",
     image: media.posTerminal,
     imageAlt: "Retail point of sale terminal with card payment and inventory system",
     gallery: [
@@ -80,7 +80,7 @@ const originalProjects: Project[] = [
     publicStatus: "Sample mobile project created to demonstrate logistics and delivery app capability. It is not presented as a client engagement.",
     summary:
       "A WordbitX demo of driver and dispatcher applications with route tracking, proof of delivery and offline job handling for field teams.",
-    metaTitle: "Logistics Fleet & Delivery App | WordBitX Project Profile",
+    metaTitle: "Logistics Fleet & Delivery App | WordbitX Project Profile",
     metaDescription:
       "A Flutter delivery and fleet tracking application with live location, digital proof of delivery, offline job queues and a dispatcher dashboard.",
     image: media.deliveryApp,
@@ -132,7 +132,7 @@ const originalProjects: Project[] = [
     publicStatus: "Sample e-commerce project created to demonstrate Shopify storefront capability. It is not presented as a client engagement.",
     summary:
       "A WordbitX demo of a Shopify storefront with fast collection browsing, size-aware product pages and a streamlined mobile checkout.",
-    metaTitle: "Fashion Shopify Storefront | WordBitX Project Profile",
+    metaTitle: "Fashion Shopify Storefront | WordbitX Project Profile",
     metaDescription:
       "Custom Shopify store development with performance-focused theme, structured collections, size guidance and a simplified mobile checkout experience.",
     image: media.stripeCheckout,
@@ -182,7 +182,7 @@ const originalProjects: Project[] = [
     engagement: "UX, web application development, integrations",
     summary:
       "A booking portal with doctor schedules, slot management, reminders and an admin console for reception teams.",
-    metaTitle: "Clinic Appointment Booking Portal | WordBitX Project Profile",
+    metaTitle: "Clinic Appointment Booking Portal | WordbitX Project Profile",
     metaDescription:
       "A healthcare booking web application with real-time slot availability, automated reminders, doctor scheduling and a reception admin console.",
     image: media.professionals,
@@ -193,7 +193,7 @@ const originalProjects: Project[] = [
     ],
     overview: [
       "Appointments were booked by phone, written into a register, and frequently double-booked when several receptionists worked at once.",
-      "WordBitX delivered an online booking portal with a real-time slot engine, so patients self-book while reception retains full override control.",
+      "WordbitX delivered an online booking portal with a real-time slot engine, so patients self-book while reception retains full override control.",
     ],
     challenge: [
       "Double bookings caused by parallel manual entry.",
@@ -232,7 +232,7 @@ const originalProjects: Project[] = [
     engagement: "Use-case assessment, prototype, production integration",
     summary:
       "An AI pipeline that reads invoices and supporting documents, extracts structured fields and routes exceptions to human review.",
-    metaTitle: "AI Document Processing Assistant | WordBitX Project Profile",
+    metaTitle: "AI Document Processing Assistant | WordbitX Project Profile",
     metaDescription:
       "An AI document intelligence solution extracting structured data from invoices and forms, with confidence scoring and human-in-the-loop review.",
     image: media.aiNeural,
@@ -282,7 +282,7 @@ const originalProjects: Project[] = [
     engagement: "Architecture, SEO structure, full-stack development",
     summary:
       "A property marketplace with map search, agent dashboards and an SEO structure designed for thousands of indexable listing pages.",
-    metaTitle: "Real Estate Listing Marketplace | WordBitX Project Profile",
+    metaTitle: "Real Estate Listing Marketplace | WordbitX Project Profile",
     metaDescription:
       "A property marketplace platform with map-based search, agent dashboards, lead routing and an SEO architecture built for large listing catalogues.",
     image: media.focusedDeveloper,
@@ -293,7 +293,7 @@ const originalProjects: Project[] = [
     ],
     overview: [
       "Property portals live or die on search: buyers need fast filtering, and the platform needs tens of thousands of listing pages that search engines can crawl efficiently.",
-      "WordBitX built a marketplace with server-rendered listing pages, map-based discovery and dashboards where agents manage inventory and enquiries.",
+      "WordbitX built a marketplace with server-rendered listing pages, map-based discovery and dashboards where agents manage inventory and enquiries.",
     ],
     challenge: [
       "Large, frequently changing catalogues create crawl and indexation problems.",
@@ -332,7 +332,7 @@ const originalProjects: Project[] = [
     engagement: "UX audit, redesign, Figma design system",
     summary:
       "A redesigned onboarding and transaction experience supported by a documented Figma design system for a financial application.",
-    metaTitle: "Fintech App Design System | WordBitX Project Profile",
+    metaTitle: "Fintech App Design System | WordbitX Project Profile",
     metaDescription:
       "UX audit, onboarding redesign and a documented Figma design system with accessible components for a financial mobile application.",
     image: media.professionals,
@@ -382,7 +382,7 @@ const originalProjects: Project[] = [
     engagement: "Discovery, mobile app, backend, ERP integration",
     summary:
       "A distributor ordering app with customer-specific pricing, credit limits, offline carts and back-office order management.",
-    metaTitle: "B2B Wholesale Ordering App | WordBitX Project Profile",
+    metaTitle: "B2B Wholesale Ordering App | WordbitX Project Profile",
     metaDescription:
       "A B2B wholesale ordering application with tiered pricing, credit control, offline cart support and integration with back-office inventory systems.",
     image: media.deliveryAppAlt,
@@ -432,7 +432,7 @@ const originalProjects: Project[] = [
     engagement: "Discovery, module design, development, department rollout",
     summary:
       "An integrated hospital system covering OPD and IPD workflows, electronic records, billing, laboratory orders and pharmacy stock with batch and expiry control.",
-    metaTitle: "Hospital Management & Pharmacy Inventory System | WordBitX Project",
+    metaTitle: "Hospital Management & Pharmacy Inventory System | WordbitX Project",
     metaDescription:
       "Custom hospital management system with OPD/IPD workflows, electronic records, billing, lab integration and pharmacy stock with batch and expiry tracking.",
     image: media.doctorTablet,
@@ -451,7 +451,7 @@ const originalProjects: Project[] = [
     ],
     overview: [
       "A multi-department hospital was running registration on one system, the laboratory on spreadsheets, and the pharmacy on a standalone billing package. Patient files moved on paper, so a doctor rarely had the full history at the point of consultation and the finance team reconciled revenue manually every night.",
-      "WordBitX delivered a single hospital information system built around one patient identity. Registration, consultation, diagnostics, admission, pharmacy and billing all write to the same record, and pharmacy stock is managed with batch and expiry control instead of a simple product list.",
+      "WordbitX delivered a single hospital information system built around one patient identity. Registration, consultation, diagnostics, admission, pharmacy and billing all write to the same record, and pharmacy stock is managed with batch and expiry control instead of a simple product list.",
     ],
     challenge: [
       "One patient existed as several records across registration, lab and pharmacy.",
@@ -495,7 +495,7 @@ const originalProjects: Project[] = [
     engagement: "Stock audit, data modelling, development, warehouse rollout",
     summary:
       "A barcode-driven inventory platform with multi-warehouse stock ledgers, batch tracking, reorder automation and landed-cost profitability reporting.",
-    metaTitle: "Multi-Warehouse Inventory Management System | WordBitX Project",
+    metaTitle: "Multi-Warehouse Inventory Management System | WordbitX Project",
     metaDescription:
       "Custom inventory system with barcode receiving and picking, multi-warehouse ledgers, batch and expiry tracking, reorder automation and valuation reports.",
     image: media.warehouseScanning,
@@ -558,7 +558,7 @@ const originalProjects: Project[] = [
     engagement: "Process mapping, CRM design, development, agency onboarding",
     summary:
       "A CRM for property agencies covering lead capture and routing, inventory of plots and units, viewing schedules, instalment plans and commission tracking.",
-    metaTitle: "Real Estate CRM & Property Management Portal | WordBitX Project",
+    metaTitle: "Real Estate CRM & Property Management Portal | WordbitX Project",
     metaDescription:
       "Real estate CRM with lead routing, plot inventory, viewing scheduling, instalment plans, commission tracking and agency performance dashboards.",
     image: media.realEstateKeys,
@@ -577,7 +577,7 @@ const originalProjects: Project[] = [
     ],
     overview: [
       "A property agency was generating leads from portals, social campaigns and walk-ins, then distributing them over WhatsApp. Follow-up depended on individual memory, two agents sometimes called the same buyer, and nobody could say which marketing spend actually produced a booking.",
-      "WordBitX built a real estate CRM where every lead has a source, an owner and a next action — connected to a live inventory of plots and units so agents never sell something already booked.",
+      "WordbitX built a real estate CRM where every lead has a source, an owner and a next action — connected to a live inventory of plots and units so agents never sell something already booked.",
     ],
     challenge: [
       "Leads from multiple sources arrived in personal inboxes and chat groups.",
@@ -621,7 +621,7 @@ const originalProjects: Project[] = [
     engagement: "Inventory mapping, portal architecture, development, dealer onboarding",
     summary:
       "A property portal structured around societies, phases, blocks and plot files — covering DHA Lahore, Lahore Smart City, Capital Smart City and Etihad Town style inventory with instalment tracking.",
-    metaTitle: "Housing Society Property & Plot File Portal | WordBitX Project",
+    metaTitle: "Housing Society Property & Plot File Portal | WordbitX Project",
     metaDescription:
       "Real estate portal with society, phase and plot-file inventory, instalment tracking, dealer CRM and lead routing for Pakistani housing sales.",
     image: media.realEstateAgent,
@@ -640,7 +640,7 @@ const originalProjects: Project[] = [
     ],
     overview: [
       "A property marketing group sells across several major housing societies. Each society has its own phases, blocks, plot sizes and file rules, and none of that fitted the generic listing template their old website used. Availability lived in a shared spreadsheet that was out of date by lunchtime.",
-      "WordBitX built a portal where inventory is modelled the way the market actually works. A listing is not just a property — it belongs to a society, a phase and a block, carries a plot number and file status, and can be linked to an instalment plan with its own payment history.",
+      "WordbitX built a portal where inventory is modelled the way the market actually works. A listing is not just a property — it belongs to a society, a phase and a block, carries a plot number and file status, and can be linked to an instalment plan with its own payment history.",
     ],
     challenge: [
       "Society structures differ: phases and blocks in DHA Lahore, executive and overseas blocks in Lahore Smart City, ballot-based files in Capital Smart City, and mixed residential and commercial plots in Etihad Town.",
@@ -684,7 +684,7 @@ const originalProjects: Project[] = [
     engagement: "Commerce strategy, storefront design, development, launch support",
     summary:
       "An online jewellery store with weight and karat based dynamic pricing, live gold rate integration, certification details and secure high-value checkout.",
-    metaTitle: "Jewellery E-Commerce Store with Live Gold Rates | WordBitX Project",
+    metaTitle: "Jewellery E-Commerce Store with Live Gold Rates | WordbitX Project",
     metaDescription:
       "Jewellery eCommerce store with weight-based pricing, live gold and silver rates, karat variants, hallmark details and secure checkout.",
     image: media.jewelleryDisplay,
@@ -703,7 +703,7 @@ const originalProjects: Project[] = [
     ],
     overview: [
       "Jewellery does not price like ordinary retail. The same ring costs a different amount today than last week because the gold rate moved, and the final figure depends on weight, karat, making charges and stone value. A fixed price field cannot express that.",
-      "WordBitX built a storefront where price is calculated, not typed. Each product stores its net weight, karat, making charge and stone value, and the displayed price recalculates whenever the gold rate updates — so the catalogue never quotes an outdated figure.",
+      "WordbitX built a storefront where price is calculated, not typed. Each product stores its net weight, karat, making charge and stone value, and the displayed price recalculates whenever the gold rate updates — so the catalogue never quotes an outdated figure.",
     ],
     challenge: [
       "Prices had to follow live gold and silver rates rather than static values.",
@@ -747,7 +747,7 @@ const originalProjects: Project[] = [
     engagement: "Counter study, development, multi-branch rollout",
     summary:
       "Pharmacy software with fast counter billing, batch and expiry control, prescription records, supplier ledgers and multi-branch stock visibility.",
-    metaTitle: "Medical Store & Pharmacy Chain Portal | WordBitX Project",
+    metaTitle: "Medical Store & Pharmacy Chain Portal | WordbitX Project",
     metaDescription:
       "Medical store software with counter billing, FEFO batch and expiry control, prescription records, supplier ledgers and multi-branch reporting.",
     image: media.doctorSmartphone,

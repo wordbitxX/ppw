@@ -14,7 +14,7 @@ export const servicesB: Service[] = [
       "Performance marketing, social media and content campaigns with clean tracking and honest reporting.",
     metaTitle: "Digital Marketing Agency | Performance & Social Media Marketing Services",
     metaDescription:
-      "Digital marketing services from WordBitX: Google Ads, Meta ads, social media marketing, content and conversion tracking focused on qualified leads and ROI.",
+      "Digital marketing services from WordbitX: Google Ads, Meta ads, social media marketing, content and conversion tracking focused on qualified leads and ROI.",
     primaryKeyword: "digital marketing services",
     keywords: [
       "digital marketing agency",
@@ -26,7 +26,7 @@ export const servicesB: Service[] = [
     image: media.analyticsChart,
     imageAlt: "Marketing performance charts and campaign analytics on a mobile device",
     overview: [
-      "Impressions do not pay salaries. WordBitX runs digital marketing as a measurable system: correct tracking first, then campaigns, creative and landing pages that can be judged on cost per qualified lead.",
+      "Impressions do not pay salaries. WordbitX runs digital marketing as a measurable system: correct tracking first, then campaigns, creative and landing pages that can be judged on cost per qualified lead.",
       "We work in tight loops — test, read the data, cut what fails and scale what works. You get a dashboard showing spend, leads and pipeline instead of a slide deck full of reach numbers.",
     ],
     whoNeeds: [
@@ -109,7 +109,7 @@ export const servicesB: Service[] = [
     imageAlt: "Analytics report showing organic search growth trends",
     overview: [
       "SEO is not a monthly report of keyword positions. It is a set of engineering and content decisions that make your site the most useful, fastest and best-structured answer for a search query.",
-      "WordBitX combines technical work — crawlability, speed, indexation, schema, internal links — with content built for real search intent. Because we also build websites, fixes get implemented instead of sitting in a recommendation document.",
+      "WordbitX combines technical work — crawlability, speed, indexation, schema, internal links — with content built for real search intent. Because we also build websites, fixes get implemented instead of sitting in a recommendation document.",
     ],
     whoNeeds: [
       "Sites with pages that Google is not indexing",
@@ -179,7 +179,7 @@ export const servicesB: Service[] = [
       "ASO strategy covering keyword metadata, screenshots, ratings and conversion testing across both app stores.",
     metaTitle: "App Store Optimization Services | ASO Agency for iOS & Android",
     metaDescription:
-      "ASO services from WordBitX: keyword research, store listing optimisation, screenshot and icon testing, review management and install conversion improvement.",
+      "ASO services from WordbitX: keyword research, store listing optimisation, screenshot and icon testing, review management and install conversion improvement.",
     primaryKeyword: "app store optimization services",
     keywords: [
       "app store optimization services",
@@ -192,7 +192,7 @@ export const servicesB: Service[] = [
     imageAlt: "Smartphone home screen showing app icons and store listings",
     overview: [
       "Most apps are discovered inside the stores, not through advertising. App Store Optimization decides whether your listing appears for relevant searches and whether the people who see it actually install.",
-      "WordBitX treats ASO as two connected problems: visibility (keywords, category, ratings, localisation) and conversion (icon, screenshots, first three lines of the description). Both are tested continuously against store analytics.",
+      "WordbitX treats ASO as two connected problems: visibility (keywords, category, ratings, localisation) and conversion (icon, screenshots, first three lines of the description). Both are tested continuously against store analytics.",
     ],
     whoNeeds: [
       "Newly launched apps with low organic install volume",
@@ -274,7 +274,7 @@ export const servicesB: Service[] = [
     imageAlt: "Developer building a custom WordPress theme in a code editor",
     overview: [
       "WordPress is excellent when it is built properly and painful when it is not. Most slow WordPress sites are not WordPress problems — they are twenty-plugin problems layered over a page builder.",
-      "WordBitX builds custom themes and block patterns with minimal dependencies, so editors get flexible content control while the site stays fast, secure and cheap to maintain.",
+      "WordbitX builds custom themes and block patterns with minimal dependencies, so editors get flexible content control while the site stays fast, secure and cheap to maintain.",
     ],
     whoNeeds: [
       "Content and marketing teams publishing regularly",
@@ -356,7 +356,7 @@ export const servicesB: Service[] = [
     imageAlt: "Business team reviewing CRM dashboards and operational reports",
     overview: [
       "CRM manages relationships and revenue. ERP manages resources and operations. Most growing businesses need part of both, and buying two rigid platforms usually creates a third problem: keeping them in sync.",
-      "WordBitX builds tailored CRM and ERP systems — or extends what you already run — so leads, orders, stock, invoices and staff data live in one connected model with permissions and reporting your managers trust.",
+      "WordbitX builds tailored CRM and ERP systems — or extends what you already run — so leads, orders, stock, invoices and staff data live in one connected model with permissions and reporting your managers trust.",
     ],
     whoNeeds: [
       "Sales teams tracking pipelines in spreadsheets",
@@ -425,7 +425,7 @@ export const servicesB: Service[] = [
       "Mobile and cross-platform game development: gameplay systems, monetisation, live-ops and store publishing.",
     metaTitle: "Game Development Company | Mobile & Cross-Platform Game Studio",
     metaDescription:
-      "Game development services from WordBitX: 2D and 3D mobile games, gamified applications, multiplayer features, monetisation systems and app store publishing.",
+      "Game development services from WordbitX: 2D and 3D mobile games, gamified applications, multiplayer features, monetisation systems and app store publishing.",
     primaryKeyword: "game development company",
     keywords: [
       "game development company",
@@ -438,7 +438,7 @@ export const servicesB: Service[] = [
     imageAlt: "Game controllers arranged for mobile and console game development",
     overview: [
       "Games live or die on feel. A half-second input delay or a frame-rate dip during a key moment costs you the player, no matter how good the art is.",
-      "WordBitX builds mobile and cross-platform games with performance profiling from the first prototype: tuned physics and controls, memory-conscious asset pipelines, and monetisation designed so it does not ruin the experience.",
+      "WordbitX builds mobile and cross-platform games with performance profiling from the first prototype: tuned physics and controls, memory-conscious asset pipelines, and monetisation designed so it does not ruin the experience.",
     ],
     whoNeeds: [
       "Studios and founders launching a mobile game concept",
@@ -519,7 +519,7 @@ export const servicesB: Service[] = [
     image: media.serverBlue,
     imageAlt: "Cloud infrastructure server racks powering scalable applications",
     overview: [
-      "Software only creates value when it is running. WordBitX builds the delivery and infrastructure layer that gets code to production safely: automated pipelines, reproducible environments, monitoring that catches problems before customers do, and cost control that stops cloud bills drifting.",
+      "Software only creates value when it is running. WordbitX builds the delivery and infrastructure layer that gets code to production safely: automated pipelines, reproducible environments, monitoring that catches problems before customers do, and cost control that stops cloud bills drifting.",
       "Whether you need a first proper deployment setup or a rescue for infrastructure that breaks under load, we work with what you have and improve it incrementally rather than demanding a rewrite.",
     ],
     whoNeeds: [
@@ -602,7 +602,7 @@ export const servicesB: Service[] = [
     imageAlt: "Warehouse operator scanning stock into an inventory management system on a tablet",
     overview: [
       "Almost every stock problem is really a data problem. Goods move physically — received, transferred, sold, returned, damaged, expired — but if the system only records some of those movements, the number on screen slowly drifts away from the number on the shelf. Once staff stop trusting it, they revert to manual counting and the software becomes decoration.",
-      "WordBitX builds inventory systems where every movement is a transaction. Stock cannot change without a reason code, a user and a timestamp, which means the balance is always explainable. On top of that ledger we layer barcode operations, reorder rules, batch and expiry tracking, and reporting that shows which items actually earn money.",
+      "WordbitX builds inventory systems where every movement is a transaction. Stock cannot change without a reason code, a user and a timestamp, which means the balance is always explainable. On top of that ledger we layer barcode operations, reorder rules, batch and expiry tracking, and reporting that shows which items actually earn money.",
     ],
     whoNeeds: [
       "Distributors and wholesalers managing warehouses and vans",

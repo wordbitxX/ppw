@@ -8,7 +8,7 @@ const MAX = 58;
 export function seoTitle(raw: string): string {
   const core = raw
     .replace(/\s*\|\s*WordbitX\s*$/i, "")
-    .replace(/\s*\|\s*WordBitX\s*$/i, "")
+    .replace(/\s*\|\s*WordbitX\s*$/i, "")
     .trim();
   const suffix = ` | ${BRAND}`;
   if (core.length + suffix.length <= MAX) return `${core}${suffix}`;
