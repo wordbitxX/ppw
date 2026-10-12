@@ -11,7 +11,7 @@ export function HeroVisual({ className = "" }: { className?: string }) {
       viewBox="0 0 800 760"
       className={className}
       role="img"
-      aria-label="Abstract illustration of a WordBitX analytics dashboard, mobile application and code editor connected by cloud infrastructure"
+      aria-label="Abstract illustration of a WordbitX analytics dashboard, mobile application and code editor connected by cloud infrastructure"
     >
       <defs>
         <linearGradient id="hv-bg" x1="0" y1="0" x2="1" y2="1">
@@ -170,7 +170,7 @@ export function WorkflowVisual({ className = "" }: { className?: string }) {
       viewBox="0 0 800 700"
       className={className}
       role="img"
-      aria-label="Illustration of the WordBitX delivery model connecting design, development, cloud infrastructure and mobile release"
+      aria-label="Illustration of the WordbitX delivery model connecting design, development, cloud infrastructure and mobile release"
     >
       <defs>
         <linearGradient id="wf-bg" x1="0" y1="0" x2="1" y2="1">
@@ -287,7 +287,7 @@ export function AiNetworkVisual({ className = "" }: { className?: string }) {
       viewBox="0 0 800 760"
       className={className}
       role="img"
-      aria-label="Abstract neural network illustration representing WordBitX artificial intelligence solutions"
+      aria-label="Abstract neural network illustration representing WordbitX artificial intelligence solutions"
     >
       <defs>
         <linearGradient id="ai-bg" x1="0" y1="0" x2="1" y2="1">

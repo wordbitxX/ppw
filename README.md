@@ -1,6 +1,6 @@
-# WordBitX — Software & Digital Solutions Website
+# WordbitX — Software & Digital Solutions Website
 
-Production Next.js 16 (App Router) website for **WordBitX**, built with TypeScript, Tailwind CSS v4, Drizzle ORM and PostgreSQL.
+Production Next.js 16 (App Router) website for **WordbitX**, built with TypeScript, Tailwind CSS v4, Drizzle ORM and PostgreSQL.
 
 > **No binary assets required.** Every brand illustration is an inline SVG React component, the social share card is generated from code, and photography is loaded from remote URLs through `next/image`. There is intentionally **no `public/` folder** — the whole project is plain source files, so nothing can be lost when the repository is downloaded, zipped or committed.
 

@@ -62,7 +62,7 @@ export async function POST(request: Request) {
     message: message.slice(0, 5000),
   };
 
-  // 1. Try to deliver the enquiry to the WordBitX inbox.
+  // 1. Try to deliver the enquiry to the WordbitX inbox.
   const mail = await sendEnquiryEmail(payload);
   if (!mail.delivered && mail.provider !== "none") {
     console.error(`Enquiry email failed via ${mail.provider}: ${mail.error}`);

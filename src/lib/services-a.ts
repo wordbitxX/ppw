@@ -14,7 +14,7 @@ export const servicesA: Service[] = [
       "Custom, high-performance business websites and web applications engineered for conversions, Core Web Vitals and long-term SEO.",
     metaTitle: "Website Development Company | Custom Business Websites",
     metaDescription:
-      "WordBitX is a custom website development company building fast, responsive, SEO-ready websites and web applications with Next.js, React and modern backends.",
+      "WordbitX is a custom website development company building fast, responsive, SEO-ready websites and web applications with Next.js, React and modern backends.",
     primaryKeyword: "website development company",
     keywords: [
       "website development company",
@@ -26,7 +26,7 @@ export const servicesA: Service[] = [
     image: media.engineerCoding,
     imageAlt: "Web developer building a custom responsive website interface on a large monitor",
     overview: [
-      "A website is usually the first working product a customer experiences from your business. WordBitX builds custom websites and web applications from the ground up — clean information architecture, component-based front ends, server-rendered pages for search engines, and a backend that your team can actually operate.",
+      "A website is usually the first working product a customer experiences from your business. WordbitX builds custom websites and web applications from the ground up — clean information architecture, component-based front ends, server-rendered pages for search engines, and a backend that your team can actually operate.",
       "We do not start from a bloated theme and remove features. We start from your goals, define the pages and journeys that create enquiries, then engineer only what is needed. The result is a lighter site, faster loading, better Core Web Vitals and a structure that search engines can crawl and understand.",
     ],
     whoNeeds: [
@@ -119,7 +119,7 @@ export const servicesA: Service[] = [
     image: media.deliveryApp,
     imageAlt: "Customer using a custom mobile application on a smartphone",
     overview: [
-      "Users judge an app in the first thirty seconds. WordBitX builds mobile applications that load fast, work on unreliable networks, respect platform conventions, and pass App Store and Google Play review the first time.",
+      "Users judge an app in the first thirty seconds. WordbitX builds mobile applications that load fast, work on unreliable networks, respect platform conventions, and pass App Store and Google Play review the first time.",
       "We usually recommend Flutter or React Native when one codebase can serve both platforms, and native Kotlin or Swift when the product depends on deep hardware access or platform-specific performance. The recommendation always follows your feature set and budget — never the other way around.",
     ],
     whoNeeds: [
@@ -203,7 +203,7 @@ export const servicesA: Service[] = [
     imageAlt: "Software engineering team collaborating on a custom business application",
     overview: [
       "Off-the-shelf tools cover the average case. When your process is your advantage — pricing rules, approval chains, production steps, franchise structures — generic software forces workarounds that cost hours every week.",
-      "WordBitX builds custom software around how your business actually operates. We map the workflow, model the data properly, and deliver a system with the reporting, permissions and integrations your team needs, then keep improving it as the business changes.",
+      "WordbitX builds custom software around how your business actually operates. We map the workflow, model the data properly, and deliver a system with the reporting, permissions and integrations your team needs, then keep improving it as the business changes.",
     ],
     whoNeeds: [
       "Teams running critical operations on spreadsheets and WhatsApp",
@@ -273,7 +273,7 @@ export const servicesA: Service[] = [
       "Custom AI and automation solutions: assistants, document intelligence, recommendation engines and predictive analytics.",
     metaTitle: "AI Development Company | Artificial Intelligence Solutions & Automation",
     metaDescription:
-      "WordBitX builds custom AI solutions for business: AI assistants, document processing, recommendation engines, predictive analytics and workflow automation.",
+      "WordbitX builds custom AI solutions for business: AI assistants, document processing, recommendation engines, predictive analytics and workflow automation.",
     primaryKeyword: "AI development company",
     keywords: [
       "AI development company",
@@ -285,7 +285,7 @@ export const servicesA: Service[] = [
     image: media.aiNeural,
     imageAlt: "Abstract neural network visualisation representing custom AI solutions",
     overview: [
-      "Most businesses do not need a research lab — they need a handful of repetitive, expensive tasks handled reliably. WordBitX builds applied AI: systems that read documents, answer customer questions from your own knowledge base, classify records, forecast demand and trigger the next action automatically.",
+      "Most businesses do not need a research lab — they need a handful of repetitive, expensive tasks handled reliably. WordbitX builds applied AI: systems that read documents, answer customer questions from your own knowledge base, classify records, forecast demand and trigger the next action automatically.",
       "We start with a narrow, measurable use case, connect it to your real data, and put guardrails around it: human review where accuracy matters, logging for every decision, and clear fallbacks when the model is unsure.",
     ],
     whoNeeds: [
@@ -368,7 +368,7 @@ export const servicesA: Service[] = [
     image: media.storeCheckout,
     imageAlt: "Premium store checkout counter with a digital payment terminal, representing a Shopify storefront",
     overview: [
-      "Online stores lose most of their revenue between the product page and the payment confirmation. WordBitX builds eCommerce experiences that fix that stretch: fast product listings, honest stock and delivery information, and a checkout with as little friction as the platform allows.",
+      "Online stores lose most of their revenue between the product page and the payment confirmation. WordbitX builds eCommerce experiences that fix that stretch: fast product listings, honest stock and delivery information, and a checkout with as little friction as the platform allows.",
       "We work in both directions — Shopify when speed to market and operational simplicity matter, and custom or headless commerce when catalogue rules, B2B pricing or marketplace logic outgrow a hosted platform.",
     ],
     whoNeeds: [
@@ -451,7 +451,7 @@ export const servicesA: Service[] = [
     image: media.posTerminal,
     imageAlt: "Point of sale terminal processing a card payment with mobile app",
     overview: [
-      "A point of sale system is the one piece of software that cannot fail during business hours. WordBitX builds POS software that keeps billing when connectivity drops, syncs the moment it returns, and gives owners accurate numbers across every branch.",
+      "A point of sale system is the one piece of software that cannot fail during business hours. WordbitX builds POS software that keeps billing when connectivity drops, syncs the moment it returns, and gives owners accurate numbers across every branch.",
       "We build for the counter first — large touch targets, keyboard and barcode support, fast search, and a two-tap checkout — then layer on inventory, purchasing, staff permissions and reporting behind it.",
     ],
     whoNeeds: [
@@ -521,7 +521,7 @@ export const servicesA: Service[] = [
       "User research, wireframes, high-fidelity UI, design systems and brand collateral for web, mobile and software products.",
     metaTitle: "UI UX Design Services | Product & Web Design Agency",
     metaDescription:
-      "UI/UX design services from WordBitX: user research, wireframing, prototyping, design systems and graphic design for websites, mobile apps and business software.",
+      "UI/UX design services from WordbitX: user research, wireframing, prototyping, design systems and graphic design for websites, mobile apps and business software.",
     primaryKeyword: "UI UX design services",
     keywords: [
       "UI UX design services",
@@ -533,7 +533,7 @@ export const servicesA: Service[] = [
     image: media.professionals,
     imageAlt: "Designers reviewing interface wireframes and prototypes on screen",
     overview: [
-      "Design decides whether people finish what they started on your product. WordBitX approaches design as problem solving: understand the user's goal, remove the steps that do not serve it, and make the remaining path obvious.",
+      "Design decides whether people finish what they started on your product. WordbitX approaches design as problem solving: understand the user's goal, remove the steps that do not serve it, and make the remaining path obvious.",
       "Every project ends with a design system — tokens, components, states and usage rules — so engineering builds faster and future screens stay consistent instead of drifting.",
     ],
     whoNeeds: [

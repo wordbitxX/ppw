@@ -157,7 +157,7 @@ export default async function BlogPostPage({ params }: PageProps) {
   const { previous, next } = adjacentPosts(post.slug);
   const toc = post.blocks.filter((block): block is { type: "h2"; text: string } => block.type === "h2");
   // Named humans get their own initials; the brand byline keeps the "WB" mark
-  // rather than rendering as "WE" for "WordBitX Editorial".
+  // rather than rendering as "WE" for "WordbitX Editorial".
   const authorInitials = /wordbitx/i.test(post.author.name)
     ? "WB"
     : post.author.name
@@ -249,7 +249,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             <div className="mt-12 rounded-2xl border border-slate-200 bg-slate-50 p-6">
               <h2 className="text-lg font-semibold text-ink-900">Need help applying this?</h2>
               <p className="mt-2 text-sm leading-relaxed text-ink-500">
-                WordBitX turns guidance like this into delivered work — scoped, built and supported. Email{" "}
+                WordbitX turns guidance like this into delivered work — scoped, built and supported. Email{" "}
                 <a href={`mailto:${siteConfig.email}`} className="font-medium text-brand-600 hover:text-brand-700">
                   {siteConfig.email}
                 </a>{" "}

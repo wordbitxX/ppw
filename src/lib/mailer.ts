@@ -1,7 +1,7 @@
 import { siteConfig } from "@/lib/site";
 
 /**
- * Email delivery for WordBitX enquiries.
+ * Email delivery for WordbitX enquiries.
  *
  * IMPORTANT: no application can send email without credentials from a mail
  * provider. One of the options below MUST be set as environment variables on
@@ -16,7 +16,7 @@ import { siteConfig } from "@/lib/site";
  *
  * ── OPTION B — RESEND (best deliverability) ──────────────────────────────────
  *   RESEND_API_KEY=re_xxxxxxxx
- *   MAIL_FROM="WordBitX Website <onboarding@resend.dev>"
+ *   MAIL_FROM="WordbitX Website <onboarding@resend.dev>"
  *
  * ── OPTION C — CUSTOM SMTP (cPanel mailbox) ──────────────────────────────────
  *   SMTP_HOST=mail.wordbitxtech.com

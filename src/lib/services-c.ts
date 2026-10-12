@@ -27,7 +27,7 @@ export const servicesC: Service[] = [
     imageAlt: "Property consultant completing a plot handover to new owners",
     overview: [
       "Property is not sold the way generic listing software assumes. A buyer in Pakistan asks about a society, a phase, a block, a plot number, whether the file is transferable and how many instalments remain. Imported real estate templates model none of that, so agencies end up tracking the real information in a spreadsheet beside the website.",
-      "WordBitX builds property portals around the actual structure of the market. Inventory is organised by society, phase, block and plot, files carry transfer and payment history, and instalment plans generate their own schedules and overdue alerts. Dealers get a CRM that records who brought the lead, so commission is calculated from data rather than argument.",
+      "WordbitX builds property portals around the actual structure of the market. Inventory is organised by society, phase, block and plot, files carry transfer and payment history, and instalment plans generate their own schedules and overdue alerts. Dealers get a CRM that records who brought the lead, so commission is calculated from data rather than argument.",
       "We run this stack ourselves. Properties Pak (propertiespak.com) is our own live Pakistan property portal — society and phase listings, map-led search, plot and file detail pages, and dealer enquiry routing. It is a production product, not a demo, and the fastest way to judge what we would build for you.",
     ],
     whoNeeds: [
@@ -132,7 +132,7 @@ export const servicesC: Service[] = [
     imageAlt: "Doctor reviewing patient records on a hospital management portal",
     overview: [
       "Healthcare software fails when departments cannot see the same patient. Registration creates one record, the lab keeps another, and the pharmacy sells against a third — so a doctor consults without the full history and the accounts team reconciles revenue by hand every night.",
-      "WordBitX builds hospital and medical store portals around a single patient identity, with medicine stock managed at batch and expiry level rather than as a plain product list. Access is role-separated and every clinical record view is logged, because patient data deserves an audit trail.",
+      "WordbitX builds hospital and medical store portals around a single patient identity, with medicine stock managed at batch and expiry level rather than as a plain product list. Access is role-separated and every clinical record view is logged, because patient data deserves an audit trail.",
     ],
     whoNeeds: [
       "Hospitals running registration, lab and pharmacy on separate systems",
@@ -236,7 +236,7 @@ export const servicesC: Service[] = [
     imageAlt: "Modern university campus architecture with students, representing an education portal",
     overview: [
       "Educational institutions carry an enormous administrative load: admissions every intake, daily attendance, examination results, fee collection and constant parent communication. When each of these lives in a different register or spreadsheet, staff spend more time reconciling records than teaching.",
-      "WordBitX builds campus portals where the student record is the centre of everything. Admissions flow into enrolment, enrolment drives attendance and examinations, and fees generate vouchers and defaulter lists automatically — with parents and students given their own limited, useful view.",
+      "WordbitX builds campus portals where the student record is the centre of everything. Admissions flow into enrolment, enrolment drives attendance and examinations, and fees generate vouchers and defaulter lists automatically — with parents and students given their own limited, useful view.",
     ],
     whoNeeds: [
       "Schools handling admissions and fees on paper or Excel",

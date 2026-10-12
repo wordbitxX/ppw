@@ -6,7 +6,7 @@ import { morePostsC } from "@/lib/blog-more-c";
 import { morePostsD } from "@/lib/blog-more-d";
 import { postPhotos, withTopicPhoto } from "@/lib/topic-photos";
 
-const author = { name: "WordBitX Editorial Team", role: "Software & Digital Solutions" };
+const author = { name: "WordbitX Editorial Team", role: "Software & Digital Solutions" };
 
 const originalPosts: BlogPost[] = [
   {
@@ -16,7 +16,7 @@ const originalPosts: BlogPost[] = [
     category: "Mobile Apps",
     excerpt:
       "What actually drives mobile app cost — scope, platform choice, backend complexity and post-launch work — plus a realistic way to budget your first release.",
-    metaTitle: "Mobile App Development Cost Guide (2026) | WordBitX",
+    metaTitle: "Mobile App Development Cost Guide (2026) | WordbitX",
     metaDescription:
       "Mobile app development cost explained: what drives the price, Flutter vs native, MVP scoping, backend complexity, store launch and maintenance budgets.",
     keywords: ["mobile app development cost", "app development company", "Flutter app development", "MVP app cost"],
@@ -88,7 +88,7 @@ const originalPosts: BlogPost[] = [
     category: "Software",
     excerpt:
       "A decision framework for choosing between off-the-shelf SaaS and custom development — including the total cost picture most comparisons ignore.",
-    metaTitle: "Custom Software vs Ready-Made Software: Decision Guide | WordBitX",
+    metaTitle: "Custom Software vs Ready-Made Software: Decision Guide | WordbitX",
     metaDescription:
       "Compare custom software development with off-the-shelf SaaS: cost over time, process fit, integration, ownership and risk — with a practical decision framework.",
     keywords: ["custom software development", "custom software vs off the shelf", "business software", "SaaS vs custom"],
@@ -399,7 +399,7 @@ const originalPosts: BlogPost[] = [
     category: "Business Software",
     excerpt:
       "The practical difference between CRM and ERP, the symptoms that point to each, and how to sequence implementation without overwhelming your team.",
-    metaTitle: "CRM vs ERP: Which Does Your Business Need? | WordBitX",
+    metaTitle: "CRM vs ERP: Which Does Your Business Need? | WordbitX",
     metaDescription:
       "CRM vs ERP explained for business owners: what each system solves, symptoms that indicate which you need first, integration options and rollout sequencing.",
     keywords: ["CRM vs ERP", "ERP software solutions", "CRM development", "business management software"],
