@@ -132,6 +132,25 @@ export function resolveServiceOption(value?: string): string | undefined {
  * Groups used by the header mega menu and the /services page.
  * Every service belongs to exactly one group.
  */
+
+/**
+ * B2B-focused services — used by the /services#b2b band and the header's
+ * B2B entry (added 15 Oct at the owner's request, mirroring the B2B item in
+ * peer navigation menus).
+ */
+export const b2bServiceSlugs = [
+  "enterprise-software-solutions",
+  "crm-erp-solutions",
+  "saas-application-development",
+  "api-development",
+  "custom-software-development",
+  "inventory-management-software",
+  "pos-software",
+  "devops-cloud-solutions",
+  "it-consulting",
+  "ai-solutions",
+];
+
 export const megaMenuGroups: { title: string; slugs: string[] }[] = [
   {
     title: "Web & E-Commerce",

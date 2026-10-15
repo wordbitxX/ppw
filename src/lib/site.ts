@@ -126,7 +126,6 @@ export function absoluteUrl(path = "/") {
 }
 
 export const mainNav = [
-  { label: "Home", href: "/" },
   { label: "About Us", href: "/about" },
   { label: "Services", href: "/services" },
   { label: "Industries", href: "/industries" },

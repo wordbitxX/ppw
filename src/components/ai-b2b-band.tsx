@@ -2,7 +2,7 @@ import Link from "next/link";
 import { CineImage, type CineVariant } from "@/components/cinematic";
 import { ArrowRight } from "@/components/icons";
 import { MegaServiceIcon } from "@/components/mega-service-icon";
-import { getServices } from "@/lib/services";
+import { b2bServiceSlugs, getServices } from "@/lib/services";
 import { contactHref } from "@/lib/site";
 
 type Panel = {
@@ -51,21 +51,9 @@ const panels: Panel[] = [
   },
 ];
 
-const b2bSlugs = [
-  "enterprise-software-solutions",
-  "crm-erp-solutions",
-  "saas-application-development",
-  "api-development",
-  "custom-software-development",
-  "inventory-management-software",
-  "pos-software",
-  "devops-cloud-solutions",
-  "it-consulting",
-  "ai-solutions",
-];
 
 export function AiB2bBand() {
-  const b2bServices = getServices(b2bSlugs);
+  const b2bServices = getServices(b2bServiceSlugs);
   return (
     <section
       id="b2b"
