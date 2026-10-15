@@ -242,7 +242,11 @@ export function Header() {
                     panelClassName="fixed left-1/2 top-16 z-40 w-[min(64rem,calc(100vw-2rem))] -translate-x-1/2 pt-2 lg:top-[72px]"
                   >
                     <div ref={megaPanelRef}>
-                      <div className="overflow-hidden rounded-2xl border border-white/12 bg-[#07111f] shadow-[0_32px_80px_-32px_rgba(0,0,0,0.88)]">
+                      <div className="nav-pop relative overflow-hidden rounded-2xl border border-white/10 bg-midnight/95 shadow-[0_44px_96px_-32px_rgba(0,0,0,0.9)] backdrop-blur-xl">
+                        <span
+                          aria-hidden="true"
+                          className="pointer-events-none absolute inset-x-10 top-0 z-10 h-px bg-gradient-to-r from-transparent via-brand-400/50 to-transparent"
+                        />
                         <div className="flex max-h-[min(70vh,36rem)]">
                           {/* Left rail — the major service lines, Rex-style. The
                               hovered line opens its services in the pane. */}
@@ -265,28 +269,34 @@ export function Header() {
                                   </button>
                                 </li>
                               ))}
+                              {/* B2B sits as a normal line with the majors (no
+                                  special highlight — owner note, 15 Oct); it
+                                  opens its own pane and links to /services#b2b. */}
+                              <li>
+                                <Link
+                                  href="/services#b2b"
+                                  onMouseEnter={() => setActivePane(-1)}
+                                  onFocus={() => setActivePane(-1)}
+                                  className={`flex w-full items-center justify-between gap-3 px-5 py-[0.68rem] text-left text-sm transition-colors ${
+                                    activePane === -1
+                                      ? "bg-white/[0.07] font-medium text-white"
+                                      : "text-slate-300 hover:bg-white/[0.04] hover:text-white"
+                                  }`}
+                                >
+                                  B2B services
+                                  <ChevronDown className="h-3.5 w-3.5 -rotate-90 opacity-50" aria-hidden="true" />
+                                </Link>
+                              </li>
                             </ul>
-                            {/* Dedicated B2B row — same spot peers give it. */}
-                            <div className="mt-2 px-3">
-                              <Link
-                                href="/services#b2b"
-                                onMouseEnter={() => setActivePane(-1)}
-                                onFocus={() => setActivePane(-1)}
-                                className={`group flex items-center justify-between gap-3 rounded-xl border px-4 py-3 text-sm font-semibold transition-colors ${
-                                  activePane === -1
-                                    ? "border-brand-400/50 bg-brand-500/20 text-white"
-                                    : "border-brand-400/30 bg-brand-500/12 text-brand-200 hover:bg-brand-500/18 hover:text-white"
-                                }`}
-                              >
-                                B2B services
-                                <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
-                              </Link>
-                            </div>
                           </div>
 
                           {/* Right pane — the hovered line's services. */}
-                          <div ref={megaScrollRef} className="min-w-0 flex-1 p-5 lg:p-6">
-                            <div className="flex items-baseline justify-between gap-4">
+                          <div ref={megaScrollRef} className="relative min-w-0 flex-1 overflow-hidden p-5 lg:p-6">
+                            <div
+                              aria-hidden="true"
+                              className="pointer-events-none absolute -right-20 -top-20 h-52 w-52 rounded-full bg-arc-300/10 blur-3xl"
+                            />
+                            <div className="relative flex items-baseline justify-between gap-4">
                               <p className="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-brand-300">
                                 {pane.title}
                               </p>
@@ -300,17 +310,19 @@ export function Header() {
                                 </Link>
                               )}
                             </div>
-                            <ul className="mt-3.5 grid gap-1 sm:grid-cols-2">
+                            <ul className="relative mt-3.5 grid gap-1 sm:grid-cols-2">
                               {pane.items.map((service) => (
                                 <li key={service.slug}>
                                   <Link
                                     href={`/services/${service.slug}`}
-                                    className="group flex items-center gap-2.5 rounded-lg px-2.5 py-2 transition-colors hover:bg-white/[0.06]"
+                                    className="group relative flex items-center gap-2.5 rounded-lg px-2.5 py-2 transition-all duration-200 hover:bg-white/[0.06]"
                                   >
-                                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/[0.05] text-brand-300 ring-1 ring-white/10 transition-colors group-hover:text-brand-200">
+                                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/[0.05] text-brand-300 ring-1 ring-white/10 transition-all duration-200 group-hover:bg-brand-500/10 group-hover:text-brand-200 group-hover:ring-brand-400/40">
                                       <MegaServiceIcon slug={service.slug} className="h-4 w-4" />
                                     </span>
-                                    <span className="truncate text-sm font-medium text-slate-100">{service.shortTitle}</span>
+                                    <span className="truncate text-sm font-medium text-slate-100 transition-transform duration-200 group-hover:translate-x-0.5">
+                                      {service.shortTitle}
+                                    </span>
                                   </Link>
                                 </li>
                               ))}
@@ -349,7 +361,11 @@ export function Header() {
                     label={item.label}
                     panelClassName="absolute left-1/2 top-full z-40 w-[min(30rem,92vw)] -translate-x-1/2 pt-2"
                   >
-                    <div className="rounded-2xl border border-white/12 bg-[#07111f] p-3.5 shadow-[0_28px_64px_-28px_rgba(0,0,0,0.9)]">
+                    <div className="nav-pop relative overflow-hidden rounded-2xl border border-white/10 bg-midnight/95 p-3.5 shadow-[0_36px_80px_-28px_rgba(0,0,0,0.9)] backdrop-blur-xl">
+                      <span
+                        aria-hidden="true"
+                        className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-brand-400/50 to-transparent"
+                      />
                       <p className="px-2.5 pb-2 text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-brand-300">
                         Industries we build for
                       </p>
@@ -387,7 +403,11 @@ export function Header() {
                     label={item.label}
                     panelClassName="absolute left-1/2 top-full z-40 w-[min(22rem,92vw)] -translate-x-1/2 pt-2"
                   >
-                    <div className="rounded-2xl border border-white/12 bg-[#07111f] p-3.5 shadow-[0_28px_64px_-28px_rgba(0,0,0,0.9)]">
+                    <div className="nav-pop relative overflow-hidden rounded-2xl border border-white/10 bg-midnight/95 p-3.5 shadow-[0_36px_80px_-28px_rgba(0,0,0,0.9)] backdrop-blur-xl">
+                      <span
+                        aria-hidden="true"
+                        className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-brand-400/50 to-transparent"
+                      />
                       <p className="px-2.5 pb-2 text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-brand-300">
                         Flagship builds
                       </p>
@@ -528,9 +548,9 @@ export function Header() {
                         <li>
                           <Link
                             href="/services#b2b"
-                            className="flex items-center gap-3 rounded-lg border border-brand-400/25 bg-brand-500/10 px-3 py-2.5 text-sm font-semibold text-brand-200 hover:bg-brand-500/16"
+                            className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-slate-300 hover:bg-white/5 hover:text-white"
                           >
-                            <span className="flex h-4 w-4 items-center justify-center text-brand-300">◆</span>
+                            <MegaServiceIcon slug="enterprise-software-solutions" className="h-4 w-4" />
                             B2B business services
                           </Link>
                         </li>

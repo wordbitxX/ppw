@@ -1354,3 +1354,23 @@ body.hide-site-cursor .site-cursor-ring {
   .sm-pulse { animation: sm-pulse 3.2s ease-in-out infinite; }
   .sm-drift-y { animation: sm-drift-y 24s ease-in-out infinite; }
 }
+
+/* Header dropdown panels — a short, calm settle-in when they open. */
+@keyframes nav-pop {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.nav-pop {
+  animation: nav-pop 0.18s cubic-bezier(0.22, 0.9, 0.35, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-pop {
+    animation: none;
+  }
+}
