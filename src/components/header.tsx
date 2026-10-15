@@ -9,7 +9,7 @@ import { MegaServiceIcon } from "@/components/mega-service-icon";
 import { b2bServiceSlugs, megaMenuGroups, services } from "@/lib/services";
 import { mainNav, siteConfig, whatsappLink } from "@/lib/site";
 
-type MenuKey = "services" | "industries" | "portfolio";
+type MenuKey = "services" | "industries" | "products" | "portfolio";
 
 /** Industries popup — name/slug pairs copied from src/lib/industries.ts so the
     header bundle does not import the full industry content files. */
@@ -28,6 +28,53 @@ const industryLinks: [string, string][] = [
   ["fitness", "Fitness"],
   ["construction", "Construction"],
 ];
+
+/** Products popup — the seven ecosystem products (names/slugs from src/lib/products.ts). */
+const productLinks: [string, string][] = [
+  ["properties-pak", "Properties Pak"],
+  ["motor", "MOTOR Pakistan"],
+  ["healthcare", "Medicare Plus"],
+  ["education", "WordbitX Education Platform"],
+  ["ecommerce", "Veranne"],
+  ["luxury-restaurant", "Maison Noor"],
+  ["salon-beauty", "ÉLAN Beauty Studio"],
+];
+
+/** Navy intro column shared by the desktop mega panels — the two-tone
+    bitlogicx-style layout the owner referenced (15 Oct): a dark brand column
+    with icon, title, description and a bottom CTA beside a white link area. */
+function MenuIntro({
+  title,
+  desc,
+  cta,
+  ctaHref,
+  className = "w-60",
+}: {
+  title: string;
+  desc: string;
+  cta: string;
+  ctaHref: string;
+  className?: string;
+}) {
+  return (
+    <div className={`flex shrink-0 flex-col bg-gradient-to-b from-navy-950 via-navy-950/95 to-midnight p-6 ${className}`}>
+      <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-500/15 text-brand-300 ring-1 ring-brand-400/25">
+        <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden="true">
+          <path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z" />
+        </svg>
+      </span>
+      <p className="mt-4 text-lg font-semibold tracking-tight text-white">{title}</p>
+      <p className="mt-2 text-[0.8rem] leading-relaxed text-slate-400">{desc}</p>
+      <Link
+        href={ctaHref}
+        className="group mt-auto inline-flex items-center gap-1.5 pt-6 text-[0.7rem] font-bold uppercase tracking-[0.14em] text-brand-300 transition-colors hover:text-white"
+      >
+        {cta}
+        <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+      </Link>
+    </div>
+  );
+}
 
 /** Portfolio popup — the flagship project profiles (slugs from src/lib/portfolio.ts). */
 const portfolioMajors: [string, string][] = [
@@ -239,18 +286,20 @@ export function Header() {
                     menuKey="services"
                     href={item.href}
                     label={item.label}
-                    panelClassName="fixed left-1/2 top-16 z-40 w-[min(64rem,calc(100vw-2rem))] -translate-x-1/2 pt-2 lg:top-[72px]"
+                    panelClassName="fixed left-1/2 top-16 z-40 w-[min(66rem,calc(100vw-2rem))] -translate-x-1/2 pt-2 lg:top-[72px]"
                   >
                     <div ref={megaPanelRef}>
-                      <div className="nav-pop relative overflow-hidden rounded-2xl border border-white/10 bg-midnight/95 shadow-[0_44px_96px_-32px_rgba(0,0,0,0.9)] backdrop-blur-xl">
-                        <span
-                          aria-hidden="true"
-                          className="pointer-events-none absolute inset-x-10 top-0 z-10 h-px bg-gradient-to-r from-transparent via-brand-400/50 to-transparent"
-                        />
-                        <div className="flex max-h-[min(70vh,36rem)]">
-                          {/* Left rail — the major service lines, Rex-style. The
-                              hovered line opens its services in the pane. */}
-                          <div className="w-[17rem] shrink-0 border-r border-white/10 bg-white/[0.02] py-2.5">
+                      <div className="nav-pop overflow-hidden rounded-2xl bg-white shadow-[0_44px_96px_-32px_rgba(0,0,0,0.9)] ring-1 ring-white/15">
+                        <div className="flex max-h-[min(72vh,38rem)] items-stretch">
+                          <MenuIntro
+                            title="Our expertise"
+                            desc="Design, engineering and growth — from a landing page to a full platform."
+                            cta="All services"
+                            ctaHref="/services"
+                          />
+                          {/* Majors rail — the top-level lines, Rex-style; the
+                              hovered line opens its services in the white pane. */}
+                          <div className="w-[13.5rem] shrink-0 overflow-y-auto border-r border-slate-200 bg-slate-50 py-2.5">
                             <ul>
                               {megaMenuGroups.map((group, index) => (
                                 <li key={group.title}>
@@ -258,83 +307,76 @@ export function Header() {
                                     type="button"
                                     onMouseEnter={() => setActivePane(index)}
                                     onFocus={() => setActivePane(index)}
-                                    className={`flex w-full items-center justify-between gap-3 px-5 py-[0.68rem] text-left text-sm transition-colors ${
+                                    className={`flex w-full items-center justify-between gap-2 px-4 py-[0.62rem] text-left text-[0.83rem] transition-colors ${
                                       activePane === index
-                                        ? "bg-white/[0.07] font-medium text-white"
-                                        : "text-slate-300 hover:bg-white/[0.04] hover:text-white"
+                                        ? "bg-white font-semibold text-ink-900 shadow-[0_10px_20px_-16px_rgba(5,13,33,0.45)]"
+                                        : "text-slate-600 hover:bg-white/70 hover:text-ink-900"
                                     }`}
                                   >
                                     {group.title}
-                                    <ChevronDown className="h-3.5 w-3.5 -rotate-90 opacity-50" aria-hidden="true" />
+                                    <ChevronDown className="h-3 w-3 -rotate-90 opacity-40" aria-hidden="true" />
                                   </button>
                                 </li>
                               ))}
-                              {/* B2B sits as a normal line with the majors (no
-                                  special highlight — owner note, 15 Oct); it
-                                  opens its own pane and links to /services#b2b. */}
+                              {/* B2B as a plain line with the majors (no
+                                  highlight — owner note, 15 Oct). */}
                               <li>
                                 <Link
                                   href="/services#b2b"
                                   onMouseEnter={() => setActivePane(-1)}
                                   onFocus={() => setActivePane(-1)}
-                                  className={`flex w-full items-center justify-between gap-3 px-5 py-[0.68rem] text-left text-sm transition-colors ${
+                                  className={`flex w-full items-center justify-between gap-2 px-4 py-[0.62rem] text-left text-[0.83rem] transition-colors ${
                                     activePane === -1
-                                      ? "bg-white/[0.07] font-medium text-white"
-                                      : "text-slate-300 hover:bg-white/[0.04] hover:text-white"
+                                      ? "bg-white font-semibold text-ink-900 shadow-[0_10px_20px_-16px_rgba(5,13,33,0.45)]"
+                                      : "text-slate-600 hover:bg-white/70 hover:text-ink-900"
                                   }`}
                                 >
                                   B2B services
-                                  <ChevronDown className="h-3.5 w-3.5 -rotate-90 opacity-50" aria-hidden="true" />
+                                  <ChevronDown className="h-3 w-3 -rotate-90 opacity-40" aria-hidden="true" />
                                 </Link>
                               </li>
                             </ul>
                           </div>
 
-                          {/* Right pane — the hovered line's services. */}
-                          <div ref={megaScrollRef} className="relative min-w-0 flex-1 overflow-hidden p-5 lg:p-6">
-                            <div
-                              aria-hidden="true"
-                              className="pointer-events-none absolute -right-20 -top-20 h-52 w-52 rounded-full bg-arc-300/10 blur-3xl"
-                            />
-                            <div className="relative flex items-baseline justify-between gap-4">
-                              <p className="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-brand-300">
+                          {/* White pane — the hovered line's services. */}
+                          <div ref={megaScrollRef} className="min-w-0 flex-1 overflow-y-auto bg-white p-6">
+                            <div className="flex items-baseline justify-between gap-4">
+                              <p className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-slate-400">
                                 {pane.title}
                               </p>
                               {activePane === -1 ? (
-                                <Link href="/services#b2b" className="text-xs font-semibold text-arc-300 transition-colors hover:text-white">
+                                <Link href="/services#b2b" className="text-xs font-semibold text-brand-700 transition-colors hover:text-brand-800">
                                   Open B2B section →
                                 </Link>
                               ) : (
-                                <Link href="/services" className="text-xs font-semibold text-arc-300 transition-colors hover:text-white">
+                                <Link href="/services" className="text-xs font-semibold text-brand-700 transition-colors hover:text-brand-800">
                                   All services →
                                 </Link>
                               )}
                             </div>
-                            <ul className="relative mt-3.5 grid gap-1 sm:grid-cols-2">
+                            <ul className="mt-3 grid gap-0.5 sm:grid-cols-2">
                               {pane.items.map((service) => (
                                 <li key={service.slug}>
                                   <Link
                                     href={`/services/${service.slug}`}
-                                    className="group relative flex items-center gap-2.5 rounded-lg px-2.5 py-2 transition-all duration-200 hover:bg-white/[0.06]"
+                                    className="group flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-[0.92rem] font-semibold text-slate-800 transition-all duration-200 hover:bg-brand-50 hover:text-brand-700"
                                   >
-                                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/[0.05] text-brand-300 ring-1 ring-white/10 transition-all duration-200 group-hover:bg-brand-500/10 group-hover:text-brand-200 group-hover:ring-brand-400/40">
-                                      <MegaServiceIcon slug={service.slug} className="h-4 w-4" />
-                                    </span>
-                                    <span className="truncate text-sm font-medium text-slate-100 transition-transform duration-200 group-hover:translate-x-0.5">
+                                    <span className="truncate transition-transform duration-200 group-hover:translate-x-0.5">
                                       {service.shortTitle}
                                     </span>
+                                    <ArrowRight className="h-3.5 w-3.5 shrink-0 -translate-x-1 text-brand-600 opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100" />
                                   </Link>
                                 </li>
                               ))}
                             </ul>
                           </div>
                         </div>
-                        <div className="flex shrink-0 flex-wrap items-center justify-between gap-3 border-t border-white/10 bg-white/[0.03] px-6 py-3">
-                          <p className="text-sm text-slate-400">Not sure which service fits? We will map it on a call.</p>
+                        <div className="flex shrink-0 flex-wrap items-center justify-between gap-3 border-t border-slate-200 bg-slate-50 px-6 py-3">
+                          <p className="text-sm text-slate-500">Not sure which service fits? We will map it on a call.</p>
                           <div className="flex gap-2">
                             <Link
                               href="/services"
-                              className="rounded-lg border border-white/12 px-3.5 py-2 text-xs font-semibold text-white transition-colors hover:border-brand-400/50"
+                              className="rounded-lg border border-slate-300 bg-white px-3.5 py-2 text-xs font-semibold text-slate-800 transition-colors hover:border-brand-500 hover:text-brand-700"
                             >
                               All services
                             </Link>
@@ -359,36 +401,75 @@ export function Header() {
                     menuKey="industries"
                     href={item.href}
                     label={item.label}
-                    panelClassName="absolute left-1/2 top-full z-40 w-[min(30rem,92vw)] -translate-x-1/2 pt-2"
+                    panelClassName="absolute left-1/2 top-full z-40 w-[min(36rem,94vw)] -translate-x-1/2 pt-2"
                   >
-                    <div className="nav-pop relative overflow-hidden rounded-2xl border border-white/10 bg-midnight/95 p-3.5 shadow-[0_36px_80px_-28px_rgba(0,0,0,0.9)] backdrop-blur-xl">
-                      <span
-                        aria-hidden="true"
-                        className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-brand-400/50 to-transparent"
-                      />
-                      <p className="px-2.5 pb-2 text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-brand-300">
-                        Industries we build for
-                      </p>
-                      <ul className="grid gap-0.5 sm:grid-cols-2">
-                        {industryLinks.map(([slug, name]) => (
-                          <li key={slug}>
-                            <Link
-                              href={`/industries/${slug}`}
-                              className="group flex items-center justify-between gap-2 rounded-lg px-2.5 py-2 text-sm text-slate-200 transition-colors hover:bg-white/[0.06] hover:text-white"
-                            >
-                              {name}
-                              <ArrowRight className="h-3.5 w-3.5 -translate-x-1 text-brand-300 opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100" />
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                      <Link
-                        href="/industries"
-                        className="mt-2 flex items-center justify-between rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2.5 text-xs font-semibold text-white transition-colors hover:border-brand-400/50 hover:text-brand-200"
-                      >
-                        All {industryLinks.length} industries
-                        <ArrowRight className="h-3.5 w-3.5" />
-                      </Link>
+                    <div className="nav-pop overflow-hidden rounded-2xl bg-white shadow-[0_36px_80px_-28px_rgba(0,0,0,0.85)] ring-1 ring-white/15">
+                      <div className="flex items-stretch">
+                        <MenuIntro
+                          title="Industries"
+                          desc="Sectors whose workflows we already model — POS to portals."
+                          cta="All 13 industries"
+                          ctaHref="/industries"
+                          className="w-56"
+                        />
+                        <ul className="grid flex-1 content-start gap-0.5 p-4 sm:grid-cols-2">
+                          {industryLinks.map(([slug, name]) => (
+                            <li key={slug}>
+                              <Link
+                                href={`/industries/${slug}`}
+                                className="group flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-[0.92rem] font-semibold text-slate-800 transition-all duration-200 hover:bg-brand-50 hover:text-brand-700"
+                              >
+                                {name}
+                                <ArrowRight className="h-3.5 w-3.5 -translate-x-1 text-brand-600 opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100" />
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </NavDrop>
+                );
+              }
+
+              if (item.label === "Products") {
+                return (
+                  <NavDrop
+                    key={item.href}
+                    menuKey="products"
+                    href={item.href}
+                    label={item.label}
+                    panelClassName="absolute left-1/2 top-full z-40 w-[min(34rem,94vw)] -translate-x-1/2 pt-2"
+                  >
+                    <div className="nav-pop overflow-hidden rounded-2xl bg-white shadow-[0_36px_80px_-28px_rgba(0,0,0,0.85)] ring-1 ring-white/15">
+                      <div className="flex items-stretch">
+                        <MenuIntro
+                          title="Our ecosystem"
+                          desc="Ready-to-deploy products — each one opens live."
+                          cta="Explore all products"
+                          ctaHref="/products"
+                          className="w-56"
+                        />
+                        <ul className="grid flex-1 content-start gap-0.5 p-4">
+                          {productLinks.map(([slug, name]) => (
+                            <li key={slug}>
+                              <Link
+                                href={`/products/${slug}`}
+                                className="group flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-[0.92rem] font-semibold text-slate-800 transition-all duration-200 hover:bg-brand-50 hover:text-brand-700"
+                              >
+                                <span className="flex items-center gap-2">
+                                  {name}
+                                  {slug === "properties-pak" && (
+                                    <span className="rounded-full bg-brand-500/10 px-1.5 py-0.5 text-[0.6rem] font-bold uppercase tracking-wide text-brand-700">
+                                      Live
+                                    </span>
+                                  )}
+                                </span>
+                                <ArrowRight className="h-3.5 w-3.5 -translate-x-1 text-brand-600 opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100" />
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
                   </NavDrop>
                 );
@@ -401,36 +482,31 @@ export function Header() {
                     menuKey="portfolio"
                     href={item.href}
                     label={item.label}
-                    panelClassName="absolute left-1/2 top-full z-40 w-[min(22rem,92vw)] -translate-x-1/2 pt-2"
+                    panelClassName="absolute right-0 top-full z-40 w-[min(33rem,94vw)] pt-2"
                   >
-                    <div className="nav-pop relative overflow-hidden rounded-2xl border border-white/10 bg-midnight/95 p-3.5 shadow-[0_36px_80px_-28px_rgba(0,0,0,0.9)] backdrop-blur-xl">
-                      <span
-                        aria-hidden="true"
-                        className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-brand-400/50 to-transparent"
-                      />
-                      <p className="px-2.5 pb-2 text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-brand-300">
-                        Flagship builds
-                      </p>
-                      <ul className="grid gap-0.5">
-                        {portfolioMajors.map(([slug, title]) => (
-                          <li key={slug}>
-                            <Link
-                              href={`/portfolio/${slug}`}
-                              className="group flex items-center justify-between gap-2 rounded-lg px-2.5 py-2 text-sm text-slate-200 transition-colors hover:bg-white/[0.06] hover:text-white"
-                            >
-                              <span className="truncate">{title}</span>
-                              <ArrowRight className="h-3.5 w-3.5 shrink-0 -translate-x-1 text-brand-300 opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100" />
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                      <Link
-                        href="/portfolio"
-                        className="mt-2 flex items-center justify-between rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2.5 text-xs font-semibold text-white transition-colors hover:border-brand-400/50 hover:text-brand-200"
-                      >
-                        View all portfolio
-                        <ArrowRight className="h-3.5 w-3.5" />
-                      </Link>
+                    <div className="nav-pop overflow-hidden rounded-2xl bg-white shadow-[0_36px_80px_-28px_rgba(0,0,0,0.85)] ring-1 ring-white/15">
+                      <div className="flex items-stretch">
+                        <MenuIntro
+                          title="Selected work"
+                          desc="Platforms we designed, built and still run."
+                          cta="All portfolio"
+                          ctaHref="/portfolio"
+                          className="w-56"
+                        />
+                        <ul className="grid flex-1 content-start gap-0.5 p-4">
+                          {portfolioMajors.map(([slug, title]) => (
+                            <li key={slug}>
+                              <Link
+                                href={`/portfolio/${slug}`}
+                                className="group flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-[0.92rem] font-semibold text-slate-800 transition-all duration-200 hover:bg-brand-50 hover:text-brand-700"
+                              >
+                                <span className="truncate">{title}</span>
+                                <ArrowRight className="h-3.5 w-3.5 shrink-0 -translate-x-1 text-brand-600 opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100" />
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
                   </NavDrop>
                 );
