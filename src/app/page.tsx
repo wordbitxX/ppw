@@ -196,12 +196,12 @@ export default function HomePage() {
           parallax and a connected-node network (HeroFX) — all off under
           prefers-reduced-motion. */}
       <section className="cine-surface relative overflow-hidden bg-midnight pt-28 text-white sm:pt-36 lg:pt-44">
-          <div className="relative">
+          <div className="relative flex flex-col">
             {/* Network sits above the art (z-1) and under the copy (z-10), like the sample combo. */}
             <div className="absolute inset-0 z-[1]">
               <HeroFX />
             </div>
-          <div className="container-page relative z-10">
+          <div className="container-page relative z-10 order-2 -mt-12 sm:order-1 sm:mt-0">
             <div className="mx-auto max-w-4xl text-center">
               <div className="cine-rise">
                 <Eyebrow tone="dark">Pakistan-based · Software, SEO &amp; marketing · Worldwide</Eyebrow>
@@ -251,7 +251,7 @@ export default function HomePage() {
 
           {/* The art stage. Same viewBox + cover fit for image, arcs and flare so
               the travelling light lines up with the picture at every size. */}
-          <div className="pointer-events-none relative z-0 -mt-16 h-[19rem] sm:-mt-28 sm:h-[26rem] lg:-mt-36 lg:h-[30rem]" aria-hidden="true">
+          <div className="pointer-events-none relative z-0 order-1 h-[15rem] sm:order-2 sm:-mt-28 sm:h-[26rem] lg:-mt-36 lg:h-[30rem]" aria-hidden="true">
             <div className="cine-hero-stage cine-mask-y absolute inset-0">
               <CineImage variant="calm" priority />
               <LightArcs />
@@ -263,7 +263,7 @@ export default function HomePage() {
 
           </div>
 
-        <div className="container-page relative z-10 -mt-6 sm:-mt-10">
+        <div className="container-page relative z-10 mt-8 sm:-mt-10">
           <p className="mx-auto max-w-3xl text-center text-base leading-relaxed text-slate-100 [text-shadow:0_1px_18px_rgba(3,8,20,0.95)] sm:text-lg">
             Websites, apps, Shopify stores, POS and CRM/ERP — grown with SEO and digital marketing, with practical AI
             where it helps the workflow. Clients across the USA, UK, UAE, Canada, Australia and worldwide.
