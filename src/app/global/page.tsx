@@ -1,3 +1,4 @@
+import { MarketSphere } from "@/components/market-sphere";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero, Section, SectionHeading, ButtonLink } from "@/components/ui";
@@ -40,6 +41,22 @@ export default function GlobalMarketsPage() {
               </span>
             </Link>
           ))}
+        </div>
+      </Section>
+      <Section tone="dark">
+        <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
+          <div>
+            <SectionHeading
+              tone="dark"
+              eyebrow="How we collaborate"
+              title="Pakistan base, remote delivery, scheduled overlap"
+              description="Every market above has its own page covering timezone overlap, collaboration and the software work that usually comes from that region. Our live product and demos are open for you to inspect before you ever talk to us."
+            />
+            <ButtonLink href="/products" variant="ghost" className="mt-8">
+              See live products
+            </ButtonLink>
+          </div>
+          <MarketSphere />
         </div>
       </Section>
       <CtaBand title="Working across time zones is normal for us" description="Tell us where you are and when you can meet. We will propose overlap hours before we talk about scope." />

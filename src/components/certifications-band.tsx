@@ -1,3 +1,4 @@
+import Link from "next/link";
 /**
  * Dark "Certifications" band, modelled on the way Lahore peers (Rextech)
  * display their marks under the hero: monochrome white wordmarks on a dark
@@ -142,7 +143,7 @@ export function CertificationsBand() {
       <div className="container-page">
         <h2 className="text-center text-3xl font-semibold tracking-tight sm:text-4xl">Certifications</h2>
         <p className="mx-auto mt-3 max-w-xl text-center text-sm leading-relaxed text-slate-400">
-          Registered with the authorities we do business under — verified on the About page — and the platforms we build on every day.
+          Registered with the authorities we do business under — details below — and the platforms we build on every day.
         </p>
       </div>
       <div className="group relative mt-10">
@@ -163,6 +164,31 @@ export function CertificationsBand() {
         </div>
       </div>
 
+    </section>
+  );
+}
+
+/**
+ * One-line credibility strip for the home page. The full marks band and the
+ * registration details live on the About page (#verified).
+ */
+export function CredibilityStrip() {
+  const facts = ["Pvt. Ltd. company", "SECP & FBR registered", "Established 2021", "Lahore, Pakistan"];
+  return (
+    <section aria-label="Company credentials" className="relative bg-midnight py-5 text-white">
+      <div className="container-page flex flex-col items-center justify-between gap-3 text-center sm:flex-row sm:text-left">
+        <ul className="flex flex-wrap items-center justify-center gap-x-5 gap-y-1.5 text-xs font-medium uppercase tracking-[0.14em] text-slate-400 sm:justify-start">
+          {facts.map((fact) => (
+            <li key={fact} className="flex items-center gap-2">
+              <span className="h-1 w-1 rounded-full bg-arc-300/70" aria-hidden="true" />
+              {fact}
+            </li>
+          ))}
+        </ul>
+        <Link href="/about#verified" className="text-xs font-semibold text-arc-300 transition-colors hover:text-white">
+          Company details &rarr;
+        </Link>
+      </div>
     </section>
   );
 }

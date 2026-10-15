@@ -187,7 +187,7 @@ export function ReviewSlider() {
       setIndex(0);
       setForm(emptyForm);
       setStatus("success");
-      setServerMessage(data.message ?? "Thank you — your review is now on the homepage.");
+      setServerMessage(data.message ?? "Thank you — your review is now published on the About page.");
     } catch (error) {
       setStatus("error");
       setServerMessage(error instanceof Error ? error.message : "Something went wrong. Please try again.");
@@ -429,7 +429,7 @@ export function ReviewSlider() {
                 </span>
               </a>
               <a
-                href="/about"
+                href="/about#verified"
                 className="group rounded-xl border border-slate-200 bg-slate-50 p-4 transition-colors hover:border-brand-300"
               >
                 <p className="text-sm font-semibold text-ink-900">A registered company</p>

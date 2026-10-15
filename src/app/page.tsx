@@ -4,11 +4,10 @@ import Link from "next/link";
 import { Section, SectionHeading, ButtonLink, Eyebrow } from "@/components/ui";
 import { ServiceCard, PostCard, ProjectCard } from "@/components/cards";
 import { DemosSection } from "@/components/demos-section";
-import { CertificationsBand } from "@/components/certifications-band";
+import { CredibilityStrip } from "@/components/certifications-band";
 import { IndustryStrip } from "@/components/industry-strip";
-import { ReviewSlider } from "@/components/review-slider";
-import { ServiceIndex, ServiceNavFootnote } from "@/components/service-nav";
-import { MarketSphere } from "@/components/market-sphere";
+import { FeaturedReviews } from "@/components/featured-reviews";
+import { ExploreDirectory } from "@/components/explore-directory";
 import { FlagIcon } from "@/components/flag-icon";
 import { AiServicesDeck } from "@/components/ai-services-deck";
 import { HeroReel } from "@/components/hero-reel";
@@ -16,7 +15,7 @@ import { HeroFX } from "@/components/hero-fx";
 import { CineBackdrop, CineImage, LightArcs } from "@/components/cinematic";
 import { CtaBand } from "@/components/cta-band";
 import { FaqAccordion } from "@/components/accordion";
-import { TechChip, TechGlyph, TechIconSprite } from "@/components/tech-icon";
+import { TechGlyph, TechIconSprite } from "@/components/tech-icon";
 import { FaqSchema } from "@/components/jsonld";
 import {
   ArrowRight,
@@ -30,16 +29,13 @@ import {
   SparkIcon,
   MailIcon,
 } from "@/components/icons";
-import { MegaServiceIcon } from "@/components/mega-service-icon";
 import { getServices, services } from "@/lib/services";
-import { solutions } from "@/lib/solutions";
 import { industries } from "@/lib/industries";
 import { industryTileMedia } from "@/lib/industry-tile-media";
 import { markets } from "@/lib/markets";
-import { cities } from "@/lib/cities";
 import { getProject } from "@/lib/portfolio";
 import { sortedPosts } from "@/lib/blog";
-import { techCategories, marqueeTech } from "@/lib/technologies";
+import { marqueeTech } from "@/lib/technologies";
 import { media } from "@/lib/media";
 import { getHeroSlides } from "@/lib/hero-reel";
 import { siteConfig, whatsappLink } from "@/lib/site";
@@ -174,6 +170,10 @@ const homeServiceSlugs = [
   "ai-solutions",
 ];
 
+/** Curated highlights — the full lists live on /industries and /global. */
+const featuredIndustrySlugs = ["real-estate", "healthcare", "ecommerce", "retail"];
+const featuredMarketSlugs = ["pakistan", "usa", "uk", "uae"];
+
 const homeProjectSlugs = [
   "fashion-shopify-storefront",
   "jewellery-ecommerce-store",
@@ -190,8 +190,14 @@ export default function HomePage() {
     .filter((project): project is NonNullable<typeof project> => Boolean(project));
   const latestPosts = sortedPosts.slice(0, 3);
   const heroSlides = getHeroSlides();
+  const featuredIndustries = featuredIndustrySlugs
+    .map((slug) => industries.find((industry) => industry.slug === slug))
+    .filter((industry): industry is NonNullable<typeof industry> => Boolean(industry));
+  const featuredMarkets = featuredMarketSlugs
+    .map((slug) => markets.find((market) => market.slug === slug))
+    .filter((market): market is NonNullable<typeof market> => Boolean(market));
 
-  const spriteIcons = [...marqueeTech, ...techCategories.flatMap((category) => category.items)];
+  const spriteIcons = marqueeTech;
 
   return (
     <>
@@ -349,7 +355,7 @@ export default function HomePage() {
 
       {/* CERTIFICATIONS — dark band under the hero, the way Lahore peers
           (Rextech) surface their SECP/FBR registration marks. */}
-      <CertificationsBand />
+      <CredibilityStrip />
 
       {/* PRODUCT REEL — moved here from the old hero (the cinematic hero is
           pure brand/atmosphere now). Same HeroReel, same curated slides. */}
@@ -520,7 +526,7 @@ export default function HomePage() {
             </h2>
             <p className="mt-4 text-base leading-relaxed text-slate-300 sm:text-lg">
               Custom software, websites, Shopify, e-commerce, web and mobile — then SEO and ads so those products can
-              grow. Practical AI is there when a workflow needs it. The full catalogue lives on the services index.
+              grow. Practical AI is there when a workflow needs it. Every service line has its own page on the services index.
             </p>
           </div>
           <Link
@@ -540,22 +546,6 @@ export default function HomePage() {
               premium
             />
           ))}
-        </div>
-
-        {/* This slot has been a rotating ring, then a honeycomb. Both were
-            pictures of a catalogue. It is now the catalogue: twenty-four
-            service pages linked by their real names, which is what a reader
-            scans and what a crawler reads as anchor text. */}
-        <div className="mt-16 border-t border-white/10 pt-16 sm:mt-20 sm:pt-20">
-          <h3 className="text-2xl font-semibold text-white sm:text-3xl">The full service index</h3>
-          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate-400">
-            Twenty-four of our {services.length} service lines, grouped the way a business thinks about them. Every
-            line opens its own page.
-          </p>
-          <div className="mt-10">
-            <ServiceIndex />
-          </div>
-          <ServiceNavFootnote className="mt-10" />
         </div>
       </AiServicesDeck>
 
@@ -588,40 +578,23 @@ export default function HomePage() {
           capability → fit → proof; it still sits above #reviews, which
           matters because sector fit is a higher-intent question than
           social proof. */}
-      <Section id="industries" className="pt-10 sm:pt-12 lg:pt-14">
-        {/* One heading, not two. This section used to open with a centred H2
-            and then immediately a second eyebrow + H3 + description before
-            anything was shown — 299px of stacked headings that said the same
-            thing twice ("the industries we already understand" / "workflows
-            we have already modelled"). Merged into one left-aligned block so
-            the tiles start 400px earlier. */}
+      <Section id="industries">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <SectionHeading
-            eyebrow="Industries & Solutions"
+            eyebrow="Industries"
             title="Software for the industries we already understand"
-            description="Plot files and instalment plans, batch and expiry control, weight-based jewellery pricing, fee vouchers, offline billing — workflows we have already modelled, so discovery starts shorter and launch comes sooner."
+            description="Plot files and instalment plans, batch and expiry control, weight-based jewellery pricing, fee vouchers — workflows we have already modelled, so discovery starts shorter and launch comes sooner."
           />
-          {/* Left-aligning the heading freed the right half of the row. The
-              same heading-plus-button row that #demos and #portfolio already
-              use fills it, instead of leaving a column of white. */}
           <ButtonLink href="/industries" variant="secondary" className="shrink-0">
             All {industries.length} industries
           </ButtonLink>
         </div>
-
-        <div>
-        {/* Photo tiles rather than icon rows. Every industry already carries
-            an `image` for its own page, so this costs no new asset — it just
-            stops the richest thing we own from being invisible on the home
-            page. The thirteenth tile leaves a ragged row at every breakpoint,
-            so the "all industries" link is the fourteenth tile and spans
-            whatever is left: 1 column at sm, 2 at lg, 3 at xl. */}
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {industries.map((industry) => (
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {featuredIndustries.map((industry) => (
             <Link
               key={industry.slug}
               href={`/industries/${industry.slug}`}
-              className="group animate-reveal relative flex aspect-[4/3] flex-col justify-end overflow-hidden rounded-2xl border border-slate-200 bg-navy-900 transition-all duration-500 hover:-translate-y-1 hover:border-brand-300 hover:shadow-[0_30px_60px_-34px_rgba(5,13,33,0.65)]"
+              className="group relative flex aspect-[4/5] flex-col justify-end overflow-hidden rounded-2xl border border-slate-200 bg-navy-900 transition-all duration-500 hover:-translate-y-1 hover:border-brand-300 hover:shadow-[0_30px_60px_-34px_rgba(5,13,33,0.65)]"
             >
               <Image
                 src={industryTileMedia[industry.slug].src}
@@ -632,11 +605,11 @@ export default function HomePage() {
               />
               <span
                 aria-hidden="true"
-                className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/60 to-navy-950/5 transition-opacity duration-500 group-hover:from-navy-950 group-hover:via-navy-950/70"
+                className="absolute inset-0 bg-gradient-to-t from-midnight via-midnight/55 to-midnight/5"
               />
               <span className="relative p-5">
                 <span className="flex items-center gap-2.5">
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/10 text-brand-200 ring-1 ring-white/20 backdrop-blur-sm transition-colors duration-300 group-hover:bg-brand-500 group-hover:text-white group-hover:ring-brand-400">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/10 text-brand-200 ring-1 ring-white/20 backdrop-blur-sm transition-colors duration-300 group-hover:bg-brand-500 group-hover:text-white">
                     <IndustryIcon name={industry.slug} className="h-5 w-5" />
                   </span>
                   <h3 className="text-base font-semibold text-white">{industry.name}</h3>
@@ -645,118 +618,41 @@ export default function HomePage() {
               </span>
             </Link>
           ))}
-
-          <Link
-            href="/industries"
-            className="group relative flex min-h-[9rem] flex-col justify-end overflow-hidden rounded-2xl border border-dashed border-brand-300/60 bg-brand-50/60 p-5 transition-all duration-500 hover:-translate-y-1 hover:border-brand-400 hover:bg-brand-50 lg:col-span-2 xl:col-span-3"
-          >
-            <span className="text-xs font-semibold uppercase tracking-[0.16em] text-brand-600">Every sector</span>
-            <span className="mt-2 flex items-center gap-2 text-lg font-semibold text-ink-900">
-              All {industries.length} industry briefs
-              <ArrowRight className="h-4 w-4 text-brand-600 transition-transform duration-300 group-hover:translate-x-1" />
-            </span>
-            <span className="mt-1 text-sm leading-relaxed text-ink-500">
-              Each one lists the workflows, modules and integrations we have already modelled for that sector.
-            </span>
-          </Link>
-        </div>
-        </div>
-
-        <div className="mt-16 border-t border-slate-200 pt-16 sm:mt-20 sm:pt-20">
-          <SectionHeading
-            as="h3"
-            eyebrow="Ready-to-adapt platforms"
-            title="Platforms we can shape to your business"
-          />
-        <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {solutions.slice(0, 6).map((solution) => (
-            <Link
-              key={solution.id}
-              href={`/services/${solution.serviceSlug}`}
-              className="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-[0_30px_60px_-40px_rgba(5,13,33,0.6)]"
-            >
-              <span className="relative block aspect-[16/10] overflow-hidden bg-slate-100">
-                <Image
-                  src={solution.image}
-                  alt={solution.imageAlt}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <span className="absolute inset-0 bg-gradient-to-t from-navy-950/80 via-navy-950/10 to-transparent" />
-                <span className="absolute bottom-4 left-4 flex items-center gap-2.5">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-500 text-white">
-                    <MegaServiceIcon monochrome slug={solution.serviceSlug} className="h-4.5 w-4.5" />
-                  </span>
-                  <span className="text-sm font-semibold text-white">{solution.name}</span>
-                </span>
-              </span>
-
-              <span className="flex flex-1 flex-col p-6">
-                <span className="text-base font-semibold text-ink-900">{solution.headline}</span>
-                <span className="mt-2.5 text-sm leading-relaxed text-ink-500">{solution.description}</span>
-                <span className="mt-4 space-y-2">
-                  {solution.bullets.map((bullet) => (
-                    <span key={bullet} className="flex items-start gap-2.5 text-sm text-ink-700">
-                      <CheckIcon className="mt-0.5 h-4 w-4 shrink-0 text-brand-500" />
-                      <span>{bullet}</span>
-                    </span>
-                  ))}
-                </span>
-                <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-brand-600">
-                  View {solution.name}
-                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-                </span>
-              </span>
-            </Link>
-          ))}
-        </div>
         </div>
       </Section>
 
-      {/* Standard bottom padding: the mid-page CTA (dark) follows #portfolio. */}
-      <Section id="portfolio">
+      <Section id="portfolio" tone="muted">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <SectionHeading
             eyebrow="Project Profiles"
             title="POS, apps, Shopify and portal project profiles"
-            description="Scope write-ups of software, mobile and e-commerce work — separate from the live demo sites above. Each profile links a full project page for indexing and detail."
+            description="Scope write-ups of software, mobile and e-commerce work — separate from the live demo sites above. Each profile links to a full project page."
           />
           <ButtonLink href="/portfolio" variant="secondary" className="shrink-0">
             View Full Portfolio
           </ButtonLink>
         </div>
         <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {featuredProjects.map((project) => (
+          {featuredProjects.slice(0, 3).map((project) => (
             <ProjectCard key={project.slug} project={project} />
           ))}
         </div>
+        <p className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-ink-500">
+          <span className="font-medium text-ink-700">Also:</span>
+          {featuredProjects.slice(3).map((project) => (
+            <Link key={project.slug} href={`/portfolio/${project.slug}`} className="transition-colors hover:text-brand-700">
+              {project.title}
+            </Link>
+          ))}
+          <Link href="/portfolio" className="font-semibold text-brand-600 hover:text-brand-700">
+            All projects →
+          </Link>
+        </p>
       </Section>
 
-      {/* Mid-page CTA — the page is long enough that a visitor convinced by
-          the proof above should not have to scroll through four more
-          sections to reach the ask. */}
-      <Section id="reviews" tone="muted">
-        <ReviewSlider />
+      <Section id="reviews">
+        <FeaturedReviews />
       </Section>
-
-      {/* Mid-page CTA now sits AFTER the reviews (owner-approved audit fix,
-          11 Oct): proof → social proof → ask. */}
-      <section className="bg-midnight py-10 sm:py-12">
-        <div className="container-page flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
-          <div>
-            <h2 className="text-xl font-semibold tracking-tight text-white sm:text-2xl">
-              Have a project in mind?
-            </h2>
-            <p className="mt-1.5 max-w-xl text-sm leading-relaxed text-slate-400">
-              Tell us what you need — a real engineer replies within one business day.
-            </p>
-          </div>
-          <ButtonLink href="/contact" className="shrink-0">
-            Discuss Your Project
-          </ButtonLink>
-        </div>
-      </section>
 
       {/* ================= MARKETS =================
           The sphere was its own dark section titled "WordbitX is trusted to
@@ -764,156 +660,37 @@ export default function HomePage() {
           "WordbitX is trusted to deliver work you can inspect". It is a globe
           with six market chips, so it belongs here as the Markets artwork. */}
       <Section id="markets" tone="dark">
-        <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
+        <div className="grid items-center gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
           <div>
             <SectionHeading
               tone="dark"
               eyebrow="Global Markets"
-              title="Software teams for Pakistan, USA, UK, UAE, Canada and Australia"
-              description="Pakistan is the operating base, and we build for clients across the United States, United Kingdom, United Arab Emirates, Canada and Australia. Each market page explains timezone overlap, collaboration and the software work that usually comes from that region."
+              title="One team in Pakistan, working with clients worldwide"
+              description="Pakistan is the operating base. We build for clients across the United States, United Kingdom, UAE, Canada and Australia, with scheduled overlap hours and code that stays in your accounts."
             />
-            <p className="mt-5 max-w-xl text-sm leading-relaxed text-slate-400">
-              We do not publish numbers we cannot show. Every market on this sphere has its own page on this site, and
-              our live product and labelled demos are open for you to inspect before you ever talk to us.
-            </p>
             <ButtonLink href="/global" variant="ghost" className="mt-8">
-              All markets
+              All {markets.length} markets
             </ButtonLink>
           </div>
-          <MarketSphere />
-        </div>
-
-        <div className="mt-16 grid gap-4 border-t border-white/10 pt-16 sm:mt-20 sm:grid-cols-2 sm:pt-20 lg:grid-cols-3">
-          {markets.map((market) => (
-            <Link
-              key={market.slug}
-              href={`/global/${market.slug}`}
-              className="group hover-sheen hover-sheen-dark animate-reveal relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-5 hover:border-brand-400/40 hover:shadow-[0_28px_70px_-36px_rgba(28,168,48,0.45)]"
-            >
-              <span
-                aria-hidden="true"
-                className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-gradient-to-r from-brand-400 to-sky-400 transition-transform duration-1000 group-hover:scale-x-100"
-              />
-              <div className="relative flex items-center justify-between">
-                <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-brand-300">
-                  <FlagIcon slug={market.slug} className="h-3.5 w-5 shrink-0" />
-                  {market.country}
-                </p>
-                <span className="text-brand-300 opacity-0 transition-all duration-1000 group-hover:translate-x-0.5 group-hover:opacity-100">
-                  <ArrowRight className="h-4 w-4" />
-                </span>
-              </div>
-              <h3 className="relative mt-2 text-base font-semibold text-white transition-colors group-hover:text-brand-200">
-                {market.name}
-              </h3>
-              <p className="relative mt-2 text-sm leading-relaxed text-slate-400">{market.tagline}</p>
-            </Link>
-          ))}
-        </div>
-
-        {/* Pakistan is the base market and the one with real city-level
-            search demand. Each city page is written from that city's own
-            industrial base — see src/lib/cities.ts for why we did not
-            generate them from a template. */}
-        <div className="mt-14 border-t border-white/10 pt-14">
-          <h3 className="text-2xl font-semibold text-white sm:text-3xl">And eleven cities inside Pakistan</h3>
-          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate-400">
-            A Sialkot exporter and a Quetta trader need completely different software. Each city page covers that
-            market&apos;s real industries, its commercial districts and what businesses there actually ask us to build.
-          </p>
-          <div className="mt-7 flex flex-wrap gap-2.5">
-            {cities.map((city) => (
+          <div className="grid gap-4 sm:grid-cols-2">
+            {featuredMarkets.map((market) => (
               <Link
-                key={city.slug}
-                href={`/software-house/${city.slug}`}
-                className="group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-sm font-medium text-slate-300 transition-colors hover:border-brand-400/40 hover:bg-white/[0.08] hover:text-white"
+                key={market.slug}
+                href={`/global/${market.slug}`}
+                className="group cine-panel relative overflow-hidden rounded-2xl p-5 transition-colors hover:border-arc-300/40"
               >
-                {city.h1}
-                <ArrowRight className="h-3.5 w-3.5 text-brand-300 transition-transform group-hover:translate-x-0.5" />
+                <div className="flex items-center justify-between">
+                  <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-arc-300">
+                    <FlagIcon slug={market.slug} className="h-3.5 w-5 shrink-0" />
+                    {market.country}
+                  </p>
+                  <ArrowRight className="h-4 w-4 text-arc-300 opacity-0 transition-all duration-500 group-hover:translate-x-0.5 group-hover:opacity-100" />
+                </div>
+                <h3 className="mt-2 text-base font-semibold text-white">{market.name}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-400">{market.tagline}</p>
               </Link>
             ))}
           </div>
-        </div>
-      </Section>
-
-      {/* ================= HOW WE WORK ================= */}
-      <Section id="process" tone="muted">
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <SectionHeading
-            eyebrow="How We Work"
-            title="Software delivery process from discovery to launch"
-            description="Seven stages — discovery, strategy, design, development, testing, launch and support — each with a defined output you review before the next begins."
-          />
-          <ButtonLink href="/process" variant="secondary" className="shrink-0">
-            Full process
-          </ButtonLink>
-        </div>
-        <ol className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {processSteps.map((step, index) => (
-            <li
-              key={step.step}
-              className={`group hover-sheen animate-reveal relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 hover:border-brand-300 hover:shadow-[0_28px_60px_-38px_rgba(5,13,33,0.5)] ${
-                index === processSteps.length - 1 ? "sm:col-span-2 lg:col-span-1" : ""
-              }`}
-            >
-              <span
-                aria-hidden="true"
-                className="absolute -right-3 top-1/2 hidden -translate-y-1/2 text-brand-500/15 transition-all duration-300 group-hover:translate-x-1 group-hover:text-brand-500/30 lg:block"
-              >
-                <ArrowRight className="h-10 w-10" />
-              </span>
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-bold tracking-[0.16em] text-brand-500">{step.step}</span>
-                <span className="text-brand-500 opacity-0 transition-all duration-300 group-hover:opacity-100">
-                  <ArrowRight className="h-4 w-4" />
-                </span>
-              </div>
-              <h3 className="mt-3 text-base font-semibold text-ink-900">{step.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-ink-500">{step.text}</p>
-            </li>
-          ))}
-        </ol>
-      </Section>
-
-      <Section id="technologies">
-        <SectionHeading
-          eyebrow="Technologies & Programming Languages"
-          title="A stack chosen for the problem, not for fashion"
-          description="We work across frontend, mobile, backend, data, cloud and commerce platforms — and recommend the combination that fits your budget, team and roadmap."
-          align="center"
-        />
-        <div className="mt-12 space-y-10">
-          {techCategories.map((category, index) => (
-            <div key={category.id} className="grid gap-6 lg:grid-cols-[0.8fr_2fr]">
-              <div>
-                <h3 className="text-lg font-semibold text-ink-900">{category.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-ink-500">{category.description}</p>
-              </div>
-              {/* One scrolling row per category instead of a 2-3 row grid.
-                  Costs far less vertical space and lets every item show
-                  rather than the first six. Each row runs at its own speed so
-                  the rows do not pulse in lockstep, pauses on hover, and is
-                  stopped entirely by prefers-reduced-motion. The chips are
-                  plain text, not links, so nothing here is a moving target. */}
-              <div className="marquee-row marquee-mask overflow-hidden">
-                <div
-                  className="animate-marquee flex w-max items-center gap-3"
-                  style={{ animationDuration: `${category.items.length * 4.5 + index * 1.5}s` }}
-                >
-                  {[...category.items, ...category.items].map((item, i) => (
-                    <div key={`${category.id}-${item.name}-${i}`} className="shrink-0 [&_span]:whitespace-nowrap">
-                      <TechChip item={item} sprite />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="mt-10 flex justify-center">
-          <ButtonLink href="/technologies" variant="secondary">
-            See the full technology list
-          </ButtonLink>
         </div>
       </Section>
 
@@ -957,6 +734,7 @@ export default function HomePage() {
       </Section>
 
       <CtaBand />
+      <ExploreDirectory />
       <FaqSchema faqs={homeFaqs} />
     </>
   );

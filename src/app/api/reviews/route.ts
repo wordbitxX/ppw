@@ -201,6 +201,6 @@ export async function POST(request: Request) {
   return Response.json({
     ok: true,
     review: publicReview(review),
-    message: "Thank you — your review is now on the homepage.",
+    message: "Thank you — your review is now published on the About page.",
   });
 }
