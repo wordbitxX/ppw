@@ -251,9 +251,11 @@ export default function HomePage() {
             the travelling light lines up with the picture at every size. */}
         <div className="pointer-events-none relative z-0 -mt-16 h-[19rem] sm:-mt-28 sm:h-[26rem] lg:-mt-36 lg:h-[30rem]" aria-hidden="true">
           <div className="cine-hero-stage cine-mask-y absolute inset-0">
-            <CineImage variant="arcs" priority />
+            <CineImage variant="calm" priority />
             <LightArcs />
-            <div className="cine-flare" />
+            <div className="opacity-60" aria-hidden="true">
+              <div className="cine-flare" />
+            </div>
           </div>
         </div>
 

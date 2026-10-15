@@ -74,6 +74,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         eyebrow={service.title}
         title={service.h1}
         description={service.tagline}
+        art={service.slug === "ai-solutions" ? "robot" : undefined}
         crumbs={[
           { label: "Services", href: "/services" },
           { label: service.title, href: `/services/${service.slug}` },

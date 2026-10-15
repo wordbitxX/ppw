@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { ArrowRight, CheckIcon } from "@/components/icons";
-import { CineBackdrop, type CineVariant } from "@/components/cinematic";
+import { CineBackdrop, CineImage, type CineVariant } from "@/components/cinematic";
 import { absoluteUrl } from "@/lib/site";
 
 export function Section({
@@ -273,7 +273,18 @@ export function PageHero({
 }) {
   return (
     <section className="cine-surface relative overflow-hidden pb-12 pt-24 text-white sm:pb-20 sm:pt-32">
-      <CineBackdrop variant={art} opacity={art === "arcs" ? 0.8 : 0.7} mask="b" position={art === "flow" ? "0% 40%" : "50% 50%"} scrimLeft />
+      {art === "robot" ? (
+        /* Subject sits on the right of the art; text stays on the dark left. */
+        <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden bg-black" aria-hidden="true">
+          <div className="cine-mask-b absolute inset-y-0 right-0 w-full opacity-45 sm:opacity-90 lg:w-[72%]">
+            <CineImage variant="robot" priority style={{ objectPosition: "70% 18%" }} />
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-r from-midnight via-midnight/55 to-transparent sm:via-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-b from-midnight/50 via-transparent to-midnight/80" />
+        </div>
+      ) : (
+        <CineBackdrop variant={art} opacity={art === "arcs" ? 0.8 : 0.7} mask="b" position={art === "flow" ? "0% 40%" : "50% 50%"} scrimLeft />
+      )}
       <div className="container-page relative">
         <Breadcrumbs items={crumbs} />
         <div className="mt-6 max-w-3xl">
