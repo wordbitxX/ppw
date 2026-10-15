@@ -115,8 +115,8 @@ export function Header() {
       onMouseLeave={() => document.body.classList.remove("hide-site-cursor")}
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         scrolled || mobileOpen
-          ? "border-b border-white/10 bg-navy-950/92 backdrop-blur-xl"
-          : "border-b border-transparent bg-navy-950/40 backdrop-blur-sm"
+          ? "border-b border-white/10 bg-midnight/90 backdrop-blur-xl"
+          : "border-b border-transparent bg-midnight/40 backdrop-blur-sm"
       }`}
     >
       <div className="container-page">
@@ -310,7 +310,7 @@ export function Header() {
       {mobileOpen && (
         <div
           id="mobile-navigation"
-          className="min-h-[calc(100dvh-4rem)] max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-white/10 bg-navy-950 lg:hidden"
+          className="min-h-[calc(100dvh-4rem)] max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-white/10 bg-midnight lg:hidden"
         >
           <nav aria-label="Mobile navigation" className="container-page space-y-1 py-5">
             {mainNav.map((item) => {

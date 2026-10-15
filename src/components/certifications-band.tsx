@@ -134,7 +134,7 @@ function LogoSet({ duplicate = false }: { duplicate?: boolean }) {
 
 export function CertificationsBand() {
   return (
-    <section className="relative bg-navy-950 py-12 text-white sm:py-16">
+    <section className="relative bg-midnight py-12 text-white sm:py-16">
       <div
         aria-hidden="true"
         className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"

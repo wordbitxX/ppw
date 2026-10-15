@@ -1,3 +1,4 @@
+import { CineBackdrop } from "@/components/cinematic";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -170,9 +171,8 @@ export default async function BlogPostPage({ params }: PageProps) {
 
   return (
     <>
-      <section className="relative overflow-hidden bg-navy-950 pb-14 pt-28 text-white sm:pt-32">
-        <div className="absolute inset-0 grid-pattern opacity-60" aria-hidden="true" />
-        <div className="absolute -right-20 top-0 h-96 w-96 rounded-full bg-brand-500/15 blur-[130px]" aria-hidden="true" />
+      <section className="cine-surface relative overflow-hidden pb-14 pt-28 text-white sm:pt-32">
+        <CineBackdrop variant="flow" opacity={0.5} mask="b" position="0% 40%" scrimLeft />
         <div className="container-page relative">
           <Breadcrumbs
             items={[

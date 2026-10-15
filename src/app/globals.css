@@ -33,6 +33,16 @@
   --color-brand-700: #0e671b;
   --color-brand-800: #0b5015;
 
+  /* CINEMATIC SYSTEM — midnight base + electric-blue / icy-cyan light, taken
+     from the hero reference art (public/brand/cinematic). Brand green stays
+     the action colour (buttons, markers); blue/cyan is atmosphere only. */
+  --color-midnight: #0a1128;
+  --color-arc-200: #bfeeff;
+  --color-arc-300: #7fdcff;
+  --color-arc-400: #3fb4ff;
+  --color-arc-500: #2f84ff;
+  --color-arc-600: #1d5fd6;
+
   --color-ink-900: #0b1524;
   --color-ink-700: #2c3a4e;
   --color-ink-500: #5a6a80;
@@ -1049,4 +1059,153 @@ body.hide-site-cursor .site-cursor-ring {
 @keyframes cert-marquee {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
+}
+
+
+/* ==========================================================================
+   CINEMATIC SYSTEM
+   One lighting language for the whole site: near-black midnight, electric
+   blue rim light, icy-cyan highlights. Everything below is transform/opacity
+   only (compositor-friendly) and is switched off by prefers-reduced-motion.
+   ========================================================================== */
+
+.cine-surface {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--color-midnight);
+  background-image:
+    radial-gradient(60rem 28rem at 50% -8%, rgb(47 132 255 / 0.16), transparent 70%),
+    radial-gradient(40rem 24rem at 100% 100%, rgb(63 180 255 / 0.08), transparent 70%);
+}
+
+/* A hairline of blue light on the top edge of a dark band — the "rim" in the
+   reference art. */
+.cine-rim::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  z-index: 1;
+  background: linear-gradient(90deg, transparent, rgb(127 220 255 / 0.55) 30%, rgb(255 255 255 / 0.75) 50%, rgb(127 220 255 / 0.55) 70%, transparent);
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.cine-art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Dark art fades into the page instead of ending on a hard edge. */
+.cine-mask-y {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 28%, #000 72%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 28%, #000 72%, transparent 100%);
+}
+.cine-mask-b {
+  -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+}
+.cine-mask-radial {
+  -webkit-mask-image: radial-gradient(ellipse 80% 75% at 50% 50%, #000 35%, transparent 100%);
+  mask-image: radial-gradient(ellipse 80% 75% at 50% 50%, #000 35%, transparent 100%);
+}
+
+.cine-hero-stage {
+  transform: translate3d(calc(var(--hero-px, 0) * -10px), calc(var(--hero-py, 0) * -6px), 0) scale(1.03);
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.cine-flare {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(46rem, 90vw);
+  height: 12rem;
+  translate: -50% -50%;
+  background: radial-gradient(closest-side, rgb(160 225 255 / 0.5), rgb(47 132 255 / 0.18) 55%, transparent 100%);
+  mix-blend-mode: screen;
+  animation: cine-flare 7s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes cine-flare {
+  0%, 100% { opacity: 0.55; transform: scaleX(0.92); }
+  50% { opacity: 0.95; transform: scaleX(1.06); }
+}
+
+/* Light that travels along the arcs (SVG paths use pathLength=100). */
+.cine-glint {
+  stroke-dasharray: 7 93;
+  stroke-dashoffset: 0;
+  animation: cine-glint 9s linear infinite;
+}
+.cine-glint-rev { animation-direction: reverse; animation-duration: 11s; }
+@keyframes cine-glint {
+  to { stroke-dashoffset: -100; }
+}
+
+@keyframes cine-drift {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1.04); }
+  50% { transform: translate3d(-1.2%, 0.8%, 0) scale(1.08); }
+}
+.cine-drift { animation: cine-drift 28s ease-in-out infinite; will-change: transform; }
+
+/* Typography helpers */
+.text-gradient-arc {
+  background-image: linear-gradient(100deg, #ffffff 0%, var(--color-arc-200) 38%, var(--color-arc-400) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Glass panel used sparingly on dark bands. */
+.cine-panel {
+  border: 1px solid rgb(127 220 255 / 0.14);
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.05), rgb(255 255 255 / 0.015));
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06);
+}
+
+/* Reveal on load — one gentle rise, staggered by --d. */
+@keyframes cine-rise {
+  from { opacity: 0; transform: translate3d(0, 18px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+.cine-rise { animation: cine-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: var(--d, 0s); }
+
+/* Primary CTA with a restrained light sweep. */
+.btn-cine {
+  position: relative;
+  overflow: hidden;
+}
+.btn-cine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 35%, rgb(255 255 255 / 0.28) 50%, transparent 65%);
+  transform: translateX(-120%);
+  transition: transform 0.9s ease;
+}
+.btn-cine:hover::after { transform: translateX(120%); }
+
+@media (prefers-reduced-motion: reduce) {
+  .cine-flare,
+  .cine-glint,
+  .cine-drift,
+  .cine-rise { animation: none !important; }
+  .cine-rise { opacity: 1; }
+  .cine-hero-stage { transform: scale(1.03); transition: none; }
+  .btn-cine::after { display: none; }
+}
+
+.cine-mask-hole {
+  -webkit-mask-image: radial-gradient(ellipse 52% 38% at 50% 34%, transparent 0, rgb(0 0 0 / 0.25) 55%, #000 100%);
+  mask-image: radial-gradient(ellipse 52% 38% at 50% 34%, transparent 0, rgb(0 0 0 / 0.25) 55%, #000 100%);
 }

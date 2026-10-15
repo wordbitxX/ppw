@@ -34,7 +34,7 @@ export function IndustryStrip() {
   return (
     <nav
       aria-label="Industries we build software for"
-      className="relative isolate overflow-hidden bg-navy-950 py-4 text-white sm:py-5"
+      className="relative isolate overflow-hidden bg-midnight py-4 text-white sm:py-5"
     >
       {/* No top border here: the hero's tech marquee ends with its own
           hairline directly above this rail, and a second line (plus the old

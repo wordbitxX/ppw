@@ -1,4 +1,5 @@
 import { ButtonLink } from "@/components/ui";
+import { CineBackdrop } from "@/components/cinematic";
 import { WhatsAppIcon, MailIcon, PhoneIcon, GlobeIcon } from "@/components/icons";
 import { siteConfig, usWhatsappLink, whatsappLink } from "@/lib/site";
 
@@ -18,29 +19,21 @@ export function CtaBand({
   return (
     <section className="defer-paint bg-white py-12 sm:py-20">
       <div className="container-page">
-        <div className="relative overflow-hidden rounded-2xl bg-navy-950 px-4 py-10 sm:rounded-3xl sm:px-10 sm:py-12 lg:px-14 lg:py-16">
-          <div className="absolute inset-0 grid-pattern opacity-50" aria-hidden="true" />
-          <div
-            className="absolute -left-16 -top-20 h-72 w-72 rounded-full bg-brand-500/20 blur-[120px]"
-            aria-hidden="true"
-          />
-          <div
-            className="absolute -bottom-24 right-0 h-72 w-72 rounded-full bg-sky-500/12 blur-[120px]"
-            aria-hidden="true"
-          />
+        <div className="cine-surface cine-rim relative overflow-hidden rounded-2xl px-4 py-10 sm:rounded-3xl sm:px-10 sm:py-12 lg:px-14 lg:py-16">
+          <CineBackdrop variant="arcs" opacity={0.8} position="50% 50%" mask="none" />
           <div className="relative grid gap-8 lg:grid-cols-[1.4fr_1fr] lg:items-center">
             <div>
               <h2 className="text-2xl font-semibold leading-tight text-white sm:text-3xl lg:text-4xl">{title}</h2>
               <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-300">{description}</p>
               <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                <ButtonLink href={primaryHref} className="w-full sm:w-auto">
+                <ButtonLink href={primaryHref} className="btn-cine w-full sm:w-auto">
                   {primaryLabel}
                 </ButtonLink>
                 <a
                   href={whatsappLink(whatsappMessage)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:border-brand-400/60 sm:w-auto"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-arc-300/25 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:border-arc-300/60 sm:w-auto"
                 >
                   <WhatsAppIcon className="h-4 w-4" /> Chat on WhatsApp
                 </a>

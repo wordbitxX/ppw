@@ -1,3 +1,4 @@
+import { CineBackdrop } from "@/components/cinematic";
 import Link from "next/link";
 import { ButtonLink } from "@/components/ui";
 import { services } from "@/lib/services";
@@ -15,9 +16,8 @@ export default function NotFound() {
   const posts = sortedPosts.slice(0, 3);
 
   return (
-    <section className="relative overflow-hidden bg-navy-950 pb-20 pt-32 text-white">
-      <div className="absolute inset-0 grid-pattern opacity-60" aria-hidden="true" />
-      <div className="absolute -right-20 top-10 h-96 w-96 rounded-full bg-brand-500/15 blur-[130px]" aria-hidden="true" />
+    <section className="cine-surface relative overflow-hidden pb-20 pt-32 text-white">
+      <CineBackdrop variant="arcs" opacity={0.7} mask="b" />
       <div className="container-page relative">
         <p className="text-sm font-semibold uppercase tracking-[0.18em] text-brand-300">Error 404</p>
         <h1 className="mt-4 max-w-2xl text-4xl font-semibold leading-tight sm:text-5xl">

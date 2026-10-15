@@ -12,6 +12,8 @@ import { MarketSphere } from "@/components/market-sphere";
 import { FlagIcon } from "@/components/flag-icon";
 import { AiServicesDeck } from "@/components/ai-services-deck";
 import { HeroReel } from "@/components/hero-reel";
+import { HeroFX } from "@/components/hero-fx";
+import { CineBackdrop, CineImage, LightArcs } from "@/components/cinematic";
 import { CtaBand } from "@/components/cta-band";
 import { FaqAccordion } from "@/components/accordion";
 import { TechChip, TechGlyph, TechIconSprite } from "@/components/tech-icon";
@@ -196,98 +198,104 @@ export default function HomePage() {
       {/* One copy of every brand icon path used on this page (see TechIconSprite). */}
       <TechIconSprite items={spriteIcons} />
 
-      {/* HERO */}
-      <section className="relative overflow-hidden bg-navy-950 pt-24 text-white sm:pt-32 lg:pt-36">
-        <div className="absolute inset-0 grid-pattern opacity-60" aria-hidden="true" />
-        <div className="absolute -left-32 top-10 h-[30rem] w-[30rem] rounded-full bg-brand-500/18 blur-[140px]" aria-hidden="true" />
-        <div className="absolute -right-20 bottom-0 h-[26rem] w-[26rem] rounded-full bg-sky-500/12 blur-[130px]" aria-hidden="true" />
+      {/* HERO — cinematic. Art = the dark electric-blue arc reference
+          (public/brand/cinematic/arcs-hero), kept intact in a "stage" under
+          the copy so the headline never sits on the flare. All text is real
+          HTML. Motion: glints travelling the arcs, a slow flare pulse, pointer
+          parallax and a connected-node network (HeroFX) — all off under
+          prefers-reduced-motion. */}
+      <section className="cine-surface relative overflow-hidden bg-midnight pt-24 text-white sm:pt-28 lg:pt-32">
+        <HeroFX />
 
-        <div className="container-page relative">
-          <div className="grid items-center gap-8 lg:grid-cols-[1.05fr_1fr] lg:gap-12">
-            <div className="animate-rise">
-              <Eyebrow tone="dark">Pakistan-based · Software, SEO & marketing · Worldwide</Eyebrow>
-              <h1 className="mt-5 text-[1.85rem] font-semibold leading-[1.1] sm:mt-6 sm:text-5xl lg:text-[3.5rem]">
-                Software Development Company for{" "}
-                <span className="text-gradient-brand">Businesses Worldwide</span>
-              </h1>
-              <p className="mt-4 max-w-xl text-[0.95rem] leading-relaxed text-slate-300 sm:mt-6 sm:text-lg">
-                WordbitX builds websites, apps, Shopify stores, POS and CRM/ERP — then grows them with SEO and digital
-                marketing. Practical AI is available where it helps the workflow. Pakistan-based team, clients across
-                the USA, UK, UAE, Canada, Australia and worldwide. You own the code.
-              </p>
-
-              <div className="mt-6 flex flex-wrap gap-3 sm:mt-8">
-                <ButtonLink href="/contact">Start Your Project</ButtonLink>
-                <ButtonLink href="/services" variant="ghost">
-                  Explore Our Services
-                </ButtonLink>
-              </div>
-
-              <nav aria-label="Core WordbitX software" className="mt-6 flex flex-wrap gap-x-3 gap-y-2 text-[0.8rem] text-slate-400 sm:gap-x-4 sm:text-sm">
-                <Link href="/services/custom-software-development" className="hover:text-brand-300">
-                  Custom software
-                </Link>
-                <Link href="/services/web-development" className="hover:text-brand-300">
-                  Web development
-                </Link>
-                <Link href="/services/ecommerce-shopify" className="hover:text-brand-300">
-                  Shopify stores
-                </Link>
-                <Link href="/services/ecommerce-development" className="hover:text-brand-300">
-                  E-commerce websites
-                </Link>
-                <Link href="/services/mobile-app-development" className="hover:text-brand-300">
-                  Mobile apps
-                </Link>
-                <Link href="/services/seo-services" className="hover:text-brand-300">
-                  SEO services
-                </Link>
-                <Link href="/services/digital-marketing" className="hover:text-brand-300">
-                  Digital marketing
-                </Link>
-                <Link href="/services/ai-solutions" className="hover:text-brand-300">
-                  AI solutions
-                </Link>
-                <Link href="/services/saas-application-development" className="hover:text-brand-300">
-                  Business software
-                </Link>
-                <Link href="/industries" className="hover:text-brand-300">
-                  Industries
-                </Link>
-                <Link href="/global" className="hover:text-brand-300">
-                  Global markets
-                </Link>
-                <Link href="/portfolio" className="hover:text-brand-300">
-                  Portfolio
-                </Link>
-                <Link href="/topics" className="hover:text-brand-300">
-                  Topics
-                </Link>
-                <Link href="/pricing" className="hover:text-brand-300">
-                  Pricing
-                </Link>
-                <Link href="/process" className="hover:text-brand-300">
-                  Process
-                </Link>
-              </nav>
-
+        <div className="container-page relative z-10">
+          <div className="mx-auto max-w-4xl text-center">
+            <div className="cine-rise">
+              <Eyebrow tone="dark">Pakistan-based · Software, SEO &amp; marketing · Worldwide</Eyebrow>
+            </div>
+            <h1
+              className="cine-rise mt-6 text-[2.35rem] font-semibold leading-[1.04] tracking-[-0.03em] sm:text-6xl lg:text-[4.5rem]"
+              style={{ "--d": "0.08s" } as React.CSSProperties}
+            >
+              <span className="mb-4 block text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-arc-300 sm:text-xs">
+                Software development company
+              </span>
+              One Platform.
+              <br />
+              <span className="text-gradient-arc">Endless Possibilities.</span>
+            </h1>
+            <p
+              className="cine-rise mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-slate-100 sm:text-xl"
+              style={{ "--d": "0.16s" } as React.CSSProperties}
+            >
+              Web, Mobile &amp; Custom Software Solutions Built to Accelerate Your Business.
+            </p>
+            <div
+              className="cine-rise mt-7 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center"
+              style={{ "--d": "0.3s" } as React.CSSProperties}
+            >
+              <ButtonLink href="/services" className="btn-cine">
+                Explore Our Services
+              </ButtonLink>
+              <ButtonLink href="/contact" variant="ghost">
+                Discuss Your Project
+              </ButtonLink>
             </div>
 
-            <div className="relative">
-              <div className="animate-reveal relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-1.5 shadow-[0_50px_120px_-50px_rgba(0,0,0,0.9)] sm:rounded-3xl sm:p-2">
-                <HeroReel slides={heroSlides} />
-              </div>
-              {/* "Built with" logo strip removed (owner, 11 Oct) — replaced by
-                  a trust card with the engagement facts that actually
-                  differentiate WordbitX (all from /process copy). */}
-              <div className="animate-float absolute -bottom-6 -left-4 hidden rounded-2xl border border-white/10 bg-navy-900/90 p-4 backdrop-blur-xl sm:block">
-                <p className="text-xs uppercase tracking-[0.12em] text-slate-400">Every engagement</p>
-                <p className="mt-2 text-sm font-semibold text-white">You own the code, repo &amp; hosting</p>
-                <p className="mt-1 text-xs text-slate-400">Written scope · weekly demos · staging URLs</p>
-              </div>
-            </div>
-
+            <ul
+              className="cine-rise mt-7 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-medium text-slate-400 sm:text-[0.8rem]"
+              style={{ "--d": "0.38s" } as React.CSSProperties}
+            >
+              {["You own the code, repo & hosting", "Written scope before build", "Weekly demos & staging URLs"].map((item) => (
+                <li key={item} className="flex items-center gap-2">
+                  <CheckIcon className="h-3.5 w-3.5 text-brand-400" />
+                  {item}
+                </li>
+              ))}
+            </ul>
           </div>
+        </div>
+
+        {/* The art stage. Same viewBox + cover fit for image, arcs and flare so
+            the travelling light lines up with the picture at every size. */}
+        <div className="pointer-events-none relative z-0 -mt-2 h-[17rem] sm:-mt-6 sm:h-[24rem] lg:-mt-8 lg:h-[28rem]" aria-hidden="true">
+          <div className="cine-hero-stage cine-mask-y absolute inset-0">
+            <CineImage variant="arcs" priority />
+            <LightArcs />
+            <div className="cine-flare" />
+          </div>
+        </div>
+
+        <div className="container-page relative z-10 -mt-6 sm:-mt-10">
+          <p className="mx-auto max-w-2xl text-center text-sm leading-relaxed text-slate-400 sm:text-base">
+            Websites, apps, Shopify stores, POS and CRM/ERP — grown with SEO and digital marketing, with practical AI
+            where it helps the workflow. Clients across the USA, UK, UAE, Canada, Australia and worldwide.
+          </p>
+          <nav
+            aria-label="Core WordbitX software"
+            className="mx-auto mt-6 flex max-w-4xl flex-wrap justify-center gap-x-3 gap-y-2 text-[0.8rem] text-slate-400 sm:gap-x-4 sm:text-sm"
+          >
+            {[
+              ["/services/custom-software-development", "Custom software"],
+              ["/services/web-development", "Web development"],
+              ["/services/ecommerce-shopify", "Shopify stores"],
+              ["/services/ecommerce-development", "E-commerce websites"],
+              ["/services/mobile-app-development", "Mobile apps"],
+              ["/services/seo-services", "SEO services"],
+              ["/services/digital-marketing", "Digital marketing"],
+              ["/services/ai-solutions", "AI solutions"],
+              ["/services/saas-application-development", "Business software"],
+              ["/industries", "Industries"],
+              ["/global", "Global markets"],
+              ["/portfolio", "Portfolio"],
+              ["/topics", "Topics"],
+              ["/pricing", "Pricing"],
+              ["/process", "Process"],
+            ].map(([href, label]) => (
+              <Link key={href} href={href} className="transition-colors hover:text-arc-300">
+                {label}
+              </Link>
+            ))}
+          </nav>
         </div>
 
         {/* Hero stats — kept at the owner's request (10 Oct): these four
@@ -343,15 +351,42 @@ export default function HomePage() {
           (Rextech) surface their SECP/FBR registration marks. */}
       <CertificationsBand />
 
+      {/* PRODUCT REEL — moved here from the old hero (the cinematic hero is
+          pure brand/atmosphere now). Same HeroReel, same curated slides. */}
+      <section className="cine-surface cine-rim defer-paint relative overflow-hidden py-14 text-white sm:py-20 lg:py-24">
+        <CineBackdrop variant="ribbon" opacity={0.5} position="70% 50%" />
+        <div className="container-page relative grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
+          <div>
+            <Eyebrow tone="dark">Selected work</Eyebrow>
+            <h2 className="mt-4 text-[1.65rem] font-semibold leading-[1.15] sm:text-4xl lg:text-[2.75rem]">
+              The products and sites we have built, <span className="text-gradient-arc">as they look today</span>
+            </h2>
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-slate-300 sm:text-lg">
+              One team scopes, designs, builds and stays on every product — from our flagship property marketplace to
+              the showcase websites below. Each slide links to its project page.
+            </p>
+            <div className="mt-7 flex flex-wrap gap-3">
+              <ButtonLink href="/portfolio">View the portfolio</ButtonLink>
+              <ButtonLink href="/products" variant="ghost">
+                Products &amp; demos
+              </ButtonLink>
+            </div>
+          </div>
+          <div className="relative">
+            <div className="cine-panel relative overflow-hidden rounded-2xl p-1.5 shadow-[0_50px_120px_-50px_rgba(0,0,0,0.9)] sm:rounded-3xl sm:p-2">
+              <HeroReel slides={heroSlides} />
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ================= WHY US =================
           Sits above the services grid at the owner's request. Left: the real
           seven-stage delivery process (same data as /process); right: the six
           capability cards. No stock team illustrations — fake faces under
           this headline would undercut the point. */}
-      <section className="defer-paint relative overflow-hidden bg-navy-950 py-12 text-white sm:py-20 lg:py-24">
-        <div className="absolute inset-0 grid-pattern opacity-60" aria-hidden="true" />
-        <div className="absolute -left-32 top-10 h-[30rem] w-[30rem] rounded-full bg-brand-500/18 blur-[140px]" aria-hidden="true" />
-        <div className="absolute -right-20 bottom-0 h-[26rem] w-[26rem] rounded-full bg-sky-500/12 blur-[130px]" aria-hidden="true" />
+      <section className="cine-surface cine-rim defer-paint relative overflow-hidden py-12 text-white sm:py-20 lg:py-24">
+        <CineBackdrop variant="flow" opacity={0.55} position="0% 50%" />
         <div className="container-page relative z-10">
           <SectionHeading
             tone="dark"
@@ -707,7 +742,7 @@ export default function HomePage() {
 
       {/* Mid-page CTA now sits AFTER the reviews (owner-approved audit fix,
           11 Oct): proof → social proof → ask. */}
-      <section className="bg-navy-950 py-10 sm:py-12">
+      <section className="bg-midnight py-10 sm:py-12">
         <div className="container-page flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
           <div>
             <h2 className="text-xl font-semibold tracking-tight text-white sm:text-2xl">
