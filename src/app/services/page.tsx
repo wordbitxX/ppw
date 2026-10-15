@@ -4,6 +4,7 @@ import Image from "next/image";
 import { PageHero, Section, SectionHeading, ButtonLink, CheckList } from "@/components/ui";
 import { ServiceCard } from "@/components/cards";
 import { CtaBand } from "@/components/cta-band";
+import { AiB2bBand } from "@/components/ai-b2b-band";
 import { FaqAccordion } from "@/components/accordion";
 import { FaqSchema } from "@/components/jsonld";
 import { ArrowRight } from "@/components/icons";
@@ -76,6 +77,9 @@ export default function ServicesPage() {
           .
         </p>
       </PageHero>
+
+      {/* B2B + AI services for business buyers (anchor: /services#b2b). */}
+      <AiB2bBand />
 
       <Section>
         <SectionHeading

@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { CineImage, type CineVariant } from "@/components/cinematic";
 import { ArrowRight } from "@/components/icons";
+import { MegaServiceIcon } from "@/components/mega-service-icon";
+import { getServices } from "@/lib/services";
+import { contactHref } from "@/lib/site";
 
 type Panel = {
   id: string;
@@ -48,21 +51,35 @@ const panels: Panel[] = [
   },
 ];
 
+const b2bSlugs = [
+  "enterprise-software-solutions",
+  "crm-erp-solutions",
+  "saas-application-development",
+  "api-development",
+  "custom-software-development",
+  "inventory-management-software",
+  "pos-software",
+  "devops-cloud-solutions",
+  "it-consulting",
+  "ai-solutions",
+];
+
 export function AiB2bBand() {
+  const b2bServices = getServices(b2bSlugs);
   return (
     <section
-      id="ai-b2b"
+      id="b2b"
       aria-labelledby="ai-b2b-heading"
-      className="cine-surface cine-rim defer-paint relative overflow-hidden py-12 text-white sm:py-20"
+      className="cine-surface cine-rim relative scroll-mt-16 overflow-hidden py-12 text-white sm:py-20"
     >
       <div className="container-page relative z-10">
         <div className="max-w-3xl">
           <span className="inline-flex items-center gap-2 rounded-full border border-brand-400/25 bg-brand-400/10 px-3.5 py-1.5 text-[0.62rem] font-semibold uppercase tracking-[0.14em] text-brand-300">
             <span className="h-1.5 w-1.5 rounded-full bg-brand-400" />
-            AI &amp; B2B
+            B2B &amp; AI
           </span>
           <h2 id="ai-b2b-heading" className="mt-4 text-[1.65rem] font-semibold leading-[1.15] sm:text-4xl lg:text-[2.5rem]">
-            AI and B2B software, built into how your business already works
+            B2B software and AI services for growing businesses
           </h2>
           <p className="mt-4 text-base leading-relaxed text-slate-300 sm:text-lg">
             We build for companies, not just consumers: automation that saves your team hours, and business platforms
@@ -112,6 +129,31 @@ export function AiB2bBand() {
             </article>
           ))}
         </div>
+
+        <div className="mt-12 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <h3 className="text-xl font-semibold sm:text-2xl">B2B services at a glance</h3>
+          <Link
+            href={contactHref("B2B software")}
+            className="group/q inline-flex w-fit items-center gap-2 text-sm font-semibold text-white transition-colors hover:text-brand-300"
+          >
+            Request a B2B quote
+            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/q:translate-x-1" />
+          </Link>
+        </div>
+        <ul className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+          {b2bServices.map((service) => (
+            <li key={service.slug}>
+              <Link
+                href={`/services/${service.slug}`}
+                className="group/s flex h-full flex-col rounded-xl border border-white/10 bg-white/[0.03] p-4 transition-colors hover:border-arc-300/40 hover:bg-white/[0.06]"
+              >
+                <MegaServiceIcon slug={service.slug} className="h-5 w-5 text-brand-400" />
+                <span className="mt-3 text-sm font-semibold text-white">{service.shortTitle}</span>
+                <span className="mt-1.5 line-clamp-3 text-xs leading-relaxed text-slate-400">{service.summary}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );

@@ -12,7 +12,7 @@ export default function robots(): MetadataRoute.Robots {
         // /societies (the hub) is a software page and is indexed. Its children are
         // indicative plot-price tables that must not compete with our software
         // pages or go stale in the index, so only the children are blocked.
-        disallow: ["/api/", "/admin", "/admin/", "/societies/", "/lab", "/lab/"],
+        disallow: ["/api/", "/admin", "/admin/", "/societies/", "/lab", "/lab/", "/sample"],
       },
       ...allowAi.map((userAgent) => ({ userAgent, allow: "/" as const })),
     ],

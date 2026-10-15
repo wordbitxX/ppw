@@ -55,18 +55,18 @@ export function HeroFX() {
     const ripples: { x: number; y: number; t: number }[] = [];
     const parallax = { x: 0, y: 0, tx: 0, ty: 0 };
 
-    const LINK = () => (width < 640 ? 110 : 150);
+    const LINK = () => (width < 640 ? 120 : 170);
     const POINTER_R = () => (width < 640 ? 130 : 180);
 
     const seed = () => {
       const area = width * height;
-      const density = lowPower ? 22000 : 15000;
-      const count = Math.max(18, Math.min(lowPower ? 36 : 80, Math.round(area / density)));
+      const density = lowPower ? 14000 : 9000;
+      const count = Math.max(18, Math.min(lowPower ? 50 : 140, Math.round(area / density)));
       nodes = Array.from({ length: count }, () => ({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.18,
-        vy: (Math.random() - 0.5) * 0.18,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
         r: 0.7 + Math.random() * 1.2,
       }));
     };
@@ -138,7 +138,7 @@ export function HeroFX() {
           const dy = a.y - b.y;
           const d2 = dx * dx + dy * dy;
           if (d2 < link2) {
-            const alpha = (1 - d2 / link2) * 0.22;
+            const alpha = (1 - d2 / link2) * 0.38;
             ctx.strokeStyle = `rgba(127,220,255,${alpha.toFixed(3)})`;
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
@@ -161,7 +161,7 @@ export function HeroFX() {
         }
       }
       for (const n of nodes) {
-        ctx.fillStyle = "rgba(191,238,255,0.55)";
+        ctx.fillStyle = "rgba(191,238,255,0.85)";
         ctx.beginPath();
         ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
         ctx.fill();
@@ -277,7 +277,11 @@ export function HeroFX() {
     <canvas
       ref={canvasRef}
       aria-hidden="true"
-      className="cine-mask-hole pointer-events-none absolute inset-0 h-full w-full opacity-70"
+      className="pointer-events-none absolute inset-0 h-full w-full"
+      style={{
+        maskImage: "radial-gradient(ellipse 42% 24% at 50% 24%, rgba(0,0,0,0.35) 0%, #000 100%)",
+        WebkitMaskImage: "radial-gradient(ellipse 42% 24% at 50% 24%, rgba(0,0,0,0.35) 0%, #000 100%)",
+      }}
     />
   );
 }

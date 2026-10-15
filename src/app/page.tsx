@@ -11,9 +11,10 @@ import { ExploreDirectory } from "@/components/explore-directory";
 import { IndustryRail } from "@/components/industry-rail";
 import { FlagIcon } from "@/components/flag-icon";
 import { AiServicesDeck } from "@/components/ai-services-deck";
-import { AiB2bBand } from "@/components/ai-b2b-band";
 import { HeroReel } from "@/components/hero-reel";
 import { HeroFX } from "@/components/hero-fx";
+import { HeroSlider } from "@/components/hero-slider";
+import { HeroSlideAi, HeroSlideB2b } from "@/components/hero-slides";
 import { CineBackdrop, CineImage, LightArcs } from "@/components/cinematic";
 import { CtaBand } from "@/components/cta-band";
 import { FaqAccordion } from "@/components/accordion";
@@ -197,76 +198,85 @@ export default function HomePage() {
           parallax and a connected-node network (HeroFX) — all off under
           prefers-reduced-motion. */}
       <section className="cine-surface relative overflow-hidden bg-midnight pt-28 text-white sm:pt-36 lg:pt-44">
-        <HeroFX />
-
-        <div className="container-page relative z-10">
-          <div className="mx-auto max-w-4xl text-center">
-            <div className="cine-rise">
-              <Eyebrow tone="dark">Pakistan-based · Software, SEO &amp; marketing · Worldwide</Eyebrow>
+        <HeroSlider labels={["One platform — web, mobile & custom software", "AI solutions", "B2B platforms"]}>
+          <div className="relative">
+            {/* Network sits above the art (z-1) and under the copy (z-10), like the sample combo. */}
+            <div className="absolute inset-0 z-[1]">
+              <HeroFX />
             </div>
-            <h1
-              className="cine-rise mt-6 text-[2.35rem] font-semibold leading-[1.04] tracking-[-0.03em] sm:text-6xl lg:text-[4.5rem]"
-              style={{ "--d": "0.08s" } as React.CSSProperties}
-            >
-              <span className="mb-4 block text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-arc-300 sm:text-xs">
-                Software &amp; AI development company for B2B
-              </span>
-              One Platform.
-              <br />
-              <span className="text-gradient-arc">Endless Possibilities.</span>
-            </h1>
-            <p
-              className="cine-rise mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-slate-100 sm:text-xl"
-              style={{ "--d": "0.16s" } as React.CSSProperties}
-            >
-              Web, Mobile &amp; Custom Software Solutions Built to Accelerate Your Business.
-            </p>
-            <div
-              className="cine-rise mt-7 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center"
-              style={{ "--d": "0.3s" } as React.CSSProperties}
-            >
-              <ButtonLink href="/services" className="btn-cine">
-                Explore Our Services
-              </ButtonLink>
-              <ButtonLink href="/contact" variant="ghost">
-                Discuss Your Project
-              </ButtonLink>
-            </div>
+          <div className="container-page relative z-10">
+            <div className="mx-auto max-w-4xl text-center">
+              <div className="cine-rise">
+                <Eyebrow tone="dark">Pakistan-based · Software, SEO &amp; marketing · Worldwide</Eyebrow>
+              </div>
+              <h1
+                className="cine-rise mt-6 text-[2.35rem] font-semibold leading-[1.04] tracking-[-0.03em] sm:text-6xl lg:text-[4.5rem]"
+                style={{ "--d": "0.08s" } as React.CSSProperties}
+              >
+                <span className="mb-4 block text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-arc-300 sm:text-xs">
+                  Software &amp; AI development company for B2B
+                </span>
+                One Platform.
+                <br />
+                <span className="text-gradient-arc">Endless Possibilities.</span>
+              </h1>
+              <p
+                className="cine-rise mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-slate-100 sm:text-xl"
+                style={{ "--d": "0.16s" } as React.CSSProperties}
+              >
+                Web, Mobile &amp; Custom Software Solutions Built to Accelerate Your Business.
+              </p>
+              <div
+                className="cine-rise mt-7 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center"
+                style={{ "--d": "0.3s" } as React.CSSProperties}
+              >
+                <ButtonLink href="/services" className="btn-cine">
+                  Explore Our Services
+                </ButtonLink>
+                <ButtonLink href="/contact" variant="ghost">
+                  Discuss Your Project
+                </ButtonLink>
+              </div>
 
-            <ul
-              className="cine-rise mt-7 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-medium text-slate-200 [text-shadow:0_1px_14px_rgba(3,8,20,0.95)] sm:text-[0.8rem]"
-              style={{ "--d": "0.38s" } as React.CSSProperties}
-            >
-              {["You own the code, repo & hosting", "Written scope before build", "Weekly demos & staging URLs"].map((item) => (
-                <li key={item} className="flex items-center gap-2">
-                  <CheckIcon className="h-3.5 w-3.5 text-brand-400" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* The art stage. Same viewBox + cover fit for image, arcs and flare so
-            the travelling light lines up with the picture at every size. */}
-        <div className="pointer-events-none relative z-0 -mt-16 h-[19rem] sm:-mt-28 sm:h-[26rem] lg:-mt-36 lg:h-[30rem]" aria-hidden="true">
-          <div className="cine-hero-stage cine-mask-y absolute inset-0">
-            <CineImage variant="calm" priority />
-            <LightArcs />
-            <div className="opacity-60" aria-hidden="true">
-              <div className="cine-flare" />
+              <ul
+                className="cine-rise mt-7 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-medium text-slate-200 [text-shadow:0_1px_14px_rgba(3,8,20,0.95)] sm:text-[0.8rem]"
+                style={{ "--d": "0.38s" } as React.CSSProperties}
+              >
+                {["You own the code, repo & hosting", "Written scope before build", "Weekly demos & staging URLs"].map((item) => (
+                  <li key={item} className="flex items-center gap-2">
+                    <CheckIcon className="h-3.5 w-3.5 text-brand-400" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
-        </div>
+
+          {/* The art stage. Same viewBox + cover fit for image, arcs and flare so
+              the travelling light lines up with the picture at every size. */}
+          <div className="pointer-events-none relative z-0 -mt-16 h-[19rem] sm:-mt-28 sm:h-[26rem] lg:-mt-36 lg:h-[30rem]" aria-hidden="true">
+            <div className="cine-hero-stage cine-mask-y absolute inset-0">
+              <CineImage variant="calm" priority />
+              <LightArcs />
+              <div className="opacity-60" aria-hidden="true">
+                <div className="cine-flare" />
+              </div>
+            </div>
+          </div>
+
+          </div>
+          <HeroSlideAi />
+          <HeroSlideB2b />
+        </HeroSlider>
 
         <div className="container-page relative z-10 -mt-6 sm:-mt-10">
-          <p className="mx-auto max-w-2xl text-center text-sm leading-relaxed text-slate-400 sm:text-base">
+          <p className="mx-auto max-w-3xl text-center text-base leading-relaxed text-slate-100 [text-shadow:0_1px_18px_rgba(3,8,20,0.95)] sm:text-lg">
             Websites, apps, Shopify stores, POS and CRM/ERP — grown with SEO and digital marketing, with practical AI
             where it helps the workflow. Clients across the USA, UK, UAE, Canada, Australia and worldwide.
           </p>
           <nav
             aria-label="Core WordbitX software"
-            className="mx-auto mt-6 flex max-w-4xl flex-wrap justify-center gap-x-3 gap-y-2 text-[0.8rem] text-slate-400 sm:gap-x-4 sm:text-sm"
+            className="mx-auto mt-6 flex max-w-4xl flex-wrap justify-center gap-x-3 gap-y-2 text-[0.8rem] text-slate-300 sm:gap-x-4 sm:text-sm"
           >
             {[
               ["/services/custom-software-development", "Custom software"],
@@ -562,8 +572,6 @@ export default function HomePage() {
         </div>
       </AiServicesDeck>
 
-      {/* AI + B2B positioning (owner request, 15 Oct): two image panels linking to real service pages. */}
-      <AiB2bBand />
 
       {/* ================= PROOF =================
           Order (owner-approved arrangement, 2026-10-08): live demos, then

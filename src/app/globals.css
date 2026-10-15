@@ -1315,3 +1315,42 @@ body.hide-site-cursor .site-cursor-ring {
   .cine-sweep { display: none; }
   .tab-progress { transform: scaleX(1); opacity: 0.35; }
 }
+
+/* ==========================================================================
+   /sample — hero concept studio. Every animation lives inside
+   no-preference, so reduced-motion visitors get a still composition.
+   ========================================================================== */
+@keyframes sm-breathe { 0%, 100% { transform: scale(1.02); } 50% { transform: scale(1.1); } }
+@keyframes sm-pan { 0%, 100% { transform: scale(1.14) translate3d(-3%, 0, 0); } 50% { transform: scale(1.14) translate3d(3%, 0, 0); } }
+@keyframes sm-sweep { 0% { transform: translateX(-130%) skewX(-18deg); } 100% { transform: translateX(130%) skewX(-18deg); } }
+@keyframes sm-scan { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
+@keyframes sm-float { 0%, 100% { transform: translate3d(0, -8px, 0); } 50% { transform: translate3d(0, 8px, 0); } }
+@keyframes sm-spin { to { transform: rotate(360deg); } }
+@keyframes sm-spin-rev { to { transform: rotate(-360deg); } }
+@keyframes sm-aurora-a { 0%, 100% { transform: translate3d(-8%, -6%, 0) scale(1); } 50% { transform: translate3d(10%, 8%, 0) scale(1.25); } }
+@keyframes sm-aurora-b { 0%, 100% { transform: translate3d(10%, 6%, 0) scale(1.15); } 50% { transform: translate3d(-12%, -8%, 0) scale(0.9); } }
+@keyframes sm-aurora-c { 0%, 100% { transform: translate3d(0, 10%, 0) scale(0.9); } 50% { transform: translate3d(8%, -12%, 0) scale(1.2); } }
+@keyframes sm-grid { to { background-position: 0 56px; } }
+@keyframes sm-beam { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+@keyframes sm-ripple { 0% { transform: translate(-50%, -50%) scale(0.08); opacity: 0.7; } 100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; } }
+@keyframes sm-pulse { 0%, 100% { opacity: 0.25; transform: translate(-50%, -50%) scale(0.85); } 50% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); } }
+@keyframes sm-drift-y { 0%, 100% { transform: scale(1.08) translate3d(0, -2%, 0); } 50% { transform: scale(1.08) translate3d(0, 2%, 0); } }
+
+@media (prefers-reduced-motion: no-preference) {
+  .sm-breathe { animation: sm-breathe 18s ease-in-out infinite; }
+  .sm-pan { animation: sm-pan 36s ease-in-out infinite; }
+  .sm-sweep { animation: sm-sweep 7s ease-in-out infinite; }
+  .sm-scan { animation: sm-scan 6s linear infinite; }
+  .sm-float { animation: sm-float 9s ease-in-out infinite; }
+  .sm-spin-1 { animation: sm-spin 38s linear infinite; }
+  .sm-spin-2 { animation: sm-spin-rev 56s linear infinite; }
+  .sm-spin-3 { animation: sm-spin 90s linear infinite; }
+  .sm-aurora-a { animation: sm-aurora-a 22s ease-in-out infinite; }
+  .sm-aurora-b { animation: sm-aurora-b 28s ease-in-out infinite; }
+  .sm-aurora-c { animation: sm-aurora-c 25s ease-in-out infinite; }
+  .sm-grid { animation: sm-grid 2.6s linear infinite; }
+  .sm-beam { animation: sm-beam 7s ease-in-out infinite; }
+  .sm-ripple { animation: sm-ripple 7.5s cubic-bezier(0.2, 0.6, 0.3, 1) infinite; }
+  .sm-pulse { animation: sm-pulse 3.2s ease-in-out infinite; }
+  .sm-drift-y { animation: sm-drift-y 24s ease-in-out infinite; }
+}
