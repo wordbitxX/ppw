@@ -8,13 +8,15 @@ import type { ReactNode } from "react";
  * They are served as AVIF → WebP, are a few KB each, and are decorative: they
  * never contain text (all copy is real HTML) and carry empty alt text.
  */
-export type CineVariant = "arcs" | "flow" | "mesh" | "ribbon";
+export type CineVariant = "arcs" | "flow" | "mesh" | "ribbon" | "robot" | "cube";
 
 const ART: Record<CineVariant, { base: string; width: number; height: number }> = {
   arcs: { base: "/brand/cinematic/arcs-hero", width: 1344, height: 768 },
   flow: { base: "/brand/cinematic/flow", width: 1920, height: 1080 },
   mesh: { base: "/brand/cinematic/mesh", width: 1344, height: 768 },
   ribbon: { base: "/brand/cinematic/ribbon", width: 1344, height: 768 },
+  robot: { base: "/brand/cinematic/ai-robot", width: 1344, height: 768 },
+  cube: { base: "/brand/cinematic/b2b-cube", width: 1344, height: 768 },
 };
 
 export function CineImage({

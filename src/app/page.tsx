@@ -11,6 +11,7 @@ import { ExploreDirectory } from "@/components/explore-directory";
 import { IndustryRail } from "@/components/industry-rail";
 import { FlagIcon } from "@/components/flag-icon";
 import { AiServicesDeck } from "@/components/ai-services-deck";
+import { AiB2bBand } from "@/components/ai-b2b-band";
 import { HeroReel } from "@/components/hero-reel";
 import { HeroFX } from "@/components/hero-fx";
 import { CineBackdrop, CineImage, LightArcs } from "@/components/cinematic";
@@ -208,7 +209,7 @@ export default function HomePage() {
               style={{ "--d": "0.08s" } as React.CSSProperties}
             >
               <span className="mb-4 block text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-arc-300 sm:text-xs">
-                Software development company
+                Software &amp; AI development company for B2B
               </span>
               One Platform.
               <br />
@@ -558,6 +559,9 @@ export default function HomePage() {
           ))}
         </div>
       </AiServicesDeck>
+
+      {/* AI + B2B positioning (owner request, 15 Oct): two image panels linking to real service pages. */}
+      <AiB2bBand />
 
       {/* ================= PROOF =================
           Order (owner-approved arrangement, 2026-10-08): live demos, then
