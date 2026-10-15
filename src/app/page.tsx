@@ -9,7 +9,6 @@ import { IndustryStrip } from "@/components/industry-strip";
 import { FeaturedReviews } from "@/components/featured-reviews";
 import { ExploreDirectory } from "@/components/explore-directory";
 import { IndustryRail } from "@/components/industry-rail";
-import { CineFx } from "@/components/cine-fx";
 import { FlagIcon } from "@/components/flag-icon";
 import { AiServicesDeck } from "@/components/ai-services-deck";
 import { HeroReel } from "@/components/hero-reel";
@@ -208,7 +207,7 @@ export default function HomePage() {
           HTML. Motion: glints travelling the arcs, a slow flare pulse, pointer
           parallax and a connected-node network (HeroFX) — all off under
           prefers-reduced-motion. */}
-      <section className="cine-surface relative overflow-hidden bg-midnight pt-24 text-white sm:pt-28 lg:pt-32">
+      <section className="cine-surface relative overflow-hidden bg-midnight pt-28 text-white sm:pt-36 lg:pt-44">
         <HeroFX />
 
         <div className="container-page relative z-10">
@@ -246,7 +245,7 @@ export default function HomePage() {
             </div>
 
             <ul
-              className="cine-rise mt-7 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-medium text-slate-400 sm:text-[0.8rem]"
+              className="cine-rise mt-7 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-medium text-slate-200 [text-shadow:0_1px_14px_rgba(3,8,20,0.95)] sm:text-[0.8rem]"
               style={{ "--d": "0.38s" } as React.CSSProperties}
             >
               {["You own the code, repo & hosting", "Written scope before build", "Weekly demos & staging URLs"].map((item) => (
@@ -261,7 +260,7 @@ export default function HomePage() {
 
         {/* The art stage. Same viewBox + cover fit for image, arcs and flare so
             the travelling light lines up with the picture at every size. */}
-        <div className="pointer-events-none relative z-0 -mt-2 h-[17rem] sm:-mt-6 sm:h-[24rem] lg:-mt-8 lg:h-[28rem]" aria-hidden="true">
+        <div className="pointer-events-none relative z-0 -mt-16 h-[19rem] sm:-mt-28 sm:h-[26rem] lg:-mt-36 lg:h-[30rem]" aria-hidden="true">
           <div className="cine-hero-stage cine-mask-y absolute inset-0">
             <CineImage variant="arcs" priority />
             <LightArcs />
@@ -358,8 +357,7 @@ export default function HomePage() {
       {/* PRODUCT REEL — moved here from the old hero (the cinematic hero is
           pure brand/atmosphere now). Same HeroReel, same curated slides. */}
       <section className="cine-surface cine-rim defer-paint relative overflow-hidden py-14 text-white sm:py-20 lg:py-24">
-        <CineBackdrop variant="ribbon" opacity={0.5} position="70% 50%" />
-        <CineFx />
+        <CineBackdrop variant="ribbon" opacity={0.38} position="80% 55%" scrimLeft />
         <div className="container-page relative grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
           <div>
             <Eyebrow tone="dark">Selected work</Eyebrow>
