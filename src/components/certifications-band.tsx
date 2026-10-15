@@ -170,8 +170,9 @@ export function CertificationsBand() {
 
 /**
  * Credibility strip for the home page: the four registration / company marks
- * as quiet monochrome logos on the dark band (no boxes, no fills). The full
- * band, with the marquee and the written detail, lives on /about#verified.
+ * as quiet monochrome marks, each in a subtle glass tile on the dark band
+ * (lift + icy glow on hover). The full band, with the marquee and the
+ * written detail, lives on /about#verified.
  */
 export function CredibilityStrip() {
   const marks = [SecpMark, FbrMark, PvtLtdMark, EstMark];
@@ -185,13 +186,12 @@ export function CredibilityStrip() {
         <p className="shrink-0 text-center text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-slate-400 lg:text-left">
           Registered &amp; accountable
         </p>
-        <ul className="grid w-full max-w-3xl grid-cols-2 items-center justify-items-center gap-x-6 gap-y-5 sm:grid-cols-4 lg:flex-1">
+        <ul className="grid w-full max-w-3xl grid-cols-2 items-stretch gap-3 sm:grid-cols-4 lg:flex-1">
           {marks.map((Mark, index) => (
-            <li
-              key={index}
-              className="text-slate-300/85 transition-all duration-300 hover:-translate-y-0.5 hover:text-white"
-            >
-              <Mark className="h-11 w-auto sm:h-14" />
+            <li key={index}>
+              <div className="flex h-full items-center justify-center rounded-xl border border-white/10 bg-gradient-to-b from-white/[0.05] to-white/[0.02] px-4 py-3 text-slate-300/85 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)] transition-all duration-300 hover:-translate-y-1 hover:border-arc-300/40 hover:text-white hover:shadow-[0_22px_44px_-26px_rgba(127,220,255,0.45),inset_0_1px_0_0_rgba(255,255,255,0.08)]">
+                <Mark className="h-10 w-auto sm:h-12" />
+              </div>
             </li>
           ))}
         </ul>

@@ -23,12 +23,11 @@ import { industries } from "@/lib/industries";
  * links were ~10,000px down the document. They are now a few hundred pixels
  * from the top of the DOM.
  *
- * Layout: a free horizontal scroller on phones, with a right-edge fade so it
- * is obviously scrollable, and a wrapping row from `sm` up. Deliberately no
- * scroll-snap: mandatory snapping on a row of small pills re-aligns the
- * first chip to the container edge on load and eats the rail's left padding,
- * so the first chip renders flush against the screen edge with its border
- * clipped.
+ * Layout: one single line at every size — a free horizontal scroller with a
+ * right-edge fade so it is obviously scrollable (owner preference, 15 Oct:
+ * no wrapping to a second row on desktop). Deliberately no scroll-snap:
+ * mandatory snapping on a row of small pills re-aligns the first chip to
+ * the container edge on load and eats the rail's left padding.
  */
 export function IndustryStrip() {
   return (
@@ -47,11 +46,11 @@ export function IndustryStrip() {
             Built for
           </p>
 
-          {/* The scroller is its own positioning context so the mobile edge
-              fade can sit outside it — a fade placed inside would scroll
-              away with the chips. */}
+          {/* The scroller is its own positioning context so the edge fade can
+              sit outside it — a fade placed inside would scroll away with the
+              chips. One single line at every size: horizontal scroll. */}
           <div className="relative min-w-0 flex-1">
-            <ul className="industry-rail -mx-4 flex gap-2 overflow-x-auto px-4 pb-0.5 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0">
+            <ul className="industry-rail -mx-4 flex gap-2 overflow-x-auto px-4 pb-0.5 sm:mx-0 sm:px-0">
               {industries.map((industry) => (
                 <li key={industry.slug}>
                   <Link
@@ -62,7 +61,7 @@ export function IndustryStrip() {
                   </Link>
                 </li>
               ))}
-              <li className="pr-4 sm:pr-0">
+              <li className="pr-8 sm:pr-10">
                 <Link
                   href="/industries"
                   className="group inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border border-brand-400/40 bg-brand-500/12 px-3 py-1.5 text-[0.78rem] font-semibold text-brand-200 transition-colors duration-200 hover:bg-brand-500/20 hover:text-white"
@@ -75,7 +74,7 @@ export function IndustryStrip() {
 
             <span
               aria-hidden="true"
-              className="pointer-events-none absolute inset-y-0 -right-4 z-10 w-14 bg-gradient-to-l from-navy-950 via-navy-950/80 to-transparent sm:hidden"
+              className="pointer-events-none absolute inset-y-0 -right-4 z-10 w-14 bg-gradient-to-l from-navy-950 via-navy-950/80 to-transparent sm:right-0"
             />
           </div>
         </div>

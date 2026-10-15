@@ -308,20 +308,20 @@ export default function HomePage() {
             section was removed instead. Same honest data: every value counted
             from the site's own records (services, industries, markets). */}
         <div className="container-page mt-10 sm:mt-12">
-          <div className="grid grid-cols-2 gap-x-6 gap-y-6 border-t border-white/10 pt-6 sm:grid-cols-4 sm:gap-8 sm:pt-8">
+          <div className="grid grid-cols-2 gap-y-8 rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-8 text-center shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)] sm:grid-cols-4 sm:gap-y-0 sm:divide-x sm:divide-white/10 sm:py-9">
             {[
               { value: "2021", label: "Established · Lahore" },
               { value: String(services.length), label: "Services & solutions" },
               { value: String(industries.length), label: "Industries modelled" },
               { value: String(markets.length), label: "Countries served" },
             ].map((stat) => (
-              <div key={stat.label}>
-                <p className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">{stat.value}</p>
-                <p className="mt-2 text-xs font-medium uppercase tracking-[0.14em] text-slate-400">{stat.label}</p>
+              <div key={stat.label} className="px-2">
+                <p className="text-gradient-arc text-4xl font-semibold tracking-tight sm:text-[2.75rem] sm:leading-none">{stat.value}</p>
+                <p className="mt-3 text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-slate-400">{stat.label}</p>
               </div>
             ))}
           </div>
-          <p className="mt-4 max-w-2xl text-xs leading-relaxed text-slate-500">
+          <p className="mx-auto mt-4 max-w-2xl text-center text-xs leading-relaxed text-slate-500">
             Numbers we can show — every service, industry and market links to its own page on this site.
           </p>
         </div>
