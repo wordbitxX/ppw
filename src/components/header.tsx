@@ -125,6 +125,68 @@ const portfolioMajors: [string, string][] = [
   ["logistics-fleet-tracking-app", "Logistics Fleet & Delivery App"],
 ];
 
+/** Desktop nav item with a hover/focus dropdown panel.
+    CRITICAL: this lives at module scope, NOT inside Header. When it was a
+    nested component every Header render (each services-rail hover included)
+    produced a new component type, React unmounted+remounted the whole panel,
+    and the nav-pop open animation replayed on every rail switch — exactly
+    the "closes and opens again" blink the owner reported (16-17 Oct). */
+function NavDrop({
+  menuKey,
+  href,
+  label,
+  panelClassName,
+  isOpen,
+  activeRoute,
+  onOpenMenu,
+  onScheduleClose,
+  onLinkClick,
+  children,
+}: {
+  menuKey: MenuKey;
+  href: string;
+  label: string;
+  panelClassName: string;
+  isOpen: boolean;
+  activeRoute: boolean;
+  onOpenMenu: (menu: MenuKey) => void;
+  onScheduleClose: () => void;
+  onLinkClick: (event: React.MouseEvent<HTMLAnchorElement>) => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <div
+      className="relative"
+      onMouseEnter={() => onOpenMenu(menuKey)}
+      onMouseLeave={onScheduleClose}
+      onFocus={() => onOpenMenu(menuKey)}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node)) {
+          onScheduleClose();
+        }
+      }}
+    >
+      <Link
+        href={href}
+        onClick={onLinkClick}
+        aria-expanded={isOpen}
+        aria-haspopup="true"
+        className={`flex items-center gap-1.5 rounded-lg px-2.5 py-2 text-sm font-medium transition-colors ${
+          activeRoute ? "text-brand-300" : "text-slate-200 hover:text-white"
+        }`}
+      >
+        {label}
+        <ChevronDown className={`h-3.5 w-3.5 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`} />
+      </Link>
+      {isOpen && (
+        <div className={panelClassName} onMouseEnter={() => onOpenMenu(menuKey)} onMouseLeave={onScheduleClose}>
+          {children}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function Header() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
@@ -241,54 +303,6 @@ export function Header() {
 
   const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
 
-  /** Desktop nav item with a hover/focus dropdown panel. */
-  function NavDrop({
-    menuKey,
-    href,
-    label,
-    panelClassName,
-    children,
-  }: {
-    menuKey: MenuKey;
-    href: string;
-    label: string;
-    panelClassName: string;
-    children: React.ReactNode;
-  }) {
-    const isOpen = openMenu === menuKey;
-    return (
-      <div
-        className="relative"
-        onMouseEnter={() => open(menuKey)}
-        onMouseLeave={scheduleClose}
-        onFocus={() => open(menuKey)}
-        onBlur={(event) => {
-          if (!event.currentTarget.contains(event.relatedTarget as Node)) {
-            scheduleClose();
-          }
-        }}
-      >
-        <Link
-          href={href}
-          onClick={backToTopIfCurrent(href)}
-          aria-expanded={isOpen}
-          aria-haspopup="true"
-          className={`flex items-center gap-1.5 rounded-lg px-2.5 py-2 text-sm font-medium transition-colors ${
-            isActive(href) ? "text-brand-300" : "text-slate-200 hover:text-white"
-          }`}
-        >
-          {label}
-          <ChevronDown className={`h-3.5 w-3.5 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`} />
-        </Link>
-        {isOpen && (
-          <div className={panelClassName} onMouseEnter={() => open(menuKey)} onMouseLeave={scheduleClose}>
-            {children}
-          </div>
-        )}
-      </div>
-    );
-  }
-
   const paneServices = (slugs: string[]) =>
     slugs
       .map((slug) => services.find((entry) => entry.slug === slug))
@@ -330,10 +344,15 @@ export function Header() {
                     menuKey="services"
                     href={item.href}
                     label={item.label}
+                    isOpen={openMenu === "services"}
+                    activeRoute={isActive(item.href)}
+                    onOpenMenu={open}
+                    onScheduleClose={scheduleClose}
+                    onLinkClick={backToTopIfCurrent(item.href)}
                     panelClassName="fixed left-1/2 top-12 z-40 w-[min(66rem,calc(100vw-2rem))] -translate-x-1/2 pt-6"
                   >
                     <div ref={megaPanelRef}>
-                      <div className="nav-pop overflow-hidden rounded-2xl bg-navy-950/95 shadow-[0_36px_90px_-24px_rgba(0,0,0,0.9)] ring-1 ring-white/10 backdrop-blur-xl">
+                      <div className="nav-pop overflow-hidden rounded-2xl bg-navy-950 shadow-[0_36px_90px_-24px_rgba(0,0,0,0.9)] ring-1 ring-white/10 backdrop-blur-xl">
                         <div className="flex max-h-[min(72vh,38rem)] items-stretch">
                           <MenuIntro
                             title="Our expertise"
@@ -471,9 +490,14 @@ export function Header() {
                     menuKey="industries"
                     href={item.href}
                     label={item.label}
+                    isOpen={openMenu === "industries"}
+                    activeRoute={isActive(item.href)}
+                    onOpenMenu={open}
+                    onScheduleClose={scheduleClose}
+                    onLinkClick={backToTopIfCurrent(item.href)}
                     panelClassName="absolute left-1/2 top-full z-40 w-[min(39rem,94vw)] -translate-x-1/2 pt-2"
                   >
-                    <div className="nav-pop overflow-hidden rounded-2xl bg-navy-950/95 shadow-[0_32px_84px_-24px_rgba(0,0,0,0.9)] ring-1 ring-white/10 backdrop-blur-xl">
+                    <div className="nav-pop overflow-hidden rounded-2xl bg-navy-950 shadow-[0_32px_84px_-24px_rgba(0,0,0,0.9)] ring-1 ring-white/10 backdrop-blur-xl">
                       <div className="flex items-stretch">
                         <MenuIntro
                           title="Industries"
@@ -520,9 +544,14 @@ export function Header() {
                     menuKey="products"
                     href={item.href}
                     label={item.label}
+                    isOpen={openMenu === "products"}
+                    activeRoute={isActive(item.href)}
+                    onOpenMenu={open}
+                    onScheduleClose={scheduleClose}
+                    onLinkClick={backToTopIfCurrent(item.href)}
                     panelClassName="absolute left-1/2 top-full z-40 w-[min(35rem,94vw)] -translate-x-1/2 pt-2"
                   >
-                    <div className="nav-pop overflow-hidden rounded-2xl bg-navy-950/95 shadow-[0_32px_84px_-24px_rgba(0,0,0,0.9)] ring-1 ring-white/10 backdrop-blur-xl">
+                    <div className="nav-pop overflow-hidden rounded-2xl bg-navy-950 shadow-[0_32px_84px_-24px_rgba(0,0,0,0.9)] ring-1 ring-white/10 backdrop-blur-xl">
                       <div className="flex items-stretch">
                         <MenuIntro
                           title="Our ecosystem"
@@ -581,9 +610,14 @@ export function Header() {
                     menuKey="portfolio"
                     href={item.href}
                     label={item.label}
+                    isOpen={openMenu === "portfolio"}
+                    activeRoute={isActive(item.href)}
+                    onOpenMenu={open}
+                    onScheduleClose={scheduleClose}
+                    onLinkClick={backToTopIfCurrent(item.href)}
                     panelClassName="absolute right-0 top-full z-40 w-[min(34rem,94vw)] pt-2"
                   >
-                    <div className="nav-pop overflow-hidden rounded-2xl bg-navy-950/95 shadow-[0_32px_84px_-24px_rgba(0,0,0,0.9)] ring-1 ring-white/10 backdrop-blur-xl">
+                    <div className="nav-pop overflow-hidden rounded-2xl bg-navy-950 shadow-[0_32px_84px_-24px_rgba(0,0,0,0.9)] ring-1 ring-white/10 backdrop-blur-xl">
                       <div className="flex items-stretch">
                         <MenuIntro
                           title="Selected work"
