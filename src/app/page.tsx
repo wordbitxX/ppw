@@ -195,13 +195,13 @@ export default function HomePage() {
           HTML. Motion: glints travelling the arcs, a slow flare pulse, pointer
           parallax and a connected-node network (HeroFX) — all off under
           prefers-reduced-motion. */}
-      <section className="cine-surface relative overflow-hidden bg-midnight pt-28 text-white sm:pt-36 lg:pt-44">
+      <section className="cine-surface relative overflow-hidden bg-midnight pt-24 text-white sm:pt-36 lg:pt-44">
           <div className="relative flex flex-col">
             {/* Network sits above the art (z-1) and under the copy (z-10), like the sample combo. */}
             <div className="absolute inset-0 z-[1]">
               <HeroFX />
             </div>
-          <div className="container-page relative z-10 order-2 -mt-40 sm:order-1 sm:mt-0">
+          <div className="container-page relative z-10 order-2 -mt-52 sm:order-1 sm:mt-0">
             <div className="mx-auto max-w-4xl text-center">
               <div className="cine-rise">
                 <Eyebrow tone="dark">Pakistan-based · Software, SEO &amp; marketing · Worldwide</Eyebrow>
