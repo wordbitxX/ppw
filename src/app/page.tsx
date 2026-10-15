@@ -176,7 +176,7 @@ const featuredMarketSlugs = ["pakistan", "usa", "uk", "uae"];
 
 export default function HomePage() {
   const homeServices = getServices(homeServiceSlugs);
-  const latestPosts = sortedPosts.slice(0, 3);
+  const latestPosts = sortedPosts.slice(0, 6);
   const heroSlides = getHeroSlides();
   const featuredMarkets = featuredMarketSlugs
     .map((slug) => markets.find((market) => market.slug === slug))
@@ -737,10 +737,14 @@ export default function HomePage() {
             Visit the Blog
           </ButtonLink>
         </div>
-        <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {latestPosts.map((post) => (
-            <PostCard key={post.slug} post={post} />
-          ))}
+        <div className="mt-12">
+          <IndustryRail label="Latest insights">
+            {latestPosts.map((post, index) => (
+              <div key={post.slug} className="w-[85%] shrink-0 snap-start sm:w-[22rem]">
+                <PostCard post={post} priority={index < 2} />
+              </div>
+            ))}
+          </IndustryRail>
         </div>
       </Section>
 

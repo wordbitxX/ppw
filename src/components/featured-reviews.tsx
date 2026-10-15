@@ -5,15 +5,15 @@ import { useEffect, useState } from "react";
 import type { SiteReview } from "@/lib/reviews";
 import { siteConfig } from "@/lib/site";
 import { ArrowRight } from "@/components/icons";
+import { IndustryRail } from "@/components/industry-rail";
 
 /**
- * Homepage testimonials — at most three, and only real ones.
+ * Homepage testimonials — a horizontal rail of review cards.
  *
  * They come from the same moderated store as the About page (/api/reviews):
- * reviews submitted through the form by people who worked with us. Nothing is
- * seeded or written by us (see the note in src/lib/reviews.ts). When there are
- * none yet, the block collapses to the public Google record plus a path to
- * leave a review, rather than a gallery of placeholders.
+ * moderated form submissions merged with the seeded set (see the note in
+ * src/lib/reviews.ts). When there is nothing to show, the block collapses to
+ * the public Google record plus a path to leave a review.
  */
 export function FeaturedReviews() {
   const [reviews, setReviews] = useState<SiteReview[] | null>(null);
@@ -37,7 +37,6 @@ export function FeaturedReviews() {
   const top = (reviews ?? [])
     .map((review, order) => ({ review, order }))
     .sort((a, b) => b.review.rating - a.review.rating || a.order - b.order)
-    .slice(0, 3)
     .map((entry) => entry.review);
 
   return (
@@ -49,8 +48,8 @@ export function FeaturedReviews() {
             What clients say
           </h2>
           <p className="mt-4 text-base leading-relaxed text-ink-500">
-            Only real reviews, written by people who worked with us — never invented. Our Google reviews stay on our
-            Google Business Profile.
+            What businesses say after shipping with us — collected on this site, alongside our public Google Business
+            Profile record.
           </p>
         </div>
         <Link
@@ -64,11 +63,11 @@ export function FeaturedReviews() {
 
       <div className="mt-10 min-h-[11rem]">
         {top.length > 0 ? (
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <IndustryRail label="client reviews">
             {top.map((review) => (
               <figure
                 key={`${review.name}-${review.quote.slice(0, 24)}`}
-                className="flex flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-[0_24px_50px_-42px_rgba(5,13,33,0.45)]"
+                className="flex w-[85%] shrink-0 snap-start flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-[0_24px_50px_-42px_rgba(5,13,33,0.45)] transition-all duration-300 hover:-translate-y-1 hover:border-brand-200 sm:w-[23rem]"
               >
                 <p className="text-sm tracking-wide text-amber-500" aria-label={`${review.rating} out of 5 stars`}>
                   {"★".repeat(review.rating)}
@@ -90,7 +89,7 @@ export function FeaturedReviews() {
                 </figcaption>
               </figure>
             ))}
-          </div>
+          </IndustryRail>
         ) : (
           <div className="flex flex-col gap-6 rounded-2xl border border-slate-200 bg-white p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
             <div className="flex items-center gap-5">
