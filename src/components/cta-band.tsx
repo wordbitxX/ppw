@@ -20,7 +20,12 @@ export function CtaBand({
     <section className="defer-paint bg-white py-12 sm:py-20">
       <div className="container-page">
         <div className="cine-surface cine-rim relative overflow-hidden rounded-2xl px-4 py-10 sm:rounded-3xl sm:px-10 sm:py-12 lg:px-14 lg:py-16">
-          <CineBackdrop variant="arcs" opacity={0.8} position="50% 50%" mask="none" />
+          <CineBackdrop variant="mesh" opacity={0.7} position="75% 85%" mask="none" scrimLeft>
+            {/* Soft light from the upper right and a floor of shadow, so the
+                waves sit behind the cards instead of cutting through copy. */}
+            <div className="absolute inset-0 bg-[radial-gradient(50rem_26rem_at_100%_0%,rgb(47_132_255/0.22),transparent_65%)]" />
+            <div className="absolute inset-0 grid-pattern opacity-[0.12]" />
+          </CineBackdrop>
           <div className="relative grid gap-8 lg:grid-cols-[1.4fr_1fr] lg:items-center">
             <div>
               <h2 className="text-2xl font-semibold leading-tight text-white sm:text-3xl lg:text-4xl">{title}</h2>
@@ -55,7 +60,7 @@ export function CtaBand({
                 ))}
               </ol>
             </div>
-            <div className="space-y-3 rounded-2xl border border-white/10 bg-white/[0.04] p-5">
+            <div className="cine-panel space-y-3 rounded-2xl p-5">
               <a href={`mailto:${siteConfig.email}`} className="group flex items-center gap-3">
                 <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-400/12 text-brand-300">
                   <MailIcon className="h-4.5 w-4.5" />
