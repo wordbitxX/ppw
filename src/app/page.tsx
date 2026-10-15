@@ -8,6 +8,8 @@ import { CredibilityStrip } from "@/components/certifications-band";
 import { IndustryStrip } from "@/components/industry-strip";
 import { FeaturedReviews } from "@/components/featured-reviews";
 import { ExploreDirectory } from "@/components/explore-directory";
+import { IndustryRail } from "@/components/industry-rail";
+import { CineFx } from "@/components/cine-fx";
 import { FlagIcon } from "@/components/flag-icon";
 import { AiServicesDeck } from "@/components/ai-services-deck";
 import { HeroReel } from "@/components/hero-reel";
@@ -171,7 +173,6 @@ const homeServiceSlugs = [
 ];
 
 /** Curated highlights — the full lists live on /industries and /global. */
-const featuredIndustrySlugs = ["real-estate", "healthcare", "ecommerce", "retail"];
 const featuredMarketSlugs = ["pakistan", "usa", "uk", "uae"];
 
 const homeProjectSlugs = [
@@ -190,9 +191,6 @@ export default function HomePage() {
     .filter((project): project is NonNullable<typeof project> => Boolean(project));
   const latestPosts = sortedPosts.slice(0, 3);
   const heroSlides = getHeroSlides();
-  const featuredIndustries = featuredIndustrySlugs
-    .map((slug) => industries.find((industry) => industry.slug === slug))
-    .filter((industry): industry is NonNullable<typeof industry> => Boolean(industry));
   const featuredMarkets = featuredMarketSlugs
     .map((slug) => markets.find((market) => market.slug === slug))
     .filter((market): market is NonNullable<typeof market> => Boolean(market));
@@ -361,6 +359,7 @@ export default function HomePage() {
           pure brand/atmosphere now). Same HeroReel, same curated slides. */}
       <section className="cine-surface cine-rim defer-paint relative overflow-hidden py-14 text-white sm:py-20 lg:py-24">
         <CineBackdrop variant="ribbon" opacity={0.5} position="70% 50%" />
+        <CineFx />
         <div className="container-page relative grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
           <div>
             <Eyebrow tone="dark">Selected work</Eyebrow>
@@ -447,48 +446,73 @@ export default function HomePage() {
             <div className="flex flex-col rounded-2xl border border-white/10 bg-navy-900/80 p-6 sm:p-8">
               <p className="text-sm font-semibold text-brand-300">How we work</p>
               <h3 className="mt-2 text-xl font-semibold text-white">Seven stages from discovery to support</h3>
-              <ol className="mt-6 flex flex-1 flex-col justify-between gap-5">
+              <ol className="relative mt-6 flex flex-1 flex-col justify-between gap-1">
+                {/* Rail that joins the step numbers. */}
+                <span
+                  aria-hidden="true"
+                  className="absolute bottom-6 left-[1.35rem] top-6 w-px bg-gradient-to-b from-brand-400/50 via-arc-300/30 to-transparent"
+                />
                 {processSteps.map((step) => (
-                  <li key={step.step} className="flex gap-4">
-                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-500/15 text-xs font-bold text-brand-300 ring-1 ring-brand-400/25">
+                  <li
+                    key={step.step}
+                    className="group/step relative flex gap-4 rounded-xl px-2 py-2.5 transition-all duration-300 hover:bg-white/[0.05] hover:pl-3"
+                  >
+                    <span className="relative z-10 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-navy-900 text-xs font-bold text-brand-300 ring-1 ring-brand-400/30 transition-all duration-300 group-hover/step:bg-brand-500 group-hover/step:text-white group-hover/step:ring-brand-400 group-hover/step:shadow-[0_0_0_5px_rgba(28,168,48,0.15)]">
                       {step.step}
                     </span>
-                    <span className="block">
-                      <span className="block text-sm font-semibold text-white">{step.title}</span>
-                      <span className="mt-0.5 block text-sm leading-relaxed text-slate-400">{step.text}</span>
+                    <span className="block min-w-0 flex-1">
+                      <span className="block text-sm font-semibold text-white transition-colors duration-300 group-hover/step:text-brand-200">
+                        {step.title}
+                      </span>
+                      <span className="mt-0.5 block text-sm leading-relaxed text-slate-400 transition-colors duration-300 group-hover/step:text-slate-300">
+                        {step.text}
+                      </span>
                     </span>
+                    <ArrowRight className="mt-2.5 h-4 w-4 shrink-0 -translate-x-2 text-brand-300 opacity-0 transition-all duration-300 group-hover/step:translate-x-0 group-hover/step:opacity-100" />
                   </li>
                 ))}
               </ol>
               <Link
                 href="/process"
-                className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-brand-300 transition-colors hover:text-brand-200"
+                className="group/link mt-6 inline-flex items-center gap-2 text-sm font-semibold text-brand-300 transition-colors hover:text-brand-200"
               >
                 See the full process
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/link:translate-x-1.5" />
               </Link>
             </div>
           </div>
 
           <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                {whyCards.map((card) => (
+                {whyCards.map((card, index) => (
                   <Link
                     key={card.title}
                     href={card.href}
-                    className="pillar-card group relative flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-navy-900 p-5 hover:border-brand-400/40 hover:shadow-[0_24px_55px_-28px_rgba(28,168,48,0.45)]"
+                    className="why-card group relative flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-[linear-gradient(160deg,rgb(13_25_56/0.9),rgb(6_12_30/0.95))] p-6 transition-all duration-500 hover:-translate-y-1.5 hover:border-arc-300/35 hover:shadow-[0_30px_60px_-30px_rgba(47,132,255,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-arc-300/60"
                   >
-                    <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-brand-500/15 text-brand-300 ring-1 ring-brand-400/25 transition-transform duration-1000 group-hover:scale-105">
+                    <span
+                      aria-hidden="true"
+                      className="absolute -right-6 -top-8 select-none text-[6.5rem] font-bold leading-none text-white/[0.035] transition-colors duration-500 group-hover:text-arc-300/[0.09]"
+                    >
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      className="pointer-events-none absolute -left-10 -bottom-16 h-40 w-40 rounded-full bg-arc-500/0 blur-[60px] transition-colors duration-700 group-hover:bg-arc-500/25"
+                    />
+                    <span className="relative inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-brand-400/25 to-arc-400/15 text-brand-200 ring-1 ring-white/15 transition-all duration-500 group-hover:scale-105 group-hover:ring-arc-300/40 group-hover:shadow-[0_0_28px_-6px_rgba(127,220,255,0.55)]">
                       <card.Icon className="h-5 w-5" />
                     </span>
-                    <h3 className="relative mt-4 text-base font-semibold text-white transition-colors group-hover:text-brand-200">
+                    <h3 className="relative mt-5 text-lg font-semibold text-white transition-colors duration-300 group-hover:text-arc-200">
                       {card.title}
                     </h3>
-                    <p className="relative mt-1.5 flex-1 text-sm leading-relaxed text-slate-400">{card.text}</p>
-                    <span className="relative mt-4 flex items-center justify-between border-t border-white/10 pt-3">
-                      <span className="text-sm font-semibold text-brand-300 transition-colors group-hover:text-brand-200">
+                    <p className="relative mt-2 flex-1 text-sm leading-relaxed text-slate-400 transition-colors duration-300 group-hover:text-slate-300">
+                      {card.text}
+                    </p>
+                    <span className="relative mt-6 flex items-center justify-between border-t border-white/10 pt-4">
+                      <span className="text-sm font-semibold text-brand-300 transition-colors group-hover:text-white">
                         Explore {card.title}
                       </span>
-                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/5 text-brand-300 ring-1 ring-white/10 transition-all duration-500 group-hover:bg-brand-500 group-hover:text-white group-hover:ring-brand-500">
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-full bg-white/5 text-brand-300 ring-1 ring-white/10 transition-all duration-500 group-hover:bg-brand-500 group-hover:text-white group-hover:ring-brand-400">
                         <ArrowRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-0.5" />
                       </span>
                     </span>
@@ -589,35 +613,46 @@ export default function HomePage() {
             All {industries.length} industries
           </ButtonLink>
         </div>
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {featuredIndustries.map((industry) => (
-            <Link
-              key={industry.slug}
-              href={`/industries/${industry.slug}`}
-              className="group relative flex aspect-[4/5] flex-col justify-end overflow-hidden rounded-2xl border border-slate-200 bg-navy-900 transition-all duration-500 hover:-translate-y-1 hover:border-brand-300 hover:shadow-[0_30px_60px_-34px_rgba(5,13,33,0.65)]"
-            >
-              <Image
-                src={industryTileMedia[industry.slug].src}
-                alt={industryTileMedia[industry.slug].alt}
-                fill
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <span
-                aria-hidden="true"
-                className="absolute inset-0 bg-gradient-to-t from-midnight via-midnight/55 to-midnight/5"
-              />
-              <span className="relative p-5">
-                <span className="flex items-center gap-2.5">
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/10 text-brand-200 ring-1 ring-white/20 backdrop-blur-sm transition-colors duration-300 group-hover:bg-brand-500 group-hover:text-white">
-                    <IndustryIcon name={industry.slug} className="h-5 w-5" />
+        <div className="mt-8">
+          <IndustryRail label="industries">
+            {industries.map((industry) => {
+              const media = industryTileMedia[industry.slug];
+              return (
+                <Link
+                  key={industry.slug}
+                  href={`/industries/${industry.slug}`}
+                  className="group relative flex aspect-[4/5] w-[78%] shrink-0 snap-start flex-col justify-end overflow-hidden rounded-2xl border border-slate-200 bg-navy-900 transition-all duration-500 hover:-translate-y-1 hover:border-brand-300 hover:shadow-[0_30px_60px_-34px_rgba(5,13,33,0.65)] sm:w-[calc(50%-0.5rem)] lg:w-[calc((100%-3rem)/4.25)]"
+                >
+                  {media ? (
+                    <Image
+                      src={media.src}
+                      alt={media.alt}
+                      fill
+                      sizes="(max-width: 640px) 78vw, (max-width: 1024px) 50vw, 25vw"
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  ) : null}
+                  <span
+                    aria-hidden="true"
+                    className="absolute inset-0 bg-gradient-to-t from-midnight via-midnight/55 to-midnight/5"
+                  />
+                  <span className="relative p-5">
+                    <span className="flex items-center gap-2.5">
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/10 text-brand-200 ring-1 ring-white/20 backdrop-blur-sm transition-colors duration-300 group-hover:bg-brand-500 group-hover:text-white">
+                        <IndustryIcon name={industry.slug} className="h-5 w-5" />
+                      </span>
+                      <h3 className="text-base font-semibold text-white">{industry.name}</h3>
+                    </span>
+                    <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-slate-300">{industry.tagline}</p>
+                    <span className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-brand-300 transition-colors group-hover:text-white">
+                      Explore
+                      <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                    </span>
                   </span>
-                  <h3 className="text-base font-semibold text-white">{industry.name}</h3>
-                </span>
-                <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-slate-300">{industry.tagline}</p>
-              </span>
-            </Link>
-          ))}
+                </Link>
+              );
+            })}
+          </IndustryRail>
         </div>
       </Section>
 

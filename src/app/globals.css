@@ -1209,3 +1209,103 @@ body.hide-site-cursor .site-cursor-ring {
   -webkit-mask-image: radial-gradient(ellipse 52% 38% at 50% 34%, transparent 0, rgb(0 0 0 / 0.25) 55%, #000 100%);
   mask-image: radial-gradient(ellipse 52% 38% at 50% 34%, transparent 0, rgb(0 0 0 / 0.25) 55%, #000 100%);
 }
+
+/* ==========================================================================
+   AMBIENT MOTION — closing CTA, selected-work band, showcase progress.
+   Transform / opacity only (plus one registered-angle border beam); all of it
+   is switched off under prefers-reduced-motion.
+   ========================================================================== */
+
+/* Blurred light orbs that drift slowly behind content. */
+.cine-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(70px);
+  pointer-events: none;
+  will-change: transform;
+}
+.cine-orb-a { animation: cine-orb-a 16s ease-in-out infinite; }
+.cine-orb-b { animation: cine-orb-b 21s ease-in-out infinite; }
+@keyframes cine-orb-a {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(7%, 10%, 0) scale(1.18); }
+}
+@keyframes cine-orb-b {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1.1); }
+  50% { transform: translate3d(-9%, -8%, 0) scale(0.92); }
+}
+
+/* A soft diagonal band of light crossing a panel every few seconds. */
+.cine-sweep {
+  position: absolute;
+  inset: -20% auto -20% 0;
+  width: 38%;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent 0%, rgb(160 225 255 / 0.10) 45%, rgb(255 255 255 / 0.16) 50%, rgb(160 225 255 / 0.10) 55%, transparent 100%);
+  transform: translate3d(-130%, 0, 0) skewX(-12deg);
+  animation: cine-sweep 11s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  will-change: transform;
+}
+@keyframes cine-sweep {
+  0%, 18% { transform: translate3d(-130%, 0, 0) skewX(-12deg); }
+  62%, 100% { transform: translate3d(360%, 0, 0) skewX(-12deg); }
+}
+
+/* Light that runs around the edge of a rounded panel. */
+@property --beam-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+.cine-beam::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  padding: 1.5px;
+  pointer-events: none;
+  background: conic-gradient(from var(--beam-angle), transparent 0 62%, rgb(127 220 255 / 0.15) 72%, rgb(127 220 255 / 0.95) 90%, #fff 94%, transparent 97%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  animation: cine-beam 8s linear infinite;
+}
+@keyframes cine-beam {
+  to { --beam-angle: 360deg; }
+}
+
+/* Showcase auto-advance progress (width fill; the animationend event moves on). */
+@keyframes tab-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+.tab-progress {
+  transform-origin: left center;
+  animation: tab-progress var(--tab-ms, 7000ms) linear forwards;
+}
+.tab-progress[data-paused="true"] { animation-play-state: paused; }
+
+/* Hover-only motion helpers for cards. */
+.why-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgb(127 220 255 / 0.9), rgb(28 168 48 / 0.9), transparent);
+  transform: scaleX(0.15);
+  opacity: 0;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.5s ease;
+}
+.why-card:hover::before,
+.why-card:focus-visible::before { transform: scaleX(1); opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cine-orb-a,
+  .cine-orb-b,
+  .cine-sweep,
+  .cine-beam::after,
+  .tab-progress { animation: none !important; }
+  .cine-sweep { display: none; }
+  .tab-progress { transform: scaleX(1); opacity: 0.35; }
+}

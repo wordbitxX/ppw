@@ -26,9 +26,9 @@ import Link from "next/link";
 
 const LOGO_CLASS = "h-14 w-auto sm:h-20";
 
-function SecpMark() {
+export function SecpMark({ className = LOGO_CLASS }: { className?: string }) {
   return (
-    <svg viewBox="0 0 150 64" className={LOGO_CLASS} aria-label="SECP — Securities and Exchange Commission of Pakistan" role="img">
+    <svg viewBox="0 0 150 64" className={className} aria-label="SECP — Securities and Exchange Commission of Pakistan" role="img">
       <path
         d="M75 4l3.6 8.6 9.3.8-7 6 2.1 9.1-8-4.9-8 4.9 2.1-9.1-7-6 9.3-.8z"
         fill="currentColor"
@@ -46,9 +46,9 @@ function SecpMark() {
   );
 }
 
-function FbrMark() {
+export function FbrMark({ className = LOGO_CLASS }: { className?: string }) {
   return (
-    <svg viewBox="0 0 150 64" className={LOGO_CLASS} aria-label="FBR — Federal Board of Revenue, Pakistan" role="img">
+    <svg viewBox="0 0 150 64" className={className} aria-label="FBR — Federal Board of Revenue, Pakistan" role="img">
       <path d="M8 26c22-16 62-24 104-20 12 1 24 4 30 8" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
       <path d="M8 33c22-16 62-24 104-20 12 1 24 4 30 8" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" opacity="0.5" />
       <text x="75" y="42" textAnchor="middle" fill="currentColor" fontFamily="Georgia, 'Times New Roman', serif" fontSize="30" fontWeight="bold" letterSpacing="1">
@@ -61,9 +61,9 @@ function FbrMark() {
   );
 }
 
-function OdooMark() {
+export function OdooMark({ className = LOGO_CLASS }: { className?: string }) {
   return (
-    <svg viewBox="0 0 150 64" className={LOGO_CLASS} aria-label="Odoo — ERP and CRM platform" role="img">
+    <svg viewBox="0 0 150 64" className={className} aria-label="Odoo — ERP and CRM platform" role="img">
       <text x="75" y="38" textAnchor="middle" fill="currentColor" fontFamily="'Trebuchet MS', 'Segoe UI', Arial, sans-serif" fontSize="30" fontWeight="bold" letterSpacing="2">
         odoo
       </text>
@@ -74,9 +74,9 @@ function OdooMark() {
   );
 }
 
-function PvtLtdMark() {
+export function PvtLtdMark({ className = LOGO_CLASS }: { className?: string }) {
   return (
-    <svg viewBox="0 0 150 64" className={LOGO_CLASS} aria-label="Registered SMC private limited company" role="img">
+    <svg viewBox="0 0 150 64" className={className} aria-label="Registered SMC private limited company" role="img">
       <path
         d="M60 6h30l6 10H54zM54 16h42v6H54zM58 24h6v14h-6zM72 24h6v14h-6zM86 24h6v14h-6zM52 40h46v4H52z"
         fill="currentColor"
@@ -91,9 +91,9 @@ function PvtLtdMark() {
   );
 }
 
-function EstMark() {
+export function EstMark({ className = LOGO_CLASS }: { className?: string }) {
   return (
-    <svg viewBox="0 0 150 64" className={LOGO_CLASS} aria-label="Established 2021 in Lahore, Pakistan" role="img">
+    <svg viewBox="0 0 150 64" className={className} aria-label="Established 2021 in Lahore, Pakistan" role="img">
       <circle cx="75" cy="16" r="10" fill="none" stroke="currentColor" strokeWidth="2" />
       <path d="M75 8v8l5.5 3.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
       <text x="75" y="47" textAnchor="middle" fill="currentColor" fontFamily="Georgia, 'Times New Roman', serif" fontSize="19" fontWeight="bold" letterSpacing="2">
@@ -169,24 +169,40 @@ export function CertificationsBand() {
 }
 
 /**
- * One-line credibility strip for the home page. The full marks band and the
- * registration details live on the About page (#verified).
+ * Credibility strip for the home page: the four registration / company marks
+ * as quiet monochrome logos on the dark band (no boxes, no fills). The full
+ * band, with the marquee and the written detail, lives on /about#verified.
  */
 export function CredibilityStrip() {
-  const facts = ["Pvt. Ltd. company", "SECP & FBR registered", "Established 2021", "Lahore, Pakistan"];
+  const marks = [SecpMark, FbrMark, PvtLtdMark, EstMark];
   return (
-    <section aria-label="Company credentials" className="relative bg-midnight py-5 text-white">
-      <div className="container-page flex flex-col items-center justify-between gap-3 text-center sm:flex-row sm:text-left">
-        <ul className="flex flex-wrap items-center justify-center gap-x-5 gap-y-1.5 text-xs font-medium uppercase tracking-[0.14em] text-slate-400 sm:justify-start">
-          {facts.map((fact) => (
-            <li key={fact} className="flex items-center gap-2">
-              <span className="h-1 w-1 rounded-full bg-arc-300/70" aria-hidden="true" />
-              {fact}
+    <section aria-label="Company credentials" className="relative bg-midnight py-8 text-white sm:py-10">
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent"
+      />
+      <div className="container-page flex flex-col items-center justify-between gap-6 lg:flex-row">
+        <p className="shrink-0 text-center text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-slate-400 lg:text-left">
+          Registered &amp; accountable
+        </p>
+        <ul className="grid w-full max-w-3xl grid-cols-2 items-center justify-items-center gap-x-6 gap-y-5 sm:grid-cols-4 lg:flex-1">
+          {marks.map((Mark, index) => (
+            <li
+              key={index}
+              className="text-slate-300/85 transition-all duration-300 hover:-translate-y-0.5 hover:text-white"
+            >
+              <Mark className="h-11 w-auto sm:h-14" />
             </li>
           ))}
         </ul>
-        <Link href="/about#verified" className="text-xs font-semibold text-arc-300 transition-colors hover:text-white">
-          Company details &rarr;
+        <Link
+          href="/about#verified"
+          className="group inline-flex shrink-0 items-center gap-1.5 text-xs font-semibold text-arc-300 transition-colors hover:text-white"
+        >
+          Company details
+          <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">
+            &rarr;
+          </span>
         </Link>
       </div>
     </section>

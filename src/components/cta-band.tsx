@@ -1,5 +1,6 @@
 import { ButtonLink } from "@/components/ui";
 import { CineBackdrop } from "@/components/cinematic";
+import { CineFx } from "@/components/cine-fx";
 import { WhatsAppIcon, MailIcon, PhoneIcon, GlobeIcon } from "@/components/icons";
 import { siteConfig, usWhatsappLink, whatsappLink } from "@/lib/site";
 
@@ -19,13 +20,14 @@ export function CtaBand({
   return (
     <section className="defer-paint bg-white py-12 sm:py-20">
       <div className="container-page">
-        <div className="cine-surface cine-rim relative overflow-hidden rounded-2xl px-4 py-10 sm:rounded-3xl sm:px-10 sm:py-12 lg:px-14 lg:py-16">
+        <div className="cine-surface cine-rim cine-beam relative overflow-hidden rounded-2xl px-4 py-10 sm:rounded-3xl sm:px-10 sm:py-12 lg:px-14 lg:py-16">
           <CineBackdrop variant="mesh" opacity={0.7} position="75% 85%" mask="none" scrimLeft>
             {/* Soft light from the upper right and a floor of shadow, so the
                 waves sit behind the cards instead of cutting through copy. */}
             <div className="absolute inset-0 bg-[radial-gradient(50rem_26rem_at_100%_0%,rgb(47_132_255/0.22),transparent_65%)]" />
             <div className="absolute inset-0 grid-pattern opacity-[0.12]" />
           </CineBackdrop>
+          <CineFx />
           <div className="relative grid gap-8 lg:grid-cols-[1.4fr_1fr] lg:items-center">
             <div>
               <h2 className="text-2xl font-semibold leading-tight text-white sm:text-3xl lg:text-4xl">{title}</h2>

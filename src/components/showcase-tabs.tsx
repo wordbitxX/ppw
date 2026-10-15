@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, type KeyboardEvent, type ReactNode } from "react";
+import { useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 
 export type ShowcaseTabItem = {
   id: string;
@@ -18,9 +18,35 @@ export type ShowcaseTabItem = {
  * Below `lg` the list becomes a horizontally scrolling chip row. Only the
  * selected panel is visible; the rest are `hidden` but stay in the markup.
  */
+/** How long each project stays on screen before the next one is shown. */
+const AUTO_ADVANCE_MS = 7000;
+
 export function ShowcaseTabs({ items, footer }: { items: ShowcaseTabItem[]; footer?: ReactNode }) {
   const [active, setActive] = useState(0);
+  const [hovered, setHovered] = useState(false);
+  const [keyboardFocus, setKeyboardFocus] = useState(false);
+  const [inView, setInView] = useState(false);
   const refs = useRef<Array<HTMLButtonElement | null>>([]);
+  const rootRef = useRef<HTMLDivElement>(null);
+
+  // Auto-advance only while the block is on screen; hover / focus pauses it.
+  useEffect(() => {
+    const node = rootRef.current;
+    if (!node || typeof IntersectionObserver === "undefined") return;
+    const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), { threshold: 0.35 });
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  const paused = hovered || keyboardFocus || !inView;
+
+  // Keep the selected chip in view on phones, where the list scrolls sideways.
+  useEffect(() => {
+    const button = refs.current[active];
+    const list = button?.parentElement;
+    if (!button || !list || list.scrollWidth <= list.clientWidth) return;
+    list.scrollTo({ left: button.offsetLeft - (list.clientWidth - button.offsetWidth) / 2, behavior: "smooth" });
+  }, [active]);
 
   const select = (index: number, focus = false) => {
     const next = (index + items.length) % items.length;
@@ -45,13 +71,20 @@ export function ShowcaseTabs({ items, footer }: { items: ShowcaseTabItem[]; foot
   };
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[19rem_minmax(0,1fr)] lg:gap-8">
+    <div
+      ref={rootRef}
+      onPointerEnter={(event) => event.pointerType === "mouse" && setHovered(true)}
+      onPointerLeave={() => setHovered(false)}
+      onFocusCapture={(event) => setKeyboardFocus(event.target.matches(":focus-visible"))}
+      onBlurCapture={() => setKeyboardFocus(false)}
+      className="grid gap-6 lg:grid-cols-[20rem_minmax(0,1fr)] lg:gap-8"
+    >
       <div className="min-w-0">
         <div
           role="tablist"
           aria-label="Live projects"
           aria-orientation="vertical"
-          className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-2 [scrollbar-width:none] sm:-mx-6 sm:px-6 lg:mx-0 lg:flex-col lg:gap-1.5 lg:overflow-visible lg:px-0 lg:pb-0 [&::-webkit-scrollbar]:hidden"
+          className="relative -mx-4 flex gap-2 overflow-x-auto px-4 pb-2 [scrollbar-width:none] sm:-mx-6 sm:px-6 lg:mx-0 lg:flex-col lg:gap-1.5 lg:overflow-visible lg:px-0 lg:pb-0 [&::-webkit-scrollbar]:hidden"
         >
           {items.map((item, index) => {
             const selected = index === active;
@@ -69,34 +102,27 @@ export function ShowcaseTabs({ items, footer }: { items: ShowcaseTabItem[]; foot
                 tabIndex={selected ? 0 : -1}
                 onClick={() => select(index)}
                 onKeyDown={(event) => onKeyDown(event, index)}
-                className={`group relative flex shrink-0 items-center gap-3 rounded-xl border px-4 py-3 text-left transition-all lg:w-full ${
+                className={`group relative flex shrink-0 items-center gap-3.5 overflow-hidden rounded-2xl border px-3.5 py-3 text-left transition-all duration-300 lg:w-full ${
                   selected
-                    ? "border-slate-200 bg-white shadow-[0_18px_40px_-24px_rgba(5,39,103,0.45)]"
-                    : "border-transparent hover:border-slate-200/80 hover:bg-white/60"
+                    ? "border-brand-500/30 bg-white shadow-[0_22px_44px_-26px_rgba(5,39,103,0.55)]"
+                    : "border-slate-200/90 bg-white/60 hover:-translate-y-px hover:border-slate-300 hover:bg-white"
                 }`}
               >
                 <span
                   aria-hidden="true"
-                  className={`absolute inset-y-3 left-0 hidden w-[3px] rounded-full bg-brand-500 transition-opacity lg:block ${
-                    selected ? "opacity-100" : "opacity-0"
-                  }`}
-                />
-                <span
-                  className={`font-mono text-[0.7rem] font-semibold tabular-nums ${
-                    selected ? "text-brand-600" : "text-slate-400"
+                  className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-[0.8rem] font-bold tabular-nums transition-all duration-300 ${
+                    selected
+                      ? "bg-brand-500 text-white shadow-[0_8px_18px_-8px_rgba(28,168,48,0.9)]"
+                      : "bg-navy-900 text-white/90 group-hover:bg-navy-800"
                   }`}
                 >
                   {String(index + 1).padStart(2, "0")}
                 </span>
                 <span className="min-w-0">
-                  <span
-                    className={`block whitespace-nowrap text-sm font-semibold leading-tight lg:whitespace-normal ${
-                      selected ? "text-ink-900" : "text-ink-700"
-                    }`}
-                  >
+                  <span className="block whitespace-nowrap text-sm font-semibold leading-tight text-ink-900 lg:whitespace-normal">
                     {item.name}
                   </span>
-                  <span className="mt-0.5 block whitespace-nowrap text-[0.66rem] font-medium uppercase tracking-[0.12em] text-ink-500 lg:whitespace-normal">
+                  <span className="mt-0.5 block whitespace-nowrap text-[0.66rem] font-semibold uppercase tracking-[0.12em] text-ink-500 lg:whitespace-normal">
                     {item.category}
                   </span>
                 </span>
@@ -104,6 +130,17 @@ export function ShowcaseTabs({ items, footer }: { items: ShowcaseTabItem[]; foot
                   <span className="ml-auto hidden items-center gap-1.5 rounded-full bg-brand-50 px-2 py-0.5 text-[0.6rem] font-bold uppercase tracking-[0.12em] text-brand-700 ring-1 ring-brand-500/20 lg:inline-flex">
                     <span className="h-1.5 w-1.5 rounded-full bg-brand-500" />
                     {item.badge}
+                  </span>
+                ) : null}
+                {selected ? (
+                  <span aria-hidden="true" className="absolute inset-x-3.5 bottom-0 h-[3px] overflow-hidden rounded-full bg-slate-200">
+                    <span
+                      key={active}
+                      data-paused={paused}
+                      onAnimationEnd={() => setActive((current) => (current + 1) % items.length)}
+                      style={{ ["--tab-ms" as string]: `${AUTO_ADVANCE_MS}ms` }}
+                      className="tab-progress block h-full w-full bg-brand-500"
+                    />
                   </span>
                 ) : null}
               </button>
