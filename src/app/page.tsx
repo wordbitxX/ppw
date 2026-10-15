@@ -227,11 +227,15 @@ export default function HomePage() {
                 className="cine-rise mt-7 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center"
                 style={{ "--d": "0.3s" } as React.CSSProperties}
               >
-                <ButtonLink href="/services" className="btn-cine">
-                  Explore Our Services
-                </ButtonLink>
-                <ButtonLink href="/contact" variant="ghost">
+                {/* Primary carries the conversion (the green button is the
+                    biggest target on the page); exploration stays one step
+                    back — the services mega-menu and the service sections
+                    below already serve that intent. */}
+                <ButtonLink href="/contact" className="btn-cine">
                   Discuss Your Project
+                </ButtonLink>
+                <ButtonLink href="/services" variant="ghost">
+                  Explore Our Services
                 </ButtonLink>
               </div>
 
