@@ -1356,9 +1356,9 @@ body.hide-site-cursor .site-cursor-ring {
 }
 
 /* Header dropdown panels — a short, pure ease-out settle when they open.
-   (Owner feedback 16 Oct: the springy curve plus per-row staggers replayed
-   on every rail hover and read as "blink blink" — motion here is now calm:
-   panels fade-rise once, pane swaps crossfade instantly, no row staggers.) */
+   Owner feedback 15 Oct: previews/eager motion read as flicker, so the ONLY
+   panel motion left is this single fade-rise per open. Pane swaps inside the
+   services menu are instant state swaps with no animation at all. */
 @keyframes nav-pop {
   from {
     opacity: 0;
@@ -1374,41 +1374,8 @@ body.hide-site-cursor .site-cursor-ring {
   transform-origin: 50% 0;
 }
 
-/* Services mega-menu pane swap (the content block remounts per rail hover) —
-   an opacity-only crossfade; transforms here were the flicker source. */
-@keyframes menu-pane-fade {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-.menu-pane-fade {
-  animation: menu-pane-fade 0.14s ease-out both;
-}
-
-/* Cursor-following preview tile — pops once per hovered item (keyed remount),
-   origin at its top-left so it grows out from beside the pointer. */
-@keyframes preview-pop {
-  from {
-    opacity: 0;
-    transform: scale(0.85) translateY(4px);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-}
-.preview-pop {
-  animation: preview-pop 0.16s cubic-bezier(0.33, 1, 0.68, 1) both;
-  transform-origin: 0 0;
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .nav-pop,
-  .menu-pane-fade,
-  .preview-pop {
+  .nav-pop {
     animation: none;
   }
 }
