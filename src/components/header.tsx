@@ -40,6 +40,40 @@ const productLinks: [string, string][] = [
   ["salon-beauty", "ÉLAN Beauty Studio"],
 ];
 
+/** One-line descriptors shown in the cursor preview tile per menu item. */
+const industryBlurbs: Record<string, string> = {
+  retail: "POS, inventory & loyalty",
+  "real-estate": "Listings & lead capture",
+  healthcare: "Clinics & appointments",
+  pharmacy: "POS with expiry tracking",
+  education: "School & academy ERP",
+  logistics: "Fleet & COD tracking",
+  ecommerce: "Storefronts & checkout",
+  hospitality: "Hotels & reservations",
+  finance: "Fintech & ledgers",
+  manufacturing: "Production & stock",
+  legal: "Practice & case portals",
+  fitness: "Gyms & memberships",
+  construction: "Projects & estimates",
+};
+const productBlurbs: Record<string, string> = {
+  "properties-pak": "Pakistan's property marketplace",
+  motor: "Cars, bikes, EVs & rentals",
+  healthcare: "Clinic platform & booking",
+  education: "School, academy & college ERP",
+  ecommerce: "Premium multi-currency storefront",
+  "luxury-restaurant": "Ordering & reservations",
+  "salon-beauty": "Salon booking platform",
+};
+const portfolioBlurbs: Record<string, string> = {
+  "real-estate-listing-marketplace": "2025 · Marketplace build",
+  "multi-branch-retail-pos-platform": "2024 · POS platform",
+  "clinic-appointment-booking-portal": "2025 · Healthcare portal",
+  "ai-document-processing-assistant": "2025 · AI assistant",
+  "fashion-shopify-storefront": "2025 · Shopify storefront",
+  "logistics-fleet-tracking-app": "2024 · Mobile & maps",
+};
+
 /** Navy intro column shared by the desktop mega panels — the two-tone
     bitlogicx-style layout the owner referenced (15 Oct): a dark brand column
     with icon, title, description and a bottom CTA beside a white link area. */
@@ -99,9 +133,33 @@ export function Header() {
   const [openMenu, setOpenMenu] = useState<MenuKey | null>(null);
   /** Which service group the services panel shows. -1 = the B2B pane. */
   const [activePane, setActivePane] = useState(0);
+  /**
+   * Cursor-following preview tile (owner request, 16 Oct): hovering any item
+   * in a dropdown floats a small light square card beside the pointer with a
+   * compact summary of that item. `serviceSlug` renders the service glyph,
+   * other menus get a brand monogram.
+   */
+  const [preview, setPreview] = useState<{
+    x: number;
+    y: number;
+    title: string;
+    sub: string;
+    serviceSlug?: string;
+  } | null>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const megaPanelRef = useRef<HTMLDivElement>(null);
   const megaScrollRef = useRef<HTMLDivElement>(null);
+
+  const hidePreview = () => setPreview(null);
+  const trackPreview = (
+    event: React.MouseEvent,
+    data: { title: string; sub: string; serviceSlug?: string },
+  ) => {
+    // Clamp so the card never spills past the viewport edge.
+    const x = Math.max(8, Math.min(event.clientX + 20, window.innerWidth - 208));
+    const y = Math.max(8, Math.min(event.clientY + 18, window.innerHeight - 190));
+    setPreview({ x, y, ...data });
+  };
 
   const cancelClose = () => {
     if (closeTimer.current) {
@@ -111,16 +169,16 @@ export function Header() {
   };
   const open = (menu: MenuKey) => {
     cancelClose();
+    if (openMenu !== menu) hidePreview();
     setOpenMenu(menu);
   };
   const scheduleClose = () => {
     cancelClose();
+    hidePreview();
     // Grace period so users can move from the trigger into the panel without
     // the menu vanishing mid-motion. This needs to cover the header's dead
-    // strip (the trigger bottoms out ~14-18px above the fixed services
-    // container) plus slow diagonal mouse paths — a shorter delay made the
-    // panel close and instantly reopen, which read as constant "blinking"
-    // (owner report, 15 Oct). 300ms keeps crossing safe without lagging.
+    // strip plus slow diagonal mouse paths — a shorter delay made the panel
+    // close and instantly reopen, which read as constant "blinking".
     closeTimer.current = setTimeout(() => setOpenMenu(null), 300);
   };
 
@@ -165,7 +223,10 @@ export function Header() {
   }, [pathname]);
 
   useEffect(() => {
-    const lock = mobileOpen || openMenu === "services";
+    // Only the mobile drawer locks scroll now. Locking for desktop dropdowns
+    // removed the scrollbar and shifted the whole page a few pixels on every
+    // open/close — that jump was part of the "popup blinks" complaint.
+    const lock = mobileOpen;
     const html = document.documentElement;
     const prevBody = document.body.style.overflow;
     const prevHtml = html.style.overflowY;
@@ -177,7 +238,7 @@ export function Header() {
       document.body.style.overflow = prevBody;
       html.style.overflowY = prevHtml;
     };
-  }, [mobileOpen, openMenu]);
+  }, [mobileOpen]);
 
   useEffect(() => {
     if (openMenu !== "services") return;
@@ -309,12 +370,18 @@ export function Header() {
                           {/* Majors rail — the top-level lines, Rex-style; the
                               hovered line opens its services in the white pane. */}
                           <div className="w-[13.5rem] shrink-0 overflow-y-auto border-r border-slate-200 bg-slate-50 py-2.5">
+                            <p className="px-4 pb-1 pt-0.5 text-[0.64rem] font-bold uppercase tracking-[0.16em] text-slate-400">
+                              Service lines
+                            </p>
                             <ul>
                               {megaMenuGroups.map((group, index) => (
                                 <li key={group.title}>
                                   <button
                                     type="button"
-                                    onMouseEnter={() => setActivePane(index)}
+                                    onMouseEnter={() => {
+                                      setActivePane(index);
+                                      hidePreview();
+                                    }}
                                     onFocus={() => setActivePane(index)}
                                     className={`flex w-full items-center justify-between gap-2 px-4 py-[0.62rem] text-left text-[0.83rem] transition-all duration-200 ${
                                       activePane === index
@@ -337,7 +404,10 @@ export function Header() {
                               <li>
                                 <Link
                                   href="/services#b2b"
-                                  onMouseEnter={() => setActivePane(-1)}
+                                  onMouseEnter={() => {
+                                    setActivePane(-1);
+                                    hidePreview();
+                                  }}
                                   onFocus={() => setActivePane(-1)}
                                   className={`flex w-full items-center justify-between gap-2 px-4 py-[0.62rem] text-left text-[0.83rem] transition-all duration-200 ${
                                     activePane === -1
@@ -361,7 +431,7 @@ export function Header() {
                               remounts the block on rail switches so the pane-in
                               animation replays per group (the premium "swap"). */}
                           <div ref={megaScrollRef} className="min-w-0 flex-1 overflow-y-auto bg-white p-6">
-                            <div key={activePane} className="menu-pane-in">
+                            <div key={activePane} className="menu-pane-fade">
                               <div className="flex items-baseline justify-between gap-4">
                                 <p className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-slate-400">
                                   {pane.title}
@@ -378,14 +448,32 @@ export function Header() {
                                   </Link>
                                 )}
                               </div>
-                              <ul className="mt-3 grid gap-0.5 sm:grid-cols-2">
-                                {pane.items.map((service, index) => (
-                                  <li key={service.slug} className="menu-row" style={{ animationDelay: `${Math.min(index, 7) * 26}ms` }}>
+                              <ul className="mt-3 grid gap-1 sm:grid-cols-2">
+                                {pane.items.map((service) => (
+                                  <li key={service.slug}>
                                     <Link
                                       href={`/services/${service.slug}`}
-                                      className="group flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-[0.92rem] font-semibold text-slate-800 transition-all duration-200 hover:bg-brand-50 hover:text-brand-700"
+                                      onMouseEnter={(event) =>
+                                        trackPreview(event, {
+                                          title: service.shortTitle,
+                                          sub: service.summary,
+                                          serviceSlug: service.slug,
+                                        })
+                                      }
+                                      onMouseMove={(event) =>
+                                        trackPreview(event, {
+                                          title: service.shortTitle,
+                                          sub: service.summary,
+                                          serviceSlug: service.slug,
+                                        })
+                                      }
+                                      onMouseLeave={hidePreview}
+                                      className="group flex items-center gap-2.5 rounded-lg px-2.5 py-2 transition-colors duration-200 hover:bg-brand-50"
                                     >
-                                      <span className="truncate transition-transform duration-200 group-hover:translate-x-0.5">
+                                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-slate-500 ring-1 ring-slate-900/5 transition-colors duration-200 group-hover:bg-white group-hover:text-brand-600 group-hover:ring-brand-500/30">
+                                        <MegaServiceIcon slug={service.slug} className="h-4 w-4" />
+                                      </span>
+                                      <span className="min-w-0 flex-1 truncate text-[0.88rem] font-semibold text-slate-800 transition-colors duration-200 group-hover:text-brand-700">
                                         {service.shortTitle}
                                       </span>
                                       <ArrowRight className="h-3.5 w-3.5 shrink-0 -translate-x-1 text-brand-600 opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100" />
@@ -437,19 +525,31 @@ export function Header() {
                           ctaHref="/industries"
                           className="w-56"
                         />
-                        <ul className="grid flex-1 content-start gap-0.5 p-4 sm:grid-cols-2">
-                          {industryLinks.map(([slug, name], index) => (
-                            <li key={slug} className="menu-row" style={{ animationDelay: `${Math.min(index, 9) * 20}ms` }}>
-                              <Link
-                                href={`/industries/${slug}`}
-                                className="group flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-[0.92rem] font-semibold text-slate-800 transition-all duration-200 hover:bg-brand-50 hover:text-brand-700"
-                              >
-                                {name}
-                                <ArrowRight className="h-3.5 w-3.5 -translate-x-1 text-brand-600 opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100" />
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
+                        <div className="flex-1 p-4">
+                          <p className="px-3 pb-1.5 text-[0.68rem] font-bold uppercase tracking-[0.16em] text-slate-400">
+                            13 sectors we build for
+                          </p>
+                          <ul className="grid content-start gap-0.5 sm:grid-cols-2">
+                            {industryLinks.map(([slug, name]) => (
+                              <li key={slug}>
+                                <Link
+                                  href={`/industries/${slug}`}
+                                  onMouseEnter={(event) =>
+                                    trackPreview(event, { title: name, sub: industryBlurbs[slug] ?? "Industry workflows we already model" })
+                                  }
+                                  onMouseMove={(event) =>
+                                    trackPreview(event, { title: name, sub: industryBlurbs[slug] ?? "Industry workflows we already model" })
+                                  }
+                                  onMouseLeave={hidePreview}
+                                  className="group flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-[0.92rem] font-semibold text-slate-800 transition-all duration-200 hover:bg-brand-50 hover:text-brand-700"
+                                >
+                                  {name}
+                                  <ArrowRight className="h-3.5 w-3.5 -translate-x-1 text-brand-600 opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100" />
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
                       </div>
                     </div>
                   </NavDrop>
@@ -474,26 +574,45 @@ export function Header() {
                           ctaHref="/products"
                           className="w-56"
                         />
-                        <ul className="grid flex-1 content-start gap-0.5 p-4">
-                          {productLinks.map(([slug, name], index) => (
-                            <li key={slug} className="menu-row" style={{ animationDelay: `${Math.min(index, 6) * 26}ms` }}>
-                              <Link
-                                href={`/products/${slug}`}
-                                className="group flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-[0.92rem] font-semibold text-slate-800 transition-all duration-200 hover:bg-brand-50 hover:text-brand-700"
-                              >
-                                <span className="flex items-center gap-2">
-                                  {name}
-                                  {slug === "properties-pak" && (
-                                    <span className="rounded-full bg-brand-500/10 px-1.5 py-0.5 text-[0.6rem] font-bold uppercase tracking-wide text-brand-700">
-                                      Live
-                                    </span>
-                                  )}
-                                </span>
-                                <ArrowRight className="h-3.5 w-3.5 -translate-x-1 text-brand-600 opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100" />
-                              </Link>
-                            </li>
+                        <div className="flex-1 p-4">
+                          {[
+                            { heading: "Live now", items: productLinks.filter(([slug]) => slug === "properties-pak") },
+                            { heading: "In rollout", items: productLinks.filter(([slug]) => slug !== "properties-pak") },
+                          ].map((group) => (
+                            <div key={group.heading} className="first:pb-0 [&+&]:mt-3 [&+&]:border-t [&+&]:border-slate-100 [&+&]:pt-3">
+                              <p className="px-3 pb-1.5 text-[0.68rem] font-bold uppercase tracking-[0.16em] text-slate-400">
+                                {group.heading}
+                              </p>
+                              <ul className="grid content-start gap-0.5">
+                                {group.items.map(([slug, name]) => (
+                                  <li key={slug}>
+                                    <Link
+                                      href={`/products/${slug}`}
+                                      onMouseEnter={(event) =>
+                                        trackPreview(event, { title: name, sub: productBlurbs[slug] ?? "WordbitX ecosystem product" })
+                                      }
+                                      onMouseMove={(event) =>
+                                        trackPreview(event, { title: name, sub: productBlurbs[slug] ?? "WordbitX ecosystem product" })
+                                      }
+                                      onMouseLeave={hidePreview}
+                                      className="group flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-[0.92rem] font-semibold text-slate-800 transition-all duration-200 hover:bg-brand-50 hover:text-brand-700"
+                                    >
+                                      <span className="flex items-center gap-2">
+                                        {name}
+                                        {slug === "properties-pak" && (
+                                          <span className="rounded-full bg-brand-500/10 px-1.5 py-0.5 text-[0.6rem] font-bold uppercase tracking-wide text-brand-700">
+                                            Live
+                                          </span>
+                                        )}
+                                      </span>
+                                      <ArrowRight className="h-3.5 w-3.5 -translate-x-1 text-brand-600 opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100" />
+                                    </Link>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
                           ))}
-                        </ul>
+                        </div>
                       </div>
                     </div>
                   </NavDrop>
@@ -518,19 +637,31 @@ export function Header() {
                           ctaHref="/portfolio"
                           className="w-56"
                         />
-                        <ul className="grid flex-1 content-start gap-0.5 p-4">
-                          {portfolioMajors.map(([slug, title], index) => (
-                            <li key={slug} className="menu-row" style={{ animationDelay: `${Math.min(index, 5) * 26}ms` }}>
-                              <Link
-                                href={`/portfolio/${slug}`}
-                                className="group flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-[0.92rem] font-semibold text-slate-800 transition-all duration-200 hover:bg-brand-50 hover:text-brand-700"
-                              >
-                                <span className="truncate">{title}</span>
-                                <ArrowRight className="h-3.5 w-3.5 shrink-0 -translate-x-1 text-brand-600 opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100" />
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
+                        <div className="flex-1 p-4">
+                          <p className="px-3 pb-1.5 text-[0.68rem] font-bold uppercase tracking-[0.16em] text-slate-400">
+                            Flagship case profiles
+                          </p>
+                          <ul className="grid content-start gap-0.5">
+                            {portfolioMajors.map(([slug, title]) => (
+                              <li key={slug}>
+                                <Link
+                                  href={`/portfolio/${slug}`}
+                                  onMouseEnter={(event) =>
+                                    trackPreview(event, { title, sub: portfolioBlurbs[slug] ?? "Case profile" })
+                                  }
+                                  onMouseMove={(event) =>
+                                    trackPreview(event, { title, sub: portfolioBlurbs[slug] ?? "Case profile" })
+                                  }
+                                  onMouseLeave={hidePreview}
+                                  className="group flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-[0.92rem] font-semibold text-slate-800 transition-all duration-200 hover:bg-brand-50 hover:text-brand-700"
+                                >
+                                  <span className="truncate">{title}</span>
+                                  <ArrowRight className="h-3.5 w-3.5 shrink-0 -translate-x-1 text-brand-600 opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100" />
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
                       </div>
                     </div>
                   </NavDrop>
@@ -705,6 +836,39 @@ export function Header() {
               {siteConfig.email} · {siteConfig.phoneDisplay}
             </p>
           </nav>
+        </div>
+      )}
+
+      {/* Cursor-following preview tile — surfaced while hovering any dropdown
+          item (desktop only). pointer-events-none so it never steals hover;
+          the outer wrapper trails the pointer with a short transform easing,
+          the inner card re-pops whenever the hovered item changes. */}
+      {preview && (
+        <div
+          aria-hidden="true"
+          className="pointer-events-none fixed left-0 top-0 z-[90] hidden w-44 transition-transform duration-100 ease-out lg:block"
+          style={{ transform: `translate3d(${preview.x}px, ${preview.y}px, 0)` }}
+        >
+          <div
+            key={`${preview.serviceSlug ?? ""}-${preview.title}`}
+            className="preview-pop overflow-hidden rounded-2xl bg-white shadow-[0_20px_50px_-16px_rgba(4,10,30,0.45)] ring-1 ring-slate-900/10"
+          >
+            <div className="flex h-24 items-center justify-center bg-gradient-to-br from-brand-50 via-white to-slate-100">
+              {preview.serviceSlug ? (
+                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-white text-brand-600 shadow-sm ring-1 ring-slate-900/10">
+                  <MegaServiceIcon slug={preview.serviceSlug} className="h-5 w-5" />
+                </span>
+              ) : (
+                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500 to-emerald-700 text-lg font-black uppercase text-white shadow-md">
+                  {preview.title.charAt(0)}
+                </span>
+              )}
+            </div>
+            <div className="px-3 py-2.5">
+              <p className="truncate text-[0.72rem] font-bold text-ink-900">{preview.title}</p>
+              <p className="mt-0.5 line-clamp-2 text-[0.62rem] leading-snug text-slate-500">{preview.sub}</p>
+            </div>
+          </div>
         </div>
       )}
     </header>
