@@ -253,11 +253,11 @@ export function Header() {
             >
               <Link
                 href="/contact"
-                className="cta-live cta-surface group inline-flex items-center gap-2 rounded-xl px-4.5 py-2.5 text-sm font-bold tracking-tight text-white transition-all hover:-translate-y-0.5"
+                className="cta-live cta-surface group inline-flex items-center gap-2 rounded-xl px-4.5 py-2.5 text-sm font-bold tracking-tight transition-all hover:-translate-y-0.5"
               >
                 <span className="relative flex h-2 w-2" aria-hidden="true">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-white shadow-[0_0_7px_rgba(255,255,255,0.95)]" />
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-500" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-500 shadow-[0_0_7px_rgba(28,168,48,0.9)]" />
                 </span>
                 <span>Discuss Your Project</span>
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
@@ -282,11 +282,11 @@ export function Header() {
             >
               <Link
                 href="/contact"
-                className="cta-live cta-surface group inline-flex h-10 items-center gap-1.5 whitespace-nowrap rounded-xl px-3.5 text-[0.8rem] font-semibold text-white sm:gap-2 sm:px-4 sm:text-sm"
+                className="cta-live cta-surface group inline-flex h-10 items-center gap-1.5 whitespace-nowrap rounded-xl px-3.5 text-[0.8rem] font-semibold sm:gap-2 sm:px-4 sm:text-sm"
               >
                 <span className="relative hidden h-2 w-2 sm:flex" aria-hidden="true">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-white shadow-[0_0_7px_rgba(255,255,255,0.95)]" />
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-500" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-500 shadow-[0_0_7px_rgba(28,168,48,0.9)]" />
                 </span>
                 <span className="sm:hidden">Discuss Project</span>
                 <span className="hidden sm:inline">Discuss Your Project</span>
@@ -370,7 +370,7 @@ export function Header() {
             <div className="grid gap-3 pt-4 sm:grid-cols-2">
               <Link
                 href="/contact"
-                className="cta-live cta-surface inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold tracking-tight text-white"
+                className="cta-live cta-surface inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold tracking-tight"
               >
                 <span>Discuss Your Project</span> <ArrowRight className="h-4 w-4" />
               </Link>

@@ -34,7 +34,7 @@ import { getServices, services } from "@/lib/services";
 import { industries } from "@/lib/industries";
 import { industryTileMedia } from "@/lib/industry-tile-media";
 import { markets } from "@/lib/markets";
-import { getProject } from "@/lib/portfolio";
+import { projects } from "@/lib/portfolio";
 import { sortedPosts } from "@/lib/blog";
 import { marqueeTech } from "@/lib/technologies";
 import { media } from "@/lib/media";
@@ -174,20 +174,8 @@ const homeServiceSlugs = [
 /** Curated highlights — the full lists live on /industries and /global. */
 const featuredMarketSlugs = ["pakistan", "usa", "uk", "uae"];
 
-const homeProjectSlugs = [
-  "fashion-shopify-storefront",
-  "jewellery-ecommerce-store",
-  "multi-branch-retail-pos-platform",
-  "clinic-appointment-booking-portal",
-  "warehouse-inventory-management-system",
-  "ai-document-processing-assistant",
-];
-
 export default function HomePage() {
   const homeServices = getServices(homeServiceSlugs);
-  const featuredProjects = homeProjectSlugs
-    .map((slug) => getProject(slug))
-    .filter((project): project is NonNullable<typeof project> => Boolean(project));
   const latestPosts = sortedPosts.slice(0, 3);
   const heroSlides = getHeroSlides();
   const featuredMarkets = featuredMarketSlugs
@@ -665,22 +653,18 @@ export default function HomePage() {
             View Full Portfolio
           </ButtonLink>
         </div>
-        <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {featuredProjects.slice(0, 3).map((project) => (
-            <ProjectCard key={project.slug} project={project} />
-          ))}
+        <div className="mt-8">
+          <IndustryRail label="project profiles">
+            {projects.map((project) => (
+              <div
+                key={project.slug}
+                className="flex w-[85%] shrink-0 snap-start sm:w-[calc(50%-0.5rem)] lg:w-[calc((100%-3rem)/3.25)]"
+              >
+                <ProjectCard project={project} />
+              </div>
+            ))}
+          </IndustryRail>
         </div>
-        <p className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-ink-500">
-          <span className="font-medium text-ink-700">Also:</span>
-          {featuredProjects.slice(3).map((project) => (
-            <Link key={project.slug} href={`/portfolio/${project.slug}`} className="transition-colors hover:text-brand-700">
-              {project.title}
-            </Link>
-          ))}
-          <Link href="/portfolio" className="font-semibold text-brand-600 hover:text-brand-700">
-            All projects →
-          </Link>
-        </p>
       </Section>
 
       <Section id="reviews">
