@@ -1355,11 +1355,12 @@ body.hide-site-cursor .site-cursor-ring {
   .sm-drift-y { animation: sm-drift-y 24s ease-in-out infinite; }
 }
 
-/* Header dropdown panels — a short, calm settle-in when they open. */
+/* Header dropdown panels — a short, calm settle-in when they open. The
+   overshoot-tinted curve gives the premium "fluid" feel without bounce. */
 @keyframes nav-pop {
   from {
     opacity: 0;
-    transform: translateY(8px) scale(0.99);
+    transform: translateY(10px) scale(0.975);
   }
   to {
     opacity: 1;
@@ -1367,10 +1368,47 @@ body.hide-site-cursor .site-cursor-ring {
   }
 }
 .nav-pop {
-  animation: nav-pop 0.18s cubic-bezier(0.22, 0.9, 0.35, 1) both;
+  animation: nav-pop 0.26s cubic-bezier(0.22, 1.15, 0.36, 1) both;
+  transform-origin: 50% 0;
+  will-change: transform, opacity;
 }
+
+/* Services mega-menu pane swap (the content block remounts per rail hover) —
+   a quick right-side slide-in so switching majors feels intentional. */
+@keyframes menu-pane-in {
+  from {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.menu-pane-in {
+  animation: menu-pane-in 0.22s cubic-bezier(0.33, 1, 0.68, 1) both;
+}
+
+/* Staggered row entrance inside the dropdown lists — delay comes from an
+   inline style so each row lands a beat after the previous one. */
+@keyframes menu-row {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.menu-row {
+  animation: menu-row 0.3s cubic-bezier(0.33, 1, 0.68, 1) both;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .nav-pop {
+  .nav-pop,
+  .menu-pane-in,
+  .menu-row {
     animation: none;
   }
 }

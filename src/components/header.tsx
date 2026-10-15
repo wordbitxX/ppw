@@ -57,8 +57,13 @@ function MenuIntro({
   className?: string;
 }) {
   return (
-    <div className={`flex shrink-0 flex-col bg-gradient-to-b from-navy-950 via-navy-950/95 to-midnight p-6 ${className}`}>
-      <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-500/15 text-brand-300 ring-1 ring-brand-400/25">
+    <div className={`relative flex shrink-0 flex-col overflow-hidden bg-gradient-to-b from-navy-950 via-navy-950/95 to-midnight p-6 ${className}`}>
+      {/* Soft brand halo — a premium light bloom behind the icon tile. */}
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute -left-10 -top-12 h-40 w-40 rounded-full bg-brand-500/20 blur-3xl"
+      />
+      <span className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-brand-500/15 text-brand-300 ring-1 ring-brand-400/25">
         <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden="true">
           <path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z" />
         </svg>
@@ -111,8 +116,12 @@ export function Header() {
   const scheduleClose = () => {
     cancelClose();
     // Grace period so users can move from the trigger into the panel without
-    // the menu vanishing mid-motion.
-    closeTimer.current = setTimeout(() => setOpenMenu(null), 140);
+    // the menu vanishing mid-motion. This needs to cover the header's dead
+    // strip (the trigger bottoms out ~14-18px above the fixed services
+    // container) plus slow diagonal mouse paths — a shorter delay made the
+    // panel close and instantly reopen, which read as constant "blinking"
+    // (owner report, 15 Oct). 300ms keeps crossing safe without lagging.
+    closeTimer.current = setTimeout(() => setOpenMenu(null), 300);
   };
 
   useEffect(() => () => cancelClose(), []);
@@ -286,10 +295,10 @@ export function Header() {
                     menuKey="services"
                     href={item.href}
                     label={item.label}
-                    panelClassName="fixed left-1/2 top-16 z-40 w-[min(66rem,calc(100vw-2rem))] -translate-x-1/2 pt-2 lg:top-[72px]"
+                    panelClassName="fixed left-1/2 top-12 z-40 w-[min(66rem,calc(100vw-2rem))] -translate-x-1/2 pt-6"
                   >
                     <div ref={megaPanelRef}>
-                      <div className="nav-pop overflow-hidden rounded-2xl bg-white shadow-[0_44px_96px_-32px_rgba(0,0,0,0.9)] ring-1 ring-white/15">
+                      <div className="nav-pop overflow-hidden rounded-2xl bg-white shadow-[0_42px_88px_-28px_rgba(4,10,30,0.55),0_14px_34px_-14px_rgba(4,10,30,0.28)] ring-1 ring-slate-900/[0.08]">
                         <div className="flex max-h-[min(72vh,38rem)] items-stretch">
                           <MenuIntro
                             title="Our expertise"
@@ -307,14 +316,19 @@ export function Header() {
                                     type="button"
                                     onMouseEnter={() => setActivePane(index)}
                                     onFocus={() => setActivePane(index)}
-                                    className={`flex w-full items-center justify-between gap-2 px-4 py-[0.62rem] text-left text-[0.83rem] transition-colors ${
+                                    className={`flex w-full items-center justify-between gap-2 px-4 py-[0.62rem] text-left text-[0.83rem] transition-all duration-200 ${
                                       activePane === index
-                                        ? "bg-white font-semibold text-ink-900 shadow-[0_10px_20px_-16px_rgba(5,13,33,0.45)]"
+                                        ? "bg-white font-semibold text-ink-900 shadow-[inset_2px_0_0_#1ca830,0_10px_20px_-16px_rgba(5,13,33,0.45)]"
                                         : "text-slate-600 hover:bg-white/70 hover:text-ink-900"
                                     }`}
                                   >
                                     {group.title}
-                                    <ChevronDown className="h-3 w-3 -rotate-90 opacity-40" aria-hidden="true" />
+                                    <ChevronDown
+                                      className={`h-3 w-3 -rotate-90 transition-all duration-200 ${
+                                        activePane === index ? "translate-x-0.5 text-brand-600 opacity-100" : "opacity-40"
+                                      }`}
+                                      aria-hidden="true"
+                                    />
                                   </button>
                                 </li>
                               ))}
@@ -325,50 +339,61 @@ export function Header() {
                                   href="/services#b2b"
                                   onMouseEnter={() => setActivePane(-1)}
                                   onFocus={() => setActivePane(-1)}
-                                  className={`flex w-full items-center justify-between gap-2 px-4 py-[0.62rem] text-left text-[0.83rem] transition-colors ${
+                                  className={`flex w-full items-center justify-between gap-2 px-4 py-[0.62rem] text-left text-[0.83rem] transition-all duration-200 ${
                                     activePane === -1
-                                      ? "bg-white font-semibold text-ink-900 shadow-[0_10px_20px_-16px_rgba(5,13,33,0.45)]"
+                                      ? "bg-white font-semibold text-ink-900 shadow-[inset_2px_0_0_#1ca830,0_10px_20px_-16px_rgba(5,13,33,0.45)]"
                                       : "text-slate-600 hover:bg-white/70 hover:text-ink-900"
                                   }`}
                                 >
                                   B2B services
-                                  <ChevronDown className="h-3 w-3 -rotate-90 opacity-40" aria-hidden="true" />
+                                  <ChevronDown
+                                    className={`h-3 w-3 -rotate-90 transition-all duration-200 ${
+                                      activePane === -1 ? "translate-x-0.5 text-brand-600 opacity-100" : "opacity-40"
+                                    }`}
+                                    aria-hidden="true"
+                                  />
                                 </Link>
                               </li>
                             </ul>
                           </div>
 
-                          {/* White pane — the hovered line's services. */}
+                          {/* White pane — the hovered line's services. key=activePane
+                              remounts the block on rail switches so the pane-in
+                              animation replays per group (the premium "swap"). */}
                           <div ref={megaScrollRef} className="min-w-0 flex-1 overflow-y-auto bg-white p-6">
-                            <div className="flex items-baseline justify-between gap-4">
-                              <p className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-slate-400">
-                                {pane.title}
-                              </p>
-                              {activePane === -1 ? (
-                                <Link href="/services#b2b" className="text-xs font-semibold text-brand-700 transition-colors hover:text-brand-800">
-                                  Open B2B section →
-                                </Link>
-                              ) : (
-                                <Link href="/services" className="text-xs font-semibold text-brand-700 transition-colors hover:text-brand-800">
-                                  All services →
-                                </Link>
-                              )}
-                            </div>
-                            <ul className="mt-3 grid gap-0.5 sm:grid-cols-2">
-                              {pane.items.map((service) => (
-                                <li key={service.slug}>
-                                  <Link
-                                    href={`/services/${service.slug}`}
-                                    className="group flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-[0.92rem] font-semibold text-slate-800 transition-all duration-200 hover:bg-brand-50 hover:text-brand-700"
-                                  >
-                                    <span className="truncate transition-transform duration-200 group-hover:translate-x-0.5">
-                                      {service.shortTitle}
-                                    </span>
-                                    <ArrowRight className="h-3.5 w-3.5 shrink-0 -translate-x-1 text-brand-600 opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100" />
+                            <div key={activePane} className="menu-pane-in">
+                              <div className="flex items-baseline justify-between gap-4">
+                                <p className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-slate-400">
+                                  {pane.title}
+                                </p>
+                                {activePane === -1 ? (
+                                  <Link href="/services#b2b" className="group inline-flex items-center gap-1 text-xs font-semibold text-brand-700 transition-colors hover:text-brand-800">
+                                    Open B2B section
+                                    <ArrowRight className="h-3 w-3 transition-transform duration-200 group-hover:translate-x-0.5" />
                                   </Link>
-                                </li>
-                              ))}
-                            </ul>
+                                ) : (
+                                  <Link href="/services" className="group inline-flex items-center gap-1 text-xs font-semibold text-brand-700 transition-colors hover:text-brand-800">
+                                    All services
+                                    <ArrowRight className="h-3 w-3 transition-transform duration-200 group-hover:translate-x-0.5" />
+                                  </Link>
+                                )}
+                              </div>
+                              <ul className="mt-3 grid gap-0.5 sm:grid-cols-2">
+                                {pane.items.map((service, index) => (
+                                  <li key={service.slug} className="menu-row" style={{ animationDelay: `${Math.min(index, 7) * 26}ms` }}>
+                                    <Link
+                                      href={`/services/${service.slug}`}
+                                      className="group flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-[0.92rem] font-semibold text-slate-800 transition-all duration-200 hover:bg-brand-50 hover:text-brand-700"
+                                    >
+                                      <span className="truncate transition-transform duration-200 group-hover:translate-x-0.5">
+                                        {service.shortTitle}
+                                      </span>
+                                      <ArrowRight className="h-3.5 w-3.5 shrink-0 -translate-x-1 text-brand-600 opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100" />
+                                    </Link>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
                           </div>
                         </div>
                         <div className="flex shrink-0 flex-wrap items-center justify-between gap-3 border-t border-slate-200 bg-slate-50 px-6 py-3">
@@ -403,7 +428,7 @@ export function Header() {
                     label={item.label}
                     panelClassName="absolute left-1/2 top-full z-40 w-[min(36rem,94vw)] -translate-x-1/2 pt-2"
                   >
-                    <div className="nav-pop overflow-hidden rounded-2xl bg-white shadow-[0_36px_80px_-28px_rgba(0,0,0,0.85)] ring-1 ring-white/15">
+                    <div className="nav-pop overflow-hidden rounded-2xl bg-white shadow-[0_34px_76px_-26px_rgba(4,10,30,0.5),0_12px_30px_-14px_rgba(4,10,30,0.25)] ring-1 ring-slate-900/[0.08]">
                       <div className="flex items-stretch">
                         <MenuIntro
                           title="Industries"
@@ -413,8 +438,8 @@ export function Header() {
                           className="w-56"
                         />
                         <ul className="grid flex-1 content-start gap-0.5 p-4 sm:grid-cols-2">
-                          {industryLinks.map(([slug, name]) => (
-                            <li key={slug}>
+                          {industryLinks.map(([slug, name], index) => (
+                            <li key={slug} className="menu-row" style={{ animationDelay: `${Math.min(index, 9) * 20}ms` }}>
                               <Link
                                 href={`/industries/${slug}`}
                                 className="group flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-[0.92rem] font-semibold text-slate-800 transition-all duration-200 hover:bg-brand-50 hover:text-brand-700"
@@ -440,18 +465,18 @@ export function Header() {
                     label={item.label}
                     panelClassName="absolute left-1/2 top-full z-40 w-[min(34rem,94vw)] -translate-x-1/2 pt-2"
                   >
-                    <div className="nav-pop overflow-hidden rounded-2xl bg-white shadow-[0_36px_80px_-28px_rgba(0,0,0,0.85)] ring-1 ring-white/15">
+                    <div className="nav-pop overflow-hidden rounded-2xl bg-white shadow-[0_34px_76px_-26px_rgba(4,10,30,0.5),0_12px_30px_-14px_rgba(4,10,30,0.25)] ring-1 ring-slate-900/[0.08]">
                       <div className="flex items-stretch">
                         <MenuIntro
                           title="Our ecosystem"
                           desc="Ready-to-deploy products — each one opens live."
-                          cta="Explore all products"
+                          cta="All products"
                           ctaHref="/products"
                           className="w-56"
                         />
                         <ul className="grid flex-1 content-start gap-0.5 p-4">
-                          {productLinks.map(([slug, name]) => (
-                            <li key={slug}>
+                          {productLinks.map(([slug, name], index) => (
+                            <li key={slug} className="menu-row" style={{ animationDelay: `${Math.min(index, 6) * 26}ms` }}>
                               <Link
                                 href={`/products/${slug}`}
                                 className="group flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-[0.92rem] font-semibold text-slate-800 transition-all duration-200 hover:bg-brand-50 hover:text-brand-700"
@@ -484,7 +509,7 @@ export function Header() {
                     label={item.label}
                     panelClassName="absolute right-0 top-full z-40 w-[min(33rem,94vw)] pt-2"
                   >
-                    <div className="nav-pop overflow-hidden rounded-2xl bg-white shadow-[0_36px_80px_-28px_rgba(0,0,0,0.85)] ring-1 ring-white/15">
+                    <div className="nav-pop overflow-hidden rounded-2xl bg-white shadow-[0_34px_76px_-26px_rgba(4,10,30,0.5),0_12px_30px_-14px_rgba(4,10,30,0.25)] ring-1 ring-slate-900/[0.08]">
                       <div className="flex items-stretch">
                         <MenuIntro
                           title="Selected work"
@@ -494,8 +519,8 @@ export function Header() {
                           className="w-56"
                         />
                         <ul className="grid flex-1 content-start gap-0.5 p-4">
-                          {portfolioMajors.map(([slug, title]) => (
-                            <li key={slug}>
+                          {portfolioMajors.map(([slug, title], index) => (
+                            <li key={slug} className="menu-row" style={{ animationDelay: `${Math.min(index, 5) * 26}ms` }}>
                               <Link
                                 href={`/portfolio/${slug}`}
                                 className="group flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-[0.92rem] font-semibold text-slate-800 transition-all duration-200 hover:bg-brand-50 hover:text-brand-700"
