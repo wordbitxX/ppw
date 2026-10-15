@@ -201,7 +201,7 @@ export default function HomePage() {
             <div className="absolute inset-0 z-[1]">
               <HeroFX />
             </div>
-          <div className="container-page relative z-10 order-2 -mt-12 sm:order-1 sm:mt-0">
+          <div className="container-page relative z-10 order-2 -mt-40 sm:order-1 sm:mt-0">
             <div className="mx-auto max-w-4xl text-center">
               <div className="cine-rise">
                 <Eyebrow tone="dark">Pakistan-based · Software, SEO &amp; marketing · Worldwide</Eyebrow>
@@ -251,13 +251,15 @@ export default function HomePage() {
 
           {/* The art stage. Same viewBox + cover fit for image, arcs and flare so
               the travelling light lines up with the picture at every size. */}
-          <div className="pointer-events-none relative z-0 order-1 h-[15rem] sm:order-2 sm:-mt-28 sm:h-[26rem] lg:-mt-36 lg:h-[30rem]" aria-hidden="true">
+          <div className="pointer-events-none relative z-0 order-1 h-64 sm:order-2 sm:-mt-28 sm:h-[26rem] lg:-mt-36 lg:h-[30rem]" aria-hidden="true">
             <div className="cine-hero-stage cine-mask-y absolute inset-0">
               <CineImage variant="calm" priority />
               <LightArcs />
               <div className="opacity-60" aria-hidden="true">
                 <div className="cine-flare" />
               </div>
+              {/* Mobile only: copy overlaps the art, so dim it for contrast. */}
+              <div className="absolute inset-0 bg-gradient-to-b from-midnight/70 via-midnight/25 to-midnight sm:hidden" />
             </div>
           </div>
 
