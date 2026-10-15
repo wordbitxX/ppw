@@ -13,8 +13,6 @@ import { FlagIcon } from "@/components/flag-icon";
 import { AiServicesDeck } from "@/components/ai-services-deck";
 import { HeroReel } from "@/components/hero-reel";
 import { HeroFX } from "@/components/hero-fx";
-import { HeroSlider } from "@/components/hero-slider";
-import { HeroSlideAi, HeroSlideB2b } from "@/components/hero-slides";
 import { CineBackdrop, CineImage, LightArcs } from "@/components/cinematic";
 import { CtaBand } from "@/components/cta-band";
 import { FaqAccordion } from "@/components/accordion";
@@ -198,7 +196,6 @@ export default function HomePage() {
           parallax and a connected-node network (HeroFX) — all off under
           prefers-reduced-motion. */}
       <section className="cine-surface relative overflow-hidden bg-midnight pt-28 text-white sm:pt-36 lg:pt-44">
-        <HeroSlider labels={["One platform — web, mobile & custom software", "AI solutions", "B2B platforms"]}>
           <div className="relative">
             {/* Network sits above the art (z-1) and under the copy (z-10), like the sample combo. */}
             <div className="absolute inset-0 z-[1]">
@@ -265,9 +262,6 @@ export default function HomePage() {
           </div>
 
           </div>
-          <HeroSlideAi />
-          <HeroSlideB2b />
-        </HeroSlider>
 
         <div className="container-page relative z-10 -mt-6 sm:-mt-10">
           <p className="mx-auto max-w-3xl text-center text-base leading-relaxed text-slate-100 [text-shadow:0_1px_18px_rgba(3,8,20,0.95)] sm:text-lg">
