@@ -201,7 +201,7 @@ export default function HomePage() {
             <div className="absolute inset-0 z-[1]">
               <HeroFX />
             </div>
-          <div className="container-page relative z-10 order-2 -mt-52 sm:order-1 sm:mt-0">
+          <div className="container-page relative z-10 order-2 -mt-60 sm:order-1 sm:mt-0">
             <div className="mx-auto max-w-4xl text-center">
               <div className="cine-rise">
                 <Eyebrow tone="dark">Pakistan-based · Software, SEO &amp; marketing · Worldwide</Eyebrow>
@@ -272,7 +272,7 @@ export default function HomePage() {
           </p>
           <nav
             aria-label="Core WordbitX software"
-            className="mx-auto mt-6 flex max-w-4xl flex-wrap justify-center gap-x-3 gap-y-2 text-[0.8rem] text-slate-300 sm:gap-x-4 sm:text-sm"
+            className="mx-auto mt-7 flex max-w-4xl flex-wrap justify-center gap-2 text-xs text-slate-300 sm:text-[0.8rem]"
           >
             {[
               ["/services/custom-software-development", "Custom software"],
@@ -291,7 +291,11 @@ export default function HomePage() {
               ["/pricing", "Pricing"],
               ["/process", "Process"],
             ].map(([href, label]) => (
-              <Link key={href} href={href} className="transition-colors hover:text-arc-300">
+              <Link
+                key={href}
+                href={href}
+                className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 transition-colors hover:border-arc-300/50 hover:bg-white/[0.08] hover:text-arc-300"
+              >
                 {label}
               </Link>
             ))}
