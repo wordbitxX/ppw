@@ -4,6 +4,7 @@ import { morePostsA } from "@/lib/blog-more-a";
 import { morePostsB } from "@/lib/blog-more-b";
 import { morePostsC } from "@/lib/blog-more-c";
 import { morePostsD } from "@/lib/blog-more-d";
+import { morePostsE } from "@/lib/blog-more-e";
 import { postPhotos, withTopicPhoto } from "@/lib/topic-photos";
 
 const author = { name: "WordbitX Editorial Team", role: "Software & Digital Solutions" };
@@ -570,7 +571,7 @@ const originalPosts: BlogPost[] = [
   },
 ];
 
-export const blogPosts: BlogPost[] = [...originalPosts, ...morePostsA, ...morePostsB, ...morePostsC, ...morePostsD].map((post) =>
+export const blogPosts: BlogPost[] = [...originalPosts, ...morePostsA, ...morePostsB, ...morePostsC, ...morePostsD, ...morePostsE].map((post) =>
   withTopicPhoto(post, postPhotos),
 );
 

@@ -132,6 +132,22 @@ export const postPhotos: Record<string, Photo> = {
     src: servicePhoto("seo-services"),
     alt: "SEO analyst reviewing search rankings and a keyword spreadsheet",
   },
+  "best-ai-tools-2026": {
+    src: servicePhoto("ai-solutions"),
+    alt: "AI workstation summarising the best AI tools of 2026",
+  },
+  "free-ai-tools-students-freelancers": {
+    src: servicePhoto("graphic-design"),
+    alt: "Student designer working with free AI tools on a laptop",
+  },
+  "best-ai-tools-small-business": {
+    src: servicePhoto("digital-marketing"),
+    alt: "Small business owner reviewing AI-assisted marketing results on a dashboard",
+  },
+  "best-ai-coding-tools": {
+    src: servicePhoto("custom-software-development"),
+    alt: "Developer writing code alongside an AI coding assistant on dual monitors",
+  },
   "shopify-vs-custom-ecommerce-website": {
     src: servicePhoto("ecommerce-shopify"),
     alt: "Shopify-style brand packing table with an online store on a laptop",
