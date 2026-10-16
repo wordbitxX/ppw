@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
+import Script from "next/script";
 import "@fontsource/inter/400.css";
 import "@fontsource/inter/500.css";
 import "@fontsource/inter/600.css";
@@ -89,16 +90,27 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <head>
-        {adsense ? (
-          <script
-            async
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsense}`}
-            crossOrigin="anonymous"
-          />
-        ) : null}
+        {/* AdSense loader moved to <Script afterInteractive> in the body
+            (16 Oct): as a native async <head> script, adsbygoogle.js could
+            execute BEFORE React hydrated (especially in dev), inject its own
+            managed pagead/managed/js/adsense script into <head>, and make
+            hydration report a head mismatch — the "1 issue" in the dev
+            overlay. afterInteractive loads it from useEffect, i.e. strictly
+            after hydration, so the injection can never race. Verification is
+            unaffected: the google-adsense-account meta tag above still ships
+            in the first HTML. GTM/GA/FB stay native in TrackingHead below —
+            audit tools need those first-HTML snippets (see analytics.tsx). */}
         <TrackingHead />
       </head>
       <body className="bg-white text-ink-900 antialiased">
+        {adsense ? (
+          <Script
+            id="adsense-loader"
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsense}`}
+            strategy="afterInteractive"
+            crossOrigin="anonymous"
+          />
+        ) : null}
         <TrackingBody />
 
         <a

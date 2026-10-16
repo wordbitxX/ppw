@@ -6,6 +6,7 @@ import { ServiceCard, PostCard, ProjectCard } from "@/components/cards";
 import { DemosSection } from "@/components/demos-section";
 import { CredibilityStrip } from "@/components/certifications-band";
 import { IndustryStrip } from "@/components/industry-strip";
+import { ScrollRail } from "@/components/scroll-rail";
 import { FeaturedReviews } from "@/components/featured-reviews";
 import { siteReviews } from "@/lib/reviews";
 import { isReviewDeleted } from "@/lib/review-store";
@@ -264,11 +265,15 @@ export default function HomePage() {
                 <br />
                 <span className="text-gradient-arc">Endless Possibilities.</span>
               </h1>
+              {/* Sized to break 3 lines on phones and almost exactly 2 on
+                  desktop (one sentence per line at lg: max-w-4xl + text-xl).
+                  "WordbitX" carries the same arc gradient as the Endless
+                  headline above it so the brand word reads premium. */}
               <p
-                className="cine-rise mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-slate-100 sm:text-xl"
+                className="cine-rise mx-auto mt-5 max-w-4xl text-balance text-[0.8125rem] leading-relaxed text-slate-100 sm:text-base lg:text-xl"
                 style={{ "--d": "0.16s" } as React.CSSProperties}
               >
-                <strong>WordbitX</strong> is a software development company in Pakistan for businesses worldwide. We build web, mobile and custom software solutions to accelerate your business.
+                <strong className="text-gradient-arc">WordbitX</strong> is a software development company in Pakistan for businesses worldwide. We build web, mobile and custom software solutions to accelerate your business.
               </p>
               <div
                 className="cine-rise mt-7 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center"
@@ -318,38 +323,45 @@ export default function HomePage() {
 
         <div className="container-page relative z-10 mt-8 sm:-mt-10">
           <p className="mx-auto max-w-3xl text-center text-base leading-relaxed text-slate-100 [text-shadow:0_1px_18px_rgba(3,8,20,0.95)] sm:text-lg">
-            From launch to growth: Shopify and e-commerce, POS and CRM/ERP, SEO, ASO and digital marketing —
-            with practical AI where it saves your team time.
+            Websites, Apps, Shopify &amp; E-commerce Stores, POS and CRM/ERP Systems — grown with SEO, ASO and
+            Digital Marketing, plus practical AI where it helps the workflow. Clients across the USA, UK, UAE,
+            Canada, Australia and worldwide.
           </p>
-          <nav
-            aria-label="Core WordbitX software"
-            className="mx-auto mt-7 flex max-w-4xl snap-x gap-2 overflow-x-auto overscroll-x-contain pb-3 text-xs text-slate-300 [scrollbar-width:thin] sm:text-[0.8rem]"
-          >
-            {[
-              ["/services/custom-software-development", "Custom software"],
-              ["/services/web-development", "Web development"],
-              ["/services/ecommerce-shopify", "Shopify stores"],
-              ["/services/ecommerce-development", "E-commerce websites"],
-              ["/services/mobile-app-development", "Mobile apps"],
-              ["/services/seo-services", "SEO services"],
-              ["/services/digital-marketing", "Digital marketing"],
-              ["/services/ai-solutions", "AI solutions"],
-              ["/services/saas-application-development", "Business software"],
-              ["/industries", "Industries"],
-              ["/global", "Global markets"],
-              ["/portfolio", "Portfolio"],
-              ["/topics", "Topics"],
-              ["/pricing", "Pricing"],
-              ["/process", "Process"],
-            ].map(([href, label]) => (
-              <Link
-                key={href}
-                href={href}
-                className="shrink-0 snap-start whitespace-nowrap rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 transition-colors hover:border-arc-300/50 hover:bg-white/[0.08] hover:text-arc-300"
-              >
-                {label}
-              </Link>
-            ))}
+          {/* One line that scrolls with flanking arrows below lg; at lg+ every
+              pill wraps into view (owner request, 16 Oct — no sideways scroll
+              on desktop). ScrollRail keeps the links server-rendered. */}
+          <nav aria-label="Core WordbitX software" className="mt-7">
+            <ScrollRail
+              label="Core WordbitX software"
+              className="mx-auto max-w-4xl"
+              trackClassName="no-scrollbar flex snap-x gap-2 overflow-x-auto overscroll-x-contain pb-0.5 text-xs text-slate-300 sm:text-[0.8rem] lg:flex-wrap lg:justify-center lg:overflow-x-visible"
+            >
+              {[
+                ["/services/custom-software-development", "Custom software"],
+                ["/services/web-development", "Web development"],
+                ["/services/ecommerce-shopify", "Shopify stores"],
+                ["/services/ecommerce-development", "E-commerce websites"],
+                ["/services/mobile-app-development", "Mobile apps"],
+                ["/services/seo-services", "SEO services"],
+                ["/services/digital-marketing", "Digital marketing"],
+                ["/services/ai-solutions", "AI solutions"],
+                ["/services/saas-application-development", "Business software"],
+                ["/industries", "Industries"],
+                ["/global", "Global markets"],
+                ["/portfolio", "Portfolio"],
+                ["/topics", "Topics"],
+                ["/pricing", "Pricing"],
+                ["/process", "Process"],
+              ].map(([href, label]) => (
+                <Link
+                  key={href}
+                  href={href}
+                  className="shrink-0 snap-start whitespace-nowrap rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 transition-colors hover:border-arc-300/50 hover:bg-white/[0.08] hover:text-arc-300"
+                >
+                  {label}
+                </Link>
+              ))}
+            </ScrollRail>
           </nav>
         </div>
 
