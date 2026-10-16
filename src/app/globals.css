@@ -1001,14 +1001,17 @@ body.hide-site-cursor .site-cursor-ring {
 /* Sector rail under the hero — see <IndustryStrip />.
    On phones the thirteen chips are a horizontal scroller. A visible
    scrollbar under a single row of pills looks broken, and the rail already
-   signals that it scrolls with its right-edge fade, so the bar is hidden
-   rather than styled. Desktop drops out of overflow entirely and wraps. */
-.industry-rail {
+   signals that it scrolls with its prev/next arrows and edge fades, so the
+   bar is hidden rather than styled. Desktop drops out of overflow entirely
+   and wraps. Same treatment for the hero service pills — see <ScrollRail />. */
+.industry-rail,
+.no-scrollbar {
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
 
-.industry-rail::-webkit-scrollbar {
+.industry-rail::-webkit-scrollbar,
+.no-scrollbar::-webkit-scrollbar {
   display: none;
 }
 
