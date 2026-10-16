@@ -21,13 +21,13 @@ export function ServiceCard({
     return (
       <Link
         href={`/services/${service.slug}`}
-        className={`group animate-tile-in relative flex h-full flex-col overflow-hidden rounded-2xl border transition-all duration-500 hover:-translate-y-1.5 ${
+        className={`group animate-tile-in relative flex h-full flex-col overflow-hidden rounded-3xl border transition-all duration-500 ${
           light
-            ? "border-slate-200 bg-white hover:border-brand-300 hover:shadow-[0_28px_60px_-30px_rgba(28,168,48,0.28),0_18px_38px_-24px_rgba(5,13,33,0.18)]"
-            : "border-white/10 bg-navy-900 hover:border-brand-400/40 hover:shadow-[0_24px_55px_-28px_rgba(28,168,48,0.45)]"
+            ? "border-slate-200/90 bg-white shadow-[0_16px_38px_-28px_rgba(5,13,33,0.22)] hover:-translate-y-2 hover:border-brand-300 hover:shadow-[0_38px_72px_-32px_rgba(28,168,48,0.30),0_24px_48px_-30px_rgba(5,13,33,0.22)]"
+            : "border-white/10 bg-navy-900 hover:-translate-y-1.5 hover:border-brand-400/40 hover:shadow-[0_24px_55px_-28px_rgba(28,168,48,0.45)]"
         }`}
       >
-        <span className={`relative block aspect-[16/10] overflow-hidden ${light ? "bg-slate-100" : "bg-navy-800"}`}>
+        <span className={`image-sheen relative block aspect-[16/10] overflow-hidden ${light ? "bg-slate-100" : "bg-navy-800"}`}>
           <Image
             src={service.image}
             alt={service.imageAlt}

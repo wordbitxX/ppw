@@ -181,8 +181,8 @@ const homeServiceSlugs = [
  */
 const homeDeckMedia: Record<string, { src: string; alt: string }> = {
   "web-development": {
-    src: "/brand/home/deck-web-development.jpg",
-    alt: "Website wireframe layout being designed on a bright studio monitor",
+    src: "/brand/home/deck-web-development-v2.jpg",
+    alt: "Laptop with floating translucent website interface panels in a sunlit studio loft",
   },
   "ecommerce-shopify": {
     src: "/brand/home/deck-ecommerce-shopify.jpg",
@@ -201,8 +201,8 @@ const homeDeckMedia: Record<string, { src: string; alt: string }> = {
     alt: "Bright boutique checkout counter with a POS terminal, receipt printer and scanner",
   },
   "seo-services": {
-    src: "/brand/home/deck-seo-services.jpg",
-    alt: "Rising search-ranking charts with a magnifying glass over search results",
+    src: "/brand/home/deck-seo-services-v2.jpg",
+    alt: "Tablet on a brass stand showing a rising emerald analytics chart on a marble desk",
   },
   "digital-marketing": {
     src: "/brand/home/deck-digital-marketing.jpg",
