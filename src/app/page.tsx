@@ -271,8 +271,9 @@ export default function HomePage() {
 
         <div className="container-page relative z-10 mt-8 sm:-mt-10">
           <p className="mx-auto max-w-3xl text-center text-base leading-relaxed text-slate-100 [text-shadow:0_1px_18px_rgba(3,8,20,0.95)] sm:text-lg">
-            Websites, apps, Shopify stores, POS and CRM/ERP — grown with SEO and digital marketing, with practical AI
-            where it helps the workflow. Clients across the USA, UK, UAE, Canada, Australia and worldwide.
+            Websites, Apps, Shopify &amp; E-commerce Stores, POS and CRM/ERP Systems — grown with SEO, ASO and
+            Digital Marketing, plus practical AI where it helps the workflow. Clients across the USA, UK, UAE,
+            Canada, Australia and worldwide.
           </p>
           <nav
             aria-label="Core WordbitX software"

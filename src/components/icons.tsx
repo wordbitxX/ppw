@@ -175,23 +175,6 @@ export function GlobeIcon(props: IconProps) {
 }
 
 /** Friendly robot mark used by the AI chat assistant. */
-export function RobotIcon(props: IconProps) {
-  const { className, ...rest } = props;
-  return (
-    <Base className={`assist-robot ${className ?? ""}`} {...rest}>
-      <g className="assist-robot-antenna">
-        <path d="M12 8V5.6" />
-        <circle cx="12" cy="4.2" r="1.1" fill="currentColor" stroke="none" />
-      </g>
-      <rect x="6.5" y="8" width="11" height="10.5" rx="3.2" />
-      <g className="assist-robot-eyes">
-        <path d="M9.7 12.2h.01M14.3 12.2h.01" strokeWidth={2.4} />
-      </g>
-      <path d="M9.6 15.2c1.5 1 3.3 1 4.8 0" />
-      <path d="M4.4 12v3M19.6 12v3" />
-    </Base>
-  );
-}
 
 export function WhatsAppIcon(props: IconProps) {
   return (

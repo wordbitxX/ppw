@@ -1,7 +1,26 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, CloseIcon, RobotIcon, WhatsAppIcon } from "@/components/icons";
+import { ArrowRight, CloseIcon, WhatsAppIcon } from "@/components/icons";
+
+/** Abstract AI mark — twin sparkles (large + small). Replaces the old robot
+    face the owner found boring (17 Oct): a neutral "AI spark" reads modern
+    (Gemini/Copilot style) instead of a toy mascot. */
+function AiSparkIcon({ className = "h-6 w-6" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" aria-hidden="true">
+      <path
+        d="M10.75 2.5c.66 4.28 2.97 6.59 7.25 7.25-4.28.66-6.59 2.97-7.25 7.25-.66-4.28-2.97-6.59-7.25-7.25 4.28-.66 6.59-2.97 7.25-7.25z"
+        fill="currentColor"
+      />
+      <path
+        d="M18.4 13.6c.34 2.2 1.7 3.56 3.9 3.9-2.2.34-3.56 1.7-3.9 3.9-.34-2.2-1.7-3.56-3.9-3.9 2.2-.34 3.56-1.7 3.9-3.9z"
+        fill="currentColor"
+        opacity="0.7"
+      />
+    </svg>
+  );
+}
 import { replyTo, welcomeReply, type ChatLink, type ChatTurn } from "@/lib/chat-assistant";
 import { usWhatsappLink, whatsappLink } from "@/lib/site";
 
@@ -99,11 +118,22 @@ export function AiChatWidget() {
         <button
           type="button"
           onClick={() => setOpen(true)}
-          className="animate-assist-glow group fixed right-4 bottom-[max(1rem,calc(env(safe-area-inset-bottom)+0.75rem))] z-[70] flex h-14 w-14 items-center justify-center rounded-2xl bg-navy-900 text-brand-300 ring-2 ring-brand-400 ring-offset-2 ring-offset-navy-950 transition-transform duration-300 hover:scale-105 hover:text-brand-200 hover:ring-brand-300"
-          aria-label="Open WordbitX Ai"
+          className="group fixed right-4 bottom-[max(1rem,calc(env(safe-area-inset-bottom)+0.75rem))] z-[70] flex h-14 w-14 items-center justify-center transition-transform duration-300 hover:scale-105"
+          aria-label="Ask WordbitX AI"
         >
-          <span className="assist-orb" aria-hidden />
-          <RobotIcon className="relative h-7 w-7" />
+          {/* Orbiting gradient arc — the "advanced AI" shell around the orb. */}
+          <span aria-hidden className="ai-ring absolute inset-0 rounded-full" />
+          <span aria-hidden className="absolute inset-[3px] rounded-full bg-navy-950 ring-1 ring-white/10" />
+          <AiSparkIcon className="relative h-6 w-6 text-brand-300 transition-all duration-300 group-hover:scale-110 group-hover:text-brand-200" />
+          {/* Online status dot. */}
+          <span aria-hidden className="absolute right-1 top-1 flex h-2.5 w-2.5">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-400 opacity-60" />
+            <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-brand-400 ring-2 ring-navy-950" />
+          </span>
+          {/* Hover label — slides in from the left like a tooltip. */}
+          <span className="pointer-events-none absolute right-full top-1/2 mr-3 -translate-y-1/2 translate-x-2 whitespace-nowrap rounded-full bg-navy-950/95 px-3.5 py-1.5 text-xs font-semibold text-white opacity-0 ring-1 ring-white/15 backdrop-blur transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100">
+            Ask AI
+          </span>
         </button>
       ) : null}
 
@@ -122,7 +152,7 @@ export function AiChatWidget() {
             <div className="assist-header-line shrink-0" aria-hidden />
             <header className="flex shrink-0 items-center gap-3 bg-navy-950 px-4 py-3">
               <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-500/15 text-brand-300 ring-1 ring-brand-400/35">
-                <RobotIcon className="h-5 w-5" />
+                <AiSparkIcon className="h-5 w-5" />
               </span>
               <div className="min-w-0 flex-1">
                 <h2 className="text-sm font-semibold tracking-tight text-white">WordbitX Ai</h2>
