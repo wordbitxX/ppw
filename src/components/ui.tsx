@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { ArrowRight, CheckIcon } from "@/components/icons";
+import { CineBackdrop, CineImage, type CineVariant } from "@/components/cinematic";
 import { absoluteUrl } from "@/lib/site";
 
 export function Section({
@@ -24,7 +25,7 @@ export function Section({
 }) {
   const toneClass =
     tone === "dark"
-      ? "bg-navy-950 text-white"
+      ? "cine-surface cine-rim text-white"
       : tone === "muted"
         ? "bg-slate-50 text-ink-900"
         : "bg-white text-ink-900";
@@ -103,7 +104,7 @@ export function ButtonLink({ href, children, variant = "primary", className = ""
   const styles = {
     primary: "bg-brand-500 text-white shadow-[0_18px_40px_-20px_rgba(28,168,48,0.85)] hover:bg-brand-600 hover:-translate-y-0.5",
     secondary: "border border-navy-800/15 bg-white text-ink-900 hover:border-brand-400 hover:text-brand-700",
-    ghost: "border border-white/20 bg-white/5 text-white hover:border-brand-400/60 hover:bg-white/10",
+    ghost: "border border-arc-300/25 bg-white/[0.04] text-white backdrop-blur-sm hover:border-arc-300/60 hover:bg-white/10",
     light: "bg-white text-navy-900 hover:-translate-y-0.5 hover:bg-brand-50",
   }[variant];
 
@@ -260,29 +261,40 @@ export function PageHero({
   description,
   crumbs,
   children,
+  art = "flow",
 }: {
   eyebrow: string;
   title: string;
   description: string;
   crumbs: Crumb[];
   children?: ReactNode;
+  /** Which piece of the cinematic reference art lights this page's hero. */
+  art?: CineVariant;
 }) {
   return (
-    <section className="relative overflow-hidden bg-navy-950 pb-12 pt-24 text-white sm:pb-20 sm:pt-32">
-      <div className="absolute inset-0 grid-pattern opacity-60" aria-hidden="true" />
-      <div
-        className="absolute -right-24 top-0 h-[26rem] w-[26rem] rounded-full bg-brand-500/16 blur-[130px]"
-        aria-hidden="true"
-      />
+    <section className="cine-surface relative overflow-hidden pb-12 pt-24 text-white sm:pb-20 sm:pt-32">
+      {art === "robot" ? (
+        /* Subject sits on the right of the art; text stays on the dark left. */
+        <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden bg-black" aria-hidden="true">
+          <div className="cine-mask-b absolute inset-y-0 right-0 w-full opacity-45 sm:opacity-90 lg:w-[72%]">
+            <CineImage variant="robot" priority style={{ objectPosition: "70% 18%" }} />
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-r from-midnight via-midnight/55 to-transparent sm:via-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-b from-midnight/50 via-transparent to-midnight/80" />
+        </div>
+      ) : (
+        <CineBackdrop variant={art} opacity={art === "arcs" ? 0.8 : 0.7} mask="b" position={art === "flow" ? "0% 40%" : "50% 50%"} scrimLeft />
+      )}
       <div className="container-page relative">
         <Breadcrumbs items={crumbs} />
         <div className="mt-6 max-w-3xl">
           <Eyebrow tone="dark">{eyebrow}</Eyebrow>
-          <h1 className="mt-5 text-[1.85rem] font-semibold leading-[1.12] sm:text-4xl lg:text-[3.1rem]">{title}</h1>
+          <h1 className="mt-5 text-[1.85rem] font-semibold leading-[1.1] tracking-[-0.025em] sm:text-4xl lg:text-[3.1rem]">{title}</h1>
           <p className="mt-5 text-base leading-relaxed text-slate-300 sm:text-lg">{description}</p>
         </div>
         {children ? <div className="mt-8">{children}</div> : null}
       </div>
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-arc-300/40 to-transparent" aria-hidden="true" />
     </section>
   );
 }

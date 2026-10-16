@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { PageHero, Section, SectionHeading, ButtonLink, Eyebrow } from "@/components/ui";
 import { CtaBand } from "@/components/cta-band";
+import { SolutionCards } from "@/components/solution-cards";
 import { ArrowRight } from "@/components/icons";
 import { industries } from "@/lib/industries";
 import { propertiesPak } from "@/lib/demos";
@@ -51,6 +52,15 @@ export default function IndustriesPage() {
             </Link>
           ))}
         </div>
+      </Section>
+
+      <Section tone="muted" id="platforms">
+        <SectionHeading
+          eyebrow="Ready-to-adapt platforms"
+          title="Platforms we can shape to your business"
+          description="Starting points we have already built around — each one links to the service page behind it."
+        />
+        <SolutionCards />
       </Section>
 
       {/* Properties Pak is the one thing on this site that is not a demo or a

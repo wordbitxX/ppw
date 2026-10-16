@@ -1,3 +1,5 @@
+import { CertificationsBand } from "@/components/certifications-band";
+import { ReviewSlider } from "@/components/review-slider";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -215,6 +217,10 @@ export default function AboutPage() {
           Only what the profile actually publishes. Clutch shows no reviews for
           us yet, so there is no rating, no stars and no review count here. The
           day there are real reviews we will show the real number. */}
+      {/* Credentials moved here from the home page, which now carries only a
+          one-line strip. Marks band first, then the checkable detail. */}
+      <CertificationsBand />
+
       <Section tone="muted" id="verified">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] lg:items-center">
           <SectionHeading
@@ -279,6 +285,12 @@ export default function AboutPage() {
             </div>
           </div>
         </div>
+      </Section>
+
+      {/* REVIEWS — the full review wall and the "write a review" form moved
+          here from the home page, which now features at most three. */}
+      <Section id="reviews">
+        <ReviewSlider />
       </Section>
 
       {/* FOUNDER */}

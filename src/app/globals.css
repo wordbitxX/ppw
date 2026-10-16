@@ -33,6 +33,16 @@
   --color-brand-700: #0e671b;
   --color-brand-800: #0b5015;
 
+  /* CINEMATIC SYSTEM — midnight base + electric-blue / icy-cyan light, taken
+     from the hero reference art (public/brand/cinematic). Brand green stays
+     the action colour (buttons, markers); blue/cyan is atmosphere only. */
+  --color-midnight: #0a1128;
+  --color-arc-200: #bfeeff;
+  --color-arc-300: #7fdcff;
+  --color-arc-400: #3fb4ff;
+  --color-arc-500: #2f84ff;
+  --color-arc-600: #1d5fd6;
+
   --color-ink-900: #0b1524;
   --color-ink-700: #2c3a4e;
   --color-ink-500: #5a6a80;
@@ -333,78 +343,33 @@ body.hide-site-cursor .site-cursor-ring {
   animation: assist-msg 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-@keyframes assist-glow {
-  0%,
-  100% {
-    box-shadow:
-      0 0 0 0 rgba(28, 168, 48, 0.45),
-      0 10px 24px -12px rgba(28, 168, 48, 0.7);
-  }
-  50% {
-    box-shadow:
-      0 0 0 4px rgba(28, 168, 48, 0.2),
-      0 12px 28px -10px rgba(28, 168, 48, 0.85);
+/* AI assistant launcher — a comet-like gradient arc orbits a solid navy orb
+   (replaces the old pulsing robot tile; the owner asked for a more advanced
+   AI look, 17 Oct). Reduced-motion swaps the orbit for a static full ring. */
+.ai-ring {
+  background: conic-gradient(
+    from 0deg,
+    rgba(28, 168, 48, 0) 0deg,
+    #1ca830 60deg,
+    #7ee0b5 120deg,
+    #6fb8ff 185deg,
+    rgba(28, 168, 48, 0) 260deg,
+    rgba(28, 168, 48, 0) 360deg
+  );
+  animation: ai-orb-spin 3.4s linear infinite;
+  filter: drop-shadow(0 0 12px rgba(28, 168, 48, 0.4));
+}
+
+@keyframes ai-orb-spin {
+  to {
+    transform: rotate(360deg);
   }
 }
 
-.animate-assist-glow {
-  animation: assist-glow 2.4s ease-in-out infinite;
-}
-
-.assist-robot-antenna {
-  transform-box: fill-box;
-  transform-origin: center bottom;
-  animation: assist-antenna 1.6s ease-in-out infinite;
-}
-
-.assist-robot-eyes {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: assist-blink 3.4s ease-in-out infinite;
-}
-
-@keyframes assist-antenna {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-1.4px);
-  }
-}
-
-@keyframes assist-blink {
-  0%,
-  88%,
-  100% {
-    transform: scaleY(1);
-  }
-  92% {
-    transform: scaleY(0.12);
-  }
-}
-
-.assist-orb {
-  position: absolute;
-  inset: 0;
-  border-radius: 1rem;
-  border: 1px solid rgba(49, 196, 116, 0.55);
-  animation: assist-orb 3s linear infinite;
-  pointer-events: none;
-}
-
-@keyframes assist-orb {
-  0% {
-    transform: rotate(0deg) scale(1);
-    opacity: 0.7;
-  }
-  50% {
-    transform: rotate(180deg) scale(1.06);
-    opacity: 1;
-  }
-  100% {
-    transform: rotate(360deg) scale(1);
-    opacity: 0.7;
+@media (prefers-reduced-motion: reduce) {
+  .ai-ring {
+    animation: none;
+    background: conic-gradient(from 0deg, #1ca830, #7ee0b5, #6fb8ff, #1ca830);
   }
 }
 
@@ -880,20 +845,26 @@ body.hide-site-cursor .site-cursor-ring {
  * under AA. It brightens the inner highlight, adds a thin brand-400 rim and
  * deepens the outer glow instead.
  */
+/* Header CTA — a light "glass white" button: the one bright object in a dark
+   header, so it reads as the primary action without adding another colour.
+   Navy label on #fff → #e4eeff is ≥ 12:1. Accent dot is brand green. */
 .cta-surface {
-  background-image: linear-gradient(180deg, #188f29 0%, var(--color-brand-700) 100%);
+  --cta-sweep-color: rgba(47, 132, 255, 0.22);
+  color: var(--color-navy-950, #050d21);
+  background-image: linear-gradient(180deg, #ffffff 0%, #e3edff 100%);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.28),
-    inset 0 -1px 0 rgba(3, 8, 20, 0.35),
-    0 16px 38px -18px rgba(28, 168, 48, 0.95);
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -1px 0 rgba(5, 39, 103, 0.12),
+    0 12px 30px -14px rgba(127, 220, 255, 0.55);
 }
 
 .cta-surface:hover {
+  color: var(--color-navy-950, #050d21);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.45),
-    inset 0 -1px 0 rgba(3, 8, 20, 0.3),
-    0 0 0 1px rgba(46, 194, 67, 0.45),
-    0 22px 48px -18px rgba(28, 168, 48, 1);
+    inset 0 1px 0 #fff,
+    inset 0 -1px 0 rgba(5, 39, 103, 0.14),
+    0 0 0 1px rgba(127, 220, 255, 0.7),
+    0 18px 42px -14px rgba(127, 220, 255, 0.85);
 }
 
 .cta-live > * {
@@ -1049,4 +1020,317 @@ body.hide-site-cursor .site-cursor-ring {
 @keyframes cert-marquee {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
+}
+
+
+/* ==========================================================================
+   CINEMATIC SYSTEM
+   One lighting language for the whole site: near-black midnight, electric
+   blue rim light, icy-cyan highlights. Everything below is transform/opacity
+   only (compositor-friendly) and is switched off by prefers-reduced-motion.
+   ========================================================================== */
+
+.cine-surface {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--color-midnight);
+  background-image:
+    radial-gradient(60rem 28rem at 50% -8%, rgb(47 132 255 / 0.16), transparent 70%),
+    radial-gradient(40rem 24rem at 100% 100%, rgb(63 180 255 / 0.08), transparent 70%);
+}
+
+/* A hairline of blue light on the top edge of a dark band — the "rim" in the
+   reference art. */
+.cine-rim::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  z-index: 1;
+  background: linear-gradient(90deg, transparent, rgb(127 220 255 / 0.55) 30%, rgb(255 255 255 / 0.75) 50%, rgb(127 220 255 / 0.55) 70%, transparent);
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.cine-art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Dark art fades into the page instead of ending on a hard edge. */
+.cine-mask-y {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 28%, #000 72%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 28%, #000 72%, transparent 100%);
+}
+.cine-mask-b {
+  -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+}
+.cine-mask-radial {
+  -webkit-mask-image: radial-gradient(ellipse 80% 75% at 50% 50%, #000 35%, transparent 100%);
+  mask-image: radial-gradient(ellipse 80% 75% at 50% 50%, #000 35%, transparent 100%);
+}
+
+.cine-hero-stage {
+  transform: translate3d(calc(var(--hero-px, 0) * -10px), calc(var(--hero-py, 0) * -6px), 0) scale(1.03);
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.cine-flare {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(46rem, 90vw);
+  height: 12rem;
+  translate: -50% -50%;
+  background: radial-gradient(closest-side, rgb(160 225 255 / 0.5), rgb(47 132 255 / 0.18) 55%, transparent 100%);
+  mix-blend-mode: screen;
+  animation: cine-flare 7s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes cine-flare {
+  0%, 100% { opacity: 0.55; transform: scaleX(0.92); }
+  50% { opacity: 0.95; transform: scaleX(1.06); }
+}
+
+/* Light that travels along the arcs (SVG paths use pathLength=100). */
+.cine-glint {
+  stroke-dasharray: 7 93;
+  stroke-dashoffset: 0;
+  animation: cine-glint 9s linear infinite;
+}
+.cine-glint-rev { animation-direction: reverse; animation-duration: 11s; }
+@keyframes cine-glint {
+  to { stroke-dashoffset: -100; }
+}
+
+@keyframes cine-drift {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1.04); }
+  50% { transform: translate3d(-1.2%, 0.8%, 0) scale(1.08); }
+}
+.cine-drift { animation: cine-drift 28s ease-in-out infinite; will-change: transform; }
+
+/* Typography helpers */
+.text-gradient-arc {
+  background-image: linear-gradient(100deg, #ffffff 0%, var(--color-arc-200) 38%, var(--color-arc-400) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Glass panel used sparingly on dark bands. */
+.cine-panel {
+  border: 1px solid rgb(127 220 255 / 0.14);
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.05), rgb(255 255 255 / 0.015));
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06);
+}
+
+/* Reveal on load — one gentle rise, staggered by --d. */
+@keyframes cine-rise {
+  from { opacity: 0; transform: translate3d(0, 18px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+.cine-rise { animation: cine-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: var(--d, 0s); }
+
+/* Primary CTA with a restrained light sweep. */
+.btn-cine {
+  position: relative;
+  overflow: hidden;
+}
+.btn-cine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 35%, rgb(255 255 255 / 0.28) 50%, transparent 65%);
+  transform: translateX(-120%);
+  transition: transform 0.9s ease;
+}
+.btn-cine:hover::after { transform: translateX(120%); }
+
+@media (prefers-reduced-motion: reduce) {
+  .cine-flare,
+  .cine-glint,
+  .cine-drift,
+  .cine-rise { animation: none !important; }
+  .cine-rise { opacity: 1; }
+  .cine-hero-stage { transform: scale(1.03); transition: none; }
+  .btn-cine::after { display: none; }
+}
+
+.cine-mask-hole {
+  -webkit-mask-image: radial-gradient(ellipse 52% 38% at 50% 34%, transparent 0, rgb(0 0 0 / 0.25) 55%, #000 100%);
+  mask-image: radial-gradient(ellipse 52% 38% at 50% 34%, transparent 0, rgb(0 0 0 / 0.25) 55%, #000 100%);
+}
+
+/* ==========================================================================
+   AMBIENT MOTION — closing CTA, selected-work band, showcase progress.
+   Transform / opacity only (plus one registered-angle border beam); all of it
+   is switched off under prefers-reduced-motion.
+   ========================================================================== */
+
+/* Blurred light orbs that drift slowly behind content. */
+.cine-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(70px);
+  pointer-events: none;
+  will-change: transform;
+}
+.cine-orb-a { animation: cine-orb-a 16s ease-in-out infinite; }
+.cine-orb-b { animation: cine-orb-b 21s ease-in-out infinite; }
+@keyframes cine-orb-a {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(7%, 10%, 0) scale(1.18); }
+}
+@keyframes cine-orb-b {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1.1); }
+  50% { transform: translate3d(-9%, -8%, 0) scale(0.92); }
+}
+
+/* A soft diagonal band of light crossing a panel every few seconds. */
+.cine-sweep {
+  position: absolute;
+  inset: -20% auto -20% 0;
+  width: 38%;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent 0%, rgb(160 225 255 / 0.10) 45%, rgb(255 255 255 / 0.16) 50%, rgb(160 225 255 / 0.10) 55%, transparent 100%);
+  transform: translate3d(-130%, 0, 0) skewX(-12deg);
+  animation: cine-sweep 11s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  will-change: transform;
+}
+@keyframes cine-sweep {
+  0%, 18% { transform: translate3d(-130%, 0, 0) skewX(-12deg); }
+  62%, 100% { transform: translate3d(360%, 0, 0) skewX(-12deg); }
+}
+
+/* Light that runs around the edge of a rounded panel. */
+@property --beam-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+.cine-beam::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  padding: 1.5px;
+  pointer-events: none;
+  background: conic-gradient(from var(--beam-angle), transparent 0 62%, rgb(127 220 255 / 0.15) 72%, rgb(127 220 255 / 0.95) 90%, #fff 94%, transparent 97%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  animation: cine-beam 8s linear infinite;
+}
+@keyframes cine-beam {
+  to { --beam-angle: 360deg; }
+}
+
+/* Showcase auto-advance progress (width fill; the animationend event moves on). */
+@keyframes tab-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+.tab-progress {
+  transform-origin: left center;
+  animation: tab-progress var(--tab-ms, 7000ms) linear forwards;
+}
+.tab-progress[data-paused="true"] { animation-play-state: paused; }
+
+/* Hover-only motion helpers for cards. */
+.why-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgb(127 220 255 / 0.9), rgb(28 168 48 / 0.9), transparent);
+  transform: scaleX(0.15);
+  opacity: 0;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.5s ease;
+}
+.why-card:hover::before,
+.why-card:focus-visible::before { transform: scaleX(1); opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cine-orb-a,
+  .cine-orb-b,
+  .cine-sweep,
+  .cine-beam::after,
+  .tab-progress { animation: none !important; }
+  .cine-sweep { display: none; }
+  .tab-progress { transform: scaleX(1); opacity: 0.35; }
+}
+
+/* ==========================================================================
+   /sample — hero concept studio. Every animation lives inside
+   no-preference, so reduced-motion visitors get a still composition.
+   ========================================================================== */
+@keyframes sm-breathe { 0%, 100% { transform: scale(1.02); } 50% { transform: scale(1.1); } }
+@keyframes sm-pan { 0%, 100% { transform: scale(1.14) translate3d(-3%, 0, 0); } 50% { transform: scale(1.14) translate3d(3%, 0, 0); } }
+@keyframes sm-sweep { 0% { transform: translateX(-130%) skewX(-18deg); } 100% { transform: translateX(130%) skewX(-18deg); } }
+@keyframes sm-scan { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
+@keyframes sm-float { 0%, 100% { transform: translate3d(0, -8px, 0); } 50% { transform: translate3d(0, 8px, 0); } }
+@keyframes sm-spin { to { transform: rotate(360deg); } }
+@keyframes sm-spin-rev { to { transform: rotate(-360deg); } }
+@keyframes sm-aurora-a { 0%, 100% { transform: translate3d(-8%, -6%, 0) scale(1); } 50% { transform: translate3d(10%, 8%, 0) scale(1.25); } }
+@keyframes sm-aurora-b { 0%, 100% { transform: translate3d(10%, 6%, 0) scale(1.15); } 50% { transform: translate3d(-12%, -8%, 0) scale(0.9); } }
+@keyframes sm-aurora-c { 0%, 100% { transform: translate3d(0, 10%, 0) scale(0.9); } 50% { transform: translate3d(8%, -12%, 0) scale(1.2); } }
+@keyframes sm-grid { to { background-position: 0 56px; } }
+@keyframes sm-beam { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+@keyframes sm-ripple { 0% { transform: translate(-50%, -50%) scale(0.08); opacity: 0.7; } 100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; } }
+@keyframes sm-pulse { 0%, 100% { opacity: 0.25; transform: translate(-50%, -50%) scale(0.85); } 50% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); } }
+@keyframes sm-drift-y { 0%, 100% { transform: scale(1.08) translate3d(0, -2%, 0); } 50% { transform: scale(1.08) translate3d(0, 2%, 0); } }
+
+@media (prefers-reduced-motion: no-preference) {
+  .sm-breathe { animation: sm-breathe 18s ease-in-out infinite; }
+  .sm-pan { animation: sm-pan 36s ease-in-out infinite; }
+  .sm-sweep { animation: sm-sweep 7s ease-in-out infinite; }
+  .sm-scan { animation: sm-scan 6s linear infinite; }
+  .sm-float { animation: sm-float 9s ease-in-out infinite; }
+  .sm-spin-1 { animation: sm-spin 38s linear infinite; }
+  .sm-spin-2 { animation: sm-spin-rev 56s linear infinite; }
+  .sm-spin-3 { animation: sm-spin 90s linear infinite; }
+  .sm-aurora-a { animation: sm-aurora-a 22s ease-in-out infinite; }
+  .sm-aurora-b { animation: sm-aurora-b 28s ease-in-out infinite; }
+  .sm-aurora-c { animation: sm-aurora-c 25s ease-in-out infinite; }
+  .sm-grid { animation: sm-grid 2.6s linear infinite; }
+  .sm-beam { animation: sm-beam 7s ease-in-out infinite; }
+  .sm-ripple { animation: sm-ripple 7.5s cubic-bezier(0.2, 0.6, 0.3, 1) infinite; }
+  .sm-pulse { animation: sm-pulse 3.2s ease-in-out infinite; }
+  .sm-drift-y { animation: sm-drift-y 24s ease-in-out infinite; }
+}
+
+/* Header dropdown panels — a short, pure ease-out settle when they open.
+   Owner feedback 15 Oct: previews/eager motion read as flicker, so the ONLY
+   panel motion left is this single fade-rise per open. Pane swaps inside the
+   services menu are instant state swaps with no animation at all. */
+@keyframes nav-pop {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.nav-pop {
+  animation: nav-pop 0.2s cubic-bezier(0.33, 1, 0.68, 1) both;
+  transform-origin: 50% 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-pop {
+    animation: none;
+  }
 }

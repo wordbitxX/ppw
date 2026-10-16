@@ -28,7 +28,7 @@ export const morePostsA: BlogPost[] = [
     imageAlt: "Calculator and notepad used to plan a website development budget",
     featured: true,
     relatedServices: ["web-development", "wordpress-development", "seo-services"],
-    relatedPosts: ["how-to-choose-a-web-development-company", "website-speed-and-seo"],
+    relatedPosts: ["custom-website-development-company", "how-to-choose-a-web-development-company", "website-speed-and-seo"],
     blocks: [
       { type: "p", text: "\"How much does a website cost?\" is the first question most Pakistani businesses ask, and the honest answer is that price follows scope the same way a construction quote follows floor area. A five-page company site and a custom booking portal are both \"websites\", and they are separated by an order of magnitude in effort." },
       { type: "p", text: "This guide explains what actually drives cost so you can budget before you talk to any [website development company](/services/web-development)." },
@@ -242,7 +242,7 @@ export const morePostsA: BlogPost[] = [
     image: media.htmlEditor,
     imageAlt: "Developer editing a WordPress theme in a code editor",
     relatedServices: ["wordpress-development", "web-development", "seo-services"],
-    relatedPosts: ["how-to-choose-a-web-development-company", "website-speed-and-seo"],
+    relatedPosts: ["custom-website-development-company", "how-to-choose-a-web-development-company", "website-speed-and-seo"],
     blocks: [
       { type: "p", text: "WordPress is excellent when it is built properly and painful when it is not. Custom development is excellent when you have unusual logic and expensive when you do not. The decision is not ideological — it is about who updates the site and what the site has to do." },
       { type: "h2", text: "Choose WordPress when" },

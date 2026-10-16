@@ -1,4 +1,6 @@
 import { ButtonLink } from "@/components/ui";
+import { CineBackdrop } from "@/components/cinematic";
+import { CineFx } from "@/components/cine-fx";
 import { WhatsAppIcon, MailIcon, PhoneIcon, GlobeIcon } from "@/components/icons";
 import { siteConfig, usWhatsappLink, whatsappLink } from "@/lib/site";
 
@@ -18,29 +20,27 @@ export function CtaBand({
   return (
     <section className="defer-paint bg-white py-12 sm:py-20">
       <div className="container-page">
-        <div className="relative overflow-hidden rounded-2xl bg-navy-950 px-4 py-10 sm:rounded-3xl sm:px-10 sm:py-12 lg:px-14 lg:py-16">
-          <div className="absolute inset-0 grid-pattern opacity-50" aria-hidden="true" />
-          <div
-            className="absolute -left-16 -top-20 h-72 w-72 rounded-full bg-brand-500/20 blur-[120px]"
-            aria-hidden="true"
-          />
-          <div
-            className="absolute -bottom-24 right-0 h-72 w-72 rounded-full bg-sky-500/12 blur-[120px]"
-            aria-hidden="true"
-          />
+        <div className="cine-surface cine-rim cine-beam relative overflow-hidden rounded-2xl px-4 py-10 sm:rounded-3xl sm:px-10 sm:py-12 lg:px-14 lg:py-16">
+          <CineBackdrop variant="mesh" opacity={0.7} position="75% 85%" mask="none" scrimLeft>
+            {/* Soft light from the upper right and a floor of shadow, so the
+                waves sit behind the cards instead of cutting through copy. */}
+            <div className="absolute inset-0 bg-[radial-gradient(50rem_26rem_at_100%_0%,rgb(47_132_255/0.22),transparent_65%)]" />
+            <div className="absolute inset-0 grid-pattern opacity-[0.12]" />
+          </CineBackdrop>
+          <CineFx />
           <div className="relative grid gap-8 lg:grid-cols-[1.4fr_1fr] lg:items-center">
             <div>
               <h2 className="text-2xl font-semibold leading-tight text-white sm:text-3xl lg:text-4xl">{title}</h2>
               <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-300">{description}</p>
               <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                <ButtonLink href={primaryHref} className="w-full sm:w-auto">
+                <ButtonLink href={primaryHref} className="btn-cine w-full sm:w-auto">
                   {primaryLabel}
                 </ButtonLink>
                 <a
                   href={whatsappLink(whatsappMessage)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:border-brand-400/60 sm:w-auto"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-arc-300/25 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:border-arc-300/60 sm:w-auto"
                 >
                   <WhatsAppIcon className="h-4 w-4" /> Chat on WhatsApp
                 </a>
@@ -62,7 +62,7 @@ export function CtaBand({
                 ))}
               </ol>
             </div>
-            <div className="space-y-3 rounded-2xl border border-white/10 bg-white/[0.04] p-5">
+            <div className="cine-panel space-y-3 rounded-2xl p-5">
               <a href={`mailto:${siteConfig.email}`} className="group flex items-center gap-3">
                 <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-400/12 text-brand-300">
                   <MailIcon className="h-4.5 w-4.5" />

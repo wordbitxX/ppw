@@ -7,6 +7,7 @@ import { industries } from "@/lib/industries";
 import { markets } from "@/lib/markets";
 import { legalNav, mainNav, siteConfig, usWhatsappLink, whatsappLink } from "@/lib/site";
 import { NewsletterForm } from "@/components/newsletter-form";
+import { CineBackdrop } from "@/components/cinematic";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -22,7 +23,8 @@ export function Footer() {
   ]);
 
   return (
-    <footer className="border-t border-white/10 bg-navy-950 text-slate-300">
+    <footer className="cine-surface cine-rim relative overflow-hidden border-t border-white/10 text-slate-300">
+      <CineBackdrop variant="flow" opacity={0.35} position="100% 100%" mask="y" />
       <div className="container-page py-14 lg:py-16">
         <div className="grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-4">

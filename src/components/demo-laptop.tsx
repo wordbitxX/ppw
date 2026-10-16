@@ -47,7 +47,7 @@ export function DemoLaptop({ demo }: { demo: DemoWebsite }) {
   }, [mount]);
 
   return (
-    <section className="defer-paint relative overflow-hidden bg-navy-950 py-16 text-white sm:py-20">
+    <section className="defer-paint relative overflow-hidden bg-midnight py-16 text-white sm:py-20">
       <div className="absolute inset-0 grid-pattern opacity-40" aria-hidden="true" />
       <div className="absolute -right-24 top-8 h-80 w-80 rounded-full bg-brand-500/15 blur-[110px]" aria-hidden="true" />
       <div className="container-page relative">

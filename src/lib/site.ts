@@ -41,7 +41,7 @@ export const siteConfig = {
   addressDisplay: "DHA Phase 2, Lahore, Pakistan",
   foundingYear: 2021,
   /** Shared lastmod for static marketing pages. Update when those pages ship a real content change. */
-  contentUpdated: "2026-10-03",
+  contentUpdated: "2026-10-16",
   ogImage: "/opengraph-image",
   googleReviewsUrl: "https://www.google.com/maps/search/?api=1&query=WordbitX+Technology+Lahore",
   googleWriteReviewUrl: "https://www.google.com/search?q=WordbitX+Technology+Lahore+write+a+review",
@@ -126,7 +126,6 @@ export function absoluteUrl(path = "/") {
 }
 
 export const mainNav = [
-  { label: "Home", href: "/" },
   { label: "About Us", href: "/about" },
   { label: "Services", href: "/services" },
   { label: "Industries", href: "/industries" },
