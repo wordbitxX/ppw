@@ -3,6 +3,16 @@ import type { NextConfig } from "next";
 const ONE_YEAR = 60 * 60 * 24 * 365;
 
 const nextConfig: NextConfig = {
+  /* Arena preview (16 Oct): the preview proxies this dev server cross-origin,
+     and Next blocks cross-origin /_next assets + the HMR socket by default —
+     which breaks client hydration in the preview (e.g. the hero "Built for" /
+     service-pill scroll arrows stop responding to clicks). Allowlist the
+     preview hosts so client JS and hot reload work there. Dev-only setting;
+     production is unaffected. */
+  allowedDevOrigins: [
+    "3000-i1704j3ccs1aitp3aoski.e2b.app",
+    "sbx-7u6scv5x7fxzz62w.arena.site",
+  ],
   images: {
     formats: ["image/avif", "image/webp"],
     // Keep optimised variants for a year — these are static marketing photos,
