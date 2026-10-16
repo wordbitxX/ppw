@@ -185,32 +185,32 @@ const homeDeckMedia: Record<string, { src: string; alt: string }> = {
     alt: "Laptop with floating translucent website interface panels in a sunlit studio loft",
   },
   "ecommerce-shopify": {
-    src: "/brand/home/deck-ecommerce-shopify.jpg",
-    alt: "Online storefront on a laptop beside packed orders and a shopping bag",
+    src: "/brand/home/deck-ecommerce-shopify-v2.jpg",
+    alt: "Open premium parcel with a sage ribbon beside an online storefront laptop in a sunlit packing studio",
   },
   "ecommerce-development": {
-    src: "/brand/home/deck-ecommerce-development.jpg",
-    alt: "E-commerce admin dashboard with inventory shelves in a bright office",
+    src: "/brand/home/deck-ecommerce-development-v2.jpg",
+    alt: "Colourful marketplace dashboard with a scanner and label printer in a bright fulfilment office",
   },
   "mobile-app-development": {
-    src: "/brand/home/deck-mobile-app-development.jpg",
-    alt: "Two smartphones showing modern app interfaces floating over a white surface",
+    src: "/brand/home/deck-mobile-app-development-v2.jpg",
+    alt: "Two smartphones with vivid app interfaces hovering over a reflective white surface",
   },
   "pos-software": {
-    src: "/brand/home/deck-pos-software.jpg",
-    alt: "Bright boutique checkout counter with a POS terminal, receipt printer and scanner",
+    src: "/brand/home/deck-pos-software-v2.jpg",
+    alt: "Sunlit boutique checkout with a POS terminal, receipt printer and staff serving a customer",
   },
   "seo-services": {
     src: "/brand/home/deck-seo-services-v2.jpg",
     alt: "Tablet on a brass stand showing a rising emerald analytics chart on a marble desk",
   },
   "digital-marketing": {
-    src: "/brand/home/deck-digital-marketing.jpg",
-    alt: "Colourful social ad creatives and engagement icons floating above a tablet",
+    src: "/brand/home/deck-digital-marketing-v2.jpg",
+    alt: "Tablet with colourful ad creatives and glossy engagement icons in a sunlit creative studio",
   },
   "ai-solutions": {
-    src: "/brand/home/deck-ai-solutions.jpg",
-    alt: "Holographic green neural-network sphere hovering above an open palm",
+    src: "/brand/home/deck-ai-solutions-v2.jpg",
+    alt: "Holographic emerald neural brain inside a glass sphere presented above an open palm",
   },
 };
 
