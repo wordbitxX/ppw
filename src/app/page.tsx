@@ -171,11 +171,57 @@ const homeServiceSlugs = [
   "ai-solutions",
 ];
 
+/**
+ * Home-deck imagery: the generic per-service photos under /brand/services are
+ * all the same "person at a dark desk" scene and are indistinguishable at card
+ * size. These eight were art-directed so each service line is instantly
+ * recognisable on its own card — bright light-studio scenes, one clear subject
+ * per service, subtle brand-green accent. Dedicated to this deck so the
+ * /services index and blog photography stay untouched.
+ */
+const homeDeckMedia: Record<string, { src: string; alt: string }> = {
+  "web-development": {
+    src: "/brand/home/deck-web-development.jpg",
+    alt: "Website wireframe layout being designed on a bright studio monitor",
+  },
+  "ecommerce-shopify": {
+    src: "/brand/home/deck-ecommerce-shopify.jpg",
+    alt: "Online storefront on a laptop beside packed orders and a shopping bag",
+  },
+  "ecommerce-development": {
+    src: "/brand/home/deck-ecommerce-development.jpg",
+    alt: "E-commerce admin dashboard with inventory shelves in a bright office",
+  },
+  "mobile-app-development": {
+    src: "/brand/home/deck-mobile-app-development.jpg",
+    alt: "Two smartphones showing modern app interfaces floating over a white surface",
+  },
+  "pos-software": {
+    src: "/brand/home/deck-pos-software.jpg",
+    alt: "Bright boutique checkout counter with a POS terminal, receipt printer and scanner",
+  },
+  "seo-services": {
+    src: "/brand/home/deck-seo-services.jpg",
+    alt: "Rising search-ranking charts with a magnifying glass over search results",
+  },
+  "digital-marketing": {
+    src: "/brand/home/deck-digital-marketing.jpg",
+    alt: "Colourful social ad creatives and engagement icons floating above a tablet",
+  },
+  "ai-solutions": {
+    src: "/brand/home/deck-ai-solutions.jpg",
+    alt: "Holographic green neural-network sphere hovering above an open palm",
+  },
+};
+
 /** Curated highlights — the full lists live on /industries and /global. */
 const featuredMarketSlugs = ["pakistan", "usa", "uk", "uae"];
 
 export default function HomePage() {
-  const homeServices = getServices(homeServiceSlugs);
+  const homeServices = getServices(homeServiceSlugs).map((service) => {
+    const media = homeDeckMedia[service.slug];
+    return media ? { ...service, image: media.src, imageAlt: media.alt } : service;
+  });
   const latestPosts = sortedPosts.slice(0, 6);
   const heroSlides = getHeroSlides();
   const featuredMarkets = featuredMarketSlugs
@@ -542,24 +588,24 @@ export default function HomePage() {
       {/* ================= WHAT WE DO =================
           Services grid, then the 16-service ring as its navigator. The ring
           used to sit four sections lower behind its own trust heading. */}
-      <AiServicesDeck>
+      <AiServicesDeck tone="light">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl">
-            <span className="inline-flex items-center gap-2 rounded-full border border-brand-400/25 bg-brand-400/10 px-3.5 py-1.5 text-[0.62rem] font-semibold uppercase tracking-[0.14em] text-brand-300">
-              <span className="h-1.5 w-1.5 rounded-full bg-brand-400" />
+            <span className="inline-flex items-center gap-2 rounded-full border border-brand-600/20 bg-brand-50 px-3.5 py-1.5 text-[0.62rem] font-semibold uppercase tracking-[0.14em] text-brand-700">
+              <span className="h-1.5 w-1.5 rounded-full bg-brand-500" />
               What We Do
             </span>
-            <h2 className="mt-4 text-[1.65rem] font-semibold leading-[1.15] text-white sm:text-4xl lg:text-[2.75rem]">
-              Software, stores, SEO and marketing
+            <h2 className="mt-4 text-[1.65rem] font-semibold leading-[1.15] text-ink-900 sm:text-4xl lg:text-[2.75rem]">
+              Software, Stores, SEO and Marketing
             </h2>
-            <p className="mt-4 text-base leading-relaxed text-slate-300 sm:text-lg">
-              Custom software, websites, Shopify, e-commerce, web and mobile — then SEO and ads so those products can
+            <p className="mt-4 text-base leading-relaxed text-slate-600 sm:text-lg">
+              Custom Software, Websites, Shopify, E-Commerce, Web and Mobile — then SEO and Ads so those products can
               grow. Practical AI is there when a workflow needs it. Every service line has its own page on the services index.
             </p>
           </div>
           <Link
             href="/services"
-            className="group inline-flex w-fit shrink-0 items-center gap-2 self-start rounded-xl border border-white/15 bg-white/[0.05] px-5 py-3 text-sm font-semibold text-white transition-colors hover:border-brand-400/40 hover:bg-white/[0.08] lg:self-auto"
+            className="group inline-flex w-fit shrink-0 items-center gap-2 self-start rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-ink-900 shadow-[0_10px_24px_-16px_rgba(5,13,33,0.25)] transition-colors hover:border-brand-300 hover:text-brand-700 lg:self-auto"
           >
             View All Services
             <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -571,6 +617,7 @@ export default function HomePage() {
             <ServiceCard
               key={service.slug}
               service={service}
+              tone="light"
               premium
             />
           ))}

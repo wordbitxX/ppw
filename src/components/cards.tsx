@@ -17,12 +17,17 @@ export function ServiceCard({
   premium?: boolean;
 }) {
   if (premium) {
+    const light = tone === "light";
     return (
       <Link
         href={`/services/${service.slug}`}
-        className="group animate-tile-in relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-navy-900 transition-all duration-500 hover:-translate-y-1.5 hover:border-brand-400/40 hover:shadow-[0_24px_55px_-28px_rgba(28,168,48,0.45)]"
+        className={`group animate-tile-in relative flex h-full flex-col overflow-hidden rounded-2xl border transition-all duration-500 hover:-translate-y-1.5 ${
+          light
+            ? "border-slate-200 bg-white hover:border-brand-300 hover:shadow-[0_28px_60px_-30px_rgba(28,168,48,0.28),0_18px_38px_-24px_rgba(5,13,33,0.18)]"
+            : "border-white/10 bg-navy-900 hover:border-brand-400/40 hover:shadow-[0_24px_55px_-28px_rgba(28,168,48,0.45)]"
+        }`}
       >
-        <span className="relative block aspect-[16/10] overflow-hidden bg-navy-800">
+        <span className={`relative block aspect-[16/10] overflow-hidden ${light ? "bg-slate-100" : "bg-navy-800"}`}>
           <Image
             src={service.image}
             alt={service.imageAlt}
@@ -30,21 +35,41 @@ export function ServiceCard({
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
             className="object-cover transition-transform duration-700 group-hover:scale-105"
           />
-          <span className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/20 to-transparent" />
+          <span
+            className={`absolute inset-0 bg-gradient-to-t ${
+              light
+                ? "from-navy-950/45 via-transparent to-transparent"
+                : "from-navy-950 via-navy-950/20 to-transparent"
+            }`}
+          />
           <span className="absolute bottom-3 left-3 inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl bg-brand-500/90 text-white ring-1 ring-white/20">
             <MegaServiceIcon monochrome slug={service.slug} className="h-5 w-5" />
           </span>
         </span>
         <span className="flex flex-1 flex-col p-6 pt-5">
-        <h3 className="relative text-base font-semibold leading-snug text-white transition-colors group-hover:text-brand-200">
+        <h3
+          className={`relative text-base font-semibold leading-snug transition-colors ${
+            light ? "text-ink-900 group-hover:text-brand-700" : "text-white group-hover:text-brand-200"
+          }`}
+        >
           {service.title}
         </h3>
-        <span className="relative mt-2.5 flex-1 text-sm leading-relaxed text-slate-400">{service.summary}</span>
-        <span className="relative mt-5 flex items-center justify-between border-t border-white/10 pt-4">
-          <span className="text-sm font-semibold text-brand-300 transition-colors group-hover:text-brand-200">
+        <span className={`relative mt-2.5 flex-1 text-sm leading-relaxed ${light ? "text-slate-600" : "text-slate-400"}`}>
+          {service.summary}
+        </span>
+        <span className={`relative mt-5 flex items-center justify-between border-t pt-4 ${light ? "border-slate-100" : "border-white/10"}`}>
+          <span
+            className={`text-sm font-semibold transition-colors ${
+              light ? "text-brand-600 group-hover:text-brand-700" : "text-brand-300 group-hover:text-brand-200"
+            }`}
+          >
             View {service.shortTitle}
           </span>
-          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/5 text-brand-300 ring-1 ring-white/10 transition-all duration-500 group-hover:bg-brand-500 group-hover:text-white group-hover:ring-brand-500">
+          <span
+            className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-all duration-500 group-hover:bg-brand-500 group-hover:text-white group-hover:ring-brand-500 ${
+              light ? "bg-slate-50 text-brand-600 ring-1 ring-slate-200" : "bg-white/5 text-brand-300 ring-1 ring-white/10"
+            }`}
+          >
             <ArrowRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-0.5" />
           </span>
         </span>
