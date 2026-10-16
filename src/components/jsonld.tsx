@@ -16,14 +16,6 @@ export function OrganizationSchema() {
         "@id": `${siteConfig.url}/#organization`,
         name: siteConfig.name,
         legalName: siteConfig.legalName,
-        /**
-         * Entity disambiguation. The brand is split across an old domain
-         * (wordbitx.com), an abandoned "WordBitx Tech." LinkedIn page that
-         * data aggregators keep re-publishing, and the current name. Listing
-         * every spelling we are cited under tells Google these are one
-         * organisation instead of several weak ones.
-         */
-        alternateName: ["WordbitX Tech", "WordBitx Tech", "Wordbit X", "WordbitX Technology", "Wordbitx"],
         url: siteConfig.url,
         logo: absoluteUrl("/brand/wordbitx-mark.png"),
         image: absoluteUrl(siteConfig.ogImage),

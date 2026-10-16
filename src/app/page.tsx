@@ -7,6 +7,8 @@ import { DemosSection } from "@/components/demos-section";
 import { CredibilityStrip } from "@/components/certifications-band";
 import { IndustryStrip } from "@/components/industry-strip";
 import { FeaturedReviews } from "@/components/featured-reviews";
+import { siteReviews } from "@/lib/reviews";
+import { isReviewDeleted } from "@/lib/review-store";
 import { ExploreDirectory } from "@/components/explore-directory";
 import { IndustryRail } from "@/components/industry-rail";
 import { FlagIcon } from "@/components/flag-icon";
@@ -172,45 +174,44 @@ const homeServiceSlugs = [
 ];
 
 /**
- * Home-deck imagery: the generic per-service photos under /brand/services are
- * all the same "person at a dark desk" scene and are indistinguishable at card
- * size. These eight were art-directed so each service line is instantly
- * recognisable on its own card — bright light-studio scenes, one clear subject
- * per service, subtle brand-green accent. Dedicated to this deck so the
+ * Home-deck imagery: eight dedicated premium product scenes replace the
+ * generic per-service photos under /brand/services.
+ * Each service has one recognisable subject in a coordinated ivory studio
+ * with restrained emerald accents. Dedicated to this deck so the
  * /services index and blog photography stay untouched.
  */
 const homeDeckMedia: Record<string, { src: string; alt: string }> = {
   "web-development": {
-    src: "/brand/home/deck-web-development-v2.jpg",
-    alt: "Laptop with floating translucent website interface panels in a sunlit studio loft",
+    src: "/brand/home/deck-web-development-v3.jpg",
+    alt: "Silver laptop with an emerald website interface and floating browser panel in an ivory studio",
   },
   "ecommerce-shopify": {
-    src: "/brand/home/deck-ecommerce-shopify-v2.jpg",
-    alt: "Open premium parcel with a sage ribbon beside an online storefront laptop in a sunlit packing studio",
+    src: "/brand/home/deck-ecommerce-shopify-v3.jpg",
+    alt: "Skincare storefront on a laptop beside premium products and sage gift packaging",
   },
   "ecommerce-development": {
-    src: "/brand/home/deck-ecommerce-development-v2.jpg",
-    alt: "Colourful marketplace dashboard with a scanner and label printer in a bright fulfilment office",
+    src: "/brand/home/deck-ecommerce-development-v3.jpg",
+    alt: "Marketplace dashboard with product cards, a parcel and barcode scanner in a bright studio",
   },
   "mobile-app-development": {
-    src: "/brand/home/deck-mobile-app-development-v2.jpg",
-    alt: "Two smartphones with vivid app interfaces hovering over a reflective white surface",
+    src: "/brand/home/deck-mobile-app-development-v3.jpg",
+    alt: "Titanium smartphones displaying emerald and navy app interfaces on sculptural ivory pedestals",
   },
   "pos-software": {
-    src: "/brand/home/deck-pos-software-v2.jpg",
-    alt: "Sunlit boutique checkout with a POS terminal, receipt printer and staff serving a customer",
+    src: "/brand/home/deck-pos-software-v3.jpg",
+    alt: "Boutique touchscreen POS terminal with a receipt printer and contactless card reader",
   },
   "seo-services": {
-    src: "/brand/home/deck-seo-services-v2.jpg",
-    alt: "Tablet on a brass stand showing a rising emerald analytics chart on a marble desk",
+    src: "/brand/home/deck-seo-services-v3.jpg",
+    alt: "Search analytics display with an emerald growth chart and floating search result cards",
   },
   "digital-marketing": {
-    src: "/brand/home/deck-digital-marketing-v2.jpg",
-    alt: "Tablet with colourful ad creatives and glossy engagement icons in a sunlit creative studio",
+    src: "/brand/home/deck-digital-marketing-v3.jpg",
+    alt: "Campaign dashboard and floating advertising creatives above ivory studio plinths",
   },
   "ai-solutions": {
-    src: "/brand/home/deck-ai-solutions-v2.jpg",
-    alt: "Holographic emerald neural brain inside a glass sphere presented above an open palm",
+    src: "/brand/home/deck-ai-solutions-v3.jpg",
+    alt: "Glass cube containing an emerald neural network beside a workflow automation display",
   },
 };
 
@@ -267,7 +268,7 @@ export default function HomePage() {
                 className="cine-rise mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-slate-100 sm:text-xl"
                 style={{ "--d": "0.16s" } as React.CSSProperties}
               >
-                Web, Mobile &amp; Custom Software Solutions Built to Accelerate Your Business.
+                <strong>WordbitX</strong> is a software development company in Pakistan for businesses worldwide. We build web, mobile and custom software solutions to accelerate your business.
               </p>
               <div
                 className="cine-rise mt-7 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center"
@@ -286,12 +287,12 @@ export default function HomePage() {
               </div>
 
               <ul
-                className="cine-rise mt-7 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-medium text-slate-200 [text-shadow:0_1px_14px_rgba(3,8,20,0.95)] sm:text-[0.8rem]"
+                className="hero-promises cine-rise -mx-2 mt-7 grid max-w-4xl grid-cols-[1.1fr_0.9fr] items-center justify-center gap-x-1 gap-y-3 text-[0.58rem] min-[380px]:text-[0.65rem] sm:mx-auto sm:flex sm:flex-wrap font-medium text-slate-200 [text-shadow:0_1px_14px_rgba(3,8,20,0.95)] sm:gap-x-6 sm:text-[0.8rem]"
                 style={{ "--d": "0.38s" } as React.CSSProperties}
               >
                 {["You own the code, repo & hosting", "Written scope before build", "Weekly demos & staging URLs"].map((item) => (
-                  <li key={item} className="flex items-center gap-2">
-                    <CheckIcon className="h-3.5 w-3.5 text-brand-400" />
+                  <li key={item} className="flex shrink-0 items-center justify-center gap-1 whitespace-nowrap last:col-span-2 sm:gap-2">
+                    <CheckIcon className="h-3 w-3 shrink-0 text-brand-400 sm:h-3.5 sm:w-3.5" />
                     {item}
                   </li>
                 ))}
@@ -317,13 +318,12 @@ export default function HomePage() {
 
         <div className="container-page relative z-10 mt-8 sm:-mt-10">
           <p className="mx-auto max-w-3xl text-center text-base leading-relaxed text-slate-100 [text-shadow:0_1px_18px_rgba(3,8,20,0.95)] sm:text-lg">
-            Websites, Apps, Shopify &amp; E-commerce Stores, POS and CRM/ERP Systems — grown with SEO, ASO and
-            Digital Marketing, plus practical AI where it helps the workflow. Clients across the USA, UK, UAE,
-            Canada, Australia and worldwide.
+            From launch to growth: Shopify and e-commerce, POS and CRM/ERP, SEO, ASO and digital marketing —
+            with practical AI where it saves your team time.
           </p>
           <nav
             aria-label="Core WordbitX software"
-            className="mx-auto mt-7 flex max-w-4xl flex-wrap justify-center gap-2 text-xs text-slate-300 sm:text-[0.8rem]"
+            className="mx-auto mt-7 flex max-w-4xl snap-x gap-2 overflow-x-auto overscroll-x-contain pb-3 text-xs text-slate-300 [scrollbar-width:thin] sm:text-[0.8rem]"
           >
             {[
               ["/services/custom-software-development", "Custom software"],
@@ -345,7 +345,7 @@ export default function HomePage() {
               <Link
                 key={href}
                 href={href}
-                className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 transition-colors hover:border-arc-300/50 hover:bg-white/[0.08] hover:text-arc-300"
+                className="shrink-0 snap-start whitespace-nowrap rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 transition-colors hover:border-arc-300/50 hover:bg-white/[0.08] hover:text-arc-300"
               >
                 {label}
               </Link>
@@ -612,15 +612,14 @@ export default function HomePage() {
           </Link>
         </div>
 
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {homeServices.map((service) => (
-            <ServiceCard
-              key={service.slug}
-              service={service}
-              tone="light"
-              premium
-            />
-          ))}
+        <div className="mt-10">
+          <IndustryRail label="services">
+            {homeServices.map((service) => (
+              <div key={service.slug} className="flex w-[85%] shrink-0 snap-start sm:w-[calc(50%-0.5rem)] lg:w-[calc((100%-2rem)/3)] xl:w-[calc((100%-3rem)/4)]">
+                <ServiceCard service={service} tone="light" premium />
+              </div>
+            ))}
+          </IndustryRail>
         </div>
       </AiServicesDeck>
 
@@ -734,7 +733,7 @@ export default function HomePage() {
       </Section>
 
       <Section id="reviews">
-        <FeaturedReviews />
+        <FeaturedReviews initialReviews={siteReviews.filter((review) => !isReviewDeleted(review))} />
       </Section>
 
       {/* ================= MARKETS =================

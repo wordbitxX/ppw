@@ -33,7 +33,11 @@ function isExternal(href: string) {
 }
 
 function persist(payload: Stored) {
-  sessionStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+  try {
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+  } catch {
+    // Private browsing or a full storage quota must not break chat.
+  }
 }
 
 export function AiChatWidget() {
@@ -48,24 +52,30 @@ export function AiChatWidget() {
   ]);
   const scroller = useRef<HTMLDivElement>(null);
   const intentRef = useRef(intentId);
-  intentRef.current = intentId;
+  useEffect(() => {
+    intentRef.current = intentId;
+  }, [intentId]);
 
   useEffect(() => {
-    try {
-      const raw = sessionStorage.getItem(STORAGE_KEY);
-      if (raw) {
-        const saved = JSON.parse(raw) as Stored;
-        if (saved.messages?.length) {
-          setMessages(saved.messages);
-          setIntentId(saved.intentId);
+    // Restore optional chat history after the always-visible launcher paints.
+    const frame = window.requestAnimationFrame(() => {
+      try {
+        const raw = sessionStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const saved = JSON.parse(raw) as Stored;
+          if (saved.messages?.length) {
+            setMessages(saved.messages);
+            setIntentId(saved.intentId);
+          }
+          const desktop = window.matchMedia("(min-width: 768px)").matches;
+          if (saved.open && desktop) setOpen(true);
         }
-        const desktop = window.matchMedia("(min-width: 768px)").matches;
-        if (saved.open && desktop) setOpen(true);
+      } catch {
+        /* Storage is optional; the launcher still works without it. */
       }
-    } catch {
-      /* ignore */
-    }
-    setReady(true);
+      setReady(true);
+    });
+    return () => window.cancelAnimationFrame(frame);
   }, []);
 
   useEffect(() => {
@@ -114,7 +124,7 @@ export function AiChatWidget() {
 
   return (
     <>
-      {ready && !open ? (
+      {!open ? (
         <button
           type="button"
           onClick={() => setOpen(true)}
@@ -142,12 +152,12 @@ export function AiChatWidget() {
           <button
             type="button"
             className="fixed inset-0 z-[60] bg-navy-950/35 backdrop-blur-[3px] md:bg-transparent md:backdrop-blur-none"
-            aria-label="Dismiss WordbitX Ai"
+            aria-label="Dismiss WordbitX AI"
             onClick={() => setOpen(false)}
           />
           <section
             className="animate-assist-in fixed inset-x-3 bottom-[max(0.65rem,env(safe-area-inset-bottom))] z-[70] flex h-[min(38rem,calc(100dvh-5.25rem))] w-auto flex-col overflow-hidden rounded-[1.6rem] border border-white/40 bg-[#eef3f8] shadow-[0_40px_110px_-28px_rgba(3,8,20,0.72)] md:inset-x-auto md:right-5 md:h-[min(42rem,calc(100dvh-2rem))] md:w-[min(26rem,calc(100vw-2.5rem))]"
-            aria-label="WordbitX Ai"
+            aria-label="WordbitX AI"
           >
             <div className="assist-header-line shrink-0" aria-hidden />
             <header className="flex shrink-0 items-center gap-3 bg-navy-950 px-4 py-3">
@@ -155,7 +165,7 @@ export function AiChatWidget() {
                 <AiSparkIcon className="h-5 w-5" />
               </span>
               <div className="min-w-0 flex-1">
-                <h2 className="text-sm font-semibold tracking-tight text-white">WordbitX Ai</h2>
+                <h2 className="text-sm font-semibold tracking-tight text-white">WordbitX AI</h2>
                 <p className="text-[0.68rem] text-brand-300">Private briefing · answers stay here</p>
               </div>
               <button
@@ -253,7 +263,7 @@ export function AiChatWidget() {
                   type="button"
                   onClick={() => setOpen(false)}
                   className="inline-flex h-8 shrink-0 items-center gap-1 rounded-lg border border-slate-200 bg-white px-2.5 text-[0.7rem] font-semibold text-ink-700 hover:border-slate-300 hover:bg-slate-50"
-                  aria-label="Close WordbitX Ai"
+                  aria-label="Close WordbitX AI"
                 >
                   <CloseIcon className="h-3 w-3" />
                   Close

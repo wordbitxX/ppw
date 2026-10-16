@@ -70,7 +70,7 @@ function placeholder(demo: { name: string; category: string; host: string; label
   <rect width="900" height="560" fill="url(#grid)"/>
   <rect width="900" height="560" fill="url(#glow)"/>
   <rect x="64" y="96" width="58" height="4" rx="2" fill="#1ca830"/>
-  <text x="64" y="76" font-family="Inter,Segoe UI,Helvetica,Arial,sans-serif" font-size="15" font-weight="700" letter-spacing="4.5" fill="#9fdda8">WORDBITX PRODUCT</text>
+  <text x="64" y="76" font-family="Inter,Segoe UI,Helvetica,Arial,sans-serif" font-size="15" font-weight="700" letter-spacing="4.5" fill="#9fdda8">WordbitX PRODUCT</text>
   <text x="64" y="188" font-family="Inter,Segoe UI,Helvetica,Arial,sans-serif" font-size="${titleSize}" font-weight="700" fill="#ffffff">${name}</text>
   <text x="64" y="232" font-family="Inter,Segoe UI,Helvetica,Arial,sans-serif" font-size="23" fill="#93a1b3">${category}</text>
   <rect x="64" y="438" width="${pillWidth}" height="40" rx="20" fill="#1ca830" fill-opacity="0.18" stroke="#1ca830" stroke-opacity="0.55"/>

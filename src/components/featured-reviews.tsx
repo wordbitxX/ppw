@@ -15,18 +15,21 @@ import { IndustryRail } from "@/components/industry-rail";
  * src/lib/reviews.ts). When there is nothing to show, the block collapses to
  * the public Google record plus a path to leave a review.
  */
-export function FeaturedReviews() {
-  const [reviews, setReviews] = useState<SiteReview[] | null>(null);
+export function FeaturedReviews({ initialReviews = [] }: { initialReviews?: SiteReview[] }) {
+  const [reviews, setReviews] = useState<SiteReview[]>(initialReviews);
 
   useEffect(() => {
     let cancelled = false;
     fetch("/api/reviews")
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) throw new Error("Reviews unavailable");
+        return response.json();
+      })
       .then((data: { reviews?: SiteReview[] }) => {
-        if (!cancelled) setReviews(Array.isArray(data.reviews) ? data.reviews : []);
+        if (!cancelled && Array.isArray(data.reviews)) setReviews(data.reviews);
       })
       .catch(() => {
-        if (!cancelled) setReviews([]);
+        // Keep the server-rendered reviews if the refresh is unavailable.
       });
     return () => {
       cancelled = true;

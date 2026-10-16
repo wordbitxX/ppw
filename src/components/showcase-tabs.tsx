@@ -15,8 +15,8 @@ export type ShowcaseTabItem = {
 
 /**
  * Project switcher: a list on the left, one large preview on the right.
- * Below `lg` the list becomes a horizontally scrolling chip row. Only the
- * selected panel is visible; the rest are `hidden` but stay in the markup.
+ * Below `lg`, both the chip list and full previews scroll horizontally.
+ * Desktop keeps the original single-panel layout and timed transitions.
  */
 /** How long each project stays on screen before the next one is shown. */
 const AUTO_ADVANCE_MS = 7000;
@@ -28,6 +28,7 @@ export function ShowcaseTabs({ items, footer }: { items: ShowcaseTabItem[]; foot
   const [inView, setInView] = useState(false);
   const refs = useRef<Array<HTMLButtonElement | null>>([]);
   const rootRef = useRef<HTMLDivElement>(null);
+  const panelsRef = useRef<HTMLDivElement>(null);
 
   // Auto-advance only while the block is on screen; hover / focus pauses it.
   useEffect(() => {
@@ -40,6 +41,27 @@ export function ShowcaseTabs({ items, footer }: { items: ShowcaseTabItem[]; foot
 
   const paused = hovered || keyboardFocus || !inView;
 
+  // Each mobile preview has its own height; do not leave a tall empty area
+  // below shorter cards just because another slide has more content.
+  useEffect(() => {
+    const track = panelsRef.current;
+    const panel = track?.children[active];
+    if (!track || !(panel instanceof HTMLElement)) return;
+    const measure = () => {
+      if (window.matchMedia("(max-width: 1023px)").matches) {
+        track.style.setProperty("--preview-height", `${panel.offsetHeight + 20}px`);
+      }
+    };
+    const observer = new ResizeObserver(measure);
+    observer.observe(panel);
+    window.addEventListener("resize", measure);
+    measure();
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, [active]);
+
   // Keep the selected chip in view on phones, where the list scrolls sideways.
   useEffect(() => {
     const button = refs.current[active];
@@ -51,6 +73,10 @@ export function ShowcaseTabs({ items, footer }: { items: ShowcaseTabItem[]; foot
   const select = (index: number, focus = false) => {
     const next = (index + items.length) % items.length;
     setActive(next);
+    const track = panelsRef.current;
+    if (track && window.matchMedia("(max-width: 1023px)").matches) {
+      track.scrollTo({ left: next * (track.clientWidth + 16), behavior: "smooth" });
+    }
     if (focus) refs.current[next]?.focus();
   };
 
@@ -84,7 +110,7 @@ export function ShowcaseTabs({ items, footer }: { items: ShowcaseTabItem[]; foot
           role="tablist"
           aria-label="Live projects"
           aria-orientation="vertical"
-          className="relative -mx-4 flex gap-2 overflow-x-auto px-4 pb-2 [scrollbar-width:none] sm:-mx-6 sm:px-6 lg:mx-0 lg:flex-col lg:gap-1.5 lg:overflow-visible lg:px-0 lg:pb-0 [&::-webkit-scrollbar]:hidden"
+          className="relative flex gap-2 overflow-x-auto overscroll-x-contain pb-3 [scrollbar-width:thin] lg:flex-col lg:gap-1.5 lg:overflow-visible lg:pb-0"
         >
           {items.map((item, index) => {
             const selected = index === active;
@@ -133,7 +159,7 @@ export function ShowcaseTabs({ items, footer }: { items: ShowcaseTabItem[]; foot
                   </span>
                 ) : null}
                 {selected ? (
-                  <span aria-hidden="true" className="absolute inset-x-3.5 bottom-0 h-[3px] overflow-hidden rounded-full bg-slate-200">
+                  <span aria-hidden="true" className="absolute inset-x-3.5 bottom-0 hidden h-[3px] overflow-hidden rounded-full bg-slate-200 lg:block">
                     <span
                       key={active}
                       data-paused={paused}
@@ -151,18 +177,38 @@ export function ShowcaseTabs({ items, footer }: { items: ShowcaseTabItem[]; foot
       </div>
 
       <div className="min-w-0">
-        {items.map((item, index) => (
-          <div
-            key={item.id}
-            id={`showcase-panel-${item.id}`}
-            role="tabpanel"
-            aria-labelledby={`showcase-tab-${item.id}`}
-            hidden={index !== active}
-            className={index === active ? "animate-reveal" : undefined}
-          >
-            {item.panel}
+        <div
+          ref={panelsRef}
+          role="region"
+          aria-label="Live project previews — swipe to explore"
+          tabIndex={0}
+          onScroll={(event) => {
+            const track = event.currentTarget;
+            if (!window.matchMedia("(max-width: 1023px)").matches) return;
+            const next = Math.round(track.scrollLeft / (track.clientWidth + 16));
+            setActive(Math.max(0, Math.min(items.length - 1, next)));
+          }}
+          className="flex h-[var(--preview-height,auto)] snap-x snap-mandatory items-start gap-4 overflow-x-auto overscroll-x-contain pb-4 [scrollbar-width:thin] lg:block lg:h-auto lg:overflow-visible lg:pb-0"
+        >
+          {items.map((item, index) => (
+            <div
+              key={item.id}
+              id={`showcase-panel-${item.id}`}
+              role="tabpanel"
+              aria-labelledby={`showcase-tab-${item.id}`}
+              className={`w-full min-w-0 shrink-0 snap-start snap-always ${index === active ? "lg:animate-reveal" : "lg:hidden"}`}
+            >
+              {item.panel}
+            </div>
+          ))}
+        </div>
+        <div className="mt-4 flex items-center justify-between gap-3 lg:hidden">
+          <span className="text-xs font-medium text-ink-500">Swipe previews · {active + 1} / {items.length}</span>
+          <div className="flex gap-2">
+            <button type="button" aria-label="Previous project preview" disabled={active === 0} onClick={() => select(active - 1)} className="h-11 w-11 rounded-full border border-slate-200 bg-white text-ink-900 disabled:opacity-35">←</button>
+            <button type="button" aria-label="Next project preview" disabled={active === items.length - 1} onClick={() => select(active + 1)} className="h-11 w-11 rounded-full border border-slate-200 bg-white text-ink-900 disabled:opacity-35">→</button>
           </div>
-        ))}
+        </div>
         {footer ? <div className="mt-6 lg:hidden">{footer}</div> : null}
       </div>
     </div>
