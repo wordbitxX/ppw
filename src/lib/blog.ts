@@ -5,6 +5,7 @@ import { morePostsB } from "@/lib/blog-more-b";
 import { morePostsC } from "@/lib/blog-more-c";
 import { morePostsD } from "@/lib/blog-more-d";
 import { morePostsE } from "@/lib/blog-more-e";
+import { morePostsF } from "@/lib/blog-more-f";
 import { postPhotos, withTopicPhoto } from "@/lib/topic-photos";
 
 const author = { name: "WordbitX Editorial Team", role: "Software & Digital Solutions" };
@@ -219,7 +220,7 @@ const originalPosts: BlogPost[] = [
     image: media.pairProgramming,
     imageAlt: "Two developers reviewing a website build together",
     relatedServices: ["web-development", "seo-services", "ui-ux-design"],
-    relatedPosts: ["seo-guide-for-businesses", "shopify-vs-custom-ecommerce-website"],
+    relatedPosts: ["custom-website-development-company", "seo-guide-for-businesses", "shopify-vs-custom-ecommerce-website"],
     blocks: [
       { type: "p", text: "Most disappointing website projects are not caused by bad developers. They are caused by unclear expectations agreed in a friendly first call and discovered three months later." },
       { type: "p", text: "These ten questions surface the difference before you sign." },
@@ -571,7 +572,7 @@ const originalPosts: BlogPost[] = [
   },
 ];
 
-export const blogPosts: BlogPost[] = [...originalPosts, ...morePostsA, ...morePostsB, ...morePostsC, ...morePostsD, ...morePostsE].map((post) =>
+export const blogPosts: BlogPost[] = [...originalPosts, ...morePostsA, ...morePostsB, ...morePostsC, ...morePostsD, ...morePostsE, ...morePostsF].map((post) =>
   withTopicPhoto(post, postPhotos),
 );
 

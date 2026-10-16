@@ -148,6 +148,10 @@ export const postPhotos: Record<string, Photo> = {
     src: servicePhoto("custom-software-development"),
     alt: "Developer writing code alongside an AI coding assistant on dual monitors",
   },
+  "custom-website-development-company": {
+    src: servicePhoto("web-development"),
+    alt: "Custom business website being designed and built by a website development company",
+  },
   "shopify-vs-custom-ecommerce-website": {
     src: servicePhoto("ecommerce-shopify"),
     alt: "Shopify-style brand packing table with an online store on a laptop",
