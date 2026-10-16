@@ -187,11 +187,71 @@ function NavDrop({
   );
 }
 
+/** Mobile drawer accordion section — mirrors the desktop dropdown structure
+    (same group headings and items) so phone visitors get the same premium nav
+    (owner request, 17 Oct). Module scope, like NavDrop, so its identity stays
+    stable across Header renders. */
+function MobileDrop({
+  label,
+  expanded,
+  onToggle,
+  children,
+}: {
+  label: string;
+  expanded: boolean;
+  onToggle: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02]">
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-expanded={expanded}
+        className="flex w-full items-center justify-between px-4 py-3.5 text-left text-base font-medium text-white"
+      >
+        {label}
+        <ChevronDown
+          className={`h-4 w-4 transition-transform duration-200 ${expanded ? "rotate-180 text-brand-300" : "text-slate-400"}`}
+        />
+      </button>
+      {expanded ? <div className="border-t border-white/10 px-2.5 py-2.5">{children}</div> : null}
+    </div>
+  );
+}
+
+/** One tappable row inside a mobile dropdown — name plus one-line descriptor,
+    same information hierarchy as the desktop two-line rows. */
+function MobileNavRow({
+  href,
+  title,
+  sub,
+  onNavigate,
+}: {
+  href: string;
+  title: string;
+  sub?: string;
+  onNavigate: () => void;
+}) {
+  return (
+    <Link href={href} onClick={onNavigate} className="flex items-center justify-between gap-2 rounded-lg px-2.5 py-2.5 transition-colors hover:bg-white/[0.05]">
+      <span className="min-w-0">
+        <span className="block truncate text-sm font-medium text-slate-200">{title}</span>
+        {sub ? <span className="block truncate text-[0.7rem] text-slate-500">{sub}</span> : null}
+      </span>
+      <ArrowRight className="h-3.5 w-3.5 shrink-0 text-slate-600" />
+    </Link>
+  );
+}
+
 export function Header() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  /** Mobile drawer: which desktop-mirroring dropdown section is open. */
+  const [mobileDrop, setMobileDrop] = useState<MenuKey | null>(null);
+  /** Mobile drawer: which service line inside Services is expanded (-1 = B2B). */
+  const [mobileLine, setMobileLine] = useState<number | null>(null);
   const [openMenu, setOpenMenu] = useState<MenuKey | null>(null);
   /** Which service group the services panel shows. -1 = the B2B pane. */
   const [activePane, setActivePane] = useState(0);
@@ -251,7 +311,8 @@ export function Header() {
   if (renderedPath !== pathname) {
     setRenderedPath(pathname);
     setMobileOpen(false);
-    setMobileServicesOpen(false);
+    setMobileDrop(null);
+    setMobileLine(null);
     setOpenMenu(null);
   }
   useEffect(() => {
@@ -745,58 +806,228 @@ export function Header() {
             {mainNav.map((item) => {
               if (item.label === "Services") {
                 return (
-                  <div key={item.href} className="rounded-xl border border-white/10">
-                    <div className="flex items-center justify-between">
-                      <Link
-                        href="/services"
-                        onClick={backToTopIfCurrent("/services")}
-                        className="flex-1 px-4 py-3 text-base font-medium text-white"
-                      >
-                        Services
-                      </Link>
-                      <button
-                        type="button"
-                        onClick={() => setMobileServicesOpen((open) => !open)}
-                        className="px-4 py-3 text-slate-300"
-                        aria-expanded={mobileServicesOpen}
-                        aria-label="Toggle services list"
-                      >
-                        <ChevronDown className={`h-4 w-4 transition-transform ${mobileServicesOpen ? "rotate-180" : ""}`} />
-                      </button>
-                    </div>
-                    {mobileServicesOpen && (
-                      <ul className="border-t border-white/10 p-2">
-                        <li>
-                          <Link
-                            href="/services#b2b"
-                            className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-slate-300 hover:bg-white/5 hover:text-white"
+                  <MobileDrop
+                    key={item.href}
+                    label="Services"
+                    expanded={mobileDrop === "services"}
+                    onToggle={() => {
+                      setMobileDrop(mobileDrop === "services" ? null : "services");
+                      setMobileLine(null);
+                    }}
+                  >
+                    <p className="px-2.5 pb-1.5 text-[0.64rem] font-bold uppercase tracking-[0.18em] text-slate-500">
+                      Service lines
+                    </p>
+                    <ul className="space-y-0.5">
+                      {megaMenuGroups.map((group, index) => (
+                        <li key={group.title}>
+                          <button
+                            type="button"
+                            onClick={() => setMobileLine(mobileLine === index ? null : index)}
+                            aria-expanded={mobileLine === index}
+                            className={`flex w-full items-center justify-between gap-2 rounded-lg px-2.5 py-2.5 text-left text-sm font-medium transition-colors ${
+                              mobileLine === index ? "bg-white/[0.06] text-white" : "text-slate-200 hover:bg-white/[0.05]"
+                            }`}
                           >
-                            <MegaServiceIcon slug="enterprise-software-solutions" className="h-4 w-4" />
-                            B2B business services
-                          </Link>
+                            {group.title}
+                            <ChevronDown
+                              className={`h-3.5 w-3.5 transition-transform duration-200 ${
+                                mobileLine === index ? "rotate-180 text-brand-300" : "text-slate-500"
+                              }`}
+                            />
+                          </button>
+                          {mobileLine === index ? (
+                            <ul className="mb-1 ml-3 space-y-0.5 border-l border-white/10 pl-2.5 pt-0.5">
+                              {paneServices(group.slugs).map((service) => (
+                                <li key={service.slug}>
+                                  <Link
+                                    href={`/services/${service.slug}`}
+                                    onClick={() => setMobileOpen(false)}
+                                    className="flex items-center gap-2.5 rounded-lg px-2 py-2 transition-colors hover:bg-white/[0.05]"
+                                  >
+                                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-white/[0.06] text-slate-400 ring-1 ring-white/10">
+                                      <MegaServiceIcon slug={service.slug} className="h-3.5 w-3.5" />
+                                    </span>
+                                    <span className="min-w-0 flex-1 truncate text-[0.83rem] text-slate-300">
+                                      {service.shortTitle}
+                                    </span>
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          ) : null}
                         </li>
-                        {services.map((service) => (
-                          <li key={service.slug}>
-                            <Link
-                              href={`/services/${service.slug}`}
-                              className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-slate-300 hover:bg-white/5 hover:text-white"
-                            >
-                              <MegaServiceIcon slug={service.slug} className="h-4 w-4" />
-                              {service.shortTitle}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
+                      ))}
+                      {/* B2B — plain line like the desktop rail; expands the
+                          same B2B services list the desktop pane shows. */}
+                      <li>
+                        <button
+                          type="button"
+                          onClick={() => setMobileLine(mobileLine === -1 ? null : -1)}
+                          aria-expanded={mobileLine === -1}
+                          className={`flex w-full items-center justify-between gap-2 rounded-lg px-2.5 py-2.5 text-left text-sm font-medium transition-colors ${
+                            mobileLine === -1 ? "bg-white/[0.06] text-white" : "text-slate-200 hover:bg-white/[0.05]"
+                          }`}
+                        >
+                          B2B services
+                          <ChevronDown
+                            className={`h-3.5 w-3.5 transition-transform duration-200 ${
+                              mobileLine === -1 ? "rotate-180 text-brand-300" : "text-slate-500"
+                            }`}
+                          />
+                        </button>
+                        {mobileLine === -1 ? (
+                          <ul className="mb-1 ml-3 space-y-0.5 border-l border-white/10 pl-2.5 pt-0.5">
+                            {paneServices(b2bServiceSlugs).map((service) => (
+                              <li key={service.slug}>
+                                <Link
+                                  href={`/services/${service.slug}`}
+                                  onClick={() => setMobileOpen(false)}
+                                  className="flex items-center gap-2.5 rounded-lg px-2 py-2 transition-colors hover:bg-white/[0.05]"
+                                >
+                                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-white/[0.06] text-slate-400 ring-1 ring-white/10">
+                                    <MegaServiceIcon slug={service.slug} className="h-3.5 w-3.5" />
+                                  </span>
+                                  <span className="min-w-0 flex-1 truncate text-[0.83rem] text-slate-300">
+                                    {service.shortTitle}
+                                  </span>
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        ) : null}
+                      </li>
+                    </ul>
+                    <Link
+                      href="/services"
+                      onClick={() => setMobileOpen(false)}
+                      className="group mt-1 flex items-center gap-1.5 rounded-lg px-2.5 py-2 text-sm font-semibold text-brand-300 transition-colors hover:bg-white/[0.05]"
+                    >
+                      All services
+                      <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
+                    </Link>
+                  </MobileDrop>
                 );
               }
+
+              if (item.label === "Industries") {
+                return (
+                  <MobileDrop
+                    key={item.href}
+                    label="Industries"
+                    expanded={mobileDrop === "industries"}
+                    onToggle={() => setMobileDrop(mobileDrop === "industries" ? null : "industries")}
+                  >
+                    <p className="px-2.5 pb-1.5 text-[0.64rem] font-bold uppercase tracking-[0.18em] text-slate-500">
+                      13 sectors we build for
+                    </p>
+                    <ul className="space-y-0.5">
+                      {industryLinks.map(([slug, name]) => (
+                        <li key={slug}>
+                          <MobileNavRow
+                            href={`/industries/${slug}`}
+                            title={name}
+                            sub={industryBlurbs[slug] ?? "Sector-specific builds"}
+                            onNavigate={() => setMobileOpen(false)}
+                          />
+                        </li>
+                      ))}
+                    </ul>
+                    <Link
+                      href="/industries"
+                      onClick={() => setMobileOpen(false)}
+                      className="group mt-1 flex items-center gap-1.5 rounded-lg px-2.5 py-2 text-sm font-semibold text-brand-300 transition-colors hover:bg-white/[0.05]"
+                    >
+                      All 13 industries
+                      <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
+                    </Link>
+                  </MobileDrop>
+                );
+              }
+
+              if (item.label === "Products") {
+                return (
+                  <MobileDrop
+                    key={item.href}
+                    label="Products"
+                    expanded={mobileDrop === "products"}
+                    onToggle={() => setMobileDrop(mobileDrop === "products" ? null : "products")}
+                  >
+                    {[
+                      { heading: "Live now", items: productLinks.filter(([slug]) => slug === "properties-pak") },
+                      { heading: "In rollout", items: productLinks.filter(([slug]) => slug !== "properties-pak") },
+                    ].map((group) => (
+                      <div key={group.heading} className="[&+&]:mt-2.5 [&+&]:border-t [&+&]:border-white/10 [&+&]:pt-2.5">
+                        <p className="px-2.5 pb-1.5 text-[0.64rem] font-bold uppercase tracking-[0.18em] text-slate-500">
+                          {group.heading}
+                        </p>
+                        <ul className="space-y-0.5">
+                          {group.items.map(([slug, name]) => (
+                            <li key={slug}>
+                              <MobileNavRow
+                                href={`/products/${slug}`}
+                                title={slug === "properties-pak" ? `${name} · Live` : name}
+                                sub={productBlurbs[slug] ?? "WordbitX ecosystem product"}
+                                onNavigate={() => setMobileOpen(false)}
+                              />
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                    <Link
+                      href="/products"
+                      onClick={() => setMobileOpen(false)}
+                      className="group mt-1 flex items-center gap-1.5 rounded-lg px-2.5 py-2 text-sm font-semibold text-brand-300 transition-colors hover:bg-white/[0.05]"
+                    >
+                      All products
+                      <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
+                    </Link>
+                  </MobileDrop>
+                );
+              }
+
+              if (item.label === "Portfolio") {
+                return (
+                  <MobileDrop
+                    key={item.href}
+                    label="Portfolio"
+                    expanded={mobileDrop === "portfolio"}
+                    onToggle={() => setMobileDrop(mobileDrop === "portfolio" ? null : "portfolio")}
+                  >
+                    <p className="px-2.5 pb-1.5 text-[0.64rem] font-bold uppercase tracking-[0.18em] text-slate-500">
+                      Flagship case profiles
+                    </p>
+                    <ul className="space-y-0.5">
+                      {portfolioMajors.map(([slug, title]) => (
+                        <li key={slug}>
+                          <MobileNavRow
+                            href={`/portfolio/${slug}`}
+                            title={title}
+                            sub={portfolioBlurbs[slug] ?? "Case profile"}
+                            onNavigate={() => setMobileOpen(false)}
+                          />
+                        </li>
+                      ))}
+                    </ul>
+                    <Link
+                      href="/portfolio"
+                      onClick={() => setMobileOpen(false)}
+                      className="group mt-1 flex items-center gap-1.5 rounded-lg px-2.5 py-2 text-sm font-semibold text-brand-300 transition-colors hover:bg-white/[0.05]"
+                    >
+                      All portfolio
+                      <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
+                    </Link>
+                  </MobileDrop>
+                );
+              }
+
               return (
                 <Link
                   key={item.href}
                   href={item.href}
                   onClick={backToTopIfCurrent(item.href)}
-                  className={`block rounded-xl border border-white/10 px-4 py-3 text-base font-medium ${
+                  className={`block rounded-2xl border border-white/10 px-4 py-3.5 text-base font-medium transition-colors hover:bg-white/[0.04] ${
                     isActive(item.href) ? "text-brand-300" : "text-white"
                   }`}
                 >
