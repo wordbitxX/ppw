@@ -49,7 +49,7 @@ export function Footer() {
                    * rel="me" claims these profiles as the same identity as this
                    * site. Paired with the sameAs list in the Organization schema
                    * it is the standard way to tell search engines that the new
-                   * LinkedIn page — not the abandoned "WordBitx Tech." one the
+                   * LinkedIn page — not the abandoned company page that
                    * data aggregators still republish — is the official account.
                    */
                   rel="me noopener noreferrer"

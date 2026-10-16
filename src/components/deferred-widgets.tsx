@@ -4,20 +4,11 @@ import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { BackToTop } from "@/components/back-to-top";
 
-/**
- * The AI assistant and the custom cursor are nice-to-haves, not content. Both
- * used to ship in the first JavaScript payload of every page (the assistant
- * alone pulls in a large intent/answer dictionary), which delayed hydration and
- * hurt INP on slower phones.
- *
- * They are now code-split and only loaded once the browser is idle or the
- * visitor interacts — so the first paint, LCP and Total Blocking Time are not
- * paying for them.
- */
+/** The assistant launcher is always present. Decorative cursor effects and
+ * back-to-top controls remain deferred so they do not compete with first paint. */
 
-const AiChatWidget = dynamic(() => import("@/components/ai-chat-widget").then((m) => m.AiChatWidget), {
-  ssr: false,
-});
+// Keep the launcher in the initial HTML; only the decorative cursor is idle-loaded.
+const AiChatWidget = dynamic(() => import("@/components/ai-chat-widget").then((m) => m.AiChatWidget));
 
 const SiteCursor = dynamic(() => import("@/components/site-cursor").then((m) => m.SiteCursor), {
   ssr: false,
@@ -58,13 +49,12 @@ function useDeferredMount(idleTimeout = 2500) {
 
 export function DeferredWidgets() {
   const ready = useDeferredMount();
-  if (!ready) return null;
 
   return (
     <>
-      <SiteCursor />
+      {ready ? <SiteCursor /> : null}
       <AiChatWidget />
-      <BackToTop />
+      {ready ? <BackToTop /> : null}
     </>
   );
 }
