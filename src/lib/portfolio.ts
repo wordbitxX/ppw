@@ -800,6 +800,68 @@ const originalProjects: Project[] = [
     ],
     relatedServices: ["hospital-medical-portals", "inventory-management-software", "pos-software"],
   },
+  {
+    slug: "properties-pak-property-portal",
+    title: "Properties Pak — Pakistan Property Portal",
+    type: "Live property portal (WordbitX product)",
+    category: "Websites",
+    industry: "Real Estate",
+    year: "2025",
+    engagement: "Product design, full-stack development, launch and maintenance",
+    clientLabel: "WordbitX Product",
+    publicStatus: "Properties Pak is WordbitX's own live product — not a confidential client engagement — so it is named and linked publicly here.",
+    liveUrl: "https://propertiespak.com",
+    summary:
+      "Properties Pak is WordbitX's live Pakistan property portal — society and phase listings, map-led search, plot/file detail pages and dealer enquiry flows, built, launched and maintained by WordbitX.",
+    metaTitle: "Properties Pak — Pakistan Property Portal | WordbitX Project Profile",
+    metaDescription:
+      "Properties Pak, WordbitX's live property portal: society, phase and block listings, map-based search, plot/file detail pages, dealer dashboards and enquiry routing for Pakistani housing sales.",
+    image: media.realEstateAgent,
+    imageAlt: "Property consultant reviewing plot files and society layout plans",
+    gallery: [
+      {
+        src: media.realEstateKeys,
+        alt: "Plot handover to a property buyer",
+        caption: "Booking to handover tracked against each plot file",
+      },
+      {
+        src: media.realEstateAgent,
+        alt: "Property consultant reviewing plans and documents",
+        caption: "Society, phase and block inventory with dealer enquiry routing",
+      },
+    ],
+    overview: [
+      "Properties Pak is the property portal WordbitX built for itself: a live marketplace for Pakistani housing sales, structured the way the market actually works — by society, phase, block and plot file, not just by generic property type.",
+      "Buyers search by map and filters, dealers manage their inventory and enquiries, and every listing carries the plot/file detail a Pakistani buyer asks for before calling. The portal is live at propertiespak.com and is maintained by WordbitX as its flagship PropTech product.",
+    ],
+    challenge: [
+      "Society structures differ across DHA Lahore, Lahore Smart City, Capital Smart City and Etihad Town style inventory.",
+      "Thousands of listing pages need to stay crawlable for organic search.",
+      "Dealer enquiries need routing to the right dealer with a full audit trail.",
+    ],
+    solution: [
+      "A configurable inventory model where each society defines its own phases, blocks, plot sizes and file rules.",
+      "Map-based search with viewport filtering and saved searches.",
+      "Dealer dashboards for listing management, media uploads and lead tracking.",
+      "Server-rendered listing and location pages with structured data and automatic sitemap generation.",
+    ],
+    features: [
+      "Society, phase, block and plot-number inventory",
+      "Map-based search with viewport filtering",
+      "Plot/file detail pages with instalment tracking",
+      "Dealer and agency dashboards with permissions",
+      "Saved searches and enquiry forms per listing",
+      "Structured data for listings and breadcrumbs",
+      "Dynamic XML sitemaps for large catalogues",
+    ],
+    technologies: ["Next.js", "TypeScript", "Node.js", "PostgreSQL", "Redis", "AWS"],
+    outcomes: [
+      "A live, publicly verifiable portal buyers and dealers can open today.",
+      "Listings are structured by society, phase and block instead of as generic properties.",
+      "Enquiries route to the responsible dealer with a full audit trail.",
+    ],
+    relatedServices: ["real-estate-portals", "web-development", "seo-services"],
+  },
  ];
 
 export const projects: Project[] = [...originalProjects, ...moreProjects].map((project) => {

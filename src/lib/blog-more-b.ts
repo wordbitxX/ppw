@@ -251,9 +251,9 @@ export const morePostsB: BlogPost[] = [
     category: "Digital Marketing",
     excerpt:
       "Why software companies waste budget on brand ads, and the channel mix — SEO, Google Ads, LinkedIn, content — that actually produces qualified project enquiries.",
-    metaTitle: "Digital Marketing for Software Companies | Lead Generation Guide",
+    metaTitle: "Digital Marketing for Software Companies",
     metaDescription:
-      "Digital marketing for software companies: SEO, Google Ads, LinkedIn and content that produce qualified project enquiries — not vanity traffic.",
+      "Why most software firms waste budget on brand ads — and the SEO, Google Ads, LinkedIn and content mix that turns searches into qualified project enquiries.",
     keywords: [
       "digital marketing for software companies",
       "digital marketing agency",

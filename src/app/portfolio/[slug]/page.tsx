@@ -88,6 +88,13 @@ export default async function ProjectDetailPage({ params }: PageProps) {
          {project.publicStatus ? (
            <p className="mt-3 text-xs text-slate-500">{project.publicStatus}</p>
          ) : null}
+         {project.liveUrl ? (
+           <div className="mt-4">
+             <ButtonLink href={project.liveUrl} className="w-fit">
+               Visit live product
+             </ButtonLink>
+           </div>
+         ) : null}
       </PageHero>
 
       <Section>

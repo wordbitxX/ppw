@@ -414,6 +414,68 @@ export const industries: Industry[] = [
       { question: "Do you do architectural design?", answer: "No. We build operations tools. Drawings stay with your architects." },
     ],
   },
+  {
+    slug: "travel",
+    name: "Travel & Tourism",
+    h1: "Travel Software for Agencies, Tour Operators and Booking Platforms",
+    tagline: "Packages, availability and bookings that survive peak-season traffic — without a spreadsheet in the middle.",
+    summary:
+      "Booking platforms and agency tools built around real travel inventory: packages, dates, seats, rooms and instalment-style payments, with enquiry routing that does not lose a lead at 2am.",
+    metaTitle: "Travel Software Development | Booking Platforms & Tour Systems",
+    metaDescription:
+      "Travel software for agencies and tour operators: package booking, availability calendars, agent commissions, customer itineraries and lead routing built by WordbitX.",
+    image: "/brand/services/ecommerce-development.jpg",
+    imageAlt: "Traveller reviewing a tour booking on a laptop",
+    problems: [
+      { title: "Availability by phone call", text: "Agents confirm seats and rooms manually, and double-bookings follow." },
+      { title: "Enquiries lost overnight", text: "A lead that arrives after hours waits until morning — or books with a competitor." },
+      { title: "Packages priced in chat threads", text: "No single source for what a package costs, what is included, or what changed." },
+    ],
+    solutions: [
+      { title: "Live availability", text: "Packages, dates and remaining seats from one inventory, shown to customers and agents alike." },
+      { title: "Booking with payments", text: "Advance, instalments and balance tracking tied to each booking, not to a chat." },
+      { title: "Agent and itinerary tools", text: "Agent commissions, customer itineraries and document checklists in one workflow." },
+    ],
+    modules: ["Packages", "Availability", "Bookings", "Payments", "Agent commission", "Itineraries"],
+    services: ["web-development", "mobile-app-development", "ecommerce-development", "seo-services", "crm-erp-solutions"],
+    projects: ["travel-booking-platform"],
+    posts: ["mobile-app-development-guide", "how-to-choose-a-web-development-company"],
+    faqs: [
+      { question: "Can this handle Umrah, northern areas or international packages?", answer: "Yes. Packages are structured by destination, dates and inclusions, so any itinerary shape fits the same booking flow." },
+      { question: "Do you integrate payment gateways?", answer: "Yes — card and bank-transfer flows with advance and balance tracking per booking." },
+    ],
+  },
+  {
+    slug: "salon-beauty",
+    name: "Salon & Beauty",
+    h1: "Salon Software for Appointments, Packages and Repeat Clients",
+    tagline: "Chairs filled, no-shows down, and a client record that remembers what was done last time.",
+    summary:
+      "Appointment, package and billing tools for salons and beauty studios — built for walk-ins plus bookings, staff commissions, and the repeat-visit business that actually pays the rent.",
+    metaTitle: "Salon Software Development | Appointments, Packages & Billing",
+    metaDescription:
+      "Salon and beauty software: online appointments, service packages, staff commissions, client history and billing built by WordbitX.",
+    image: "/brand/services/custom-software-development.jpg",
+    imageAlt: "Stylist working with a client in a modern salon",
+    problems: [
+      { title: "Appointments in a diary book", text: "Double bookings and forgotten clients are a daily event, not an exception." },
+      { title: "No-shows with no policy", text: "Without reminders or deposits, empty chairs cost the day's revenue." },
+      { title: "No client history", text: "Staff cannot see what colour, treatment or package a returning client had." },
+    ],
+    solutions: [
+      { title: "Online booking with reminders", text: "Customers book a chair and a stylist; reminders cut no-shows before they happen." },
+      { title: "Packages and memberships", text: "Prepaid packages and visit bundles that keep clients returning." },
+      { title: "Staff and billing", text: "Commissions by service, product sales and a single daily reconciliation." },
+    ],
+    modules: ["Appointments", "Packages", "Client history", "Staff commission", "Reminders", "Billing"],
+    services: ["web-development", "mobile-app-development", "pos-software", "crm-erp-solutions", "social-media-marketing"],
+    projects: [],
+    posts: ["how-seo-helps-businesses-grow", "how-to-choose-a-web-development-company"],
+    faqs: [
+      { question: "Can customers book a specific stylist?", answer: "Yes. Booking is by service, staff member and chair availability, not just by time slot." },
+      { question: "Does it handle walk-ins too?", answer: "Yes. Walk-ins join the same queue as online bookings, so the day's schedule stays in one place." },
+    ],
+  },
 ];
 
 export function getIndustry(slug: string) {
