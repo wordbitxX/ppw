@@ -12,9 +12,9 @@ export const servicesA: Service[] = [
       "Custom website development for businesses that need speed, structure and search visibility — not another slow template.",
     summary:
       "Custom, high-performance business websites and web applications engineered for conversions, Core Web Vitals and long-term SEO.",
-    metaTitle: "Custom Website Development Company",
+    metaTitle: "Custom Website Development Company in Pakistan",
     metaDescription:
-      "WordbitX is a custom website development company building fast, responsive, SEO-ready websites and web applications with Next.js, React and modern backends.",
+      "Fast, SEO-ready custom websites from a Pakistan team — Next.js and React builds that load quickly, rank, and turn visitors into enquiries.",
     primaryKeyword: "website development company",
     keywords: [
       "website development company",

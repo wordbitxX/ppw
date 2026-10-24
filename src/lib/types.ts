@@ -80,6 +80,8 @@ export type Project = {
   relatedServices: string[];
   year: string;
   engagement: string;
+  /** Public live URL for WordbitX's own products (e.g. Properties Pak). Rendered as a visit link on the project page. */
+  liveUrl?: string;
   /** Public disclosure label; use for confidential client work. */
   clientLabel?: string;
   /** Explains what can be publicly verified without inventing results. */

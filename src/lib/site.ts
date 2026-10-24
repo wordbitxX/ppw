@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "WordbitX",
-  /** Registered company name — invoices, contracts and schema. */
-  legalName: "Wordbit X TECHNOLOGY SMC – PVT. LTD.",
+  /** Registered company name — invoices, contracts and schema. Spelling confirmed by the owner (no space in WordbitX). */
+  legalName: "WordbitX TECHNOLOGY SMC – PVT. LTD.",
   /** Public footer / marketing legal line. */
   legalDisplayName: "WordbitX SMC – PVT. LTD.",
   domain: "wordbitxtech.com",

@@ -108,6 +108,22 @@ const nextConfig: NextConfig = {
       // earlier "/demos/:path*" version also caught the STATIC screenshots at
       // /demos/cover/*.jpg (redirects run before the public/ filesystem) and
       // broke the hero + demo images — 10 Oct 2026 incident.
+      // GSC 24 Oct 2026: 404s that are genuinely dead (not stale crawls).
+      // The other 404s from that report (/societies, /industries/real-estate,
+      // /global/uae, /cookie-policy) already return 200 in the current build,
+      // so they are NOT redirected here. /cdn-cgi/l/email-protection is a
+      // Cloudflare artifact and is left alone.
+      // Maison Noor was the old luxury-restaurant demo on www; it now lives
+      // on the luxury subdomain, so its old URLs go there, not to /portfolio.
+      { source: "/maison-noor", destination: "https://luxury.wordbitxtech.com", permanent: true },
+      { source: "/maison-noor/:path([^.]+)", destination: "https://luxury.wordbitxtech.com", permanent: true },
+      // Numbered duplicate slugs (old CMS-style URLs) -> their live pages.
+      { source: "/services/digital-marketing-85", destination: "/services/digital-marketing", permanent: true },
+      { source: "/services/pos-software-212", destination: "/services/pos-software", permanent: true },
+      { source: "/services/inventory-management-software-282", destination: "/services/inventory-management-software", permanent: true },
+      { source: "/blog/inventory-management-software-guide-214", destination: "/blog/inventory-management-software-guide", permanent: true },
+      { source: "/contact-50", destination: "/contact", permanent: true },
+      { source: "/contact-152", destination: "/contact", permanent: true },
       { source: "/demos", destination: "/portfolio", permanent: true },
       { source: "/demos/:path([^.]+)", destination: "/portfolio", permanent: true },
       { source: "/favicon.ico", destination: "/icon.svg", permanent: false },
