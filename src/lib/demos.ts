@@ -62,7 +62,7 @@ export const demosDisclosure =
   "Items labelled Demo below are demo / sample websites created by WordbitX to showcase design and development capabilities. They are not real client projects, case studies or endorsements, and no client names, revenue figures or results are implied. Items labelled Live Project are real, publicly available products built by WordbitX. Where a card shows an illustrated cover instead of a screenshot, the cover is artwork representing the kind of business the software serves — open the link to see the actual site.";
 
 /** Hosts WordbitX owns or operates — these get normal (dofollow) links. */
-export const ownedHosts = ["wordbitxtech.com", "propertiespak.com"];
+export const ownedHosts = ["wordbitx.pk", "wordbitxtech.com", "propertiespak.com"];
 
 export const demoWebsites: DemoWebsite[] = [
   {
@@ -92,8 +92,8 @@ export const demoWebsites: DemoWebsite[] = [
     kind: "demo",
     description:
       "Motor and automotive website demo showcasing vehicle listings, showroom-style layouts and enquiry-focused design.",
-    url: "https://motor.wordbitxtech.com",
-    host: "motor.wordbitxtech.com",
+    url: "https://motor.wordbitx.pk",
+    host: "motor.wordbitx.pk",
     proof:
       "21 brands with EV and hybrid filters, listing and showroom pages, English and اردو.",
     shot: "/demos/motor.jpg",
@@ -111,8 +111,8 @@ export const demoWebsites: DemoWebsite[] = [
     kind: "demo",
     description:
       "Healthcare website demo showcasing service presentation, appointment-focused layouts and professional medical design.",
-    url: "https://medicare.wordbitxtech.com",
-    host: "medicare.wordbitxtech.com",
+    url: "https://medicare.wordbitx.pk",
+    host: "medicare.wordbitx.pk",
     proof:
       "Filterable service catalogue with published PKR fees, slot booking and WhatsApp handoff.",
     shot: "/demos/healthcare.jpg",
@@ -130,8 +130,8 @@ export const demoWebsites: DemoWebsite[] = [
     kind: "demo",
     description:
       "Education website demo showcasing courses, programs, admissions and educational content layouts.",
-    url: "https://education.wordbitxtech.com",
-    host: "education.wordbitxtech.com",
+    url: "https://education.wordbitx.pk",
+    host: "education.wordbitx.pk",
     proof:
       "37 modules, 5 role portals and fee collection wired to JazzCash and Easypaisa.",
     shot: "/demos/education.jpg",
@@ -149,8 +149,8 @@ export const demoWebsites: DemoWebsite[] = [
     kind: "demo",
     description:
       "E-commerce website demo showcasing product listings, shopping-focused layouts, categories and conversion-oriented design.",
-    url: "https://ecom.wordbitxtech.com",
-    host: "ecom.wordbitxtech.com",
+    url: "https://ecom.wordbitx.pk",
+    host: "ecom.wordbitx.pk",
     proof:
       "9 departments, 8 currencies, product detail pages and a full cart and checkout.",
     shot: "/demos/ecommerce.jpg",
@@ -168,8 +168,8 @@ export const demoWebsites: DemoWebsite[] = [
     kind: "demo",
     description:
       "Modern restaurant website demo showcasing premium visual design, menu presentation and reservation-focused layouts.",
-    url: "https://luxury.wordbitxtech.com",
-    host: "luxury.wordbitxtech.com",
+    url: "https://luxury.wordbitx.pk",
+    host: "luxury.wordbitx.pk",
     proof:
       "40-dish menu with dietary filters, online ordering and table reservation flows.",
     shot: "/demos/luxury-restaurant.jpg",
@@ -187,8 +187,8 @@ export const demoWebsites: DemoWebsite[] = [
     kind: "demo",
     description:
       "Beauty and salon website demo showcasing services, packages, booking-focused sections and modern visual design.",
-    url: "https://saloon.wordbitxtech.com",
-    host: "saloon.wordbitxtech.com",
+    url: "https://saloon.wordbitx.pk",
+    host: "saloon.wordbitx.pk",
     proof:
       "12 service categories, per-service booking deep links and WhatsApp booking.",
     shot: "/demos/salon-beauty.jpg",

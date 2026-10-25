@@ -137,9 +137,9 @@ const intents: Intent[] = [
     id: "health",
     keywords: ["hospital", "clinic", "pharmacy", "medical", "hms", "doctor"],
     reply: () => ({
-      text: `We build hospital, clinic and pharmacy software — registration, appointments, billing, batch/expiry. We do not practise medicine. Licensed decisions stay with the clinic.\n\nReply here with: clinic or hospital, number of doctors, and whether you need pharmacy stock.\nLive sample: medicare.wordbitxtech.com (demo).\n\n${handoffLines()}`,
+      text: `We build hospital, clinic and pharmacy software — registration, appointments, billing, batch/expiry. We do not practise medicine. Licensed decisions stay with the clinic.\n\nReply here with: clinic or hospital, number of doctors, and whether you need pharmacy stock.\nLive sample: medicare.wordbitx.pk (demo).\n\n${handoffLines()}`,
       links: [
-        { href: "https://medicare.wordbitxtech.com", label: "Live healthcare demo", external: true },
+        { href: "https://medicare.wordbitx.pk", label: "Live healthcare demo", external: true },
         ...humanHandoff(),
       ],
       followUps: ["Clinic + appointments", "Pharmacy stock", "How do projects start?"],
@@ -149,9 +149,9 @@ const intents: Intent[] = [
     id: "education",
     keywords: ["school", "university", "college", "admission", "student", "education", "fee"],
     reply: () => ({
-      text: `Education portals: admissions, attendance, exams, fee vouchers and parent/student logins. Multi-campus reporting if you need it. Software only — we do not run the school.\n\nReply here with: school or university, student count, and which modules you need first.\nLive sample: education.wordbitxtech.com (demo).\n\n${handoffLines()}`,
+      text: `Education portals: admissions, attendance, exams, fee vouchers and parent/student logins. Multi-campus reporting if you need it. Software only — we do not run the school.\n\nReply here with: school or university, student count, and which modules you need first.\nLive sample: education.wordbitx.pk (demo).\n\n${handoffLines()}`,
       links: [
-        { href: "https://education.wordbitxtech.com", label: "Live education demo", external: true },
+        { href: "https://education.wordbitx.pk", label: "Live education demo", external: true },
         ...humanHandoff(),
       ],
       followUps: ["School, fees + attendance", "How much does it cost?", "Show live demos"],
@@ -218,11 +218,11 @@ const intents: Intent[] = [
       text: `${demoWebsites.length} WordbitX showcase websites — Properties Pak (our own live property portal), plus motor, healthcare, education, e-commerce, restaurant, salon and business demos. The demos are labelled demos, not client case studies. Open one in a new tab if you want to look; tell me here if you want a similar build and I will take the requirements in this chat.\n\n${handoffLines()}`,
       links: [
         { href: "https://propertiespak.com", label: "Properties Pak — live property portal", external: true },
-        { href: "https://motor.wordbitxtech.com", label: "Motor demo", external: true },
-        { href: "https://medicare.wordbitxtech.com", label: "Healthcare demo", external: true },
-        { href: "https://education.wordbitxtech.com", label: "Education demo", external: true },
-        { href: "https://ecom.wordbitxtech.com", label: "Store demo", external: true },
-        { href: "https://luxury.wordbitxtech.com", label: "Restaurant demo", external: true },
+        { href: "https://motor.wordbitx.pk", label: "Motor demo", external: true },
+        { href: "https://medicare.wordbitx.pk", label: "Healthcare demo", external: true },
+        { href: "https://education.wordbitx.pk", label: "Education demo", external: true },
+        { href: "https://ecom.wordbitx.pk", label: "Store demo", external: true },
+        { href: "https://luxury.wordbitx.pk", label: "Restaurant demo", external: true },
         ...humanHandoff(),
       ],
       followUps: ["Get a similar website", "I need a Flutter app", "How much for a site like that?"],
@@ -434,9 +434,9 @@ function storeReply(query: string): ChatReply {
 
   const label = kind ?? "online";
   return {
-    text: `Noted — a ${label} store.\n\nPayments, shipping and analytics go in your accounts. Reply here with:\n1. Rough number of products\n2. Shopify, WooCommerce, or not sure\n3. Countries you ship to\n4. Need inventory / POS as well?\n\nLive sample: ecom.wordbitxtech.com (demo, not a client case study).\n\n${handoffLines()}`,
+    text: `Noted — a ${label} store.\n\nPayments, shipping and analytics go in your accounts. Reply here with:\n1. Rough number of products\n2. Shopify, WooCommerce, or not sure\n3. Countries you ship to\n4. Need inventory / POS as well?\n\nLive sample: ecom.wordbitx.pk (demo, not a client case study).\n\n${handoffLines()}`,
     links: [
-      { href: "https://ecom.wordbitxtech.com", label: "Live store demo", external: true },
+      { href: "https://ecom.wordbitx.pk", label: "Live store demo", external: true },
       ...humanHandoff(),
     ],
     followUps: ["About 40 products on Shopify", "I also need ads", "Inventory with POS"],

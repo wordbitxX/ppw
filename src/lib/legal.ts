@@ -18,7 +18,7 @@ export const legalDocs: Record<string, LegalDoc> = {
     title: "Privacy Policy",
     metaTitle: "Privacy Policy | WordbitX",
     metaDescription:
-      "How WordbitX collects, uses, stores and protects personal data submitted through wordbitxtech.com, including forms, analytics and third-party services.",
+      "How WordbitX collects, uses, stores and protects personal data submitted through wordbitx.pk, including forms, analytics and third-party services.",
     intro:
       "This policy explains what information WordbitX collects when you use our website or contact us, why we collect it, and the choices you have.",
     updated: "1 March 2026",
@@ -89,7 +89,7 @@ export const legalDocs: Record<string, LegalDoc> = {
     metaDescription:
       "The terms governing use of the WordbitX website and the general conditions that apply to proposals, project engagements, intellectual property and liability.",
     intro:
-      "These terms govern your use of wordbitxtech.com and set out the general conditions that apply to our proposals and engagements. Specific projects are always governed by a signed proposal or contract.",
+      "These terms govern your use of wordbitx.pk and set out the general conditions that apply to our proposals and engagements. Specific projects are always governed by a signed proposal or contract.",
     updated: "1 March 2026",
     sections: [
       {
@@ -114,7 +114,7 @@ export const legalDocs: Record<string, LegalDoc> = {
         heading: "Intellectual property",
         paragraphs: [
           "On full payment, ownership of project-specific source code, designs and documentation transfers to the client, unless a different arrangement is stated in the contract. WordbitX retains ownership of pre-existing tools, libraries and internal frameworks, licensed to the client for use within the delivered solution.",
-          "Website content, branding and materials published on wordbitxtech.com remain the property of WordbitX.",
+          "Website content, branding and materials published on wordbitx.pk remain the property of WordbitX.",
         ],
       },
       {
@@ -146,9 +146,9 @@ export const legalDocs: Record<string, LegalDoc> = {
     title: "Cookie Policy",
     metaTitle: "Cookie Policy | WordbitX",
     metaDescription:
-      "Details of the cookies and similar technologies used on wordbitxtech.com, what they do, and how you can control them in your browser.",
+      "Details of the cookies and similar technologies used on wordbitx.pk, what they do, and how you can control them in your browser.",
     intro:
-      "This policy explains how cookies and similar technologies are used on wordbitxtech.com and how you can control them.",
+      "This policy explains how cookies and similar technologies are used on wordbitx.pk and how you can control them.",
     updated: "1 March 2026",
     sections: [
       {
@@ -191,9 +191,9 @@ export const legalDocs: Record<string, LegalDoc> = {
     title: "Disclaimer",
     metaTitle: "Disclaimer | WordbitX",
     metaDescription:
-      "Legal disclaimer for wordbitxtech.com: no ranking or AdSense guarantees, no invented affiliations, and the limits of website information.",
+      "Legal disclaimer for wordbitx.pk: no ranking or AdSense guarantees, no invented affiliations, and the limits of website information.",
     intro:
-      "This disclaimer sets out the limits of the information published on wordbitxtech.com. It should be read with our Terms and Privacy Policy.",
+      "This disclaimer sets out the limits of the information published on wordbitx.pk. It should be read with our Terms and Privacy Policy.",
     updated: "18 August 2026",
     sections: [
       {
