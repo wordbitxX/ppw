@@ -10,6 +10,9 @@ const nextConfig: NextConfig = {
      preview hosts so client JS and hot reload work there. Dev-only setting;
      production is unaffected. */
   allowedDevOrigins: [
+    "*.e2b.app",
+    "*.arena.site",
+    ...(process.env.E2B_SANDBOX_ID ? [`3000-${process.env.E2B_SANDBOX_ID}.e2b.app`] : []),
     "3000-i1704j3ccs1aitp3aoski.e2b.app",
     "sbx-7u6scv5x7fxzz62w.arena.site",
   ],
@@ -115,8 +118,8 @@ const nextConfig: NextConfig = {
       // Cloudflare artifact and is left alone.
       // Maison Noor was the old luxury-restaurant demo on www; it now lives
       // on the luxury subdomain, so its old URLs go there, not to /portfolio.
-      { source: "/maison-noor", destination: "https://luxury.wordbitxtech.com", permanent: true },
-      { source: "/maison-noor/:path([^.]+)", destination: "https://luxury.wordbitxtech.com", permanent: true },
+      { source: "/maison-noor", destination: "https://luxury.wordbitx.pk", permanent: true },
+      { source: "/maison-noor/:path([^.]+)", destination: "https://luxury.wordbitx.pk", permanent: true },
       // Numbered duplicate slugs (old CMS-style URLs) -> their live pages.
       { source: "/services/digital-marketing-85", destination: "/services/digital-marketing", permanent: true },
       { source: "/services/pos-software-212", destination: "/services/pos-software", permanent: true },

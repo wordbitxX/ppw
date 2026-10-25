@@ -12,10 +12,10 @@ export function GET() {
     canonicalDomain: canonical,
     indexThis: canonical,
     doNotIndexTheseRedirectVariants: [
-      "https://wordbitxtech.com/",
-      "http://wordbitxtech.com/",
-      "http://www.wordbitxtech.com/",
-      "wordbitxtech.com without protocol",
+      "https://wordbitx.pk/",
+      "http://wordbitx.pk/",
+      "http://www.wordbitx.pk/",
+      "wordbitx.pk without protocol",
       "any preview / vercel / arena URL",
     ],
     reason:
@@ -43,9 +43,9 @@ export function GET() {
       `${canonical}/contact`,
     ],
     requiredManualGoogleActions: [
-      "Use a Domain Property for wordbitxtech.com in Search Console if possible.",
-      "If using URL-prefix property, use https://www.wordbitxtech.com/ because the apex redirects to www.",
-      "Submit sitemap.xml or sitemap-index.xml in Search Console. Delete societies submissions.",
+      "Use a Domain Property for wordbitx.pk in Search Console if possible.",
+      "If using URL-prefix property, use https://www.wordbitx.pk/ because the apex redirects to www.",
+      "Submit sitemap-index.xml in Search Console. Delete societies submissions.",
       "Inspect the canonical www URLs, not redirected apex URLs.",
       "Do not request indexing for /societies — those pages are noindex.",
       "Monitor Pages, Sitemaps, Core Web Vitals, HTTPS, Security Issues and Manual Actions.",

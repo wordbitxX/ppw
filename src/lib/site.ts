@@ -4,9 +4,9 @@ export const siteConfig = {
   legalName: "WordbitX TECHNOLOGY SMC – PVT. LTD.",
   /** Public footer / marketing legal line. */
   legalDisplayName: "WordbitX SMC – PVT. LTD.",
-  domain: "wordbitxtech.com",
-  /** Canonical production URL. Vercel currently redirects apex → www, so all canonicals and sitemaps use www. */
-  url: "https://www.wordbitxtech.com",
+  domain: "wordbitx.pk",
+  /** Canonical production URL. Apex redirects to www, so all canonicals and sitemaps use www. */
+  url: "https://www.wordbitx.pk",
   tagline: "Software Development Company for Businesses Worldwide",
   description:
     "WordbitX is a Pakistan-based software development company serving businesses in the USA, UK, UAE, Canada, Australia and worldwide. Custom websites, mobile apps, Shopify, POS, CRM/ERP, SEO and digital marketing — with practical AI where it helps. You own the code.",
@@ -14,10 +14,10 @@ export const siteConfig = {
   seoDescription:
     "Pakistan software company serving USA, UK, UAE and worldwide. Websites, apps, Shopify, POS, SEO and digital marketing. You own the code.",
   /** Public contact address shown across the website. */
-  email: "info@wordbitxtech.com",
+  email: "info@wordbitx.pk",
   /** CEO's direct line — shown on the founder card (owner's request, 11 Oct).
       Should be an alias forwarding to the same inbox. */
-  ceoEmail: "ceo@wordbitxtech.com",
+  ceoEmail: "ceo@wordbitx.pk",
   /** GBP record as of 11 Oct 2026 (owner's SERP screenshot): 4.3 stars across
       15 published Google reviews. Update as the profile grows. */
   googleRating: "4.3",
@@ -41,7 +41,7 @@ export const siteConfig = {
   addressDisplay: "DHA Phase 2, Lahore, Pakistan",
   foundingYear: 2021,
   /** Shared lastmod for static marketing pages. Update when those pages ship a real content change. */
-  contentUpdated: "2026-10-16",
+  contentUpdated: "2026-10-25",
   ogImage: "/opengraph-image",
   googleReviewsUrl: "https://www.google.com/maps/search/?api=1&query=WordbitX+Technology+Lahore",
   googleWriteReviewUrl: "https://www.google.com/search?q=WordbitX+Technology+Lahore+write+a+review",

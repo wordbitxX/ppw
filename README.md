@@ -92,7 +92,7 @@ that folder is intentionally omitted so downloads never lose images.
 | `SMTP_HOST` / `SMTP_PORT` / `SMTP_USER` / `SMTP_PASS` | one provider required | Deliver enquiries via your mailbox |
 | `RESEND_API_KEY` | one provider required | Deliver enquiries via the Resend HTTPS API |
 | `MAIL_FROM` | no | Sender shown on the enquiry email |
-| `MAIL_TO` | no | Recipient (defaults to `info@wordbitxtech.com`) |
+| `MAIL_TO` | no | Recipient (defaults to `info@wordbitx.pk`) |
 | `GMAIL_USER` / `GMAIL_APP_PASSWORD` | one provider required | Deliver enquiries through Gmail |
 | `DATABASE_URL` | no | Optional PostgreSQL copy of enquiries and newsletter signups |
 | `NEXT_PUBLIC_GA_MEASUREMENT_ID` | no | Google Analytics 4 (`G-XXXXXXXXXX`) |

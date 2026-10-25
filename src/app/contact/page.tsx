@@ -15,7 +15,7 @@ import type { Faq } from "@/lib/types";
 export const metadata: Metadata = {
   title: "Contact | Get a Project Quote",
   description:
-    "Contact WordbitX for websites, mobile apps, custom software, eCommerce, SEO and digital marketing. Email info@wordbitxtech.com or WhatsApp +92 325 1888841.",
+    "Contact WordbitX for websites, mobile apps, custom software, eCommerce, SEO and digital marketing. Email info@wordbitx.pk or WhatsApp +92 325 1888841.",
   alternates: { canonical: "/contact" },
   keywords: ["contact WordbitX", "software development quote", "hire app developers", "web development enquiry"],
   openGraph: {

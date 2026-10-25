@@ -2,14 +2,14 @@
 
 ## Canonical host
 
-`https://wordbitxtech.com/` redirects to `https://www.wordbitxtech.com/`.
+`https://wordbitx.pk/` redirects to `https://www.wordbitx.pk/`.
 
-Submit sitemaps only on the **www** Search Console property.
+Submit sitemaps only on the **www** Search Console property (or the Domain Property `wordbitx.pk`).
 
 ## Submit this one file
 
 ```text
-https://www.wordbitxtech.com/sitemap-index.xml
+https://www.wordbitx.pk/sitemap-index.xml
 ```
 
 Do **not** also submit `sitemap.xml` or every child file. That lists the same URLs twice and is how GSC showed ~250 discovered URLs for 126 unique pages.
@@ -43,7 +43,7 @@ Do **not** also submit `sitemap.xml` or every child file. That lists the same UR
 
 ## HTML sitemap
 
-`https://www.wordbitxtech.com/sitemap` lists the same indexable URLs for people and internal links.
+`https://www.wordbitx.pk/sitemap` lists the same indexable URLs for people and internal links.
 
 ## After deploy
 
