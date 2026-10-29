@@ -12,6 +12,21 @@ import { mainNav, siteConfig, whatsappLink } from "@/lib/site";
 
 type MenuKey = "services" | "industries" | "products" | "portfolio";
 
+/**
+ * Compact labels for the desktop bar only.
+ *
+ * The page container caps at 80rem (1216px of inner width), but a nav row can
+ * contain the logo, eight links, the PKR pill and the CTA. At 1536px+ the type
+ * steps up, and with the full "About Us" / "Contact Us" labels the row was
+ * overflowing and wrapping onto two lines. These shortened labels buy back
+ * ~60px without touching the shared navigation data used by the footer and the
+ * mobile menu, which keep the full wording.
+ */
+const desktopLabel: Record<string, string> = {
+  "About Us": "About",
+  "Contact Us": "Contact",
+};
+
 /** Industries popup — name/slug pairs copied from src/lib/industries.ts so the
     header bundle does not import the full industry content files. */
 const industryLinks: [string, string][] = [
@@ -724,11 +739,12 @@ export function Header() {
                   key={item.href}
                   href={item.href}
                   onClick={backToTopIfCurrent(item.href)}
+                  aria-label={desktopLabel[item.label] ? item.label : undefined}
                   className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-lg px-1.5 py-2 text-[0.78rem] font-medium transition-colors xl:px-2.5 xl:text-[0.84rem] 2xl:text-sm ${
                     isActive(item.href) ? "text-brand-300" : "text-slate-200 hover:text-white"
                   }`}
                 >
-                  {item.label}
+                  {desktopLabel[item.label] ?? item.label}
                 </Link>
               );
             })}
