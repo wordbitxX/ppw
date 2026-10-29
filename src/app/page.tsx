@@ -261,7 +261,7 @@ export default function HomePage() {
                 <span className="mb-4 block text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-arc-300 sm:text-xs">
                   Software &amp; AI development company for B2B
                 </span>
-                We Build Websites, Apps & Software That Win Clients..
+                One Platform.
                 <br />
                 <span className="text-gradient-arc">Endless Possibilities.</span>
               </h1>
