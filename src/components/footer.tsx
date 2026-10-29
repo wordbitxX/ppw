@@ -75,6 +75,19 @@ export function Footer() {
                   </li>
                 ))}
                 <li>
+                  <Link
+                    href="/pk"
+                    className="inline-flex items-center gap-2 font-semibold text-brand-200 transition-colors hover:text-brand-300"
+                  >
+                    Pakistan Prices (PKR)
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/pk/web-design-lahore" className="text-slate-400 transition-colors hover:text-brand-300">
+                    Web design in Lahore
+                  </Link>
+                </li>
+                <li>
                   <Link href="/software-house" className="text-slate-400 transition-colors hover:text-brand-300">
                     Cities in Pakistan
                   </Link>

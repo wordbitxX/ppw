@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { PkPricesBanner } from "@/components/pk/pk-ui";
 import { PageHero, Section, SectionHeading, ButtonLink, CheckList, Card } from "@/components/ui";
 import { CtaBand } from "@/components/cta-band";
 import { FaqAccordion } from "@/components/accordion";
@@ -49,6 +50,8 @@ export default function PricingPage() {
           </ButtonLink>
         </div>
       </PageHero>
+
+      <PkPricesBanner text="Pakistan clients: the two website packages, with PKR prices and what each includes, are on the Pakistan prices page." />
 
       <Section>
         <SectionHeading

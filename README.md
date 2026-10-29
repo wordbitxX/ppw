@@ -111,6 +111,8 @@ that folder is intentionally omitted so downloads never lose images.
 | `/portfolio/[slug]` | 14 project profiles (overview, challenge, solution, features, tech, outcomes) |
 | `/blog` | Featured post, working search and category filters |
 | `/blog/[slug]` | 8 long-form articles with TOC, related services, prev/next |
+| `/pk` | Pakistan offer: PKR website packages, live samples, 15 FAQs, LocalBusiness + FAQPage schema |
+| `/pk/web-design-[city]` | Lahore, Karachi, Islamabad, Rawalpindi, Faisalabad — unique local content per city |
 | `/contact` | Validated enquiry form saved to PostgreSQL, WhatsApp CTA |
 | `/privacy-policy`, `/terms-conditions`, `/cookie-policy` | Legal pages |
 | `/sitemap.xml`, `/robots.txt`, `/opengraph-image` | Generated automatically |
@@ -120,6 +122,8 @@ that folder is intentionally omitted so downloads never lose images.
 | What | File |
 | --- | --- |
 | Company details, phone, email, socials, nav | `src/lib/site.ts` |
+| Pakistan offer: `pkPricing` (all prices), packages, FAQs | `src/lib/pk.ts` |
+| Pakistan city pages, one entry per city | `src/lib/pk-cities.ts` |
 | Services 1–7 | `src/lib/services-a.ts` |
 | Services 8–15 | `src/lib/services-b.ts` |
 | Industry portal services (real estate, hospital, education) | `src/lib/services-c.ts` |

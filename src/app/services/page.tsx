@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import { PkPricesBanner } from "@/components/pk/pk-ui";
 import { PageHero, Section, SectionHeading, ButtonLink, CheckList } from "@/components/ui";
 import { ServiceCard } from "@/components/cards";
 import { CtaBand } from "@/components/cta-band";
@@ -77,6 +78,8 @@ export default function ServicesPage() {
           .
         </p>
       </PageHero>
+
+      <PkPricesBanner />
 
       {/* B2B + AI services for business buyers (anchor: /services#b2b). */}
       <AiB2bBand />

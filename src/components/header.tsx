@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 import { Logo, MenuIcon, CloseIcon, ChevronDown, ArrowRight, WhatsAppIcon } from "@/components/icons";
 import { MegaServiceIcon } from "@/components/mega-service-icon";
+import { FlagIcon } from "@/components/flag-icon";
 import { b2bServiceSlugs, megaMenuGroups, services } from "@/lib/services";
 import { mainNav, siteConfig, whatsappLink } from "@/lib/site";
 
@@ -734,6 +735,20 @@ export function Header() {
           </nav>
 
           <div className="hidden items-center gap-2.5 lg:flex">
+            {/* Pakistan prices (PKR) — the one route into /pk. International
+                visitors are never redirected; this is a deliberate click. */}
+            <Link
+              href="/pk"
+              onClick={backToTopIfCurrent("/pk")}
+              className={`hidden items-center gap-2 rounded-xl border px-3.5 py-2.5 text-sm font-semibold transition-colors xl:inline-flex ${
+                isActive("/pk")
+                  ? "border-brand-400/60 bg-brand-500/15 text-white"
+                  : "border-brand-400/35 bg-brand-500/10 text-brand-200 hover:border-brand-300/70 hover:text-white"
+              }`}
+            >
+              <FlagIcon slug="pakistan" className="h-3.5 w-5" />
+              Pakistan Prices (PKR)
+            </Link>
             {/* Halo lives on a wrapper: the button itself clips its light sweep.
                 Surface styling lives in .cta-surface, which is a deep emerald
                 ramp so the white label clears AA. */}
@@ -803,6 +818,17 @@ export function Header() {
           className="min-h-[calc(100dvh-4rem)] max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-white/10 bg-midnight lg:hidden"
         >
           <nav aria-label="Mobile navigation" className="container-page space-y-1 py-5">
+            <Link
+              href="/pk"
+              onClick={() => setMobileOpen(false)}
+              className="mb-2 flex items-center justify-between gap-2 rounded-2xl border border-brand-400/40 bg-brand-500/10 px-4 py-3.5 text-base font-semibold text-brand-200"
+            >
+              <span className="flex items-center gap-2.5">
+                <FlagIcon slug="pakistan" className="h-4 w-6" />
+                Pakistan Prices (PKR)
+              </span>
+              <ArrowRight className="h-4 w-4" />
+            </Link>
             {mainNav.map((item) => {
               if (item.label === "Services") {
                 return (

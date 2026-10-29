@@ -254,16 +254,16 @@ export default function HomePage() {
               <div className="cine-rise">
                 <Eyebrow tone="dark">Pakistan-based · Software, SEO &amp; marketing · Worldwide</Eyebrow>
               </div>
+              {/* One complete sentence, one full stop. The old headline ran
+                  "One Platform. / Endless Possibilities." and the second line
+                  read as a leftover fragment. */}
               <h1
                 className="cine-rise mt-6 text-[2.35rem] font-semibold leading-[1.04] tracking-[-0.03em] sm:text-6xl lg:text-[4.5rem]"
                 style={{ "--d": "0.08s" } as React.CSSProperties}
               >
-                <span className="mb-4 block text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-arc-300 sm:text-xs">
-                  Software &amp; AI development company for B2B
-                </span>
-                One Platform.
+                We build software, websites
                 <br />
-                <span className="text-gradient-arc">Endless Possibilities.</span>
+                <span className="text-gradient-arc">and apps that grow your business.</span>
               </h1>
               {/* Sized to break 3 lines on phones and almost exactly 2 on
                   desktop (one sentence per line at lg: max-w-4xl + text-xl).
@@ -289,6 +289,19 @@ export default function HomePage() {
                 <ButtonLink href="/services" variant="ghost">
                   Explore Our Services
                 </ButtonLink>
+              </div>
+
+              {/* The single route into the Pakistan offer. No redirect, no
+                  geo-gate — international visitors keep this page untouched. */}
+              <div className="cine-rise mt-4 flex justify-center" style={{ "--d": "0.34s" } as React.CSSProperties}>
+                <Link
+                  href="/pk"
+                  className="group inline-flex items-center gap-2 rounded-full border border-brand-400/40 bg-brand-500/10 px-4 py-2 text-[0.78rem] font-semibold text-brand-200 transition-colors hover:border-brand-300/80 hover:text-white sm:text-sm"
+                >
+                  <FlagIcon slug="pakistan" className="h-3.5 w-5" />
+                  Pakistan Prices (PKR)
+                  <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                </Link>
               </div>
 
               <ul

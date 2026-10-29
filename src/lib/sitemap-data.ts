@@ -12,6 +12,8 @@ import { topics } from "@/lib/topics";
 import { isDuplicateTopic, sitemapPriority } from "@/lib/seo-focus";
 import { hirePages } from "@/lib/hire-developers";
 import { geoPages } from "@/lib/geo-pages";
+import { pkCityPages } from "@/lib/pk-cities";
+import { pkUpdated } from "@/lib/pk";
 
 export type SitemapGroupKey =
   | "core"
@@ -27,7 +29,8 @@ export type SitemapGroupKey =
   | "topics"
   | "legal"
   | "hire"
-  | "geo";
+  | "geo"
+  | "pk";
 
 export type SitemapEntry = MetadataRoute.Sitemap[number];
 
@@ -150,6 +153,22 @@ export function getSitemapGroups(now = staticUpdated): Record<SitemapGroupKey, S
         priority: sitemapPriority(`/${page.slug}`, 0.72),
       }),
     ),
+    // Pakistan offer: the PKR landing page and its city pages. Dated from
+    // pkUpdated so a price change refreshes the whole group at once.
+    pk: [
+      entry("/pk", {
+        lastModified: new Date(`${pkUpdated.iso}T00:00:00Z`),
+        changeFrequency: "weekly",
+        priority: 0.95,
+      }),
+      ...pkCityPages.map((page) =>
+        entry(`/pk/${page.slug}`, {
+          lastModified: new Date(`${pkUpdated.iso}T00:00:00Z`),
+          changeFrequency: "monthly",
+          priority: 0.85,
+        }),
+      ),
+    ],
   };
 }
 
@@ -171,6 +190,7 @@ export const sitemapIndexItems: { key: SitemapGroupKey; path: string; label: str
   { key: "legal", path: "/sitemaps/legal.xml", label: "Legal pages" },
   { key: "hire", path: "/sitemaps/hire.xml", label: "Hire developers pages" },
   { key: "geo", path: "/sitemaps/geo.xml", label: "Service × city pages" },
+  { key: "pk", path: "/sitemaps/pk.xml", label: "Pakistan prices & city pages" },
 ];
 
 export function publishedSitemapIndexItems() {
