@@ -316,6 +316,11 @@ export function PkSamples({ limit, ids }: { limit?: number; ids?: string[] }) {
                 stage={demoStageSrc(demo)}
                 variant="card"
               />
+              {preview.isCover ? (
+                <span className="absolute bottom-3 right-3 z-10 rounded-full bg-black/65 px-2.5 py-1 text-[0.6rem] font-bold uppercase tracking-[0.1em] text-white backdrop-blur">
+                  Illustration
+                </span>
+              ) : null}
             </a>
 
             <div className="flex flex-1 flex-col p-5">

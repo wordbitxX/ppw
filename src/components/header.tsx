@@ -724,7 +724,7 @@ export function Header() {
                   key={item.href}
                   href={item.href}
                   onClick={backToTopIfCurrent(item.href)}
-                  className={`inline-flex items-center gap-1.5 rounded-lg px-2.5 py-2 text-sm font-medium transition-colors ${
+                  className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-lg px-1.5 py-2 text-[0.78rem] font-medium transition-colors xl:px-2.5 xl:text-[0.84rem] 2xl:text-sm ${
                     isActive(item.href) ? "text-brand-300" : "text-slate-200 hover:text-white"
                   }`}
                 >
@@ -740,14 +740,17 @@ export function Header() {
             <Link
               href="/pk"
               onClick={backToTopIfCurrent("/pk")}
-              className={`hidden items-center gap-2 rounded-xl border px-3.5 py-2.5 text-sm font-semibold transition-colors xl:inline-flex ${
+              aria-label="Pakistan Prices (PKR)"
+              className={`hidden shrink-0 items-center gap-2 whitespace-nowrap rounded-xl border px-3 py-2.5 text-[0.8rem] font-semibold transition-colors xl:inline-flex xl:text-[0.84rem] 2xl:px-3.5 2xl:text-sm ${
                 isActive("/pk")
                   ? "border-brand-400/60 bg-brand-500/15 text-white"
                   : "border-brand-400/35 bg-brand-500/10 text-brand-200 hover:border-brand-300/70 hover:text-white"
               }`}
             >
               <FlagIcon slug="pakistan" className="h-3.5 w-5" />
-              Pakistan Prices (PKR)
+              {/* Full label from 2xl, short label below it — the nav needs the room. */}
+              <span className="2xl:hidden">PKR Prices</span>
+              <span className="hidden 2xl:inline">Pakistan Prices (PKR)</span>
             </Link>
             {/* Halo lives on a wrapper: the button itself clips its light sweep.
                 Surface styling lives in .cta-surface, which is a deep emerald
@@ -764,7 +767,8 @@ export function Header() {
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-500" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-500 shadow-[0_0_7px_rgba(28,168,48,0.9)]" />
                 </span>
-                <span>Discuss Your Project</span>
+                <span className="whitespace-nowrap 2xl:hidden">Discuss Project</span>
+                <span className="hidden whitespace-nowrap 2xl:inline">Discuss Your Project</span>
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </Link>
             </span>

@@ -293,7 +293,7 @@ export const pkSamples = [
 ];
 
 export const pkSampleDisclosure =
-  "Properties Pak is WordbitX's own live product. The other five are real WordbitX demo builds, hosted and clickable, and they are labelled Demo — they are not presented as client projects. Confidential client work is shown as scope only, never with an invented client name, logo or screenshot.";
+  "Properties Pak is WordbitX's own live product. The other five are real WordbitX demo builds, hosted and clickable, and they are labelled Demo — they are not presented as client projects. Cards marked Illustration use artwork until a real capture is committed; open the site to see the actual product. Confidential client work is shown as scope only, never with an invented client name, logo or screenshot.";
 
 /** Only rows with a real destination are links. Everything else is plain text. */
 export const pkIndustries: { label: string; href?: string }[] = [

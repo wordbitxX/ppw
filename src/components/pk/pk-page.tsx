@@ -152,6 +152,16 @@ export function PkPageView() {
               Websites, apps and software for Pakistani businesses
             </h1>
 
+            {/* Credentials directly under the H1 — the same job BrandBees' /pk
+                opening paragraph does: who we are, where, since when, and what
+                we actually build. Facts only, no slogans. */}
+            <p className="mt-3 max-w-xl text-[0.92rem] leading-relaxed text-ink-600">
+              <span className="font-semibold text-navy-700">WordbitX TECHNOLOGY SMC – PVT. LTD.</span> is a registered
+              Pakistani software company based in Lahore. Since 2021 we have built websites, online stores, apps and POS
+              systems for businesses across Pakistan, and for clients in the USA, UK and UAE — priced in PKR, with the
+              scope in writing.
+            </p>
+
             <div className="mt-5 rounded-2xl border border-brand-500/25 bg-brand-50 px-4 py-3.5 sm:px-5 sm:py-4">
               <p className="text-[0.66rem] font-bold uppercase tracking-[0.16em] text-brand-700">
                 {pkHeroPrice.eyebrow}
@@ -162,9 +172,9 @@ export function PkPageView() {
               <p className="mt-1 text-[0.85rem] leading-snug text-ink-600">{pkHeroPrice.detail}</p>
             </div>
 
-            <p className="mt-4 max-w-xl text-[0.95rem] leading-relaxed text-ink-600 sm:text-base">
-              A mobile-first business website with contact and WhatsApp buttons on every page, Google-ready setup,
-              training so you can edit it yourself, and post-launch support.
+            <p className="mt-3.5 max-w-xl text-[0.9rem] leading-relaxed text-ink-600">
+              Included in a website package: mobile-first build, WhatsApp and call buttons on every page, Google-ready
+              setup, training to edit it yourself, and post-launch support.
             </p>
 
             <div className="mt-5 flex flex-col gap-2.5 sm:flex-row sm:items-center">
@@ -203,7 +213,8 @@ export function PkPageView() {
                 <CheckIcon className="mt-0.5 h-3.5 w-3.5 shrink-0 text-brand-600" aria-hidden="true" />
                 <span>
                   <span className="font-semibold text-navy-700">Properties Pak</span> — a live property portal WordbitX
-                  built, launched and still runs.{" "}
+                  built, launched and still runs.
+                  {preview.isCover ? " The image above is an illustration; open the site to see the real product." : ""}{" "}
                   <a
                     href={propertiesPak.url}
                     target="_blank"
