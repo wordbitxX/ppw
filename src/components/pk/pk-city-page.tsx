@@ -94,48 +94,66 @@ export function PkCityView({ page }: { page: PkCityPage }) {
         <PkContactBar />
       </div>
 
-      {/* HERO */}
-      <section className="bg-white">
-        <div className="container-page grid gap-8 py-9 sm:py-12 lg:grid-cols-[1.04fr_0.96fr] lg:items-start lg:gap-12 lg:py-14">
+      {/* HERO — same navy band as /pk so the Pakistan offer reads as one
+          product, not a separate microsite. Flat colour, white price card. */}
+      <section className="bg-navy-700 text-white">
+        <div className="container-page grid gap-8 pb-10 pt-8 sm:pb-12 sm:pt-10 lg:grid-cols-[1.04fr_0.96fr] lg:items-start lg:gap-12 lg:pb-14 lg:pt-12">
           <div>
-            <nav aria-label="Breadcrumb" className="text-[0.72rem] text-ink-500">
+            <nav aria-label="Breadcrumb" className="text-[0.72rem] text-slate-300">
               <ol className="flex flex-wrap items-center gap-1.5">
                 <li>
-                  <Link href="/" className="hover:text-brand-700">
+                  <Link href="/" className="hover:text-white">
                     Home
                   </Link>
                 </li>
-                <li aria-hidden="true">/</li>
+                <li aria-hidden="true" className="text-slate-400">/</li>
                 <li>
-                  <Link href="/pk" className="hover:text-brand-700">
+                  <Link href="/pk" className="hover:text-white">
                     Pakistan prices
                   </Link>
                 </li>
-                <li aria-hidden="true">/</li>
-                <li className="font-medium text-ink-600">{page.name}</li>
+                <li aria-hidden="true" className="text-slate-400">/</li>
+                <li className="font-medium text-white">{page.name}</li>
               </ol>
             </nav>
 
-            <p className="mt-4 text-[0.68rem] font-bold uppercase tracking-[0.16em] text-brand-700">
+            <p className="mt-4 text-[0.68rem] font-bold uppercase tracking-[0.16em] text-brand-300">
               {page.name}, {page.province} · Since 2021 · Base in Lahore
             </p>
 
-            <h1 className="mt-3 text-[2rem] font-semibold leading-[1.08] tracking-[-0.025em] text-navy-700 sm:text-[2.6rem] lg:text-[3rem]">
+            <h1 className="mt-3 text-[2rem] font-semibold leading-[1.06] tracking-[-0.025em] text-white sm:text-[2.6rem] lg:text-[3rem]">
               {page.h1}
             </h1>
 
-            <p className="mt-3 max-w-xl text-[0.98rem] leading-relaxed text-ink-600 sm:text-lg">{page.lead}</p>
+            <p className="mt-3 max-w-xl text-[0.95rem] leading-relaxed text-slate-200 sm:text-lg">{page.lead}</p>
 
-            <div className="mt-5 rounded-2xl border border-brand-500/25 bg-brand-50 px-4 py-3.5">
-              <p className="text-[0.66rem] font-bold uppercase tracking-[0.16em] text-brand-700">
-                Website packages — same across Pakistan
+            <div className="mt-5 rounded-2xl bg-white p-4 text-ink-900 shadow-[0_26px_60px_-34px_rgba(3,8,20,0.85)] sm:p-5">
+              <p className="text-[0.64rem] font-bold uppercase tracking-[0.16em] text-brand-700">
+                Website packages · same across Pakistan · PKR
               </p>
-              <p className="mt-1 text-[1.5rem] font-semibold leading-tight text-navy-700 sm:text-[1.8rem]">
+              <p className="mt-1 text-[1.5rem] font-semibold leading-[1.1] text-navy-700 sm:text-[1.8rem]">
                 {pkHeroPrice.headline}
               </p>
-              <p className="mt-1 text-[0.82rem] leading-snug text-ink-600">
+              <p className="mt-1 text-[0.82rem] leading-snug text-ink-500">
                 Price in PKR, fixed in writing before work starts.
               </p>
+
+              {pkPricing.businessWebsite == null && pkPricing.allInOne == null ? (
+                <p className="mt-3 rounded-xl bg-slate-50 px-3 py-2 text-[0.8rem] text-ink-600">
+                  Both package prices are written on your quote — in rupees, before any work starts.
+                </p>
+              ) : (
+                <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                  {pkPackages.map((pkg) => (
+                    <div key={pkg.id} className="rounded-xl border border-slate-200 px-3 py-2">
+                      <p className="text-[0.62rem] font-bold uppercase tracking-[0.12em] text-ink-500">{pkg.name}</p>
+                      <p className="text-[0.95rem] font-semibold leading-snug text-navy-700">
+                        {pkg.price == null ? "Fixed quote" : `from ${pkr(pkg.price)}`}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
 
             <div className="mt-4 flex flex-col gap-2.5 sm:flex-row">
@@ -144,16 +162,16 @@ export function PkCityView({ page }: { page: PkCityPage }) {
                 href={pkWhatsAppHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-navy-700 transition-colors hover:border-brand-600 hover:text-brand-700"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/40 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
               >
-                <WhatsAppIcon className="h-4 w-4 text-[#128C7E]" aria-hidden="true" />
+                <WhatsAppIcon className="h-4 w-4 text-brand-300" aria-hidden="true" />
                 Call / WhatsApp: {pkPhone}
               </a>
             </div>
 
-            <p className="mt-3 text-[0.78rem] text-ink-500">
+            <p className="mt-3 text-[0.78rem] text-slate-300">
               Free call, no obligation.{" "}
-              <Link href="/pk" className="font-semibold text-brand-700 hover:text-brand-800">
+              <Link href="/pk" className="font-semibold text-brand-300 hover:text-white">
                 See the full Pakistan pricing page
               </Link>
               .
@@ -171,9 +189,10 @@ export function PkCityView({ page }: { page: PkCityPage }) {
               ]}
               title={`Quick answers — ${page.name}`}
             />
-            <p className="mt-2.5 text-[0.74rem] text-ink-500">Last updated {pkUpdated.label}</p>
+            <p className="mt-2.5 text-[0.74rem] text-slate-300">Last updated {pkUpdated.label}</p>
           </div>
         </div>
+        <div className="h-1 bg-brand-500" aria-hidden="true" />
       </section>
 
       {/* TRUST STRIP */}

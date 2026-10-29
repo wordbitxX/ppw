@@ -40,6 +40,7 @@ import {
   pkWhatsAppHref,
   pkr,
   pkPricing,
+  priceLead,
   type PkFaq,
 } from "@/lib/pk";
 import {
@@ -128,56 +129,71 @@ export function PkPageView() {
         <PkContactBar />
       </div>
 
-      {/* 1 — HERO: offer, price and two buttons without scrolling */}
-      <section className="relative overflow-hidden bg-white">
-        <div className="container-page grid gap-10 py-9 sm:py-12 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:gap-14 lg:py-14">
+      {/* 1 — HERO: navy band, price card, two buttons. Flat colour only —
+          no gradients, no animation, one accent. Everything the brief asks a
+          first screen to answer: what, for whom, how much, what next. */}
+      <section className="relative overflow-hidden bg-navy-700 text-white">
+        <div className="container-page grid gap-9 pb-10 pt-8 sm:pb-12 sm:pt-10 lg:grid-cols-[1.03fr_0.97fr] lg:items-center lg:gap-14 lg:pb-14 lg:pt-12">
           <div>
-            <nav aria-label="Breadcrumb" className="text-[0.72rem] text-ink-500">
+            <nav aria-label="Breadcrumb" className="text-[0.72rem] text-slate-300">
               <ol className="flex items-center gap-1.5">
                 <li>
-                  <Link href="/" className="hover:text-brand-700">
+                  <Link href="/" className="hover:text-white">
                     Home
                   </Link>
                 </li>
-                <li aria-hidden="true">/</li>
-                <li className="font-medium text-ink-600">Pakistan prices</li>
+                <li aria-hidden="true" className="text-slate-400">/</li>
+                <li className="font-medium text-white">Pakistan prices</li>
               </ol>
             </nav>
 
-            <p className="mt-4 text-[0.68rem] font-bold uppercase tracking-[0.16em] text-brand-700">
+            <p className="mt-4 text-[0.68rem] font-bold uppercase tracking-[0.16em] text-brand-300">
               Pakistan-based software company · Since 2021 · Lahore
             </p>
 
-            <h1 className="mt-3 text-[2rem] font-semibold leading-[1.08] tracking-[-0.025em] text-navy-700 sm:text-[2.7rem] lg:text-[3.1rem]">
+            <h1 className="mt-3 text-[2rem] font-semibold leading-[1.06] tracking-[-0.025em] text-white sm:text-[2.6rem] lg:text-[3rem]">
               Websites, apps and software for Pakistani businesses
             </h1>
 
-            {/* Credentials directly under the H1 — the same job BrandBees' /pk
-                opening paragraph does: who we are, where, since when, and what
-                we actually build. Facts only, no slogans. */}
-            <p className="mt-3 max-w-xl text-[0.92rem] leading-relaxed text-ink-600">
-              <span className="font-semibold text-navy-700">WordbitX TECHNOLOGY SMC – PVT. LTD.</span> is a registered
-              Pakistani software company based in Lahore. Since 2021 we have built websites, online stores, apps and POS
-              systems for businesses across Pakistan, and for clients in the USA, UK and UAE — priced in PKR, with the
-              scope in writing.
+            {/* Credentials under the H1 — the job BrandBees' /pk opening
+                paragraph does: who we are, where, since when, what we build. */}
+            <p className="mt-3 max-w-xl text-[0.9rem] leading-relaxed text-slate-200">
+              <span className="font-semibold text-white">WordbitX TECHNOLOGY SMC – PVT. LTD.</span> is a registered
+              Pakistani software company based in Lahore. Since 2021 we have built websites, stores, apps and POS
+              systems across Pakistan and for clients in the USA, UK and UAE.
             </p>
 
-            <div className="mt-5 rounded-2xl border border-brand-500/25 bg-brand-50 px-4 py-3.5 sm:px-5 sm:py-4">
-              <p className="text-[0.66rem] font-bold uppercase tracking-[0.16em] text-brand-700">
-                {pkHeroPrice.eyebrow}
+            {/* PRICE — the anchor of the page, and always above the fold. */}
+            <div className="mt-5 rounded-2xl bg-white p-4 text-ink-900 shadow-[0_26px_60px_-34px_rgba(3,8,20,0.85)] sm:p-5">
+              <p className="text-[0.64rem] font-bold uppercase tracking-[0.16em] text-brand-700">
+                {pkHeroPrice.eyebrow} · PKR
               </p>
-              <p className="mt-1 text-[1.6rem] font-semibold leading-tight text-navy-700 sm:text-[2rem]">
+              <p className="mt-1 text-[1.55rem] font-semibold leading-[1.1] text-navy-700 sm:text-[1.95rem]">
                 {pkHeroPrice.headline}
               </p>
-              <p className="mt-1 text-[0.85rem] leading-snug text-ink-600">{pkHeroPrice.detail}</p>
+              <p className="mt-1 text-[0.82rem] leading-snug text-ink-500">{pkHeroPrice.detail}</p>
+
+              {pkPricing.businessWebsite == null && pkPricing.allInOne == null ? (
+                <p className="mt-3 rounded-xl bg-slate-50 px-3 py-2 text-[0.8rem] text-ink-600">
+                  Both package prices are written on your quote — in rupees, before any work starts.
+                </p>
+              ) : (
+                <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                  {pkPackages.map((pkg) => (
+                    <div key={pkg.id} className="rounded-xl border border-slate-200 px-3 py-2">
+                      <p className="text-[0.62rem] font-bold uppercase tracking-[0.12em] text-ink-500">
+                        {pkg.name}
+                      </p>
+                      <p className="text-[0.95rem] font-semibold leading-snug text-navy-700">
+                        {priceLead(pkg.price)}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
 
-            <p className="mt-3.5 max-w-xl text-[0.9rem] leading-relaxed text-ink-600">
-              Included in a website package: mobile-first build, WhatsApp and call buttons on every page, Google-ready
-              setup, training to edit it yourself, and post-launch support.
-            </p>
-
-            <div className="mt-5 flex flex-col gap-2.5 sm:flex-row sm:items-center">
+            <div className="mt-4 flex flex-col gap-2.5 sm:flex-row sm:items-center">
               <PkButton href={pkBookingHref} ariaLabel="Book a free call about your website">
                 Book a free call
               </PkButton>
@@ -185,21 +201,21 @@ export function PkPageView() {
                 href={pkWhatsAppHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-navy-700 transition-colors hover:border-brand-600 hover:text-brand-700"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/40 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
               >
-                <WhatsAppIcon className="h-4 w-4 text-[#128C7E]" aria-hidden="true" />
+                <WhatsAppIcon className="h-4 w-4 text-brand-300" aria-hidden="true" />
                 Call / WhatsApp: {pkPhone}
               </a>
             </div>
 
-            <p className="mt-3 text-[0.78rem] text-ink-500">
+            <p className="mt-3 text-[0.76rem] text-slate-300">
               Free call, no obligation. Quote in PKR, in writing, before any work starts.
             </p>
           </div>
 
           {propertiesPak && preview ? (
             <figure className="lg:pl-2">
-              <div className="overflow-hidden rounded-2xl border border-slate-200 shadow-[0_28px_60px_-40px_rgba(5,39,103,0.55)]">
+              <div className="overflow-hidden rounded-2xl ring-1 ring-white/20 shadow-[0_34px_70px_-40px_rgba(0,0,0,0.9)]">
                 <ShowcaseStage
                   demo={propertiesPak}
                   shot={preview.src}
@@ -209,17 +225,17 @@ export function PkPageView() {
                   priority
                 />
               </div>
-              <figcaption className="mt-2.5 flex items-start gap-2 text-[0.78rem] leading-snug text-ink-500">
-                <CheckIcon className="mt-0.5 h-3.5 w-3.5 shrink-0 text-brand-600" aria-hidden="true" />
+              <figcaption className="mt-2.5 flex items-start gap-2 text-[0.78rem] leading-snug text-slate-300">
+                <CheckIcon className="mt-0.5 h-3.5 w-3.5 shrink-0 text-brand-300" aria-hidden="true" />
                 <span>
-                  <span className="font-semibold text-navy-700">Properties Pak</span> — a live property portal WordbitX
+                  <span className="font-semibold text-white">Properties Pak</span> — a live property portal WordbitX
                   built, launched and still runs.
                   {preview.isCover ? " The image above is an illustration; open the site to see the real product." : ""}{" "}
                   <a
                     href={propertiesPak.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-semibold text-brand-700 hover:text-brand-800"
+                    className="font-semibold text-brand-300 hover:text-white"
                   >
                     Open it
                   </a>
@@ -228,6 +244,7 @@ export function PkPageView() {
             </figure>
           ) : null}
         </div>
+        <div className="h-1 bg-brand-500" aria-hidden="true" />
       </section>
 
       {/* 2 — trust strip */}
