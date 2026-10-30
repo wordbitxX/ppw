@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import {
@@ -206,12 +207,12 @@ export function PkTrustStrip() {
                 index > 0 ? "sm:border-l sm:border-slate-200" : ""
               } ${index === 2 ? "sm:border-l-0 lg:border-l" : ""}`}
             >
-              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-navy-700 text-white">
+              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-navy-700 text-white shadow-[0_10px_20px_-12px_rgba(5,39,103,0.8)]">
                 <Icon className="h-4.5 w-4.5" aria-hidden="true" />
               </span>
-              <p className="text-sm leading-snug">
-                <span className="block font-semibold text-navy-700">{item.title}</span>
-                <span className="mt-0.5 block text-[0.8rem] leading-snug text-ink-500">{item.body}</span>
+              <p className="leading-snug">
+                <span className="block text-[1.02rem] font-bold leading-tight text-navy-700">{item.title}</span>
+                <span className="mt-1 block text-[0.8rem] leading-snug text-ink-500">{item.body}</span>
               </p>
             </div>
           );
@@ -687,6 +688,76 @@ export function PkPricesBanner({ text }: { text?: string }) {
           <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
         </Link>
       </div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Hero device composition                                              */
+/* ------------------------------------------------------------------ */
+
+/**
+ * The right-hand side of the /pk hero, in the shape the owner pointed at:
+ * a laptop frame carrying the Properties Pak artwork, with a small white
+ * fact card overlapping its corner.
+ *
+ * The screen is the commissioned cover illustration, not a screenshot — so
+ * the frame has no browser toolbar and a plain language note sits under it.
+ * `/public/demos/properties-pak.jpg` (a real capture from `npm run demo:shots`)
+ * replaces the artwork the moment it exists, and the note drops the word
+ * "illustration" by itself.
+ */
+export function PkHeroDevices() {
+  const pak = demoWebsites.find((demo) => demo.id === "properties-pak");
+  if (!pak) return null;
+  const preview = demoPreview(pak);
+
+  return (
+    <div className="relative mx-auto w-full max-w-[34rem] lg:max-w-none">
+      {/* laptop */}
+      <div className="rounded-[1.15rem] bg-white/10 p-2 ring-1 ring-white/20 shadow-[0_40px_80px_-40px_rgba(0,0,0,0.95)] backdrop-blur-sm">
+        <div className="relative aspect-[16/10] overflow-hidden rounded-[0.7rem] bg-navy-900">
+          <Image
+            src={preview.src}
+            alt={
+              preview.isCover
+                ? "Illustration of a desktop property portal — map search, listing cards and filters"
+                : "The Properties Pak property portal on a desktop screen"
+            }
+            fill
+            priority
+            sizes="(min-width: 1024px) 34rem, 100vw"
+            className="object-cover"
+          />
+        </div>
+      </div>
+      {/* laptop base */}
+      <div className="mx-auto h-2.5 w-[104%] -translate-y-px rounded-b-[0.9rem] rounded-t-sm bg-white/25" aria-hidden="true" />
+
+      {/* floating fact card */}
+      <div className="absolute -bottom-7 left-0 w-[15.5rem] rounded-2xl bg-white p-4 text-ink-900 shadow-[0_28px_60px_-30px_rgba(0,0,0,0.85)] sm:-left-4">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-50 px-2.5 py-1 text-[0.6rem] font-bold uppercase tracking-[0.12em] text-brand-800">
+          <span className="h-1.5 w-1.5 rounded-full bg-brand-500" aria-hidden="true" />
+          Live project
+        </span>
+        <p className="mt-2 text-[0.95rem] font-bold leading-tight text-navy-700">Properties Pak</p>
+        <p className="mt-0.5 text-[0.74rem] leading-snug text-ink-500">propertiespak.com</p>
+        <a
+          href={pak.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-2 inline-flex items-center gap-1 text-[0.78rem] font-semibold text-brand-700 hover:text-brand-800"
+        >
+          Open the live site
+          <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+        </a>
+      </div>
+
+      <p className="mt-9 text-[0.72rem] leading-snug text-slate-400 lg:pl-1">
+        {preview.isCover
+          ? "The screen shows an illustration of the portal; open the site to see the real product."
+          : "A capture of the live Properties Pak portal."}
+      </p>
     </div>
   );
 }

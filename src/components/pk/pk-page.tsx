@@ -12,6 +12,7 @@ import { ShowcaseStage } from "@/components/showcase-stage";
 import { demoWebsites } from "@/lib/demos";
 import { demoPreview, demoStageSrc } from "@/lib/demo-shots";
 import { siteConfig, absoluteUrl } from "@/lib/site";
+import { usd, usdFrom } from "@/lib/pk";
 import {
   pkAbout,
   pkBookingHref,
@@ -53,6 +54,7 @@ import {
   PkDetailsStrip,
   PkFaqList,
   PkHeading,
+  PkHeroDevices,
   PkOffices,
   PkOwnerBanner,
   PkPriceCard,
@@ -137,125 +139,93 @@ export function PkPageView() {
         <PkContactBar />
       </div>
 
-      {/* 1 — HERO: navy band, white price card, two buttons. This is the
-          version the owner approved — flat colour, real copy, price on the
-          first screen — with the BrandBees rhythm: eyebrow, headline, price,
-          one supporting line, two actions, one phone line, product shot. */}
+      {/* 1 — HERO: the reference layout. Eyebrow pill, one big headline, the
+          price as a large line under it (not buried in a card), a short
+          paragraph, two buttons, one phone line, and the product composition
+          on the right. Flat navy, no gradients, no animation. */}
       <section className="relative overflow-hidden bg-navy-700 text-white">
-        <div className="container-page grid gap-9 pb-10 pt-8 sm:pb-12 sm:pt-10 lg:grid-cols-[1.03fr_0.97fr] lg:items-center lg:gap-14 lg:pb-14 lg:pt-12">
+        <div className="container-page grid items-center gap-14 pb-16 pt-9 sm:pt-11 lg:grid-cols-[1.04fr_0.96fr] lg:gap-12 lg:pb-20 lg:pt-14">
           <div>
-            <nav aria-label="Breadcrumb" className="text-[0.72rem] text-slate-300">
-              <ol className="flex items-center gap-1.5">
-                <li>
-                  <Link href="/" className="hover:text-white">
-                    Home
-                  </Link>
-                </li>
-                <li aria-hidden="true" className="text-slate-400">/</li>
-                <li className="font-medium text-white">Pakistan prices</li>
-              </ol>
-            </nav>
-
-            <p className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.07] px-3 py-1 text-[0.66rem] font-semibold uppercase tracking-[0.14em] text-brand-200">
+            <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.07] px-3.5 py-1.5 text-[0.64rem] font-bold uppercase tracking-[0.16em] text-brand-200">
               <span className="h-1.5 w-1.5 rounded-full bg-brand-400" aria-hidden="true" />
-              Pakistan-based software company · Since 2021 · Lahore
+              Pakistan-based software company · Since 2021
             </p>
 
-            <h1 className="mt-4 text-[2.1rem] font-bold leading-[1.05] tracking-[-0.03em] text-white sm:text-[2.8rem] lg:text-[3.15rem]">
-              Professional websites for Pakistani businesses
+            <h1 className="mt-5 text-[2.2rem] font-bold leading-[1.03] tracking-[-0.035em] text-white sm:text-[3rem] lg:text-[3.5rem]">
+              Professional websites
+              <br className="hidden sm:block" /> for Pakistani businesses
             </h1>
 
-            <p className="mt-3 max-w-xl text-[0.9rem] leading-relaxed text-slate-200">
-              <span className="font-semibold text-white">WordbitX TECHNOLOGY SMC – PVT. LTD.</span> is a registered
-              Pakistani software company based in Lahore. Since 2021 we have built websites, stores, apps and POS
-              systems across Pakistan and for clients in the USA, UK and UAE.
+            {/* The price, in the same slot the reference uses: a big line
+                straight under the headline, the figure in the accent colour. */}
+            <p className="mt-5 text-[1.35rem] font-semibold leading-tight sm:text-[1.6rem]">
+              <CurText
+                pkr={
+                  pkPricing.businessWebsite == null ? (
+                    <>
+                      Websites priced in <span className="text-brand-300">rupees</span>
+                    </>
+                  ) : (
+                    <>
+                      Websites from <span className="text-brand-300">{pkr(pkPricing.businessWebsite)}</span>
+                    </>
+                  )
+                }
+                usd={
+                  usdFrom(pkPricing.businessWebsite, pkUsdPricing.businessWebsite) == null ? (
+                    <>
+                      Websites priced in <span className="text-brand-300">dollars or rupees</span>
+                    </>
+                  ) : (
+                    <>
+                      Websites from{" "}
+                      <span className="text-brand-300">
+                        {usd(usdFrom(pkPricing.businessWebsite, pkUsdPricing.businessWebsite) as number)}
+                      </span>
+                    </>
+                  )
+                }
+              />
             </p>
 
-            {/* PRICE — the anchor of the page, and always above the fold. */}
-            <div className="mt-5 rounded-2xl bg-white p-4 text-ink-900 shadow-[0_26px_60px_-34px_rgba(3,8,20,0.85)] sm:p-5">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <p className="text-[0.64rem] font-bold uppercase tracking-[0.16em] text-brand-700">
-                  <CurText pkr={`${pkHeroPrice.eyebrow} · PKR`} usd={`${pkHeroPrice.eyebrow} · USD`} />
-                </p>
-                <CurrencySwitch tone="light" />
-              </div>
-              <p className="mt-1 text-[1.5rem] font-semibold leading-[1.1] text-navy-700 sm:text-[1.9rem]">
-                <CurText pkr={pkHeroPrice.headline} usd={pkHeroPrice.headlineUsd} />
-              </p>
-              <p className="mt-1 text-[0.82rem] leading-snug text-ink-500">
-                <CurText pkr={pkHeroPrice.detail} usd={pkHeroPrice.detailUsd} />
-              </p>
+            <p className="mt-3 max-w-xl text-[0.95rem] leading-relaxed text-slate-200 sm:text-[1rem]">
+              Mobile-first websites, online stores, apps and POS systems. Two packages — website only, or with
+              domain and hosting — both quoted in writing before any work starts.{" "}
+              <span className="text-slate-300">
+                WordbitX TECHNOLOGY SMC – PVT. LTD. is a registered Pakistani software company in Lahore.
+              </span>
+            </p>
 
-              <div className="mt-3">
-                <PackagePriceTiles packages={pkPackages} />
-              </div>
-              {pkPricing.businessWebsite == null && pkUsdPricing.businessWebsite == null ? (
-                <p className="mt-2.5 text-[0.76rem] leading-snug text-ink-500">
-                  Both package prices are written on your quote — before any work starts.
-                </p>
-              ) : null}
-            </div>
-
-            <div className="mt-4 flex flex-col gap-2.5 sm:flex-row sm:items-center">
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
               <a
                 href={pkWhatsAppHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-500 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-600"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-500 px-6 py-3.5 text-[0.95rem] font-semibold text-white transition-colors hover:bg-brand-600"
               >
-                <WhatsAppIcon className="h-4 w-4" aria-hidden="true" />
-                Contact us on WhatsApp
+                <WhatsAppIcon className="h-4.5 w-4.5" aria-hidden="true" />
+                Contact us
               </a>
               <a
                 href="#pricing"
-                className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/40 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/40 px-6 py-3.5 text-[0.95rem] font-semibold text-white transition-colors hover:bg-white/10"
               >
-                See the two packages
-                <ArrowRight className="h-4 w-4 rotate-90" aria-hidden="true" />
+                See packages
               </a>
             </div>
 
-            <p className="mt-3 text-[0.8rem] text-slate-300">
+            <p className="mt-4 text-[0.85rem] text-slate-300">
               <Link href="/contact" className="font-semibold text-white underline decoration-brand-400/70 underline-offset-4 hover:text-brand-200">
                 Book a free call
               </Link>{" "}
-              or call{" "}
+              · or call{" "}
               <a href={pkCallHref} className="font-semibold tabular-nums text-white hover:text-brand-200">
                 {pkPhone}
               </a>
             </p>
           </div>
 
-          {propertiesPak && preview ? (
-            <figure className="lg:pl-2">
-              <div className="overflow-hidden rounded-2xl ring-1 ring-white/20 shadow-[0_34px_70px_-40px_rgba(0,0,0,0.9)]">
-                <ShowcaseStage
-                  demo={propertiesPak}
-                  shot={preview.src}
-                  isCover={preview.isCover}
-                  stage={demoStageSrc(propertiesPak)}
-                  variant="feature"
-                  priority
-                />
-              </div>
-              <figcaption className="mt-2.5 flex items-start gap-2 text-[0.78rem] leading-snug text-slate-300">
-                <CheckIcon className="mt-0.5 h-3.5 w-3.5 shrink-0 text-brand-300" aria-hidden="true" />
-                <span>
-                  <span className="font-semibold text-white">Properties Pak</span> — a live property portal WordbitX
-                  built, launched and still runs.
-                  {preview.isCover ? " The image above is an illustration; open the site to see the real product." : ""}{" "}
-                  <a
-                    href={propertiesPak.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-semibold text-brand-300 hover:text-white"
-                  >
-                    Open it
-                  </a>
-                </span>
-              </figcaption>
-            </figure>
-          ) : null}
+          <PkHeroDevices />
         </div>
         <div className="h-1 bg-brand-500" aria-hidden="true" />
       </section>

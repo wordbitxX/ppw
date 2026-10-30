@@ -17,6 +17,9 @@ import {
   pkWhatsAppHref,
   pkr,
   pkPricing,
+  pkUsdPricing,
+  usd,
+  usdFrom,
 } from "@/lib/pk";
 import type { PkCityPage } from "@/lib/pk-cities";
 import {
@@ -132,42 +135,56 @@ export function PkCityView({ page }: { page: PkCityPage }) {
 
             <p className="mt-3 max-w-xl text-[0.95rem] leading-relaxed text-slate-200 sm:text-lg">{page.lead}</p>
 
-            {/* Same white price card as /pk, so every city page answers
-                "how much" on the first screen. */}
-            <div className="mt-5 max-w-xl rounded-2xl bg-white p-4 text-ink-900 shadow-[0_26px_60px_-34px_rgba(3,8,20,0.85)] sm:p-5">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <p className="text-[0.62rem] font-bold uppercase tracking-[0.16em] text-brand-700">
-                  <CurText pkr="Website packages · PKR" usd="Website packages · USD" />
-                </p>
-                <CurrencySwitch tone="light" />
-              </div>
-              <p className="mt-1 text-[1.4rem] font-semibold leading-[1.1] text-navy-700 sm:text-[1.7rem]">
-                <CurText pkr={pkHeroPrice.headline} usd={pkHeroPrice.headlineUsd} />
-              </p>
-              <div className="mt-3">
-                <PackagePriceTiles packages={pkPackages} />
-              </div>
-              <p className="mt-2.5 text-[0.76rem] leading-snug text-ink-500">
-                Same two packages across Pakistan — both prices written on your quote.
-              </p>
-            </div>
+            {/* Same price line as /pk — big, straight under the headline. */}
+            <p className="mt-5 text-[1.3rem] font-semibold leading-tight sm:text-[1.5rem]">
+              <CurText
+                pkr={
+                  pkPricing.businessWebsite == null ? (
+                    <>
+                      Websites priced in <span className="text-brand-300">rupees</span>
+                    </>
+                  ) : (
+                    <>
+                      Websites from <span className="text-brand-300">{pkr(pkPricing.businessWebsite)}</span>
+                    </>
+                  )
+                }
+                usd={
+                  usdFrom(pkPricing.businessWebsite, pkUsdPricing.businessWebsite) == null ? (
+                    <>
+                      Websites priced in <span className="text-brand-300">dollars or rupees</span>
+                    </>
+                  ) : (
+                    <>
+                      Websites from{" "}
+                      <span className="text-brand-300">
+                        {usd(usdFrom(pkPricing.businessWebsite, pkUsdPricing.businessWebsite) as number)}
+                      </span>
+                    </>
+                  )
+                }
+              />
+            </p>
+            <p className="mt-2 max-w-xl text-[0.85rem] leading-relaxed text-slate-300">
+              Two packages — website only, or with domain and hosting. Same prices across Pakistan, fixed in writing
+              before work starts.
+            </p>
 
-            <div className="mt-4 flex flex-col gap-2.5 sm:flex-row sm:items-center">
+            <div className="mt-6 flex flex-col gap-2.5 sm:flex-row sm:items-center">
               <a
                 href={pkWhatsAppHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-500 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-600"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-500 px-6 py-3.5 text-[0.95rem] font-semibold text-white transition-colors hover:bg-brand-600"
               >
-                <WhatsAppIcon className="h-4 w-4" aria-hidden="true" />
-                Contact us on WhatsApp
+                <WhatsAppIcon className="h-4.5 w-4.5" aria-hidden="true" />
+                Contact us
               </a>
               <Link
                 href="/pk#pricing"
-                className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/40 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/40 px-6 py-3.5 text-[0.95rem] font-semibold text-white transition-colors hover:bg-white/10"
               >
-                See the two packages
-                <ArrowRight className="h-4 w-4 rotate-90" aria-hidden="true" />
+                See packages
               </Link>
             </div>
 

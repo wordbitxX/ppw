@@ -168,7 +168,7 @@ export function useHasPrice(value: PkPrice, usdValue?: PkPrice): boolean {
  * Text that names a currency ("PKR", "Rs.", "$") follows the switch here.
  * Both variants are written out; this never converts a sentence.
  */
-export function CurText({ pkr, usd }: { pkr: string; usd: string }) {
+export function CurText({ pkr, usd }: { pkr: ReactNode; usd: ReactNode }) {
   const { currency } = useCurrency();
   return <>{currency === "USD" ? usd : pkr}</>;
 }
