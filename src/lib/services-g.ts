@@ -525,7 +525,7 @@ export const servicesG: Service[] = [
       "Content strategy, service and industry pages, and editorial articles that support SEO and sales.",
     metaTitle: "Content Marketing Services | SEO Content & Guides",
     metaDescription:
-      "Content marketing from WordbitX: keyword-led articles, service pages and sales-enablement guides written for software and service companies — not filler blogs.",
+      "Content marketing from WordbitX: keyword-led articles, service pages and sales-enablement guides for software and service companies.",
     primaryKeyword: "content marketing services",
     keywords: [
       "content marketing services",

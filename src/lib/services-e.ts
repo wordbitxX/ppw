@@ -277,7 +277,7 @@ export const servicesE: Service[] = [
       "Enterprise-grade internal software: SSO, roles, audit logs, integrations and reporting built for growing organisations.",
     metaTitle: "Enterprise Software Solutions | Custom Business Platforms",
     metaDescription:
-      "Enterprise software solutions from WordbitX: custom internal platforms with SSO, roles, audit logs, ERP/CRM integrations and reporting for multi-team companies.",
+      "Enterprise software from WordbitX: internal platforms with SSO, roles, audit logs, ERP/CRM integrations and reporting for multi-team companies.",
     primaryKeyword: "enterprise software solutions",
     keywords: [
       "enterprise software solutions",

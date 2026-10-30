@@ -5,11 +5,20 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 import { Logo, MenuIcon, CloseIcon, ChevronDown, ArrowRight, WhatsAppIcon } from "@/components/icons";
-import { MegaServiceIcon } from "@/components/mega-service-icon";
+import { MegaServiceIconRef as MegaServiceIcon } from "@/components/mega-icon-ref";
 import { b2bServiceSlugs, megaMenuGroups, services } from "@/lib/services";
+import { fixedPackages } from "@/lib/price-ladder";
 import { mainNav, siteConfig, whatsappLink } from "@/lib/site";
 
-type MenuKey = "services" | "industries" | "products" | "portfolio";
+type MenuKey = "services" | "industries" | "products" | "portfolio" | "pricing";
+
+/** The three price surfaces. The two regional pages had no navigation entry
+ *  before the 30 Oct audit — one was in the bar, the other was footer-only. */
+const pricingLinks: { href: string; title: string; sub: string }[] = [
+  { href: "/pricing", title: "How we quote", sub: "Custom builds, retainers, discovery" },
+  { href: "/pk", title: `Pakistan prices — ${fixedPackages.pk.starter}`, sub: "Website packages in PKR" },
+  { href: "/usa", title: `USA prices — ${fixedPackages.us.starter}`, sub: "Website packages in USD" },
+];
 
 /** Industries popup — name/slug pairs copied from src/lib/industries.ts so the
     header bundle does not import the full industry content files. */
@@ -171,12 +180,16 @@ function NavDrop({
         onClick={onLinkClick}
         aria-expanded={isOpen}
         aria-haspopup="true"
-        className={`flex items-center gap-1.5 whitespace-nowrap rounded-lg px-2 py-2 text-sm font-medium transition-colors xl:px-2.5 ${
+        className={`flex items-center gap-1 whitespace-nowrap rounded-lg px-1.5 py-2 text-[0.8rem] font-medium transition-colors xl:gap-1.5 xl:px-2.5 xl:text-sm ${
           activeRoute ? "text-brand-300" : "text-slate-200 hover:text-white"
         }`}
       >
         {label}
-        <ChevronDown className={`h-3.5 w-3.5 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`} />
+        <ChevronDown
+          className={`h-3 w-3 shrink-0 transition-transform duration-300 xl:h-3.5 xl:w-3.5 ${
+            isOpen ? "rotate-180" : ""
+          }`}
+        />
       </Link>
       {isOpen && (
         <div className={panelClassName} onMouseEnter={() => onOpenMenu(menuKey)} onMouseLeave={onScheduleClose}>
@@ -385,7 +398,7 @@ export function Header() {
       }`}
     >
       <div className="container-page">
-        <div className="flex h-16 items-center justify-between gap-3 lg:gap-4 xl:h-[72px]">
+        <div className="flex h-16 items-center justify-between gap-2 lg:h-[68px] lg:gap-3 xl:h-[72px] xl:gap-4">
           <Link
             href="/"
             onClick={backToTopIfCurrent("/")}
@@ -397,7 +410,7 @@ export function Header() {
             <span className="sr-only">{siteConfig.name} home</span>
           </Link>
 
-          <nav aria-label="Main navigation" className="hidden items-center gap-1 xl:flex">
+          <nav aria-label="Main navigation" className="hidden min-w-0 items-center gap-0.5 lg:flex xl:gap-1">
             {mainNav.map((item) => {
               if (item.label === "Services") {
                 return (
@@ -665,6 +678,49 @@ export function Header() {
                 );
               }
 
+              if (item.label === "Pricing") {
+                return (
+                  <NavDrop
+                    key={item.href}
+                    menuKey="pricing"
+                    href={item.href}
+                    label={item.label}
+                    isOpen={openMenu === "pricing"}
+                    activeRoute={
+                      isActive(item.href) || pathname === "/pk" || pathname === "/usa"
+                    }
+                    onOpenMenu={open}
+                    onScheduleClose={scheduleClose}
+                    onLinkClick={backToTopIfCurrent(item.href)}
+                    panelClassName="absolute left-1/2 top-full z-40 w-[min(23rem,94vw)] -translate-x-1/2 pt-2"
+                  >
+                    <div className="nav-pop overflow-hidden rounded-2xl bg-navy-950 shadow-[0_32px_84px_-24px_rgba(0,0,0,0.9)] ring-1 ring-white/10 backdrop-blur-xl">
+                      <p className="border-b border-white/10 px-4 py-2.5 text-[0.66rem] font-bold uppercase tracking-[0.18em] text-slate-500">
+                        Prices by market
+                      </p>
+                      <ul className="p-2">
+                        {pricingLinks.map((link) => (
+                          <li key={link.href}>
+                            <Link
+                              href={link.href}
+                              className="group flex items-center justify-between gap-2 rounded-lg px-2.5 py-2 transition-colors duration-150 hover:bg-white/[0.05]"
+                            >
+                              <span className="min-w-0">
+                                <span className="block truncate text-[0.88rem] font-medium text-slate-200 transition-colors duration-150 group-hover:text-white">
+                                  {link.title}
+                                </span>
+                                <span className="block truncate text-[0.7rem] text-slate-500">{link.sub}</span>
+                              </span>
+                              <ArrowRight className="h-3.5 w-3.5 shrink-0 -translate-x-1 text-brand-400 opacity-0 transition-all duration-150 group-hover:translate-x-0 group-hover:opacity-100" />
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </NavDrop>
+                );
+              }
+
               if (item.href === "/portfolio") {
                 return (
                   <NavDrop
@@ -724,7 +780,7 @@ export function Header() {
                   key={item.href}
                   href={item.href}
                   onClick={backToTopIfCurrent(item.href)}
-                  className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-lg px-2 py-2 text-sm font-medium transition-colors xl:px-2.5 ${
+                  className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-lg px-1.5 py-2 text-[0.8rem] font-medium transition-colors xl:px-2.5 xl:text-sm ${
                     isActive(item.href) ? "text-brand-300" : "text-slate-200 hover:text-white"
                   }`}
                 >
@@ -734,7 +790,7 @@ export function Header() {
             })}
           </nav>
 
-          <div className="hidden items-center gap-2.5 xl:flex">
+          <div className="hidden shrink-0 items-center gap-2.5 lg:flex">
             {/* Halo lives on a wrapper: the button itself clips its light sweep.
                 Surface styling lives in .cta-surface, which is a deep emerald
                 ramp so the white label clears AA. */}
@@ -744,19 +800,22 @@ export function Header() {
             >
               <Link
                 href="/contact"
-                className="cta-live cta-surface group inline-flex items-center gap-2 whitespace-nowrap rounded-xl px-3.5 py-2.5 text-sm font-bold tracking-tight transition-all hover:-translate-y-0.5 xl:px-4.5"
+                className="cta-live cta-surface group inline-flex items-center gap-2 whitespace-nowrap rounded-xl px-3 py-2.5 text-[0.8rem] font-bold tracking-tight transition-all hover:-translate-y-0.5 xl:px-4.5 xl:text-sm"
               >
                 <span className="relative flex h-2 w-2" aria-hidden="true">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-500" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-500 shadow-[0_0_7px_rgba(28,168,48,0.9)]" />
                 </span>
-                <span>Discuss Your Project</span>
+                {/* Laptop widths (1024-1279) only have room for the short label;
+                    the full label returns at xl where the bar is wider. */}
+                <span className="xl:hidden">Contact</span>
+                <span className="hidden xl:inline">Discuss Your Project</span>
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </Link>
             </span>
           </div>
 
-          <div className="flex min-w-0 items-center gap-2 xl:hidden">
+          <div className="flex min-w-0 items-center gap-2 lg:hidden">
             {/* Primary CTA replaces the WhatsApp shortcut that used to sit here.
                 The label and the ornaments are responsive because this bar is
                 tight: on a 375px screen only about 169px is left once the
@@ -801,7 +860,7 @@ export function Header() {
       {mobileOpen && (
         <div
           id="mobile-navigation"
-          className="min-h-[calc(100dvh-4rem)] max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-white/10 bg-midnight xl:hidden"
+          className="min-h-[calc(100dvh-4rem)] max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-white/10 bg-midnight lg:hidden"
         >
           <nav aria-label="Mobile navigation" className="container-page space-y-1 py-5">
             {mainNav.map((item) => {
@@ -982,6 +1041,41 @@ export function Header() {
                       className="group mt-1 flex items-center gap-1.5 rounded-lg px-2.5 py-2 text-sm font-semibold text-brand-300 transition-colors hover:bg-white/[0.05]"
                     >
                       All products
+                      <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
+                    </Link>
+                  </MobileDrop>
+                );
+              }
+
+              if (item.label === "Pricing") {
+                return (
+                  <MobileDrop
+                    key={item.href}
+                    label="Pricing"
+                    expanded={mobileDrop === "pricing"}
+                    onToggle={() => setMobileDrop(mobileDrop === "pricing" ? null : "pricing")}
+                  >
+                    <p className="px-2.5 pb-1.5 text-[0.64rem] font-bold uppercase tracking-[0.18em] text-slate-500">
+                      Prices by market
+                    </p>
+                    <ul className="space-y-0.5">
+                      {pricingLinks.map((link) => (
+                        <li key={link.href}>
+                          <MobileNavRow
+                            href={link.href}
+                            title={link.title}
+                            sub={link.sub}
+                            onNavigate={() => setMobileOpen(false)}
+                          />
+                        </li>
+                      ))}
+                    </ul>
+                    <Link
+                      href="/pricing"
+                      onClick={() => setMobileOpen(false)}
+                      className="group mt-1 flex items-center gap-1.5 rounded-lg px-2.5 py-2 text-sm font-semibold text-brand-300 transition-colors hover:bg-white/[0.05]"
+                    >
+                      All pricing
                       <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
                     </Link>
                   </MobileDrop>

@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { PageHero, Section, SectionHeading, ButtonLink, CheckList, Card, IconTile } from "@/components/ui";
 import { ServiceCard, PostCard, ProjectCard } from "@/components/cards";
 import { CtaBand } from "@/components/cta-band";
+import { FixedPriceStrip } from "@/components/fixed-price-strip";
 import { FaqAccordion } from "@/components/accordion";
 import { FaqSchema, ServiceSchema } from "@/components/jsonld";
 import { TechChip } from "@/components/tech-icon";
@@ -124,6 +125,21 @@ export default async function ServiceDetailPage({ params }: PageProps) {
           </div>
         </div>
       </Section>
+
+      {/* Fixed-price route — shown on the website-building services where the
+          "how much" query actually lands. */}
+      {[
+        "web-development",
+        "wordpress-development",
+        "ecommerce-shopify",
+        "woocommerce-development",
+        "ecommerce-development",
+        "custom-cms-development",
+      ].includes(service.slug) ? (
+        <Section padding="compact">
+          <FixedPriceStrip market={service.slug === "ecommerce-shopify" ? "us" : "both"} />
+        </Section>
+      ) : null}
 
       {/* PROBLEMS */}
       <Section tone="muted">

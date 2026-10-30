@@ -33,7 +33,7 @@ export const servicesD: Service[] = [
       "Custom eCommerce platforms and WooCommerce stores with tailored catalogue logic, payment gateways, wholesale pricing and marketplace integrations.",
     metaTitle: "E-Commerce Development Company | Custom Online Store Development",
     metaDescription:
-      "Custom eCommerce development: WooCommerce, headless storefronts and bespoke platforms with wholesale pricing, marketplace integration and conversion-focused UX.",
+      "Custom eCommerce development: WooCommerce, headless storefronts and bespoke platforms with wholesale pricing and marketplace integration.",
     primaryKeyword: "eCommerce development company",
     keywords: [
       "eCommerce development company",

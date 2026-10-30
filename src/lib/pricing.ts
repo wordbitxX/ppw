@@ -1,3 +1,4 @@
+import { fixedPackages } from "@/lib/price-ladder";
 import type { Faq } from "@/lib/types";
 
 export type PricingBand = {
@@ -10,8 +11,8 @@ export type PricingBand = {
 
 export const pricingModels = [
   {
-    title: "Quoted on the brief",
-    text: "A four-page site and a POS are not the same product. We do not publish a high ‘starting at’ number that makes a small job look impossible — or a fake low number that pretends a full system is cheap.",
+    title: "Packages, then quotes",
+    text: "A standard 5–10 page website has a fixed package price, published in PKR for Pakistan and in USD for the US. Anything custom — a store, a portal, POS or ERP — is quoted on the brief, because a four-page site and a POS are not the same product.",
   },
   {
     title: "Fixed-price milestones",
@@ -92,9 +93,9 @@ export const pricingFaqs: Faq[] = [
       "Yes. If a tight first phase can ship safely, we quote that — including smaller local work. If the budget cannot cover the scope, we say so and cut the phase rather than fake a full system.",
   },
   {
-    question: "Why don’t you list dollar packages?",
+    question: "Do you have fixed-price packages, or is everything quoted?",
     answer:
-      "Most custom software companies do not, for the same reason. A sticker price either looks expensive for a small site or looks fake for a real product. The contact form already has budget bands including under $1,000. The quote is the number that matters.",
+      `Both. For a standard website there is a fixed package: ${fixedPackages.pk.starter} in Pakistan (${fixedPackages.pk.allInOne} with domain and one year of hosting) and ${fixedPackages.us.starter} in the US, with business and store packages above that — every number is on the Pakistan and USA price pages. Custom builds, portals, POS and ERP are quoted on a written scope, because a sticker there would either scare off a small job or pretend a full system is cheap.`,
   },
   {
     question: "Why hire a Pakistan software team instead of a local studio?",

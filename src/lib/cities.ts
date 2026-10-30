@@ -1,3 +1,4 @@
+import { fixedPackages, priceTiers } from "@/lib/price-ladder";
 import type { Faq } from "@/lib/types";
 
 /**
@@ -123,7 +124,7 @@ export const cities: City[] = [
       {
         question: "What does a website cost in Lahore?",
         answer:
-          "The honest range in this city runs from around PKR 50,000 for a template job to several lakh for a custom build with real functionality. We quote against what the site has to do — forms, payments, stock, bookings — rather than a page count, and we will tell you when the cheaper option is the right one.",
+          `A fixed 5–10 page business website is ${fixedPackages.pk.starter} (${fixedPackages.pk.allInOne} with domain and one year of hosting). A custom build runs ${priceTiers.custom.pkrLabel}, because it is quoted against what the site has to do — forms, payments, stock, bookings — rather than a page count. If the cheaper option is the right one for you, we will say so.`,
       },
       {
         question: "Do you only work with Lahore clients?",
@@ -146,7 +147,7 @@ export const cities: City[] = [
     tagline: "Built for the city that moves the country's cargo, money and medicine.",
     metaTitle: "Software Development Company in Karachi | Web & Custom Software — WordbitX",
     metaDescription:
-      "WordbitX builds websites, custom software, logistics systems, e-commerce and POS for Karachi businesses — SITE, Korangi, I.I. Chundrigar Road, Clifton and DHA.",
+      "Websites, custom software, logistics systems, e-commerce and POS for Karachi businesses — SITE, Korangi, Chundrigar Road, Clifton and DHA.",
     overview: [
       "Karachi is the largest commercial market in Pakistan and the one where software is most often bought to fix an operational problem rather than a marketing one. The brief here is usually 'our dispatch is a mess' or 'we cannot reconcile three warehouses', not 'we need a nicer homepage'.",
       "The city's industrial geography matters to what we build. SITE and Korangi are manufacturing and packaging. Port Qasim and the KPT corridor are freight, clearing and forwarding. I.I. Chundrigar Road is banking and insurance. Clifton and DHA are where the consumer brands and the service businesses sit. Each of those buys very different software.",
@@ -309,7 +310,7 @@ export const cities: City[] = [
     tagline: "For Pindi's traders, property offices and service businesses — with Islamabad next door.",
     metaTitle: "Web Development Company in Rawalpindi | Websites & Software — WordbitX",
     metaDescription:
-      "WordbitX builds websites, e-commerce, POS and custom software for Rawalpindi businesses — Saddar, Raja Bazaar, Bahria Town and the Islamabad twin-city corridor.",
+      "Websites, e-commerce, POS and custom software for Rawalpindi businesses — Saddar, Raja Bazaar, Bahria Town and the Islamabad corridor.",
     overview: [
       "Rawalpindi is a trading city attached to an administrative one, and the software it buys reflects that. Where Islamabad wants a portal and a reporting pack, Pindi wants an order book, a stock figure and a way to stop losing enquiries on WhatsApp.",
       "The wholesale markets around Raja Bazaar and the retail along Saddar and Murree Road still run on relationships and handwritten ledgers. The businesses that move first — a catalogue online, a POS that prints a proper invoice, a dealer order form — take share quickly, because their competitors are not there yet.",

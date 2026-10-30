@@ -361,7 +361,7 @@ export const geoPages: GeoPage[] = [
     h1: "CRM and ERP software in Islamabad — sized to your organisation",
     metaTitle: "CRM ERP Software Islamabad | Custom",
     metaDescription:
-      "CRM & ERP software in Islamabad: custom, module-by-module systems for the capital's firms — written scope, UAT with your staff, handover pack included.",
+      "CRM & ERP software in Islamabad: custom, module-by-module systems for the capital's firms — written scope, UAT with your staff, handover pack.",
     intro: [
       "Off-the-shelf ERP in Islamabad usually ends the same way: bought for the feature list, resisted by the staff, and quietly abandoned by month six. We build CRM and ERP the other way — module by module, sized to the organisation, starting with the two or three processes that hurt most, and extending as the system earns trust.",
       "The capital's firms get the full delivery frame: a scope document that stands in a procurement file, UAT run with your staff on real workflows, and a handover pack your IT can operate. The build runs from the Lahore studio; the milestones that need a room happen in Islamabad.",

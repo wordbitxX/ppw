@@ -7,7 +7,7 @@ import { seoTitleAbsolute } from "@/lib/seo-title";
 import type { Faq } from "@/lib/types";
 
 const description =
-  "Request a free, manual website audit from WordbitX: speed, search basics, mobile experience and conversion leaks, returned as written findings — no automated score, no obligation.";
+  "Request a free, manual website audit: speed, search basics, mobile experience and conversion leaks, returned as written findings. No automated score.";
 
 const covered = [
   "Speed on a real phone, not only on office wifi — and what is actually slowing the page down.",

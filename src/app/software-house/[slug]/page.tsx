@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { PageHero, Section, SectionHeading, ButtonLink, Card } from "@/components/ui";
 import { ServiceCard } from "@/components/cards";
 import { CtaBand } from "@/components/cta-band";
+import { FixedPriceStrip } from "@/components/fixed-price-strip";
 import { FaqAccordion } from "@/components/accordion";
 import { FaqSchema, JsonLd } from "@/components/jsonld";
 import { ArrowRight, CheckIcon } from "@/components/icons";
@@ -95,6 +96,10 @@ export default async function CityPage({ params }: PageProps) {
             </ul>
           </div>
         </div>
+      </Section>
+
+      <Section padding="compact">
+        <FixedPriceStrip market="pk" />
       </Section>
 
       <Section tone="muted">

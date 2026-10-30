@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero, Section, SectionHeading, ButtonLink, Card, CheckList } from "@/components/ui";
 import { CtaBand } from "@/components/cta-band";
+import { FixedPriceStrip } from "@/components/fixed-price-strip";
 import { FaqAccordion } from "@/components/accordion";
 import { FaqSchema, ServiceSchema } from "@/components/jsonld";
 import { ServiceCard } from "@/components/cards";
@@ -63,6 +64,11 @@ export function GeoPageView({ slug }: { slug: string }) {
         </div>
       </Section>
 
+      {/* Price route for the city page. */}
+      <Section padding="compact">
+        <FixedPriceStrip market="pk" />
+      </Section>
+
       {/* LOCAL ANGLE */}
       <Section tone="muted">
         <SectionHeading
@@ -101,7 +107,7 @@ export function GeoPageView({ slug }: { slug: string }) {
               <p className="mt-2 text-sm leading-relaxed text-ink-500">
                 We work at the band published on our Clutch profile — under $25 / hr for dedicated developers, and
                 project work is quoted as written milestones after a short brief, not a sticker. {page.city} projects
-                carry no "metro premium"; the scope sets the price.
+                carry no “metro premium”; the scope sets the price.
               </p>
             </div>
             <div className="flex flex-wrap gap-3">

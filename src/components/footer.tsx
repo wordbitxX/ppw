@@ -80,6 +80,11 @@ export function Footer() {
                   </Link>
                 </li>
                 <li>
+                  <Link href="/usa" className="text-slate-400 transition-colors hover:text-brand-300">
+                    USA website packages (USD)
+                  </Link>
+                </li>
+                <li>
                   <Link href="/software-house" className="text-slate-400 transition-colors hover:text-brand-300">
                     Cities in Pakistan
                   </Link>

@@ -12,7 +12,7 @@ import { siteConfig } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Hire Developers, Designers & Growth Teams",
   description:
-    "Hire WordbitX for websites, apps, Shopify, POS, SEO, ads, Amazon stores and design. Open software jobs in Pakistan this week — apply with work you have shipped.",
+    "Hire WordbitX for websites, apps, Shopify, POS, SEO, ads and design. Open software jobs in Pakistan this week — apply with work you have shipped.",
   alternates: { canonical: "/careers" },
   keywords: [
     "hire developers",

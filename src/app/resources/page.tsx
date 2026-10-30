@@ -5,7 +5,7 @@ import { CtaBand } from "@/components/cta-band";
 import { seoTitleAbsolute } from "@/lib/seo-title";
 
 const description =
-  "Free, usable resources from WordbitX: a website launch checklist, an app RFP template you can copy, and a free website audit request — plus our cost calculator, comparisons and glossary.";
+  "Free resources from WordbitX: a website launch checklist, a copy-ready app RFP template and a free website audit — plus the cost calculator and glossary.";
 
 const resources = [
   {

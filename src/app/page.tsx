@@ -18,6 +18,7 @@ import { HeroReel } from "@/components/hero-reel";
 import { HeroFX } from "@/components/hero-fx";
 import { CineBackdrop, CineImage, LightArcs } from "@/components/cinematic";
 import { CtaBand } from "@/components/cta-band";
+import { FixedPriceStrip } from "@/components/fixed-price-strip";
 import { FaqAccordion } from "@/components/accordion";
 import { TechGlyph, TechIconSprite } from "@/components/tech-icon";
 import { FaqSchema } from "@/components/jsonld";
@@ -254,16 +255,21 @@ export default function HomePage() {
               <div className="cine-rise">
                 <Eyebrow tone="dark">Pakistan-based · Software, SEO &amp; marketing · Worldwide</Eyebrow>
               </div>
+              {/* Audit 30 Oct 2026: the H1 used to read "One Platform. Endless
+                  Possibilities." while the <title> said "Software Development
+                  Company in Pakistan" — the strongest on-page signal did not
+                  match the query we want. The tagline is kept, demoted to the
+                  small tracked line, and the keyword now leads the H1. */}
               <h1
-                className="cine-rise mt-6 text-[2.35rem] font-semibold leading-[1.04] tracking-[-0.03em] sm:text-6xl lg:text-[4.5rem]"
+                className="cine-rise mt-6 text-[2.15rem] font-semibold leading-[1.04] tracking-[-0.03em] sm:text-6xl lg:text-[4.5rem]"
                 style={{ "--d": "0.08s" } as React.CSSProperties}
               >
                 <span className="mb-4 block text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-arc-300 sm:text-xs">
-                  Software &amp; AI development company for B2B
+                  One platform. Endless possibilities.
                 </span>
-                One Platform.
+                Software Development
                 <br />
-                <span className="text-gradient-arc">Endless Possibilities.</span>
+                <span className="text-gradient-arc">Company in Pakistan.</span>
               </h1>
               {/* Sized to break 3 lines on phones and almost exactly 2 on
                   desktop (one sentence per line at lg: max-w-4xl + text-xl).
@@ -829,6 +835,12 @@ export default function HomePage() {
             </div>
           </div>
         </div>
+      </Section>
+
+      {/* Fixed prices before the sales CTA: the two package pages carry the
+          numbers, and the homepage is where most of the traffic lands. */}
+      <Section padding="compact">
+        <FixedPriceStrip />
       </Section>
 
       <CtaBand />
