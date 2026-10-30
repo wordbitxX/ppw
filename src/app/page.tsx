@@ -267,7 +267,7 @@ export default function HomePage() {
                 
                 Websites, Apps &
                 <br />
-                <span className="text-gradient-arc">Software That Wins Clients.</span>
+                <span className="text-gradient-arc">Software That Win Clients.</span>
               </h1>
               {/* Sized to break 3 lines on phones and almost exactly 2 on
                   desktop (one sentence per line at lg: max-w-4xl + text-xl).
@@ -277,7 +277,7 @@ export default function HomePage() {
                 className="cine-rise mx-auto mt-5 max-w-4xl text-balance text-[0.8125rem] leading-relaxed text-slate-100 sm:text-base lg:text-xl"
                 style={{ "--d": "0.16s" } as React.CSSProperties}
               >
-                <strong className="text-gradient-arc">WordbitX</strong> is a software development company in Pakistan for businesses worldwide. We build web, mobile and custom software solutions to accelerate your business.
+                <strong className="text-gradient-arc">WordbitX</strong> is a software development company in Pakistan for businesses worldwide. We build Websites, Mobile, Shopify and Custom software solutions to accelerate your business.
               </p>
               <div
                 className="cine-rise mt-7 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center"
