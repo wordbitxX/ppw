@@ -161,7 +161,7 @@ export function PkPageView() {
               Pakistan-based software company · Since 2021 · Lahore
             </p>
 
-            <h1 className="mt-4 text-[2rem] font-semibold leading-[1.06] tracking-[-0.025em] text-white sm:text-[2.6rem] lg:text-[3rem]">
+            <h1 className="mt-4 text-[2.1rem] font-bold leading-[1.05] tracking-[-0.03em] text-white sm:text-[2.8rem] lg:text-[3.15rem]">
               Professional websites for Pakistani businesses
             </h1>
 
@@ -266,6 +266,7 @@ export function PkPageView() {
       {/* 3 — pricing */}
       <PkSection id="pricing">
         <PkHeading
+          center
           eyebrow="Pricing"
           title="Two website packages, one honest quote"
           lead={
@@ -281,13 +282,13 @@ export function PkPageView() {
           ))}
         </div>
 
-        <p className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4 text-[0.9rem] leading-relaxed text-ink-700">
+        <p className="mt-6 rounded-2xl bg-[#F6F8FC] px-5 py-4 text-[0.9rem] leading-relaxed text-ink-700 ring-1 ring-slate-900/[0.04]">
           {pkQuoteLine}
         </p>
 
         {/* One price list for everything that is not a package — scannable
             like a shop board, no paragraph per row. */}
-        <div className="mt-6 overflow-hidden rounded-2xl border border-slate-200 bg-white">
+        <div className="mt-6 overflow-hidden rounded-3xl bg-white ring-1 ring-slate-900/[0.06] shadow-[0_22px_48px_-32px_rgba(5,39,103,0.45)]">
           <p className="border-b border-slate-200 bg-slate-50 px-5 py-3 text-[0.68rem] font-bold uppercase tracking-[0.14em] text-ink-500">
             How everything else is priced
           </p>
@@ -333,6 +334,7 @@ export function PkPageView() {
       {/* 4 — what you get */}
       <PkSection id="what-you-get" tone="muted">
         <PkHeading
+          center
           eyebrow="What you get"
           title="Everything a small business site needs, in one list"
           lead="No mystery line items. This is the build, the handover and the support that come with a website package."
@@ -340,7 +342,7 @@ export function PkPageView() {
 
         <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {pkIncluded.map((item) => (
-            <li key={item.title} className="rounded-2xl border border-slate-200 bg-white p-5">
+            <li key={item.title} className="rounded-3xl bg-white p-6 ring-1 ring-slate-900/[0.06] shadow-[0_22px_48px_-32px_rgba(5,39,103,0.45)]">
               <CheckIcon className="h-5 w-5 text-brand-600" aria-hidden="true" />
               <h3 className="mt-2.5 text-[0.95rem] font-semibold text-navy-700">{item.title}</h3>
               <p className="mt-1 text-[0.85rem] leading-relaxed text-ink-600">{item.body}</p>
@@ -383,7 +385,7 @@ export function PkPageView() {
             </div>
           </div>
 
-          <dl className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+          <dl className="rounded-3xl bg-[#F6F8FC] p-6 ring-1 ring-slate-900/[0.04]">
             {pkFacts.map((fact) => (
               <div key={fact.label} className="border-b border-slate-200 py-2.5 first:pt-0 last:border-0 last:pb-0">
                 <dt className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-ink-500">{fact.label}</dt>
@@ -404,13 +406,13 @@ export function PkPageView() {
 
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {pkServices.map((service, index) => (
-            <article key={service.title} className="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-5">
-              <span className="text-[0.7rem] font-bold tracking-[0.16em] text-brand-600">
+            <article key={service.title} className="flex h-full flex-col rounded-3xl bg-white p-6 ring-1 ring-slate-900/[0.06] shadow-[0_22px_48px_-32px_rgba(5,39,103,0.45)]">
+              <span className="grid h-9 w-9 place-items-center rounded-xl bg-[#EDF2FB] text-[0.72rem] font-bold text-navy-700">
                 {String(index + 1).padStart(2, "0")}
               </span>
-              <h3 className="mt-1.5 text-base font-semibold leading-snug text-navy-700">{service.title}</h3>
-              <p className="mt-1.5 text-[0.85rem] leading-relaxed text-ink-600">{service.body}</p>
-              <p className="mt-2.5 rounded-lg bg-slate-50 px-2.5 py-1.5 text-[0.8rem] font-semibold text-navy-700">
+              <h3 className="mt-3 text-[1.02rem] font-bold leading-snug text-navy-700">{service.title}</h3>
+              <p className="mt-1.5 text-[0.86rem] leading-relaxed text-ink-600">{service.body}</p>
+              <p className="mt-3 rounded-xl bg-[#F6F8FC] px-3 py-2 text-[0.82rem] font-semibold text-navy-700">
                 {service.price}
                 <span className="mt-0.5 block text-[0.72rem] font-normal leading-snug text-ink-500">{service.priceNote}</span>
               </p>
@@ -437,11 +439,14 @@ export function PkPageView() {
       {/* 7 — why us */}
       <PkSection id="why-wordbitx">
         <PkHeading eyebrow="Why WordbitX" title="Reasons a Pakistani business picks us" />
-        <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-9 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {pkReasons.map((reason) => (
-            <li key={reason.title} className="border-l-2 border-brand-500 pl-4">
-              <h3 className="text-[0.95rem] font-semibold text-navy-700">{reason.title}</h3>
-              <p className="mt-1 text-[0.85rem] leading-relaxed text-ink-600">{reason.body}</p>
+            <li key={reason.title} className="rounded-3xl bg-[#F6F8FC] p-6 ring-1 ring-slate-900/[0.04]">
+              <span className="grid h-10 w-10 place-items-center rounded-xl bg-navy-700 text-white">
+                <CheckIcon className="h-4.5 w-4.5" aria-hidden="true" />
+              </span>
+              <h3 className="mt-3.5 text-[1rem] font-bold text-navy-700">{reason.title}</h3>
+              <p className="mt-1.5 text-[0.87rem] leading-relaxed text-ink-600">{reason.body}</p>
             </li>
           ))}
         </ul>
@@ -534,6 +539,7 @@ export function PkPageView() {
       {/* 10 — industries */}
       <PkSection id="industries" tone="muted">
         <PkHeading
+          center
           eyebrow="Industries"
           title="The businesses we normally build for"
           lead="Industry pages open where we have written one. The rest are industries we take on, with a page still to come."
@@ -579,7 +585,7 @@ export function PkPageView() {
             <Link
               key={city.href}
               href={city.href}
-              className="group rounded-2xl border border-slate-200 bg-white p-5 transition-colors hover:border-brand-500"
+              className="group rounded-3xl bg-white p-6 ring-1 ring-slate-900/[0.06] shadow-[0_22px_48px_-32px_rgba(5,39,103,0.45)] transition-shadow hover:shadow-[0_28px_60px_-34px_rgba(5,39,103,0.55)]"
             >
               <p className="flex items-center justify-between text-base font-semibold text-navy-700">
                 {city.name}
@@ -602,6 +608,7 @@ export function PkPageView() {
       {/* 12 — selling in Pakistan */}
       <PkSection id="pakistan" tone="muted">
         <PkHeading
+          center
           eyebrow="Built for selling in Pakistan"
           title="The local details that decide whether a site works here"
           lead="These are the parts foreign templates skip. They are scoped into the build, not added later at extra cost."
@@ -609,7 +616,7 @@ export function PkPageView() {
 
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {pkPakistan.map((item) => (
-            <div key={item.title} className="rounded-2xl border border-slate-200 bg-white p-5">
+            <div key={item.title} className="rounded-3xl bg-white p-6 ring-1 ring-slate-900/[0.06] shadow-[0_22px_48px_-32px_rgba(5,39,103,0.45)]">
               <h3 className="text-[0.95rem] font-semibold text-navy-700">{item.title}</h3>
               <p className="mt-1.5 text-[0.85rem] leading-relaxed text-ink-600">{item.body}</p>
             </div>
@@ -627,7 +634,7 @@ export function PkPageView() {
 
         <ol className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {pkSteps.map((step, index) => (
-            <li key={step.title} className="relative rounded-2xl border border-slate-200 bg-white p-5">
+            <li key={step.title} className="relative rounded-3xl bg-white p-6 ring-1 ring-slate-900/[0.06] shadow-[0_22px_48px_-32px_rgba(5,39,103,0.45)]">
               <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-navy-700 text-[0.8rem] font-bold text-white">
                 {index + 1}
               </span>
@@ -642,89 +649,77 @@ export function PkPageView() {
         </p>
       </PkSection>
 
-      {/* 14 — FAQs */}
+      {/* 14 — FAQs: title on the left, the questions as cards on the right */}
       <PkSection id="faqs" tone="muted">
-        <PkHeading
-          eyebrow="Questions"
-          title="Answers to what Pakistani buyers actually ask"
-          lead="Each answer is short, and the links go to the page that explains the detail."
-        />
-        <div className="mt-7 max-w-4xl">
-          <PkFaqList faqs={pkFaqs as PkFaq[]} />
+        <div className="grid gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:gap-14">
+          <div className="lg:sticky lg:top-28 lg:self-start">
+            <PkHeading
+              eyebrow="Questions"
+              title="Answers to what Pakistani buyers actually ask"
+              lead="Prices, ownership, timelines and the local details. If a question is missing, ask it on the phone."
+            />
+            <p className="mt-4 text-[0.85rem] text-ink-600">
+              Still unsure?{" "}
+              <a href={pkCallHref} className="font-semibold text-brand-700 hover:text-brand-800">
+                Call or WhatsApp {pkPhone}
+              </a>
+              .
+            </p>
+          </div>
+          <PkFaqList faqs={pkFaqs} />
         </div>
-        <p className="mt-4 text-[0.85rem] text-ink-600">
-          Still unsure what you need?{" "}
-          <a href={pkWhatsAppHref} target="_blank" rel="noopener noreferrer" className="font-semibold text-brand-700 hover:text-brand-800">
-            Send the question on WhatsApp
-          </a>{" "}
-          — a real person replies from this phone.
-        </p>
       </PkSection>
 
       {/* 15 — final CTA */}
-      <section className="bg-navy-700 py-12 text-white sm:py-16">
-        <div className="container-page grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-12">
-          <div>
-            <p className="text-[0.7rem] font-bold uppercase tracking-[0.18em] text-brand-300">
-              Same offer, no new discount
-            </p>
-            <h2 className="mt-2 text-[1.7rem] font-semibold leading-tight text-white sm:text-4xl">
-              {pkPricing.businessWebsite == null
-                ? "Start with a free call and a fixed written quote"
-                : `Websites from ${pkr(pkPricing.businessWebsite)}`}
-            </h2>
-            <p className="mt-3 max-w-xl text-[0.95rem] leading-relaxed text-slate-200">
-              Tell us what the business does and what the site must achieve. You get a fixed quote in PKR with scope and
-              dates before any work starts.
-            </p>
-            <div className="mt-5 flex flex-col gap-2.5 sm:flex-row">
-              <PkButton href={pkBookingHref} variant="onNavy">
-                Book a free call
-              </PkButton>
-              <a
-                href={pkWhatsAppHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/35 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
-              >
-                <WhatsAppIcon className="h-4 w-4" aria-hidden="true" />
-                WhatsApp {pkPhone}
-              </a>
-            </div>
+      <section className="relative overflow-hidden bg-navy-700 py-16 text-white sm:py-20">
+        <div className="container-page text-center">
+          <p className="inline-flex items-center rounded-full bg-white/10 px-3 py-1 text-[0.64rem] font-bold uppercase tracking-[0.16em] text-brand-200 ring-1 ring-white/15">
+            Get started
+          </p>
+          <h2 className="mx-auto mt-4 max-w-3xl text-[2rem] font-bold leading-[1.1] tracking-[-0.02em] sm:text-[2.7rem]">
+            Ready for a website your customers can actually find?
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-[0.98rem] leading-relaxed text-slate-200 sm:text-[1.05rem]">
+            {pkPricing.businessWebsite == null
+              ? "Tell us what the business does and what the site must achieve. You get a fixed quote in PKR with scope and dates before any work starts."
+              : `Websites from ${pkr(pkPricing.businessWebsite)}, with domain and hosting in the second package. Fixed in writing before any work starts.`}
+          </p>
+          <div className="mt-7 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
+            <a
+              href={pkWhatsAppHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-500 px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-brand-600"
+            >
+              <WhatsAppIcon className="h-4 w-4" aria-hidden="true" />
+              Contact us on WhatsApp
+            </a>
+            <PkButton href={pkBookingHref} variant="ghost">
+              Book a free call
+            </PkButton>
           </div>
 
-          <ul className="grid gap-3 rounded-2xl bg-white/[0.07] p-5 text-[0.88rem] ring-1 ring-white/15">
-            <li className="flex items-start gap-2.5">
-              <PhoneIcon className="mt-0.5 h-4 w-4 shrink-0 text-brand-300" aria-hidden="true" />
-              <span>
-                <a href={pkCallHref} className="font-semibold text-white hover:text-brand-200">
-                  {pkPhone}
-                </a>
-                <span className="block text-[0.78rem] text-slate-300">Pakistan — call or WhatsApp</span>
-              </span>
+          <ul className="mx-auto mt-9 grid max-w-3xl gap-3 text-left sm:grid-cols-3">
+            <li className="rounded-2xl bg-white/[0.07] px-4 py-3.5 ring-1 ring-white/12">
+              <PhoneIcon className="h-4 w-4 text-brand-300" aria-hidden="true" />
+              <a href={pkCallHref} className="mt-1.5 block text-[0.9rem] font-semibold text-white hover:text-brand-200">
+                {pkPhone}
+              </a>
+              <span className="block text-[0.74rem] text-slate-300">Pakistan — call or WhatsApp</span>
             </li>
-            <li className="flex items-start gap-2.5">
-              <MailIcon className="mt-0.5 h-4 w-4 shrink-0 text-brand-300" aria-hidden="true" />
-              <span>
-                <a href={`mailto:${pkEmail}`} className="font-semibold text-white hover:text-brand-200">
-                  {pkEmail}
-                </a>
-                <span className="block text-[0.78rem] text-slate-300">Email with your brief</span>
-              </span>
+            <li className="rounded-2xl bg-white/[0.07] px-4 py-3.5 ring-1 ring-white/12">
+              <MailIcon className="h-4 w-4 text-brand-300" aria-hidden="true" />
+              <a href={`mailto:${pkEmail}`} className="mt-1.5 block text-[0.9rem] font-semibold text-white hover:text-brand-200">
+                {pkEmail}
+              </a>
+              <span className="block text-[0.74rem] text-slate-300">Email with your brief</span>
             </li>
-            <li className="flex items-start gap-2.5">
-              <ClockIcon className="mt-0.5 h-4 w-4 shrink-0 text-brand-300" aria-hidden="true" />
-              <span className="text-slate-100">
+            <li className="rounded-2xl bg-white/[0.07] px-4 py-3.5 ring-1 ring-white/12">
+              <ClockIcon className="h-4 w-4 text-brand-300" aria-hidden="true" />
+              <span className="mt-1.5 block text-[0.9rem] font-semibold text-white">
                 {pkPricing.hours ?? "Lahore business hours (PKT)"}
-                <span className="block text-[0.78rem] text-slate-300">Messages answered from this phone</span>
               </span>
-            </li>
-            <li className="flex items-start gap-2.5">
-              <CheckIcon className="mt-0.5 h-4 w-4 shrink-0 text-brand-300" aria-hidden="true" />
-              <span className="text-slate-100">
-                {siteConfig.addressDisplay}
-                <span className="block text-[0.78rem] text-slate-300">USA line, kept separate: {pkUsPhone}</span>
-              </span>
+              <span className="block text-[0.74rem] text-slate-300">Messages answered from this phone</span>
             </li>
           </ul>
         </div>

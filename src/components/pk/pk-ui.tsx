@@ -11,7 +11,7 @@ import {
   WhatsAppIcon,
 } from "@/components/icons";
 import { ShowcaseStage } from "@/components/showcase-stage";
-import { CurText, PriceLead } from "@/components/pk/currency";
+import { CurText, PriceAmount } from "@/components/pk/currency";
 import { demoWebsites, type DemoWebsite } from "@/lib/demos";
 import { demoPreview, demoStageSrc } from "@/lib/demo-shots";
 import {
@@ -46,6 +46,14 @@ function MapPinIcon({ className = "" }: { className?: string }) {
 /* Layout primitives                                                    */
 /* ------------------------------------------------------------------ */
 
+/** The one card surface used across the Pakistan pages. */
+export const pkCard =
+  "rounded-3xl bg-white ring-1 ring-slate-900/[0.06] shadow-[0_22px_48px_-32px_rgba(5,39,103,0.45)]";
+
+/** Navy square behind a section icon, BrandBees-style. */
+export const pkIconTile =
+  "grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-navy-700 text-white";
+
 export function PkSection({
   children,
   id,
@@ -59,14 +67,14 @@ export function PkSection({
 }) {
   const tones = {
     light: "bg-white text-ink-900",
-    muted: "bg-slate-50 text-ink-900",
+    muted: "bg-[#F6F8FC] text-ink-900",
     navy: "bg-navy-700 text-white",
   } as const;
 
   return (
     <section
       id={id}
-      className={`scroll-mt-24 border-t border-slate-200/80 py-12 sm:py-16 lg:py-20 ${tones[tone]} ${className}`}
+      className={`scroll-mt-24 py-14 sm:py-20 lg:py-24 ${tones[tone]} ${className}`}
     >
       <div className="container-page">{children}</div>
     </section>
@@ -88,26 +96,32 @@ export function PkHeading({
   center?: boolean;
   as?: "h1" | "h2" | "h3";
 }) {
+  const dark = tone === "dark";
+
   return (
-    <div className={`max-w-3xl ${center ? "mx-auto text-center" : ""}`}>
+    <div className={`max-w-2xl ${center ? "mx-auto text-center" : ""}`}>
       {eyebrow ? (
         <p
-          className={`text-[0.7rem] font-bold uppercase tracking-[0.18em] ${
-            tone === "dark" ? "text-brand-300" : "text-brand-700"
+          className={`inline-flex items-center rounded-full px-3 py-1 text-[0.64rem] font-bold uppercase tracking-[0.16em] ${
+            dark ? "bg-white/10 text-brand-200 ring-1 ring-white/15" : "bg-[#EDF2FB] text-navy-700"
           }`}
         >
           {eyebrow}
         </p>
       ) : null}
       <Tag
-        className={`mt-2 text-[1.7rem] font-semibold leading-[1.12] tracking-[-0.02em] sm:text-4xl lg:text-[2.6rem] ${
-          tone === "dark" ? "text-white" : "text-navy-700"
+        className={`mt-3 text-[1.9rem] font-bold leading-[1.1] tracking-[-0.03em] sm:text-[2.4rem] lg:text-[2.8rem] ${
+          dark ? "text-white" : "text-navy-700"
         }`}
       >
         {title}
       </Tag>
       {lead ? (
-        <p className={`mt-3 text-base leading-relaxed sm:text-lg ${tone === "dark" ? "text-slate-200" : "text-ink-600"}`}>
+        <p
+          className={`mt-3 text-[0.98rem] leading-relaxed sm:text-[1.05rem] ${
+            dark ? "text-slate-200" : "text-ink-600"
+          } ${center ? "mx-auto" : ""}`}
+        >
           {lead}
         </p>
       ) : null}
@@ -214,7 +228,7 @@ export function PkOffices({ tone = "light" }: { tone?: "light" | "muted" }) {
       {pkOffices.map((office) => (
         <article
           key={office.id}
-          className={`rounded-2xl border border-slate-200 p-5 ${tone === "muted" ? "bg-white" : "bg-slate-50"}`}
+          className={`rounded-3xl bg-white p-6 ring-1 ring-slate-900/[0.06] shadow-[0_22px_48px_-32px_rgba(5,39,103,0.45)]`}
         >
           <p className="text-[0.62rem] font-bold uppercase tracking-[0.14em] text-brand-700">{office.role}</p>
           <h3 className="mt-1.5 flex items-center gap-2 text-[1.05rem] font-semibold text-navy-700">
@@ -263,8 +277,8 @@ export function PkQuickAnswers({
   title?: string;
 }) {
   return (
-    <dl className="overflow-hidden rounded-2xl border border-slate-200 bg-white text-left shadow-[0_18px_40px_-32px_rgba(5,39,103,0.45)]">
-      <div className="border-b border-slate-200 bg-slate-50 px-4 py-2.5">
+    <dl className="overflow-hidden rounded-3xl bg-white text-left ring-1 ring-white/15 shadow-[0_26px_56px_-34px_rgba(0,0,0,0.75)]">
+      <div className="border-b border-slate-200 bg-[#F6F8FC] px-4 py-2.5">
         <p className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-brand-700">{title}</p>
       </div>
       <div className="divide-y divide-slate-200">
@@ -290,37 +304,40 @@ export function PkPriceCard({ pkg }: { pkg: PkPackage }) {
     <article
       className={`relative flex h-full flex-col rounded-3xl p-6 sm:p-7 ${
         onNavy
-          ? "bg-navy-700 text-white shadow-[0_30px_60px_-40px_rgba(5,39,103,0.9)] ring-1 ring-navy-700"
-          : "border border-slate-200 bg-white text-ink-900"
+          ? "bg-navy-700 text-white shadow-[0_36px_70px_-40px_rgba(5,39,103,0.85)]"
+          : "bg-white text-ink-900 ring-1 ring-slate-900/[0.07] shadow-[0_22px_48px_-32px_rgba(5,39,103,0.4)]"
       }`}
     >
       {pkg.popular ? (
-        <span className="absolute -top-3 left-6 inline-flex items-center gap-1.5 rounded-full bg-brand-500 px-3 py-1 text-[0.64rem] font-bold uppercase tracking-[0.14em] text-white">
+        <span className="absolute -top-3 left-6 inline-flex items-center rounded-full bg-brand-500 px-3 py-1 text-[0.62rem] font-bold uppercase tracking-[0.14em] text-white">
           Most popular
         </span>
       ) : null}
 
-      <h3 className={`text-xl font-semibold ${onNavy ? "text-white" : "text-navy-700"}`}>{pkg.name}</h3>
-      <p className={`mt-1 text-sm ${onNavy ? "text-slate-200" : "text-ink-500"}`}>{pkg.tagline}</p>
+      <p className={`text-[0.62rem] font-bold uppercase tracking-[0.16em] ${onNavy ? "text-brand-200" : "text-ink-500"}`}>
+        {pkg.popular ? "All-in-one" : "Your own domain & hosting"}
+      </p>
+      <h3 className={`mt-1.5 text-[1.25rem] font-bold ${onNavy ? "text-white" : "text-navy-700"}`}>{pkg.name}</h3>
+      <p className={`mt-1 text-[0.88rem] ${onNavy ? "text-slate-300" : "text-ink-500"}`}>{pkg.tagline}</p>
 
-      <div className={`mt-5 rounded-2xl px-4 py-4 ${onNavy ? "bg-white/10" : "bg-brand-50"}`}>
-        <p className={`text-[0.66rem] font-bold uppercase tracking-[0.16em] ${onNavy ? "text-brand-200" : "text-brand-700"}`}>
-          {pkg.price == null ? "Package price" : "Starting price"}
-        </p>
-        <p className={`mt-1 text-[1.9rem] font-semibold leading-tight tabular-nums ${onNavy ? "text-white" : "text-navy-700"}`}>
-          <PriceLead value={pkg.price} usdValue={pkg.usdPrice} />
-        </p>
-        <p className={`mt-1 text-[0.78rem] leading-snug ${onNavy ? "text-slate-200" : "text-ink-600"}`}>
-          <CurText
-            pkr={pkg.price == null ? "In PKR, written before work starts" : "One-time build. Quoted in PKR, fixed in writing"}
-            usd={pkg.price == null ? "In USD or PKR, written before work starts" : "One-time build. Quoted in USD or PKR, fixed in writing"}
-          />
-        </p>
+      <div className={`mt-5 flex flex-wrap items-baseline gap-x-2 border-y py-4 ${onNavy ? "border-white/15" : "border-slate-200"}`}>
+        <span className={`text-[0.72rem] font-semibold uppercase tracking-[0.1em] ${onNavy ? "text-slate-300" : "text-ink-500"}`}>
+          from
+        </span>
+        <span className={`text-[2.1rem] font-bold leading-none tabular-nums ${onNavy ? "text-white" : "text-navy-700"}`}>
+          <PriceAmount value={pkg.price} usdValue={pkg.usdPrice} fallback={<CurText pkr="Fixed quote" usd="Fixed quote in USD" />} />
+        </span>
       </div>
+      <p className={`mt-2 text-[0.78rem] leading-snug ${onNavy ? "text-slate-300" : "text-ink-500"}`}>
+        <CurText
+          pkr="One-time build. Quoted in PKR, fixed in writing."
+          usd="One-time build. Quoted in USD or PKR, fixed in writing."
+        />
+      </p>
 
-      <ul className="mt-5 space-y-2.5">
+      <ul className="mt-5 flex-1 space-y-3">
         {pkg.bullets.map((bullet) => (
-          <li key={bullet} className="flex items-start gap-2 text-[0.86rem] leading-snug">
+          <li key={bullet} className="flex items-start gap-2.5 text-[0.88rem] leading-snug">
             <CheckIcon
               className={`mt-0.5 h-4 w-4 shrink-0 ${onNavy ? "text-brand-300" : "text-brand-600"}`}
               aria-hidden="true"
@@ -330,11 +347,11 @@ export function PkPriceCard({ pkg }: { pkg: PkPackage }) {
         ))}
       </ul>
 
-      <p className={`mt-4 text-[0.76rem] leading-relaxed ${onNavy ? "text-slate-300" : "text-ink-500"}`}>
+      <p className={`mt-4 text-[0.76rem] leading-relaxed ${onNavy ? "text-slate-400" : "text-ink-500"}`}>
         {pkg.footnote}
       </p>
 
-      <div className="mt-6 pt-1">
+      <div className="mt-6">
         <PkButton
           href="/contact"
           variant={onNavy ? "onNavy" : "secondary"}
@@ -347,10 +364,6 @@ export function PkPriceCard({ pkg }: { pkg: PkPackage }) {
     </article>
   );
 }
-
-/* ------------------------------------------------------------------ */
-/* Samples                                                              */
-/* ------------------------------------------------------------------ */
 
 function sampleDemo(id: string): DemoWebsite | undefined {
   return demoWebsites.find((demo) => demo.id === id);
@@ -370,7 +383,7 @@ export function PkSamples({ limit, ids }: { limit?: number; ids?: string[] }) {
         return (
           <article
             key={sample.demoId}
-            className="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white"
+            className="group flex h-full flex-col overflow-hidden rounded-3xl bg-white ring-1 ring-slate-900/[0.06] shadow-[0_22px_48px_-32px_rgba(5,39,103,0.45)] transition-shadow hover:shadow-[0_28px_60px_-34px_rgba(5,39,103,0.55)]"
           >
             <a
               href={demo.url}
@@ -442,27 +455,30 @@ export function PkSamples({ limit, ids }: { limit?: number; ids?: string[] }) {
 
 export function PkFaqList({ faqs }: { faqs: PkFaq[] }) {
   return (
-    <div className="divide-y divide-slate-200 overflow-hidden rounded-2xl border border-slate-200 bg-white">
+    <div className="space-y-3">
       {faqs.map((faq) => (
-        <details key={faq.q} className="group">
-          <summary className="flex cursor-pointer list-none items-start justify-between gap-4 px-5 py-4 text-left marker:hidden hover:bg-slate-50 [&::-webkit-details-marker]:hidden">
-            <h3 className="text-[0.95rem] font-semibold leading-snug text-navy-700">{faq.q}</h3>
+        <details
+          key={faq.q}
+          className="group rounded-2xl bg-white ring-1 ring-slate-900/[0.06] shadow-[0_16px_36px_-30px_rgba(5,39,103,0.5)] open:shadow-[0_22px_48px_-32px_rgba(5,39,103,0.55)]"
+        >
+          <summary className="flex cursor-pointer list-none items-start justify-between gap-4 px-5 py-4 text-left marker:hidden sm:px-6 sm:py-5 [&::-webkit-details-marker]:hidden">
+            <h3 className="text-[0.95rem] font-semibold leading-snug text-navy-700 sm:text-base">{faq.q}</h3>
             <span
               aria-hidden="true"
-              className="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-slate-300 text-ink-500 transition-transform group-open:rotate-45"
+              className="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-full bg-[#EEF3FB] text-lg leading-none font-medium text-navy-700 transition-transform group-open:rotate-45"
             >
               +
             </span>
           </summary>
-          <div className="px-5 pb-5">
-            <p className="text-[0.88rem] leading-relaxed text-ink-600">{faq.a}</p>
+          <div className="px-5 pb-5 sm:px-6">
+            <p className="text-[0.9rem] leading-relaxed text-ink-600">{faq.a}</p>
             {faq.links?.length ? (
               <ul className="mt-3 flex flex-wrap gap-2">
                 {faq.links.map((link) => (
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-[0.74rem] font-semibold text-brand-700 hover:border-brand-300 hover:bg-brand-50"
+                      className="inline-flex items-center gap-1 rounded-full bg-[#EEF3FB] px-3 py-1 text-[0.74rem] font-semibold text-navy-700 hover:bg-brand-50 hover:text-brand-800"
                     >
                       {link.label}
                       <ArrowRight className="h-3 w-3" aria-hidden="true" />
@@ -551,7 +567,7 @@ export function PkDetailsStrip() {
   const range = pkPriceRange();
 
   return (
-    <section className="border-t border-slate-200 bg-slate-50 py-10">
+    <section className="bg-[#F6F8FC] py-12">
       <div className="container-page grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
         <div>
           <p className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-brand-700">Company</p>

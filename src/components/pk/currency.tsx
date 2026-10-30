@@ -211,8 +211,15 @@ export function PackagePriceTiles({
   );
 }
 
+/** Just the figure ("Rs. 45,000" / "$160") — the caller prints its own "from". */
+export function PriceAmount({ value, usdValue, fallback = "Fixed quote" }: { value: PkPrice; usdValue?: PkPrice; fallback?: ReactNode }) {
+  const { currency } = useCurrency();
+  const text = moneyIn(currency, value, usdValue ?? null);
+  return <>{text ?? fallback}</>;
+}
+
 /** "from Rs. 45,000" (or "from $160") with a caller-supplied fallback. */
-export function PriceLead({ value, usdValue, fallback = "Fixed quote" }: { value: PkPrice; usdValue?: PkPrice; fallback?: string }) {
+export function PriceLead({ value, usdValue, fallback = "Fixed quote" }: { value: PkPrice; usdValue?: PkPrice; fallback?: ReactNode }) {
   const { currency } = useCurrency();
   const text = moneyIn(currency, value, usdValue ?? null);
   return <>{text ? `from ${text}` : fallback}</>;

@@ -121,11 +121,12 @@ export function PkCityView({ page }: { page: PkCityPage }) {
               </ol>
             </nav>
 
-            <p className="mt-4 text-[0.68rem] font-bold uppercase tracking-[0.16em] text-brand-300">
-              {page.name}, {page.province} · Since 2021 · Base in Lahore
+            <p className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.07] px-3 py-1 text-[0.66rem] font-semibold uppercase tracking-[0.14em] text-brand-200">
+              <span className="h-1.5 w-1.5 rounded-full bg-brand-400" aria-hidden="true" />
+              {page.name} · {page.province} · Since 2021
             </p>
 
-            <h1 className="mt-3 text-[2rem] font-semibold leading-[1.06] tracking-[-0.025em] text-white sm:text-[2.6rem] lg:text-[3rem]">
+            <h1 className="mt-3 text-[2.1rem] font-bold leading-[1.05] tracking-[-0.03em] text-white sm:text-[2.8rem] lg:text-[3.15rem]">
               {page.h1}
             </h1>
 
