@@ -217,15 +217,12 @@ export const pkPending: string[] = [
 ];
 
 export const pkTrust = [
-  { title: "Since 2021", body: "Lahore, Pakistan" },
-  { title: "You own everything", body: "Code, repo, hosting and logins, yours at handover" },
-  { title: "Written scope", body: "Before any build starts" },
+  { title: "Since 2021", body: "Building software" },
+  { title: "3 offices", body: "Lahore and Islamabad" },
+  { title: "You own it all", body: "Code and logins handed over" },
   {
-    title: pkPricing.supportMonths == null ? "Support after launch" : `Support: ${pkPricing.supportMonths} months`,
-    body:
-      pkPricing.supportMonths == null
-        ? "Included — length on your written quote"
-        : "Post-launch window included",
+    title: pkPricing.supportMonths == null ? "Support included" : `${pkPricing.supportMonths} months support`,
+    body: pkPricing.supportMonths == null ? "Length on your quote" : "On every package",
   },
 ];
 

@@ -3,14 +3,18 @@ import {
   ArrowRight,
   CheckIcon,
   ClockIcon,
+  GlobeIcon,
+  LayersIcon,
   MailIcon,
   PhoneIcon,
+  SearchIcon,
+  ShieldIcon,
+  SparkIcon,
   WhatsAppIcon,
 } from "@/components/icons";
 import { FaqSchema, JsonLd } from "@/components/jsonld";
-import { ShowcaseStage } from "@/components/showcase-stage";
 import { demoWebsites } from "@/lib/demos";
-import { demoPreview, demoStageSrc } from "@/lib/demo-shots";
+import { demoPreview } from "@/lib/demo-shots";
 import { siteConfig, absoluteUrl } from "@/lib/site";
 import { usd, usdFrom } from "@/lib/pk";
 import {
@@ -19,13 +23,12 @@ import {
   pkCallHref,
   pkCities,
   pkEmail,
-  pkFacts,
   pkFaqs,
   pkFaqsForSchema,
-  pkHeroPrice,
   pkIncluded,
   pkIndustries,
   pkMetaDescription,
+  pkOffices,
   pkPackages,
   pkPakistan,
   pkPricePaths,
@@ -44,17 +47,20 @@ import {
   pkWhatsAppHref,
   pkr,
   pkPricing,
-  priceLead,
   type PkFaq,
 } from "@/lib/pk";
 import {
+  MapPinIcon,
+  PkActions,
   PkButton,
   PkContactBar,
+  PkInfoCards,
+  PkPillList,
+  PkStatBar,
   PkDetailsStrip,
   PkFaqList,
   PkHeading,
   PkHeroDevices,
-  PkOffices,
   PkOwnerBanner,
   PkPriceCard,
   PkSamples,
@@ -62,9 +68,16 @@ import {
   PkStickyContact,
   PriceText,
   PkTrustStrip,
+  pkCard,
+  pkIconTile,
 } from "@/components/pk/pk-ui";
 
 const propertiesPak = demoWebsites.find((demo) => demo.id === "properties-pak");
+
+/* Decorative icons, in the order of pkServices / pkPakistan. They carry no
+   meaning a reader would miss — every card keeps its own heading. */
+const serviceIcons = [GlobeIcon, LayersIcon, SparkIcon, PhoneIcon, ShieldIcon, SearchIcon];
+const pakistanIcons = [LayersIcon, PhoneIcon, CheckIcon, ArrowRight, GlobeIcon, ShieldIcon];
 
 const costGuides = [
   { label: "Website cost in Pakistan", href: "/blog/website-development-cost-pakistan" },
@@ -151,7 +164,6 @@ export function PkPageView() {
       { "@type": "ListItem", position: 2, name: "Pakistan prices", item: absoluteUrl("/pk") },
     ],
   };
-
   return (
     <div className="bg-white pb-24 lg:pb-0">
       {/* 0 — the page's own bar, offset below the fixed global header. The
@@ -163,10 +175,9 @@ export function PkPageView() {
         <PkContactBar />
       </div>
 
-      {/* 1 — HERO: the reference layout. Eyebrow pill, one big headline, the
-          price as a large line under it (not buried in a card), a short
-          paragraph, two buttons, one phone line, and the product composition
-          on the right. Flat navy, no gradients, no animation. */}
+      {/* 1 — HERO. Eyebrow pill, one headline, the price as a large line under
+          it, a short paragraph, two actions, one phone line, and the product
+          composition on the right. Flat navy, no gradients, no animation. */}
       <section className="relative overflow-hidden bg-navy-700 text-white">
         <div className="container-page grid items-center gap-14 pb-16 pt-9 sm:pt-11 lg:grid-cols-[1.04fr_0.96fr] lg:gap-12 lg:pb-20 lg:pt-14">
           <div>
@@ -180,18 +191,13 @@ export function PkPageView() {
               <br className="hidden sm:block" /> for Pakistani businesses
             </h1>
 
-            {/* The price, in the same slot the reference uses: a big line
-                straight under the headline, the figure in the accent colour. */}
             <p className="mt-5 text-[1.35rem] font-semibold leading-tight sm:text-[1.6rem]">
               <PriceText pkr={heroPkr} usd={heroUsd} />
             </p>
 
             <p className="mt-3 max-w-xl text-[0.95rem] leading-relaxed text-slate-200 sm:text-[1rem]">
               Mobile-first websites, online stores, apps and POS systems. Two packages — website only, or with
-              domain and hosting — both quoted in writing before any work starts.{" "}
-              <span className="text-slate-300">
-                WordbitX TECHNOLOGY SMC – PVT. LTD. is a registered Pakistani software company in Lahore.
-              </span>
+              domain and hosting — both quoted in writing before any work starts.
             </p>
 
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -231,33 +237,301 @@ export function PkPageView() {
       {/* 2 — trust strip */}
       <PkTrustStrip />
 
-      {/* 3 — pricing */}
+      {/* 3 — what you get. Centered, and the price goes into the heading the
+          moment the owner supplies it (the reference's "What you get for …"). */}
+      <PkSection id="what-you-get">
+        <PkHeading
+          center
+          eyebrow="Included"
+          title={
+            pkPricing.businessWebsite == null ? (
+              <>What you get in every website package</>
+            ) : (
+              <>
+                What you get for <span className="text-brand-600">{pkr(pkPricing.businessWebsite)}</span>
+              </>
+            )
+          }
+          lead="A complete business website, not a template drop."
+        />
+
+        <ul className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {pkIncluded.map((item) => (
+            <li key={item.title} className={`${pkCard} flex items-start gap-3 p-5`}>
+              <span className="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-navy-700 text-white">
+                <CheckIcon className="h-4 w-4" aria-hidden="true" />
+              </span>
+              <div>
+                <h3 className="text-[0.95rem] font-bold leading-snug text-navy-700">{item.title}</h3>
+                <p className="mt-1 text-[0.84rem] leading-relaxed text-ink-600">{item.body}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+
+        <PkActions />
+      </PkSection>
+
+      {/* 4 — at a glance: the four numbers, then who we are, then the three
+          facts a buyer checks before calling. */}
+      <PkSection id="about" tone="muted">
+        <PkHeading
+          center
+          eyebrow="WordbitX at a glance"
+          title="A software company in Lahore since 2021"
+        />
+
+        <div className="mt-8">
+          <PkStatBar
+            stats={[
+              { value: "2021", label: "Building since" },
+              { value: "3", label: "Offices in Pakistan" },
+              { value: "6", label: "Service lines" },
+              { value: "100%", label: "Code handed over" },
+            ]}
+          />
+        </div>
+
+        <div className="mx-auto mt-9 max-w-3xl space-y-3.5 text-center">
+          {pkAbout.map((paragraph) => (
+            <p key={paragraph} className="text-[0.95rem] leading-relaxed text-ink-600">
+              {paragraph}
+            </p>
+          ))}
+        </div>
+
+        <div className="mt-9">
+          <PkInfoCards
+            items={[
+              {
+                title: "Office",
+                body: "DHA Phase 2, Lahore — with a second Lahore office in Johar Town and one in Islamabad. Meetings by appointment.",
+                link: { label: "See the offices", href: "#cities" },
+              },
+              {
+                title: "Languages",
+                body: "Urdu and English. Bilingual pages where they help, and the Urdu is checked by someone who reads it.",
+              },
+              {
+                title: "Registered",
+                body: "WordbitX TECHNOLOGY SMC – PVT. LTD., registered with SECP and FBR, founded 2021. Pakistan clients are invoiced in PKR.",
+              },
+            ]}
+          />
+        </div>
+      </PkSection>
+
+      {/* 5 — services */}
+      <PkSection id="services">
+        <PkHeading eyebrow="Services" title="What we do" lead="Everything a business needs to get online and stay there — from one team." />
+
+        <div className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {pkServices.map((service, index) => {
+            const Icon = serviceIcons[index % serviceIcons.length];
+            return (
+              <article key={service.title} className={`${pkCard} flex h-full flex-col p-6`}>
+                <span className={pkIconTile}>
+                  <Icon className="h-4.5 w-4.5" aria-hidden="true" />
+                </span>
+                <h3 className="mt-4 text-[1.02rem] font-bold leading-snug text-navy-700">{service.title}</h3>
+                <p className="mt-1.5 flex-1 text-[0.86rem] leading-relaxed text-ink-600">{service.body}</p>
+                <p className="mt-4 rounded-xl bg-[#F6F8FC] px-3 py-2 text-[0.82rem] font-semibold text-navy-700">
+                  {service.price}
+                  <span className="mt-0.5 block text-[0.72rem] font-normal leading-snug text-ink-500">
+                    {service.priceNote}
+                  </span>
+                </p>
+                <Link
+                  href={service.href}
+                  className="mt-3 inline-flex items-center gap-1 text-[0.8rem] font-semibold text-brand-700 hover:text-brand-800"
+                >
+                  {service.hrefLabel}
+                  <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+                </Link>
+              </article>
+            );
+          })}
+        </div>
+      </PkSection>
+
+      {/* 6 — why us, on navy like the reference */}
+      <PkSection id="why-wordbitx" tone="navy">
+        <PkHeading
+          center
+          tone="dark"
+          eyebrow="Why WordbitX"
+          title="Why Pakistani businesses choose us"
+          lead="A Pakistan-based team with international experience, clear pricing and no surprises."
+        />
+
+        <ul className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {pkReasons.map((reason) => (
+            <li key={reason.title} className="rounded-2xl border border-white/12 bg-white/[0.06] p-5">
+              <span className="grid h-10 w-10 place-items-center rounded-xl bg-white/10 text-brand-300">
+                <CheckIcon className="h-4.5 w-4.5" aria-hidden="true" />
+              </span>
+              <h3 className="mt-3.5 text-[1rem] font-bold text-white">{reason.title}</h3>
+              <p className="mt-1.5 text-[0.86rem] leading-relaxed text-slate-300">{reason.body}</p>
+            </li>
+          ))}
+        </ul>
+
+        <div className="mt-6 flex flex-col items-start justify-between gap-3 rounded-2xl border border-white/12 bg-white/[0.04] px-5 py-4 sm:flex-row sm:items-center">
+          <p className="text-[0.86rem] text-slate-200">
+            <span className="font-semibold text-white">Properties Pak</span> — our own property portal, live and
+            maintained by the team that built it.
+          </p>
+          <Link
+            href="#work"
+            className="inline-flex items-center gap-1 text-[0.82rem] font-semibold text-brand-300 hover:text-white"
+          >
+            See it
+            <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+          </Link>
+        </div>
+
+        <PkActions tone="dark" />
+      </PkSection>
+
+      {/* 7 — recent work */}
+      <PkSection id="work" tone="muted">
+        <PkHeading
+          eyebrow="Our work"
+          title="Recent websites we built"
+          lead="Real builds. Open any of them and click around."
+        />
+        <div className="mt-8">
+          <PkSamples limit={6} />
+        </div>
+        <p className="mt-4 text-[0.78rem] leading-relaxed text-ink-500">{pkSampleDisclosure}</p>
+        <PkActions />
+      </PkSection>
+
+      {/* 8 — cities */}
+      <PkSection id="cities">
+        <div className="grid gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:gap-14">
+          <div>
+            <PkHeading
+              eyebrow="Cities we serve"
+              title="Working with businesses across Pakistan"
+              lead="Based in Lahore, we work across Punjab and the rest of Pakistan — mostly over chat and video calls, with in-person meetings when they help."
+            />
+
+            <ul className="mt-6 grid gap-2 sm:grid-cols-2">
+              {pkCities.linked.map((city) => (
+                <li key={city.href}>
+                  <Link
+                    href={city.href}
+                    className="group flex items-center justify-between gap-2 rounded-xl bg-[#F3F6FB] px-4 py-3 text-[0.88rem] font-semibold text-navy-700 ring-1 ring-slate-900/[0.04] transition-colors hover:bg-[#E7EEF9]"
+                  >
+                    {city.name}
+                    <ArrowRight className="h-4 w-4 text-brand-600 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+
+            <p className="mt-4 text-[0.85rem] leading-relaxed text-ink-600">
+              and beyond — {pkCities.plain.join(", ")}.{" "}
+              <Link href="/software-house" className="font-semibold text-brand-700 hover:text-brand-800">
+                See every city
+              </Link>
+              .
+            </p>
+          </div>
+
+          <div className="grid gap-3 sm:grid-cols-2">
+            {pkOffices.map((office) => (
+              <article key={office.id} className={`${pkCard} p-5 sm:last:col-span-2`}>
+                <p className="text-[0.6rem] font-bold uppercase tracking-[0.14em] text-brand-700">{office.role}</p>
+                <h3 className="mt-1.5 flex items-center gap-2 text-[1rem] font-bold text-navy-700">
+                  <span className="grid h-6 w-6 place-items-center rounded-md bg-navy-700 text-white">
+                    <MapPinIcon className="h-3.5 w-3.5" aria-hidden="true" />
+                  </span>
+                  {office.area === office.city ? office.city : `${office.area}, ${office.city}`}
+                </h3>
+                <p className="mt-2 text-[0.82rem] leading-relaxed text-ink-600">
+                  {office.street ?? "Street address and map pin shared when your meeting is booked."}
+                </p>
+                <p className="mt-1.5 text-[0.76rem] leading-relaxed text-ink-500">{office.note}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </PkSection>
+
+      {/* 10 — built for selling in Pakistan */}
+      <PkSection id="pakistan" tone="muted">
+        <PkHeading
+          center
+          eyebrow="Built for Pakistan"
+          title="Built for selling in Pakistan"
+          lead="Payments, delivery and language, set up the way Pakistani customers buy."
+        />
+
+        <div className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {pkPakistan.map((item, index) => {
+            const Icon = pakistanIcons[index % pakistanIcons.length];
+            return (
+              <article key={item.title} className={`${pkCard} p-6`}>
+                <span className={pkIconTile}>
+                  <Icon className="h-4.5 w-4.5" aria-hidden="true" />
+                </span>
+                <h3 className="mt-4 text-[1rem] font-bold text-navy-700">{item.title}</h3>
+                <p className="mt-1.5 text-[0.86rem] leading-relaxed text-ink-600">{item.body}</p>
+              </article>
+            );
+          })}
+        </div>
+      </PkSection>
+
+      {/* 11 — how it works, on navy */}
+      <PkSection id="how-it-works" tone="navy">
+        <PkHeading
+          center
+          tone="dark"
+          eyebrow="How it works"
+          title="From first message to launch"
+          lead="Four steps, no mystery in between."
+        />
+
+        <ol className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {pkSteps.map((step, index) => (
+            <li key={step.title} className="rounded-2xl border border-white/12 bg-white/[0.06] p-5">
+              <span className="grid h-9 w-9 place-items-center rounded-xl bg-white/10 text-[0.8rem] font-bold text-brand-300">
+                {index + 1}
+              </span>
+              <h3 className="mt-3.5 text-[0.98rem] font-bold leading-snug text-white">{step.title}</h3>
+              <p className="mt-1.5 text-[0.85rem] leading-relaxed text-slate-300">{step.body}</p>
+            </li>
+          ))}
+        </ol>
+
+        <p className="mt-6 rounded-2xl border border-white/12 bg-white/[0.04] px-5 py-4 text-[0.85rem] leading-relaxed text-slate-200">
+          <span className="font-semibold text-white">On timelines:</span> {pkTimelineNote}
+        </p>
+      </PkSection>
+
+      {/* 12 — packages */}
       <PkSection id="pricing">
         <PkHeading
           center
           eyebrow="Pricing"
-          title="Two website packages, one honest quote"
-          lead={
-            pkPricing.businessWebsite == null
-              ? "Prices are in PKR. Nothing is hidden in a second invoice, and each package lists exactly what is included."
-              : "Prices are in PKR. Nothing is hidden in a second invoice, and neither package says “contact for price”."
-          }
+          title="Simple website packages"
+          lead="Clear prices, with a fixed written quote before any work starts."
         />
 
-        <div className="mt-8 grid gap-5 lg:grid-cols-2">
+        <div className="mt-9 grid gap-5 lg:grid-cols-2">
           {pkPackages.map((pkg) => (
             <PkPriceCard key={pkg.id} pkg={pkg} />
           ))}
         </div>
 
-        <p className="mt-6 rounded-2xl bg-[#F6F8FC] px-5 py-4 text-[0.9rem] leading-relaxed text-ink-700 ring-1 ring-slate-900/[0.04]">
-          {pkQuoteLine}
-        </p>
+        <p className="mt-6 text-center text-[0.9rem] leading-relaxed text-ink-600">{pkQuoteLine}</p>
 
-        {/* One price list for everything that is not a package — scannable
-            like a shop board, no paragraph per row. */}
-        <div className="mt-6 overflow-hidden rounded-3xl bg-white ring-1 ring-slate-900/[0.06] shadow-[0_22px_48px_-32px_rgba(5,39,103,0.45)]">
-          <p className="border-b border-slate-200 bg-slate-50 px-5 py-3 text-[0.68rem] font-bold uppercase tracking-[0.14em] text-ink-500">
+        {/* Everything that is not a package, as a scannable price list. */}
+        <div className={`${pkCard} mx-auto mt-8 max-w-3xl overflow-hidden`}>
+          <p className="border-b border-slate-200 bg-[#F6F8FC] px-5 py-3 text-[0.66rem] font-bold uppercase tracking-[0.14em] text-ink-500">
             How everything else is priced
           </p>
           <dl>
@@ -284,7 +558,7 @@ export function PkPageView() {
           </dl>
         </div>
 
-        <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-[0.82rem]">
+        <div className="mt-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[0.82rem]">
           <span className="font-semibold text-navy-700">Cost guides:</span>
           {costGuides.map((guide) => (
             <Link
@@ -299,331 +573,25 @@ export function PkPageView() {
         </div>
       </PkSection>
 
-      {/* 4 — what you get */}
-      <PkSection id="what-you-get" tone="muted">
-        <PkHeading
-          center
-          eyebrow="What you get"
-          title="Everything a small business site needs, in one list"
-          lead="No mystery line items. This is the build, the handover and the support that come with a website package."
-        />
-
-        <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {pkIncluded.map((item) => (
-            <li key={item.title} className="rounded-3xl bg-white p-6 ring-1 ring-slate-900/[0.06] shadow-[0_22px_48px_-32px_rgba(5,39,103,0.45)]">
-              <CheckIcon className="h-5 w-5 text-brand-600" aria-hidden="true" />
-              <h3 className="mt-2.5 text-[0.95rem] font-semibold text-navy-700">{item.title}</h3>
-              <p className="mt-1 text-[0.85rem] leading-relaxed text-ink-600">{item.body}</p>
-            </li>
-          ))}
-        </ul>
-
-        <p className="mt-5 text-[0.85rem] text-ink-600">
-          Want updates, backups and small fixes handled after launch?{" "}
-          <Link href="/services/website-maintenance" className="font-semibold text-brand-700 hover:text-brand-800">
-            Read about monthly care plans
-          </Link>
-          .
-        </p>
-      </PkSection>
-
-      {/* 5 — about */}
-      <PkSection id="about">
-        <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-start lg:gap-12">
-          <div>
-            <PkHeading eyebrow="About WordbitX in Pakistan" title="A software company, not a freelancer with a theme" />
-            <div className="mt-4 space-y-3.5">
-              {pkAbout.map((paragraph) => (
-                <p key={paragraph} className="text-[0.95rem] leading-relaxed text-ink-600">
-                  {paragraph}
-                </p>
-              ))}
-            </div>
-            <p className="mt-4 text-[0.85rem] leading-relaxed text-ink-600">
-              You own the code, the repository and the hosting. Weekly demos and a written scope are part of how the
-              company works, not a favour.
-            </p>
-            <div className="mt-5 flex flex-wrap gap-3">
-              <PkButton href="/about" variant="secondary">
-                About the company
-              </PkButton>
-              <PkButton href="/process" variant="secondary">
-                How we work
-              </PkButton>
-            </div>
-          </div>
-
-          <dl className="rounded-3xl bg-[#F6F8FC] p-6 ring-1 ring-slate-900/[0.04]">
-            {pkFacts.map((fact) => (
-              <div key={fact.label} className="border-b border-slate-200 py-2.5 first:pt-0 last:border-0 last:pb-0">
-                <dt className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-ink-500">{fact.label}</dt>
-                <dd className="mt-0.5 text-[0.9rem] font-medium leading-snug text-navy-700">{fact.value}</dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-      </PkSection>
-
-      {/* 6 — services (six, not sixty) */}
-      <PkSection id="services" tone="muted">
-        <PkHeading
-          eyebrow="Services"
-          title="Six things we do for Pakistani businesses"
-          lead="Each card shows how it is priced, so you can size the job before you call."
-        />
-
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {pkServices.map((service, index) => (
-            <article key={service.title} className="flex h-full flex-col rounded-3xl bg-white p-6 ring-1 ring-slate-900/[0.06] shadow-[0_22px_48px_-32px_rgba(5,39,103,0.45)]">
-              <span className="grid h-9 w-9 place-items-center rounded-xl bg-[#EDF2FB] text-[0.72rem] font-bold text-navy-700">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <h3 className="mt-3 text-[1.02rem] font-bold leading-snug text-navy-700">{service.title}</h3>
-              <p className="mt-1.5 text-[0.86rem] leading-relaxed text-ink-600">{service.body}</p>
-              <p className="mt-3 rounded-xl bg-[#F6F8FC] px-3 py-2 text-[0.82rem] font-semibold text-navy-700">
-                {service.price}
-                <span className="mt-0.5 block text-[0.72rem] font-normal leading-snug text-ink-500">{service.priceNote}</span>
-              </p>
-              <Link
-                href={service.href}
-                className="mt-3 inline-flex items-center gap-1 text-[0.8rem] font-semibold text-brand-700 hover:text-brand-800"
-              >
-                {service.hrefLabel}
-                <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
-              </Link>
-            </article>
-          ))}
-        </div>
-
-        <p className="mt-5 text-[0.85rem] text-ink-600">
-          Need something not on this list?{" "}
-          <Link href="/services" className="font-semibold text-brand-700 hover:text-brand-800">
-            See all services
-          </Link>
-          .
-        </p>
-      </PkSection>
-
-      {/* 7 — why us */}
-      <PkSection id="why-wordbitx">
-        <PkHeading eyebrow="Why WordbitX" title="Reasons a Pakistani business picks us" />
-        <ul className="mt-9 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {pkReasons.map((reason) => (
-            <li key={reason.title} className="rounded-3xl bg-[#F6F8FC] p-6 ring-1 ring-slate-900/[0.04]">
-              <span className="grid h-10 w-10 place-items-center rounded-xl bg-navy-700 text-white">
-                <CheckIcon className="h-4.5 w-4.5" aria-hidden="true" />
-              </span>
-              <h3 className="mt-3.5 text-[1rem] font-bold text-navy-700">{reason.title}</h3>
-              <p className="mt-1.5 text-[0.87rem] leading-relaxed text-ink-600">{reason.body}</p>
-            </li>
-          ))}
-        </ul>
-      </PkSection>
-
-      {/* 8 — proof: our own live product */}
-      <PkSection tone="navy">
-        <div className="grid gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:gap-12">
-          <div>
-            <p className="text-[0.7rem] font-bold uppercase tracking-[0.18em] text-brand-300">
-              Proof you can click
-            </p>
-            <h2 className="mt-2 text-[1.7rem] font-semibold leading-tight text-white sm:text-4xl">
-              We built a property portal for ourselves, and it is live
-            </h2>
-            <p className="mt-3 text-[0.95rem] leading-relaxed text-slate-200">
-              Properties Pak is WordbitX&apos;s own product — a real marketplace with real listings, not a slide in a
-              pitch deck. It is the fastest way to judge how we build.
-            </p>
-            <div className="mt-5 flex flex-wrap gap-2">
-              {["19 property types", "8 cities", "Society, phase and block inventory", "Map-led search"].map((fact) => (
-                <span
-                  key={fact}
-                  className="rounded-full border border-white/25 px-3 py-1 text-[0.72rem] font-medium text-white"
-                >
-                  {fact}
-                </span>
-              ))}
-            </div>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <PkButton href="https://propertiespak.com" variant="onNavy" external>
-                Open Properties Pak
-              </PkButton>
-              <PkButton href="/portfolio/properties-pak-property-portal" variant="ghost">
-                Read the project profile
-              </PkButton>
-            </div>
-          </div>
-
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
-            <div className="rounded-2xl bg-white/[0.07] p-4 ring-1 ring-white/15">
-              <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-brand-300">The problem</p>
-              <p className="mt-1.5 text-[0.86rem] leading-relaxed text-slate-100">
-                Pakistani property is sold by society, phase, block and plot file. A generic listings template cannot
-                hold that, so buyers cannot search it and dealers cannot manage it.
-              </p>
-            </div>
-            <div className="rounded-2xl bg-white/[0.07] p-4 ring-1 ring-white/15">
-              <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-brand-300">What we built</p>
-              <p className="mt-1.5 text-[0.86rem] leading-relaxed text-slate-100">
-                Configurable society inventory, map search, plot/file detail pages, a moderation queue before a listing
-                goes live, and dealer enquiries routed to the right agent.
-              </p>
-            </div>
-            <div className="rounded-2xl bg-white/[0.07] p-4 ring-1 ring-white/15">
-              <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-brand-300">Where it stands</p>
-              <p className="mt-1.5 text-[0.86rem] leading-relaxed text-slate-100">
-                Live and public. No borrowed client numbers and no invented performance scores appear on this page —
-                open the site and judge the software itself.
-              </p>
-            </div>
-          </div>
-        </div>
-      </PkSection>
-
-      {/* 9 — samples */}
-      <PkSection id="samples">
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <PkHeading
-            eyebrow="Recent work"
-            title="Six builds you can open right now"
-            lead="One live product and five demo builds WordbitX made. Every card and button opens the real, running site."
-          />
-          <Link
-            href="/portfolio"
-            className="inline-flex items-center gap-1 text-[0.85rem] font-semibold text-brand-700 hover:text-brand-800"
-          >
-            Full portfolio
-            <ArrowRight className="h-4 w-4" aria-hidden="true" />
-          </Link>
-        </div>
-
-        <div className="mt-8">
-          <PkSamples />
-        </div>
-
-        <p className="mt-5 max-w-4xl text-[0.8rem] leading-relaxed text-ink-500">{pkSampleDisclosure}</p>
-      </PkSection>
-
-      {/* 10 — industries */}
+      {/* 13 — industries */}
       <PkSection id="industries" tone="muted">
         <PkHeading
-          center
           eyebrow="Industries"
-          title="The businesses we normally build for"
-          lead="Industry pages open where we have written one. The rest are industries we take on, with a page still to come."
+          title="Industries we work with"
+          lead="Websites, online stores and software for businesses across Pakistan's key sectors."
         />
-        <ul className="mt-7 grid gap-x-6 gap-y-2.5 sm:grid-cols-2 lg:grid-cols-3">
-          {pkIndustries.map((industry) => (
-            <li key={industry.label} className="text-[0.9rem]">
-              {industry.href ? (
-                <Link
-                  href={industry.href}
-                  className="inline-flex items-center gap-1.5 font-medium text-brand-700 hover:text-brand-800"
-                >
-                  <span className="h-1.5 w-1.5 rounded-full bg-brand-500" aria-hidden="true" />
-                  {industry.label}
-                </Link>
-              ) : (
-                <span className="inline-flex items-center gap-1.5 text-ink-600">
-                  <span className="h-1.5 w-1.5 rounded-full bg-slate-300" aria-hidden="true" />
-                  {industry.label}
-                </span>
-              )}
-            </li>
-          ))}
-        </ul>
-      </PkSection>
-
-      {/* 11 — offices + cities */}
-      <PkSection id="offices">
-        <PkHeading
-          eyebrow="Where we are"
-          title="Two offices in Lahore, one in Islamabad"
-          lead="Meetings are by appointment. Everything else — scoping, design reviews, demos — runs over chat, calls and screen shares."
-        />
-
         <div className="mt-7">
-          <PkOffices />
+          <PkPillList items={pkIndustries} />
         </div>
-
-        <h3 className="mt-10 text-[0.68rem] font-bold uppercase tracking-[0.16em] text-ink-500">City pages</h3>
-
-        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {pkCities.linked.map((city) => (
-            <Link
-              key={city.href}
-              href={city.href}
-              className="group rounded-3xl bg-white p-6 ring-1 ring-slate-900/[0.06] shadow-[0_22px_48px_-32px_rgba(5,39,103,0.45)] transition-shadow hover:shadow-[0_28px_60px_-34px_rgba(5,39,103,0.55)]"
-            >
-              <p className="flex items-center justify-between text-base font-semibold text-navy-700">
-                {city.name}
-                <ArrowRight className="h-4 w-4 text-brand-600 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
-              </p>
-              <p className="mt-1 text-[0.82rem] text-ink-500">{city.note}</p>
-            </Link>
-          ))}
-        </div>
-
-        <p className="mt-5 text-[0.88rem] leading-relaxed text-ink-600">
-          Also working with businesses in {pkCities.plain.join(", ")} and beyond.{" "}
-          <Link href="/software-house" className="font-semibold text-brand-700 hover:text-brand-800">
-            See every city page
-          </Link>
-          .
-        </p>
-      </PkSection>
-
-      {/* 12 — selling in Pakistan */}
-      <PkSection id="pakistan" tone="muted">
-        <PkHeading
-          center
-          eyebrow="Built for selling in Pakistan"
-          title="The local details that decide whether a site works here"
-          lead="These are the parts foreign templates skip. They are scoped into the build, not added later at extra cost."
-        />
-
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {pkPakistan.map((item) => (
-            <div key={item.title} className="rounded-3xl bg-white p-6 ring-1 ring-slate-900/[0.06] shadow-[0_22px_48px_-32px_rgba(5,39,103,0.45)]">
-              <h3 className="text-[0.95rem] font-semibold text-navy-700">{item.title}</h3>
-              <p className="mt-1.5 text-[0.85rem] leading-relaxed text-ink-600">{item.body}</p>
-            </div>
-          ))}
-        </div>
-      </PkSection>
-
-      {/* 13 — process */}
-      <PkSection id="how-it-works">
-        <PkHeading
-          eyebrow="How it works"
-          title="From first message to launch, in four steps"
-          lead="No discovery invoice, no mystery phase. You always know what happens next and what it costs."
-        />
-
-        <ol className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {pkSteps.map((step, index) => (
-            <li key={step.title} className="relative rounded-3xl bg-white p-6 ring-1 ring-slate-900/[0.06] shadow-[0_22px_48px_-32px_rgba(5,39,103,0.45)]">
-              <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-navy-700 text-[0.8rem] font-bold text-white">
-                {index + 1}
-              </span>
-              <h3 className="mt-3 text-[0.95rem] font-semibold text-navy-700">{step.title}</h3>
-              <p className="mt-1.5 text-[0.85rem] leading-relaxed text-ink-600">{step.body}</p>
-            </li>
-          ))}
-        </ol>
-
-        <p className="mt-6 max-w-3xl rounded-2xl bg-brand-50 px-5 py-4 text-[0.88rem] leading-relaxed text-ink-700">
-          <span className="font-semibold text-navy-700">On timelines:</span> {pkTimelineNote}
-        </p>
       </PkSection>
 
       {/* 14 — FAQs: title on the left, the questions as cards on the right */}
-      <PkSection id="faqs" tone="muted">
+      <PkSection id="faqs">
         <div className="grid gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:gap-14">
           <div className="lg:sticky lg:top-28 lg:self-start">
             <PkHeading
-              eyebrow="Questions"
-              title="Answers to what Pakistani buyers actually ask"
+              eyebrow="FAQs"
+              title="Website questions"
               lead="Prices, ownership, timelines and the local details. If a question is missing, ask it on the phone."
             />
             <p className="mt-4 text-[0.85rem] text-ink-600">
@@ -645,12 +613,12 @@ export function PkPageView() {
             Get started
           </p>
           <h2 className="mx-auto mt-4 max-w-3xl text-[2rem] font-bold leading-[1.1] tracking-[-0.02em] sm:text-[2.7rem]">
-            Ready for a website your customers can actually find?
+            Ready for your new website?
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-[0.98rem] leading-relaxed text-slate-200 sm:text-[1.05rem]">
             {pkPricing.businessWebsite == null
               ? "Tell us what the business does and what the site must achieve. You get a fixed quote in PKR with scope and dates before any work starts."
-              : `Websites from ${pkr(pkPricing.businessWebsite)}, with domain and hosting in the second package. Fixed in writing before any work starts.`}
+              : `Websites from ${pkr(pkPricing.businessWebsite)}, or with domain and hosting in the second package. Fixed in writing before any work starts.`}
           </p>
           <div className="mt-7 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
             <a
@@ -690,6 +658,23 @@ export function PkPageView() {
               <span className="block text-[0.74rem] text-slate-300">Messages answered from this phone</span>
             </li>
           </ul>
+
+          <div className="mt-10 border-t border-white/10 pt-6">
+            <p className="text-[0.62rem] font-bold uppercase tracking-[0.18em] text-slate-400">Also serving</p>
+            <ul className="mt-3 flex flex-wrap justify-center gap-2">
+              {pkCities.linked.map((city) => (
+                <li key={city.href}>
+                  <Link
+                    href={city.href}
+                    className="inline-flex items-center gap-1.5 rounded-full bg-white/[0.08] px-3.5 py-1.5 text-[0.8rem] font-medium text-slate-200 ring-1 ring-white/12 transition-colors hover:bg-white/15 hover:text-white"
+                  >
+                    <MapPinIcon className="h-3.5 w-3.5 text-brand-300" aria-hidden="true" />
+                    {city.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
 

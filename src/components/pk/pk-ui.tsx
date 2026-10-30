@@ -37,7 +37,7 @@ import {
   usdFrom,
 } from "@/lib/pk";
 
-function MapPinIcon({ className = "" }: { className?: string }) {
+export function MapPinIcon({ className = "" }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
       <path d="M12 21s7-5.1 7-11a7 7 0 1 0-14 0c0 5.9 7 11 7 11Z" />
@@ -195,29 +195,33 @@ export function PkButton({
  * property-board: four even cells, one icon each, a rule between them. Same
  * four facts as before — nothing added that the owner has not confirmed.
  */
-export function PkTrustStrip() {
-  const icons = [ClockIcon, ShieldIcon, CheckIcon, PhoneIcon];
+const trustIcons = [ClockIcon, GlobeIcon, ShieldIcon, CheckIcon];
 
+export function PkTrustStrip() {
   return (
-    <div className="border-y border-slate-200 bg-white">
+    <div className="border-b border-slate-200 bg-white">
       <div className="container-page grid divide-y divide-slate-200 sm:grid-cols-2 sm:divide-y-0 lg:grid-cols-4">
         {pkTrust.map((item, index) => {
-          const Icon = icons[index % icons.length];
+          const Icon = trustIcons[index % trustIcons.length];
           return (
-            <div
-              key={item.title}
-              className={`flex items-start gap-3 py-5 sm:px-5 sm:py-6 ${
-                index > 0 ? "sm:border-l sm:border-slate-200" : ""
-              } ${index === 2 ? "sm:border-l-0 lg:border-l" : ""}`}
-            >
-              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-navy-700 text-white shadow-[0_10px_20px_-12px_rgba(5,39,103,0.8)]">
-                <Icon className="h-4.5 w-4.5" aria-hidden="true" />
+          <div
+            key={item.title}
+            className={`flex items-center gap-3 py-5 sm:px-6 sm:py-6 ${
+              index > 0 ? "sm:border-l sm:border-slate-200" : ""
+            } ${index === 2 ? "sm:border-l-0 lg:border-l" : ""}`}
+          >
+            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-[#EDF2FB] text-navy-700">
+              <Icon className="h-4 w-4" aria-hidden="true" />
+            </span>
+            <p className="leading-snug">
+              <span className="block text-[1.05rem] font-bold leading-tight tracking-[-0.01em] text-navy-700">
+                {item.title}
               </span>
-              <p className="leading-snug">
-                <span className="block text-[1.02rem] font-bold leading-tight text-navy-700">{item.title}</span>
-                <span className="mt-1 block text-[0.8rem] leading-snug text-ink-500">{item.body}</span>
-              </p>
-            </div>
+              <span className="mt-0.5 block text-[0.72rem] font-medium uppercase tracking-[0.1em] text-ink-500">
+                {item.body}
+              </span>
+            </p>
+          </div>
           );
         })}
       </div>
@@ -698,6 +702,123 @@ export function PkPricesBanner({ text }: { text?: string }) {
           <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
         </Link>
       </div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Reference blocks: stat bar, info cards, pill list, action row        */
+/* ------------------------------------------------------------------ */
+
+/**
+ * The four-up stat bar that sits under a centered "at a glance" heading.
+ * Flat navy either way — the reference uses a gradient here, our brand rules
+ * say one flat colour, so this is navy-700 with a 1px white/10 rule between
+ * cells. Values are the company's own checkable numbers.
+ */
+export function PkStatBar({ stats }: { stats: { value: string; label: string }[] }) {
+  return (
+    <div className="overflow-hidden rounded-3xl bg-navy-700 shadow-[0_30px_60px_-38px_rgba(5,39,103,0.85)]">
+      <dl className="grid divide-y divide-white/10 sm:grid-cols-2 sm:divide-y-0 lg:grid-cols-4">
+        {stats.map((stat, index) => (
+          <div
+            key={stat.label}
+            className={`px-6 py-6 text-center ${index > 0 ? "sm:border-l sm:border-white/10" : ""} ${
+              index === 2 ? "sm:border-l-0 lg:border-l" : ""
+            }`}
+          >
+            <dd className="text-[1.7rem] font-bold leading-none tracking-[-0.02em] tabular-nums text-white">
+              {stat.value}
+            </dd>
+            <dt className="mt-2 text-[0.62rem] font-bold uppercase tracking-[0.16em] text-brand-200">{stat.label}</dt>
+          </div>
+        ))}
+      </dl>
+    </div>
+  );
+}
+
+/** Three white info cards under the stat bar: office, languages, registration. */
+export function PkInfoCards({
+  items,
+}: {
+  items: { title: string; body: ReactNode; link?: { label: string; href: string } }[];
+}) {
+  return (
+    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {items.map((item) => (
+        <article key={item.title} className={`${pkCard} p-6`}>
+          <div className="flex items-center gap-3">
+            <span className={pkIconTile}>
+              <CheckIcon className="h-4.5 w-4.5" aria-hidden="true" />
+            </span>
+            <h3 className="text-[1rem] font-bold text-navy-700">{item.title}</h3>
+          </div>
+          <p className="mt-3 text-[0.86rem] leading-relaxed text-ink-600">{item.body}</p>
+          {item.link ? (
+            <Link
+              href={item.link.href}
+              className="mt-3 inline-flex items-center gap-1 text-[0.82rem] font-semibold text-brand-700 hover:text-brand-800"
+            >
+              {item.link.label}
+              <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+            </Link>
+          ) : null}
+        </article>
+      ))}
+    </div>
+  );
+}
+
+/** Rounded industry chips — the reference's "industries we work with" block. */
+export function PkPillList({ items }: { items: { label: string; href?: string }[] }) {
+  return (
+    <div className={`${pkCard} px-5 py-6 sm:px-8 sm:py-8`}>
+      <ul className="flex flex-wrap justify-center gap-2.5">
+        {items.map((item) => {
+          const chip =
+            "inline-flex items-center rounded-full bg-[#F3F6FB] px-4 py-2 text-[0.85rem] font-medium text-navy-700 ring-1 ring-slate-900/[0.04]";
+          return (
+            <li key={item.label}>
+              {item.href ? (
+                <Link href={item.href} className={`${chip} transition-colors hover:bg-[#E7EEF9]`}>
+                  {item.label}
+                </Link>
+              ) : (
+                <span className={chip}>{item.label}</span>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}
+
+/** The "Contact us · See packages" pair that closes most sections. */
+export function PkActions({ tone = "light" }: { tone?: "light" | "dark" | "navy" }) {
+  const secondary =
+    tone === "light"
+      ? "border-slate-300 bg-white text-navy-700 hover:border-brand-600 hover:text-brand-700"
+      : "border-white/40 text-white hover:bg-white/10";
+
+  return (
+    <div className="mt-8 flex flex-col items-stretch justify-center gap-2.5 sm:flex-row sm:items-center">
+      <a
+        href={pkWhatsAppHref}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-500 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-600"
+      >
+        <WhatsAppIcon className="h-4 w-4" aria-hidden="true" />
+        Contact us
+      </a>
+      <Link
+        href="#pricing"
+        className={`inline-flex items-center justify-center gap-2 rounded-xl border px-5 py-3 text-sm font-semibold transition-colors ${secondary}`}
+      >
+        See packages
+      </Link>
     </div>
   );
 }
