@@ -267,9 +267,9 @@ export default function HomePage() {
                 <span className="mb-4 block text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-arc-300 sm:text-xs">
                   One platform. Endless possibilities.
                 </span>
-                Software Development
+                Websites, Apps &
                 <br />
-                <span className="text-gradient-arc">Company in Pakistan.</span>
+                <span className="text-gradient-arc">Software That Wins Clients.</span>
               </h1>
               {/* Sized to break 3 lines on phones and almost exactly 2 on
                   desktop (one sentence per line at lg: max-w-4xl + text-xl).
