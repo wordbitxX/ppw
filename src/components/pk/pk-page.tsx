@@ -27,6 +27,7 @@ import {
   pkMetaDescription,
   pkPackages,
   pkPakistan,
+  pkPricePaths,
   pkPhone,
   pkPriceRange,
   pkQuoteLine,
@@ -209,7 +210,11 @@ export function PkPageView() {
             </div>
 
             <p className="mt-3 text-[0.76rem] text-slate-300">
-              Free call, no obligation. Quote in PKR, in writing, before any work starts.
+              Free call, no obligation.{" "}
+              <a href="#pricing" className="font-semibold text-brand-300 underline underline-offset-2 hover:text-white">
+                See both packages and what they include
+              </a>{" "}
+              — no call needed to read the prices.
             </p>
           </div>
 
@@ -271,6 +276,26 @@ export function PkPageView() {
         <p className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4 text-[0.9rem] leading-relaxed text-ink-700">
           {pkQuoteLine}
         </p>
+
+        {/* How every number on this page is reached — the BrandBees “estimate
+            before you call” idea, without inventing a rupee figure. */}
+        <div className="mt-6 grid gap-4 md:grid-cols-3">
+          {pkPricePaths.map((path) => (
+            <div key={path.title} className="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-5">
+              <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-brand-700">How it is priced</p>
+              <h3 className="mt-1.5 text-[0.95rem] font-semibold leading-snug text-navy-700">{path.title}</h3>
+              <p className="mt-1 text-[0.88rem] font-semibold text-navy-700">{path.price}</p>
+              <p className="mt-1.5 flex-1 text-[0.83rem] leading-relaxed text-ink-600">{path.body}</p>
+              <Link
+                href={path.href}
+                className="mt-3 inline-flex items-center gap-1 text-[0.8rem] font-semibold text-brand-700 hover:text-brand-800"
+              >
+                {path.hrefLabel}
+                <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+              </Link>
+            </div>
+          ))}
+        </div>
 
         <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-[0.82rem]">
           <span className="font-semibold text-navy-700">Cost guides:</span>
@@ -356,7 +381,7 @@ export function PkPageView() {
         <PkHeading
           eyebrow="Services"
           title="Six things we do for Pakistani businesses"
-          lead="The full catalogue lives on the services page. These are the six that most Pakistan projects start with."
+          lead="The six that most Pakistan projects start with — each card shows how it is priced, so you can size the job before you call."
         />
 
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -366,7 +391,11 @@ export function PkPageView() {
                 {String(index + 1).padStart(2, "0")}
               </span>
               <h3 className="mt-1.5 text-base font-semibold leading-snug text-navy-700">{service.title}</h3>
-              <p className="mt-1.5 flex-1 text-[0.85rem] leading-relaxed text-ink-600">{service.body}</p>
+              <p className="mt-1.5 text-[0.85rem] leading-relaxed text-ink-600">{service.body}</p>
+              <p className="mt-2.5 rounded-lg bg-slate-50 px-2.5 py-1.5 text-[0.8rem] font-semibold text-navy-700">
+                {service.price}
+                <span className="mt-0.5 block text-[0.72rem] font-normal leading-snug text-ink-500">{service.priceNote}</span>
+              </p>
               <Link
                 href={service.href}
                 className="mt-3 inline-flex items-center gap-1 text-[0.8rem] font-semibold text-brand-700 hover:text-brand-800"

@@ -19,6 +19,16 @@ export default function SamplePage() {
             Twenty directions for the home hero, same copy on each. Move the mouse (or touch) on the interactive ones. Tell us the
             numbers you like — we can mix, for example 6 + 15.
           </p>
+          <p className="mt-4">
+            <a
+              href="/sample/homepages"
+              className="inline-flex items-center gap-2 rounded-xl border border-brand-400/40 bg-brand-500/10 px-4 py-2.5 text-sm font-semibold text-brand-200 transition-colors hover:border-brand-300/80 hover:text-white"
+            >
+              New: six full home-page concepts in the navy palette
+              <span aria-hidden="true">→</span>
+            </a>
+          </p>
+
           <nav aria-label="Jump to concept" className="mt-6 flex flex-wrap gap-2">
             {heroConcepts.map((c) => (
               <a

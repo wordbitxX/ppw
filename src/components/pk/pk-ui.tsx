@@ -537,7 +537,17 @@ export function PkDetailsStrip() {
 /* ------------------------------------------------------------------ */
 
 export function PkOwnerBanner() {
+  /**
+   * Off by default — including in the dev preview, where it was burying the
+   * hero under an internal to-do list. Turn it on only when you want the
+   * checklist:
+   *
+   *   NEXT_PUBLIC_PK_CHECKLIST=1 npm run dev
+   *
+   * Never renders in a production build, whatever the variable says.
+   */
   if (process.env.NODE_ENV === "production") return null;
+  if (process.env.NEXT_PUBLIC_PK_CHECKLIST !== "1") return null;
 
   return (
     <div className="border-b border-amber-300 bg-amber-50">

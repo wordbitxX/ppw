@@ -384,7 +384,11 @@ export default function HomePage() {
             section was removed instead. Same honest data: every value counted
             from the site's own records (services, industries, markets). */}
         <div className="container-page mt-10 sm:mt-12">
-          <div className="grid grid-cols-2 gap-y-8 rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-8 text-center shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)] sm:grid-cols-4 sm:gap-y-0 sm:divide-x sm:divide-white/10 sm:py-9">
+          {/* Navy panel (owner, 30 Oct: "navy blue is very premium, give the
+              home page a touch of it too"). The brand navy sits on the
+              cinematic midnight hero as one solid, flat card — same four
+              honest counts as before, now with the Pakistan offer beside them. */}
+          <div className="grid grid-cols-2 gap-y-8 rounded-2xl border border-white/15 bg-navy-700 px-6 py-8 text-center shadow-[0_30px_70px_-45px_rgba(5,39,103,0.95)] sm:grid-cols-4 sm:gap-y-0 sm:divide-x sm:divide-white/15 sm:py-9">
             {[
               { value: "2021", label: "Established · Lahore" },
               { value: String(services.length), label: "Services & solutions" },
@@ -392,14 +396,24 @@ export default function HomePage() {
               { value: String(markets.length), label: "Countries served" },
             ].map((stat) => (
               <div key={stat.label} className="px-2">
-                <p className="text-gradient-arc text-4xl font-semibold tracking-tight sm:text-[2.75rem] sm:leading-none">{stat.value}</p>
-                <p className="mt-3 text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-slate-400">{stat.label}</p>
+                <p className="text-4xl font-semibold tracking-tight text-white sm:text-[2.75rem] sm:leading-none">{stat.value}</p>
+                <p className="mt-3 text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-brand-200">{stat.label}</p>
               </div>
             ))}
           </div>
-          <p className="mx-auto mt-4 max-w-2xl text-center text-xs leading-relaxed text-slate-500">
-            Numbers we can show — every service, industry and market links to its own page on this site.
-          </p>
+          <div className="mt-4 flex flex-col items-center justify-between gap-3 sm:flex-row">
+            <p className="max-w-2xl text-center text-xs leading-relaxed text-slate-400 sm:text-left">
+              Numbers we can show — every service, industry and market links to its own page on this site.
+            </p>
+            <Link
+              href="/pk"
+              className="inline-flex shrink-0 items-center gap-2 rounded-full border border-brand-400/40 bg-brand-500/10 px-3.5 py-1.5 text-[0.75rem] font-semibold text-brand-200 transition-colors hover:border-brand-300/80 hover:text-white"
+            >
+              <FlagIcon slug="pakistan" className="h-3 w-4" />
+              Pakistan prices (PKR)
+              <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+          </div>
         </div>
 
         {/* Tech marquee sits flush at the hero's base (no bottom padding on

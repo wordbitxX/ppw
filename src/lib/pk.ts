@@ -198,42 +198,110 @@ export const pkAbout = [
   "Most work runs over WhatsApp, calls and screen sharing. If you are in Lahore, an in-person scoping meeting is a short drive rather than a video call.",
 ];
 
-export const pkServices = [
+/**
+ * The six services on /pk, each with its price position.
+ *
+ * BrandBees' /pk lists services and prices together, so a visitor can price the
+ * job without booking a call. Same idea here: every card carries either a real
+ * "from" price (once the owner supplies it) or an honest statement of how it is
+ * quoted — never a blank "contact us" that hides the number.
+ */
+const websiteFrom = (): string =>
+  pkPricing.businessWebsite == null ? "Fixed quote in writing" : `from ${pkr(pkPricing.businessWebsite)}`;
+
+const allInFrom = (): string =>
+  pkPricing.allInOne == null ? "Fixed quote in writing" : `from ${pkr(pkPricing.allInOne)}`;
+
+const careFrom = (): string =>
+  pkPricing.maintenanceMonthly == null
+    ? "Month to month, quoted in writing"
+    : `from ${pkr(pkPricing.maintenanceMonthly)}/month`;
+
+export const pkServices: {
+  title: string;
+  body: string;
+  price: string;
+  priceNote: string;
+  href: string;
+  hrefLabel: string;
+}[] = [
   {
     title: "Website design",
     body: "Business websites, landing pages and redesigns. Mobile-first, fast on Pakistani mobile networks, with an admin you can use.",
+    price: websiteFrom(),
+    priceNote: "One-off build · domain and hosting optional",
     href: "/services/web-development",
     hrefLabel: "Website development",
   },
   {
-    title: "Custom website and web apps",
-    body: "Portals, dashboards and marketplaces built around your actual workflow instead of squeezed into a theme.",
-    href: "/services/custom-web-application-development",
-    hrefLabel: "Custom web applications",
-  },
-  {
     title: "E-commerce, Shopify and WooCommerce",
-    body: "Stores with cash on delivery, courier handoff, documented payment options and an order screen your team can run.",
+    body: "Stores with cash on delivery, courier handoff, payment options your provider supports, and an order screen your team can run.",
+    price: "Quoted per store",
+    priceNote: "Fixed written quote after a free call — catalogue and payment scoped first",
     href: "/services/ecommerce-shopify",
     hrefLabel: "Shopify development",
   },
   {
+    title: "Custom website and web apps",
+    body: "Portals, dashboards and marketplaces built around your actual workflow instead of squeezed into a theme.",
+    price: "Quoted per module",
+    priceNote: "Fixed written quote after a free call — phased if the scope is large",
+    href: "/services/custom-web-application-development",
+    hrefLabel: "Custom web applications",
+  },
+  {
     title: "Mobile apps",
     body: "Android and iOS apps in Flutter or native, with the admin panel and API behind them, published on your developer accounts.",
+    price: "Quoted per release",
+    priceNote: "First release scoped separately from later phases",
     href: "/services/mobile-app-development",
     hrefLabel: "Mobile app development",
   },
   {
     title: "POS and business software",
     body: "Retail and pharmacy POS, inventory, school and clinic systems. Offline-capable billing where the counter needs it.",
+    price: "Quoted per module",
+    priceNote: "Counter, stock and reporting priced on the branches you actually run",
     href: "/services/pos-software",
     hrefLabel: "POS software",
   },
   {
     title: "SEO and maintenance",
     body: "Local SEO on a monthly allowance, plus updates, backups, security and small fixes on a care plan.",
+    price: careFrom(),
+    priceNote: "No annual lock-in · short monthly report",
     href: "/services/seo-services",
     hrefLabel: "SEO services",
+  },
+];
+
+/** Three honest rows that explain how any number on this page is reached. */
+export const pkPricePaths = [
+  {
+    title: "Website packages",
+    // When neither number is supplied both helpers return the same sentence —
+    // print it once rather than twice.
+    price:
+      pkPricing.businessWebsite == null && pkPricing.allInOne == null
+        ? "Fixed quote in writing, per package"
+        : `${websiteFrom()} · ${allInFrom()}`,
+    body: "One-off price per package, both listed above with exactly what is included. No hidden second invoice.",
+    href: "#pricing",
+    hrefLabel: "See both packages",
+  },
+  {
+    title: "Stores, apps, POS and custom software",
+    price: "Fixed written quote after a free call",
+    body: "Scope changes the price far more than a page count does, so it is quoted against what the build has to do — in writing, before work starts.",
+    href: "/contact",
+    hrefLabel: "Ask for a quote",
+  },
+  {
+    title: "SEO and care plans",
+    price: careFrom(),
+    body: "A written monthly allowance, month to month, with a short report of what ran and what is next. Stop whenever it stops paying.",
+    href: "/services/website-maintenance",
+    hrefLabel: "See what a care plan covers",
   },
 ];
 
