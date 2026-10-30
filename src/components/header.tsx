@@ -392,7 +392,8 @@ export function Header() {
             className="min-w-0 shrink text-white"
             aria-label={`${siteConfig.name} home`}
           >
-            <Logo />
+            {/* Nav carries nine items — the legal tagline lives in the footer. */}
+            <Logo secondaryTagline="" />
             <span className="sr-only">{siteConfig.name} home</span>
           </Link>
 

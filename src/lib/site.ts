@@ -132,6 +132,8 @@ export const mainNav = [
   { label: "Products", href: "/products" },
   { label: "Case Studies", href: "/portfolio" },
   { label: "Pricing", href: "/pricing" },
+  // The Pakistan landing page — the price-led route for the local audience.
+  { label: "Pakistan", href: "/pk" },
   { label: "Blog", href: "/blog" },
   { label: "Contact Us", href: "/contact" },
 ] as const;
