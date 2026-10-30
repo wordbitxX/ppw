@@ -7,9 +7,18 @@ import type { CSSProperties } from "react";
 import { Logo, MenuIcon, CloseIcon, ChevronDown, ArrowRight, WhatsAppIcon } from "@/components/icons";
 import { MegaServiceIcon } from "@/components/mega-service-icon";
 import { b2bServiceSlugs, megaMenuGroups, services } from "@/lib/services";
+import { fixedPackages } from "@/lib/price-ladder";
 import { mainNav, siteConfig, whatsappLink } from "@/lib/site";
 
-type MenuKey = "services" | "industries" | "products" | "portfolio";
+type MenuKey = "services" | "industries" | "products" | "portfolio" | "pricing";
+
+/** The three price surfaces. The two regional pages had no navigation entry
+ *  before the 30 Oct audit — one was in the bar, the other was footer-only. */
+const pricingLinks: { href: string; title: string; sub: string }[] = [
+  { href: "/pricing", title: "How we quote", sub: "Custom builds, retainers, discovery" },
+  { href: "/pk", title: `Pakistan prices — ${fixedPackages.pk.starter}`, sub: "Website packages in PKR" },
+  { href: "/usa", title: `USA prices — ${fixedPackages.us.starter}`, sub: "Website packages in USD" },
+];
 
 /** Industries popup — name/slug pairs copied from src/lib/industries.ts so the
     header bundle does not import the full industry content files. */
@@ -669,6 +678,49 @@ export function Header() {
                 );
               }
 
+              if (item.label === "Pricing") {
+                return (
+                  <NavDrop
+                    key={item.href}
+                    menuKey="pricing"
+                    href={item.href}
+                    label={item.label}
+                    isOpen={openMenu === "pricing"}
+                    activeRoute={
+                      isActive(item.href) || pathname === "/pk" || pathname === "/usa"
+                    }
+                    onOpenMenu={open}
+                    onScheduleClose={scheduleClose}
+                    onLinkClick={backToTopIfCurrent(item.href)}
+                    panelClassName="absolute left-1/2 top-full z-40 w-[min(23rem,94vw)] -translate-x-1/2 pt-2"
+                  >
+                    <div className="nav-pop overflow-hidden rounded-2xl bg-navy-950 shadow-[0_32px_84px_-24px_rgba(0,0,0,0.9)] ring-1 ring-white/10 backdrop-blur-xl">
+                      <p className="border-b border-white/10 px-4 py-2.5 text-[0.66rem] font-bold uppercase tracking-[0.18em] text-slate-500">
+                        Prices by market
+                      </p>
+                      <ul className="p-2">
+                        {pricingLinks.map((link) => (
+                          <li key={link.href}>
+                            <Link
+                              href={link.href}
+                              className="group flex items-center justify-between gap-2 rounded-lg px-2.5 py-2 transition-colors duration-150 hover:bg-white/[0.05]"
+                            >
+                              <span className="min-w-0">
+                                <span className="block truncate text-[0.88rem] font-medium text-slate-200 transition-colors duration-150 group-hover:text-white">
+                                  {link.title}
+                                </span>
+                                <span className="block truncate text-[0.7rem] text-slate-500">{link.sub}</span>
+                              </span>
+                              <ArrowRight className="h-3.5 w-3.5 shrink-0 -translate-x-1 text-brand-400 opacity-0 transition-all duration-150 group-hover:translate-x-0 group-hover:opacity-100" />
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </NavDrop>
+                );
+              }
+
               if (item.href === "/portfolio") {
                 return (
                   <NavDrop
@@ -989,6 +1041,41 @@ export function Header() {
                       className="group mt-1 flex items-center gap-1.5 rounded-lg px-2.5 py-2 text-sm font-semibold text-brand-300 transition-colors hover:bg-white/[0.05]"
                     >
                       All products
+                      <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
+                    </Link>
+                  </MobileDrop>
+                );
+              }
+
+              if (item.label === "Pricing") {
+                return (
+                  <MobileDrop
+                    key={item.href}
+                    label="Pricing"
+                    expanded={mobileDrop === "pricing"}
+                    onToggle={() => setMobileDrop(mobileDrop === "pricing" ? null : "pricing")}
+                  >
+                    <p className="px-2.5 pb-1.5 text-[0.64rem] font-bold uppercase tracking-[0.18em] text-slate-500">
+                      Prices by market
+                    </p>
+                    <ul className="space-y-0.5">
+                      {pricingLinks.map((link) => (
+                        <li key={link.href}>
+                          <MobileNavRow
+                            href={link.href}
+                            title={link.title}
+                            sub={link.sub}
+                            onNavigate={() => setMobileOpen(false)}
+                          />
+                        </li>
+                      ))}
+                    </ul>
+                    <Link
+                      href="/pricing"
+                      onClick={() => setMobileOpen(false)}
+                      className="group mt-1 flex items-center gap-1.5 rounded-lg px-2.5 py-2 text-sm font-semibold text-brand-300 transition-colors hover:bg-white/[0.05]"
+                    >
+                      All pricing
                       <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
                     </Link>
                   </MobileDrop>

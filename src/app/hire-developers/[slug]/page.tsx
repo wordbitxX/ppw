@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PageHero, Section, SectionHeading, ButtonLink, Card, CheckList } from "@/components/ui";
 import { CtaBand } from "@/components/cta-band";
+import { FixedPriceStrip } from "@/components/fixed-price-strip";
 import { FaqAccordion } from "@/components/accordion";
 import { FaqSchema, ServiceSchema } from "@/components/jsonld";
 import { ServiceCard } from "@/components/cards";
@@ -88,6 +89,11 @@ export default async function HireDeveloperPage({ params }: PageProps) {
             ))}
           </div>
         </div>
+      </Section>
+
+      {/* Not everyone on this page wants a hire — some want a website built. */}
+      <Section padding="compact">
+        <FixedPriceStrip market={page.kind === "market" ? "us" : "both"} />
       </Section>
 
       {/* ROLES */}

@@ -6,17 +6,20 @@ import { FaqAccordion } from "@/components/accordion";
 import { FaqSchema } from "@/components/jsonld";
 import { ArrowRight } from "@/components/icons";
 import { pricingBands, pricingFaqs, pricingModels, retainerExcludes, retainerIncludes } from "@/lib/pricing";
+import { fixedPackages, packagePages, priceTiers } from "@/lib/price-ladder";
 import { contactHref } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Software Development Cost | How Quotes Work",
   description:
-    "How WordbitX prices websites, apps, Shopify, POS and custom software: written milestones after a short brief, quoted on scope — no fake sticker price.",
+    "How WordbitX prices work: fixed website packages in PKR (from Rs. 20,000) and USD (from $499), plus custom builds quoted on a written scope.",
   alternates: { canonical: "/pricing" },
   keywords: [
     "software development cost",
     "software development cost Pakistan",
     "website development cost",
+    "website price in Pakistan",
+    "website cost in USA",
     "mobile app development cost",
     "hire software developers Pakistan",
     "hire a software team",
@@ -65,20 +68,70 @@ export default function PricingPage() {
           ))}
         </div>
         {/* Fixed-price route for the small-business intent. The rest of this
-            page explains why custom software is quoted; a Pakistani shop owner
-            who just wants a five-page site needs a number, so it lives on /pk. */}
-        <div className="mt-8 flex flex-col gap-4 rounded-2xl border border-brand-200 bg-brand-50/60 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
-          <div className="max-w-2xl">
-            <h3 className="text-base font-semibold text-ink-900">Pakistan website packages from Rs. 20,000</h3>
-            <p className="mt-1.5 text-sm leading-relaxed text-ink-500">
-              A fixed-price business website, or Rs. 25,000 with domain and one year of hosting. Included features,
-              renewal pricing and the written-quote process are all on one page.
+            page explains why custom software is quoted; a shop owner who just
+            wants a five-page site needs a number, so each market has its own
+            package page — PKR for Pakistan, USD for the US. */}
+        <div className="mt-8 grid gap-4 sm:grid-cols-2">
+          <div className="flex flex-col rounded-2xl border border-brand-200 bg-brand-50/60 p-5 sm:p-6">
+            <p className="text-[0.62rem] font-bold uppercase tracking-[0.16em] text-brand-700">Pakistan · PKR</p>
+            <h3 className="mt-2 text-base font-semibold text-ink-900">
+              Website packages from {fixedPackages.pk.starter}
+            </h3>
+            <p className="mt-1.5 flex-1 text-sm leading-relaxed text-ink-500">
+              Business website {fixedPackages.pk.starter}, or {fixedPackages.pk.allInOne} with domain and one year of
+              hosting. {fixedPackages.pk.supportMonths} months support included.
             </p>
+            <div className="mt-4">
+              <ButtonLink href={packagePages.pk.href} className="shrink-0">
+                See Pakistan prices
+              </ButtonLink>
+            </div>
           </div>
-          <ButtonLink href="/pk" className="shrink-0">
-            See the packages
-          </ButtonLink>
+          <div className="flex flex-col rounded-2xl border border-navy-500/30 bg-navy-950 p-5 text-white sm:p-6">
+            <p className="text-[0.62rem] font-bold uppercase tracking-[0.16em] text-brand-300">USA &amp; international · USD</p>
+            <h3 className="mt-2 text-base font-semibold text-white">Website packages from {fixedPackages.us.starter}</h3>
+            <p className="mt-1.5 flex-1 text-sm leading-relaxed text-slate-300">
+              Starter {fixedPackages.us.starter}, business {fixedPackages.us.business}, online store{" "}
+              {fixedPackages.us.store}. Invoiced in USD, calls booked in ET/PT.
+            </p>
+            <div className="mt-4">
+              <ButtonLink href={packagePages.us.href} className="shrink-0">
+                See USA prices
+              </ButtonLink>
+            </div>
+          </div>
         </div>
+
+        {/* One ladder, so no page can quote a different range for the same tier. */}
+        <div className="mt-6 overflow-hidden rounded-2xl border border-slate-200 bg-white">
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[34rem] text-left text-sm">
+              <caption className="sr-only">Website and software price bands in PKR and USD</caption>
+              <thead className="bg-slate-50 text-[0.62rem] uppercase tracking-[0.14em] text-ink-500">
+                <tr>
+                  <th scope="col" className="px-4 py-3 font-bold">What</th>
+                  <th scope="col" className="px-4 py-3 font-bold">Typical scope</th>
+                  <th scope="col" className="px-4 py-3 font-bold">PKR</th>
+                  <th scope="col" className="px-4 py-3 font-bold">USD</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-200">
+                {[priceTiers.fixed, priceTiers.custom, priceTiers.app].map((tier) => (
+                  <tr key={tier.id}>
+                    <th scope="row" className="px-4 py-3 font-semibold text-ink-900">{tier.name}</th>
+                    <td className="px-4 py-3 text-ink-500">{tier.includes}</td>
+                    <td className="whitespace-nowrap px-4 py-3 font-semibold text-ink-900">{tier.pkrLabel}</td>
+                    <td className="whitespace-nowrap px-4 py-3 font-semibold text-ink-900">{tier.usdLabel}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <p className="mt-3 text-xs leading-relaxed text-ink-400">
+          PKR prices are the Pakistani market rates. USD prices are the US list, set for that market rather than
+          converted at the exchange rate. Every band is confirmed in writing before work starts.
+        </p>
       </Section>
 
       <Section tone="muted" id="ranges">

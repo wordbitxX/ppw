@@ -1,4 +1,5 @@
 import type { MarketContent } from "@/lib/market-landing";
+import { fixedPackages, priceTiers } from "@/lib/price-ladder";
 import { siteConfig, whatsappLink } from "@/lib/site";
 
 /**
@@ -9,11 +10,13 @@ import { siteConfig, whatsappLink } from "@/lib/site";
  * and the facts already stated elsewhere on the site.
  */
 
+/** Rupee prices come from the shared ladder (src/lib/price-ladder.ts) so /pk,
+ *  the cost calculator and /pricing can never drift apart again. */
 export const pkPrices = {
-  basic: "Rs. 20,000",
-  allInOne: "Rs. 25,000",
-  renewal: "Rs. 10,000",
-  supportMonths: 3,
+  basic: fixedPackages.pk.starter,
+  allInOne: fixedPackages.pk.allInOne,
+  renewal: fixedPackages.pk.renewal,
+  supportMonths: fixedPackages.pk.supportMonths,
 } as const;
 
 export const pkMarket: MarketContent = {
@@ -89,7 +92,7 @@ export const pkMarket: MarketContent = {
           "Hello WordbitX, I want the Rs. 25,000 Website + Domain + Hosting package. Here is my business:",
       },
     ],
-    note: "Stores, custom builds, FBR POS and SEO are quoted after a free call.",
+    note: `Custom stores and software start around ${priceTiers.custom.pkrLabel.split(" – ")[0]} — quoted after a free call. FBR POS and SEO are quoted the same way.`,
   },
   included: {
     eyebrow: "Included",

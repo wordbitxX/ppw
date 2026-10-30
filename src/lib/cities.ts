@@ -1,3 +1,4 @@
+import { fixedPackages, priceTiers } from "@/lib/price-ladder";
 import type { Faq } from "@/lib/types";
 
 /**
@@ -123,7 +124,7 @@ export const cities: City[] = [
       {
         question: "What does a website cost in Lahore?",
         answer:
-          "The honest range in this city runs from around PKR 50,000 for a template job to several lakh for a custom build with real functionality. We quote against what the site has to do — forms, payments, stock, bookings — rather than a page count, and we will tell you when the cheaper option is the right one.",
+          `A fixed 5–10 page business website is ${fixedPackages.pk.starter} (${fixedPackages.pk.allInOne} with domain and one year of hosting). A custom build runs ${priceTiers.custom.pkrLabel}, because it is quoted against what the site has to do — forms, payments, stock, bookings — rather than a page count. If the cheaper option is the right one for you, we will say so.`,
       },
       {
         question: "Do you only work with Lahore clients?",

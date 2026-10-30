@@ -7,7 +7,8 @@ import { FaqSchema, ServiceSchema } from "@/components/jsonld";
 import { seoTitleAbsolute } from "@/lib/seo-title";
 import type { Faq } from "@/lib/types";
 
-const calculatorDescription = "Software development cost calculator for Pakistan: websites, Shopify stores, web apps and mobile apps. PKR + USD ranges, timeline, what's included.";
+const calculatorDescription =
+  "Cost calculator for Pakistan and the US market: fixed website packages from Rs. 20,000 / $499, plus PKR and USD ranges for stores, web apps and mobile apps.";
 
 const calculatorFaqs: Faq[] = [
   {
@@ -18,7 +19,7 @@ const calculatorFaqs: Faq[] = [
   {
     question: "Why do you show a range instead of one price?",
     answer:
-      "Because a single number for 'a website' or 'an app' is either a trap or a lie. The width of the range reflects the real decisions: catalogue size, number of modules, integrations. When you send the brief, the range collapses to a number with milestones attached.",
+      "For a standard 5–10 page website we do publish a fixed package — Rs. 20,000 in Pakistan, $499 in the US. Everything else here is a custom build, and a single number for 'an app' or 'a store' is either a trap or a lie. The width of the range reflects the real decisions: catalogue size, number of modules, integrations. When we see the brief, the range collapses to a number with milestones attached.",
   },
   {
     question: "What does 'under $25/hr' have to do with these numbers?",

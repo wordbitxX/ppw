@@ -18,6 +18,7 @@ import { HeroReel } from "@/components/hero-reel";
 import { HeroFX } from "@/components/hero-fx";
 import { CineBackdrop, CineImage, LightArcs } from "@/components/cinematic";
 import { CtaBand } from "@/components/cta-band";
+import { FixedPriceStrip } from "@/components/fixed-price-strip";
 import { FaqAccordion } from "@/components/accordion";
 import { TechGlyph, TechIconSprite } from "@/components/tech-icon";
 import { FaqSchema } from "@/components/jsonld";
@@ -829,6 +830,12 @@ export default function HomePage() {
             </div>
           </div>
         </div>
+      </Section>
+
+      {/* Fixed prices before the sales CTA: the two package pages carry the
+          numbers, and the homepage is where most of the traffic lands. */}
+      <Section padding="compact">
+        <FixedPriceStrip />
       </Section>
 
       <CtaBand />

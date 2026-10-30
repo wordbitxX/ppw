@@ -1,10 +1,15 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Link from "next/link";
 import { ButtonLink } from "@/components/ui";
+import { approxUsd, fixedPackages, priceTiers, usdRatePkr } from "@/lib/price-ladder";
 import { whatsappLink } from "@/lib/site";
 
-type TypeKey = "website" | "store" | "webapp" | "app";
+/** `starter` is the fixed-price package; the other four model custom builds.
+ *  Audit 30 Oct 2026: without this row the calculator said a business website
+ *  starts at Rs. 2,50,000 while /pk advertised Rs. 20,000 for the same words. */
+type TypeKey = "starter" | "website" | "store" | "webapp" | "app";
 
 const TYPE_META: Record<
   TypeKey,
@@ -25,9 +30,31 @@ const TYPE_META: Record<
     includes: string[];
   }
 > = {
+  starter: {
+    label: "Starter website (fixed package)",
+    blurb: `5–10 page WordPress site — ${fixedPackages.pk.starter} / ${fixedPackages.us.starter}`,
+    baseLow: 20_000,
+    baseHigh: 25_000,
+    perScaleLow: 0,
+    perScaleHigh: 0,
+    weeksLow: 2,
+    weeksHigh: 3,
+    scaleLabel: "Pages (the package covers up to 8)",
+    scaleMin: 3,
+    scaleMax: 8,
+    scaleStep: 1,
+    scaleUnit: "pages",
+    includes: [
+      "Mobile-first WordPress website",
+      "Contact & WhatsApp buttons",
+      "Google setup + basic SEO",
+      "Training so you can edit it",
+      `${fixedPackages.pk.supportMonths} months support`,
+    ],
+  },
   website: {
-    label: "Business website",
-    blurb: "Corporate site, landing site or portal with CMS",
+    label: "Custom business website",
+    blurb: "Custom design, 10+ pages, integrations",
     baseLow: 250_000,
     baseHigh: 450_000,
     perScaleLow: 35_000,
@@ -115,11 +142,11 @@ function pk(n: number): string {
   return parts.join(",") + "," + last3;
 }
 
-const USD = 280;
+const USD = usdRatePkr;
 
 export function CostCalculator() {
-  const [type, setType] = useState<TypeKey>("website");
-  const [scale, setScale] = useState<number>(8);
+  const [type, setType] = useState<TypeKey>("starter");
+  const [scale, setScale] = useState<number>(5);
   const [addons, setAddons] = useState<Set<string>>(new Set());
   const [rush, setRush] = useState(false);
 
@@ -145,7 +172,7 @@ export function CostCalculator() {
     const weeksLow = Math.max(1, Math.round(meta.weeksLow * (0.75 + 0.25 * fraction) * (rush ? 0.75 : 1)));
     const weeksHigh = Math.max(weeksLow + 1, Math.round(meta.weeksHigh * (0.75 + 0.25 * fraction) * (rush ? 0.75 : 1)));
     return { low, high, weeksLow, weeksHigh, extraLow, extraHigh };
-  }, [type, scale, addons, rush, meta]);
+  }, [scale, addons, rush, meta]);
 
   const toggle = (key: string) => {
     setAddons((current) => {
@@ -263,8 +290,7 @@ export function CostCalculator() {
               {pk(result.low)} – {pk(result.high)}
             </p>
             <p className="mt-1.5 text-sm text-slate-300">
-              ≈ ${Math.round(result.low / USD / 10) * 10} – ${Math.round(result.high / USD / 10) * 10} USD ·{" "}
-              {result.weeksLow}–{result.weeksHigh} weeks
+              {approxUsd(result.low)} – {approxUsd(result.high)} USD · {result.weeksLow}–{result.weeksHigh} weeks
             </p>
 
             <div className="mt-6 border-t border-white/10 pt-5">
@@ -280,8 +306,9 @@ export function CostCalculator() {
             </div>
 
             <p className="mt-6 text-xs leading-relaxed text-slate-400">
-              Budgeting estimate for scoping conversations — not a quote. The final number is a written scope after
-              your brief, at the rate band published on our Clutch profile (under $25 / hr).
+              Budgeting estimate for custom builds — not a quote. Fixed packages start at {fixedPackages.pk.starter}{" "}
+              ({priceTiers.fixed.name.toLowerCase()}, Pakistan) or {fixedPackages.us.starter} (US). The final number is a
+              written scope after your brief, at the rate band on our Clutch profile (under $25 / hr).
             </p>
           </div>
           <div className="mt-7 space-y-2.5">
@@ -300,6 +327,21 @@ export function CostCalculator() {
             >
               Chat on WhatsApp with these numbers
             </ButtonLink>
+            {/* The packaged route sits right where the number is, so nobody
+                reads the custom-build range and assumes that is the only price. */}
+            <div className="rounded-xl border border-white/10 bg-white/[0.04] p-3.5 text-xs leading-relaxed text-slate-300">
+              <p className="font-semibold text-white">
+                Want a fixed price instead? Packages start at {fixedPackages.pk.starter} or {fixedPackages.us.starter}.
+              </p>
+              <p className="mt-1.5 flex flex-wrap gap-x-4 gap-y-1 font-semibold">
+                <Link href="/pk" className="text-brand-300 underline decoration-brand-400/50 underline-offset-4 hover:text-white">
+                  Pakistan prices (PKR)
+                </Link>
+                <Link href="/usa" className="text-brand-300 underline decoration-brand-400/50 underline-offset-4 hover:text-white">
+                  USA prices (USD)
+                </Link>
+              </p>
+            </div>
           </div>
         </div>
       </div>

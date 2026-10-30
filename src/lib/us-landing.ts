@@ -1,4 +1,5 @@
 import type { MarketContent } from "@/lib/market-landing";
+import { fixedPackages, usdRatePkr } from "@/lib/price-ladder";
 import { siteConfig, usWhatsappLink } from "@/lib/site";
 
 /**
@@ -11,16 +12,20 @@ import { siteConfig, usWhatsappLink } from "@/lib/site";
  * numbers here without touching the layout.
  */
 
+/** Dollar prices come from the shared ladder (src/lib/price-ladder.ts). */
 export const usPrices = {
-  starter: "$499",
-  business: "$899",
-  store: "$1,499",
-  domainHosting: "$150",
-  care: "from $99/mo",
-  seo: "from $299/mo",
-  customApp: "from $3,500",
-  supportMonths: 3,
+  starter: fixedPackages.us.starter,
+  business: fixedPackages.us.business,
+  store: fixedPackages.us.store,
+  domainHosting: fixedPackages.us.domainHosting,
+  care: fixedPackages.us.care,
+  seo: fixedPackages.us.seo,
+  customApp: fixedPackages.us.customApp,
+  supportMonths: fixedPackages.us.supportMonths,
 } as const;
+
+/** Reminder for the copy: these are market prices, not rupee conversions. */
+export const usConversionNote = `$1 is roughly Rs. ${usdRatePkr} at the time of writing — but US prices are set for the US market, not converted.`;
 
 export const usMarket: MarketContent = {
   key: "us",

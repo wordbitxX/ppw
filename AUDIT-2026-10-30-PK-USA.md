@@ -30,6 +30,24 @@ after the header fix and the new `/usa` page shipped in PR #9.
 
 ---
 
+## 0b. P0 status — shipped the same day
+
+Approved and implemented after this audit was written:
+
+| P0 item | Status |
+|---|---|
+| One price ladder (`src/lib/price-ladder.ts`) read by `/pk`, `/usa`, the calculator, `/pricing`, the cost blog and the Lahore city FAQ | ✅ shipped |
+| Calculator: new **"Starter website (fixed package)"** preset (Rs. 20,000–25,000), old preset relabelled **"Custom business website"**, USD rate moved out of the component, packaged-route links under the estimate | ✅ shipped |
+| `/pricing`: "no fake sticker price" removed from the meta description, the "why don't you list dollar packages" FAQ replaced, PKR + USD package cards and a full price-ladder table added | ✅ shipped |
+| Header: **Pricing** is now a dropdown — *How we quote* · *Pakistan prices (PKR)* · *USA prices (USD)*; mobile drawer mirrors it | ✅ shipped |
+| Contextual `FixedPriceStrip` on the homepage, website-building services, city + geo pages, `/hire-developers/*` and the calculator | ✅ shipped |
+| Cost blog: fixed-package row + inline links to `/pk` and `/usa`; Lahore "what does a website cost" FAQ pulled back in line | ✅ shipped |
+
+Still open: the P1/P2 items in §3 (copy localisation for `/usa`, homepage H1, thin market pages, 7 long
+descriptions, per-page OG images, bundle weight) — those were not part of the approved P0 scope.
+
+---
+
 ## 1. What was measured
 
 | Check | Method | Result |

@@ -131,9 +131,10 @@ export const mainNav = [
   { label: "Industries", href: "/industries" },
   { label: "Products", href: "/products" },
   { label: "Case Studies", href: "/portfolio" },
+  // Pricing is a dropdown in the header: how we quote, Pakistan (PKR) and
+  // USA (USD). The two regional price pages live there instead of taking two
+  // separate top-level slots (audit 30 Oct 2026: /usa had no nav entry at all).
   { label: "Pricing", href: "/pricing" },
-  // The Pakistan landing page — the price-led route for the local audience.
-  { label: "Pakistan", href: "/pk" },
   { label: "Blog", href: "/blog" },
   { label: "Contact Us", href: "/contact" },
 ] as const;
