@@ -76,6 +76,8 @@ export function getSitemapGroups(now = staticUpdated): Record<SitemapGroupKey, S
       // price in Pakistan" intent the /pricing page deliberately does not
       // answer with a number.
       entry("/pk", { lastModified: now, changeFrequency: "weekly", priority: 0.9 }),
+      // USA landing page: same offer as /pk, priced in USD for US clients.
+      entry("/usa", { lastModified: now, changeFrequency: "weekly", priority: 0.9 }),
       entry("/tools/cost-calculator", { lastModified: now, changeFrequency: "monthly", priority: 0.85 }),
       entry("/comparisons", { lastModified: now, changeFrequency: "monthly", priority: 0.7 }),
       entry("/glossary", { lastModified: now, changeFrequency: "monthly", priority: 0.6 }),

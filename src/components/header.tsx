@@ -171,12 +171,16 @@ function NavDrop({
         onClick={onLinkClick}
         aria-expanded={isOpen}
         aria-haspopup="true"
-        className={`flex items-center gap-1.5 whitespace-nowrap rounded-lg px-2 py-2 text-sm font-medium transition-colors xl:px-2.5 ${
+        className={`flex items-center gap-1 whitespace-nowrap rounded-lg px-1.5 py-2 text-[0.8rem] font-medium transition-colors xl:gap-1.5 xl:px-2.5 xl:text-sm ${
           activeRoute ? "text-brand-300" : "text-slate-200 hover:text-white"
         }`}
       >
         {label}
-        <ChevronDown className={`h-3.5 w-3.5 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`} />
+        <ChevronDown
+          className={`h-3 w-3 shrink-0 transition-transform duration-300 xl:h-3.5 xl:w-3.5 ${
+            isOpen ? "rotate-180" : ""
+          }`}
+        />
       </Link>
       {isOpen && (
         <div className={panelClassName} onMouseEnter={() => onOpenMenu(menuKey)} onMouseLeave={onScheduleClose}>
@@ -385,7 +389,7 @@ export function Header() {
       }`}
     >
       <div className="container-page">
-        <div className="flex h-16 items-center justify-between gap-3 lg:gap-4 xl:h-[72px]">
+        <div className="flex h-16 items-center justify-between gap-2 lg:h-[68px] lg:gap-3 xl:h-[72px] xl:gap-4">
           <Link
             href="/"
             onClick={backToTopIfCurrent("/")}
@@ -397,7 +401,7 @@ export function Header() {
             <span className="sr-only">{siteConfig.name} home</span>
           </Link>
 
-          <nav aria-label="Main navigation" className="hidden items-center gap-1 xl:flex">
+          <nav aria-label="Main navigation" className="hidden min-w-0 items-center gap-0.5 lg:flex xl:gap-1">
             {mainNav.map((item) => {
               if (item.label === "Services") {
                 return (
@@ -724,7 +728,7 @@ export function Header() {
                   key={item.href}
                   href={item.href}
                   onClick={backToTopIfCurrent(item.href)}
-                  className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-lg px-2 py-2 text-sm font-medium transition-colors xl:px-2.5 ${
+                  className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-lg px-1.5 py-2 text-[0.8rem] font-medium transition-colors xl:px-2.5 xl:text-sm ${
                     isActive(item.href) ? "text-brand-300" : "text-slate-200 hover:text-white"
                   }`}
                 >
@@ -734,7 +738,7 @@ export function Header() {
             })}
           </nav>
 
-          <div className="hidden items-center gap-2.5 xl:flex">
+          <div className="hidden shrink-0 items-center gap-2.5 lg:flex">
             {/* Halo lives on a wrapper: the button itself clips its light sweep.
                 Surface styling lives in .cta-surface, which is a deep emerald
                 ramp so the white label clears AA. */}
@@ -744,19 +748,22 @@ export function Header() {
             >
               <Link
                 href="/contact"
-                className="cta-live cta-surface group inline-flex items-center gap-2 whitespace-nowrap rounded-xl px-3.5 py-2.5 text-sm font-bold tracking-tight transition-all hover:-translate-y-0.5 xl:px-4.5"
+                className="cta-live cta-surface group inline-flex items-center gap-2 whitespace-nowrap rounded-xl px-3 py-2.5 text-[0.8rem] font-bold tracking-tight transition-all hover:-translate-y-0.5 xl:px-4.5 xl:text-sm"
               >
                 <span className="relative flex h-2 w-2" aria-hidden="true">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-500" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-500 shadow-[0_0_7px_rgba(28,168,48,0.9)]" />
                 </span>
-                <span>Discuss Your Project</span>
+                {/* Laptop widths (1024-1279) only have room for the short label;
+                    the full label returns at xl where the bar is wider. */}
+                <span className="xl:hidden">Contact</span>
+                <span className="hidden xl:inline">Discuss Your Project</span>
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </Link>
             </span>
           </div>
 
-          <div className="flex min-w-0 items-center gap-2 xl:hidden">
+          <div className="flex min-w-0 items-center gap-2 lg:hidden">
             {/* Primary CTA replaces the WhatsApp shortcut that used to sit here.
                 The label and the ornaments are responsive because this bar is
                 tight: on a 375px screen only about 169px is left once the
@@ -801,7 +808,7 @@ export function Header() {
       {mobileOpen && (
         <div
           id="mobile-navigation"
-          className="min-h-[calc(100dvh-4rem)] max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-white/10 bg-midnight xl:hidden"
+          className="min-h-[calc(100dvh-4rem)] max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-white/10 bg-midnight lg:hidden"
         >
           <nav aria-label="Mobile navigation" className="container-page space-y-1 py-5">
             {mainNav.map((item) => {
