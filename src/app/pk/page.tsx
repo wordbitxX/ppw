@@ -76,8 +76,19 @@ export const metadata: Metadata = {
   },
 };
 
+/** The single navy blue used for every icon tile on this page — same on white
+ *  cards, on the dark cards and inside the included panel, so the icons never
+ *  drift towards grey. */
+const iconTile =
+  "flex items-center justify-center rounded-xl bg-navy-700 text-white ring-1 ring-navy-500/40 shadow-[0_14px_28px_-16px_rgba(26,58,104,0.95)]";
+
 const cardLight =
   "rounded-2xl border border-slate-200 bg-white p-6 shadow-[0_20px_50px_-44px_rgba(5,13,33,0.7)] transition-all duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-[0_32px_60px_-40px_rgba(5,39,103,0.45)]";
+/** Glass card for the photo-backed "why" section — the plain 4% white card is
+ *  too see-through when a real photograph sits behind it. */
+const cardGlass =
+  "rounded-2xl border border-white/12 bg-midnight/60 p-6 backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-brand-400/40 hover:bg-midnight/45";
+
 const cardDark =
   "rounded-2xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-brand-400/40 hover:bg-white/[0.07]";
 
@@ -325,7 +336,7 @@ export default function PakistanLandingPage() {
               className={`relative flex flex-col rounded-3xl p-6 sm:p-7 ${
                 pkg.featured
                   ? "border border-brand-500/30 bg-gradient-to-b from-navy-900 via-navy-900 to-navy-800 text-white shadow-[0_45px_90px_-45px_rgba(5,39,103,0.85)] ring-1 ring-brand-500/20"
-                  : "border border-slate-200 bg-white text-ink-900 shadow-[0_30px_70px_-50px_rgba(5,13,33,0.8)]"
+                  : "border border-slate-200 bg-white text-ink-900 shadow-[0_30px_70px_-50px_rgba(5,13,33,0.8)] transition-all duration-300 hover:-translate-y-1 hover:border-navy-600 hover:shadow-[0_40px_80px_-50px_rgba(5,39,103,0.55)] focus-within:border-navy-600 focus-within:ring-2 focus-within:ring-navy-500/25"
               }`}
             >
               {pkg.badge ? (
@@ -462,7 +473,7 @@ export default function PakistanLandingPage() {
             <div className="grid gap-px bg-slate-200/70 sm:grid-cols-2">
               {pkIncluded.map((item) => (
                 <div key={item.title} className="group bg-white p-5 transition-colors duration-300 hover:bg-slate-50/80 sm:p-6">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-navy-700 to-navy-900 text-white shadow-[0_12px_24px_-14px_rgba(5,39,103,0.9)] ring-1 ring-navy-900/10 transition-transform duration-300 group-hover:-translate-y-0.5">
+                  <span className={`${iconTile} h-10 w-10 transition-transform duration-300 group-hover:-translate-y-0.5`}>
                     <CheckIcon className="h-4 w-4" />
                   </span>
                   <h3 className="mt-3.5 text-sm font-semibold text-ink-900">{item.title}</h3>
@@ -511,7 +522,7 @@ export default function PakistanLandingPage() {
         <div className="mt-8 grid gap-4 sm:grid-cols-3">
           <div className={cardLight}>
             <div className="flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-navy-700 to-navy-900 text-white shadow-[0_12px_24px_-14px_rgba(5,39,103,0.9)] ring-1 ring-navy-900/10">
+              <span className={`${iconTile} h-10 w-10`}>
                 <PkIcon name="pin" className="h-4.5 w-4.5" />
               </span>
               <h3 className="text-sm font-semibold text-ink-900">Office</h3>
@@ -530,7 +541,7 @@ export default function PakistanLandingPage() {
 
           <div className={cardLight}>
             <div className="flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-navy-700 to-navy-900 text-white shadow-[0_12px_24px_-14px_rgba(5,39,103,0.9)] ring-1 ring-navy-900/10">
+              <span className={`${iconTile} h-10 w-10`}>
                 <PkIcon name="language" className="h-4.5 w-4.5" />
               </span>
               <h3 className="text-sm font-semibold text-ink-900">Languages</h3>
@@ -543,7 +554,7 @@ export default function PakistanLandingPage() {
 
           <div className={cardLight}>
             <div className="flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-navy-700 to-navy-900 text-white shadow-[0_12px_24px_-14px_rgba(5,39,103,0.9)] ring-1 ring-navy-900/10">
+              <span className={`${iconTile} h-10 w-10`}>
                 <ClockIcon className="h-4.5 w-4.5" />
               </span>
               <h3 className="text-sm font-semibold text-ink-900">Reply time</h3>
@@ -575,7 +586,7 @@ export default function PakistanLandingPage() {
         <div className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {pkServices.map((service) => (
             <Link key={service.slug} href={`/services/${service.slug}`} className={`group ${cardLight}`}>
-              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-navy-700 to-navy-900 text-white shadow-[0_12px_24px_-14px_rgba(5,39,103,0.9)] ring-1 ring-navy-900/10">
+              <span className={`${iconTile} h-11 w-11`}>
                 <ServiceIcon name={service.icon} className="h-5 w-5" />
               </span>
               <h3 className="mt-4 text-base font-semibold text-ink-900 group-hover:text-brand-700">{service.title}</h3>
@@ -590,8 +601,28 @@ export default function PakistanLandingPage() {
       </Section>
 
       {/* ── WHY WORDBITX ─────────────────────────────────────────────────── */}
-      <section id="why" className="cine-surface cine-rim relative overflow-hidden py-12 text-white sm:py-20 lg:py-24">
-        <CineBackdrop variant="mesh" opacity={0.6} mask="none" position="80% 55%" />
+      <section id="why" className="relative isolate overflow-hidden bg-midnight py-12 text-white sm:py-20 lg:py-24">
+        {/* The Lahore office, not an abstract mesh: the section is about the
+            team, so the room the work happens in sits behind the copy. */}
+        <Image
+          src="/brand/office-collaboration.jpg"
+          alt=""
+          fill
+          sizes="100vw"
+          quality={70}
+          aria-hidden="true"
+          className="pointer-events-none scale-105 object-cover object-[55%_35%] opacity-60 blur-[2px]"
+        />
+        {/* Duotone scrim: the photo supplies the texture, the navy supplies the
+            colour, and the middle band stays light enough for white copy. */}
+        <div
+          className="absolute inset-0 bg-gradient-to-b from-midnight/88 via-midnight/55 to-midnight/92"
+          aria-hidden="true"
+        />
+        <div
+          className="absolute inset-0 bg-[radial-gradient(125%_95%_at_50%_45%,transparent_0%,rgba(3,8,20,0.28)_72%,rgba(3,8,20,0.72)_100%)]"
+          aria-hidden="true"
+        />
         <div className="container-page relative">
           <SectionHeading
             align="center"
@@ -602,8 +633,8 @@ export default function PakistanLandingPage() {
           />
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {pkWhy.map((item) => (
-              <div key={item.title} className={cardDark}>
-                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-navy-600 text-white ring-1 ring-white/15 shadow-[0_12px_24px_-14px_rgba(3,8,20,0.9)]">
+              <div key={item.title} className={cardGlass}>
+                <span className={`${iconTile} h-11 w-11`}>
                   <PkIcon name={item.icon} className="h-5 w-5" />
                 </span>
                 <h3 className="mt-4 text-base font-semibold text-white">{item.title}</h3>
@@ -614,7 +645,7 @@ export default function PakistanLandingPage() {
 
           <div className="mt-8 flex flex-col gap-4 rounded-2xl border border-white/10 bg-white/[0.05] p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
             <div className="flex items-start gap-3">
-              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-navy-600 text-white ring-1 ring-white/15 shadow-[0_12px_24px_-14px_rgba(3,8,20,0.9)]">
+              <span className={`${iconTile} h-9 w-9 shrink-0`}>
                 <PkIcon name="badge" className="h-4.5 w-4.5" />
               </span>
               <p className="text-sm leading-relaxed text-slate-200">
@@ -838,7 +869,7 @@ export default function PakistanLandingPage() {
           {pkPakistanFeatures.map((item) => (
             <div key={item.title} className={cardLight}>
               <div className="flex items-start gap-3">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-navy-700 to-navy-900 text-white shadow-[0_12px_24px_-14px_rgba(5,39,103,0.9)] ring-1 ring-navy-900/10">
+                <span className={`${iconTile} h-10 w-10 shrink-0`}>
                   <PkIcon name={item.icon} className="h-4.5 w-4.5" />
                 </span>
                 <h3 className="pt-1.5 text-base font-semibold leading-snug text-ink-900">{item.title}</h3>
