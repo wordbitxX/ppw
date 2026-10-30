@@ -46,7 +46,7 @@ export const pkPricing = {
 
 Paste a number and, with no other change:
 
-- the hero price line becomes “Websites from Rs. 45,000”;
+- both hero price tags switch from “Fixed quote in PKR” to “from Rs. 45,000”;
 - both package cards show the real “from” price;
 - the trust strip shows the support period;
 - title tags switch to “… — PKR Prices”;
@@ -58,8 +58,9 @@ pricing, fixed in writing”, “Fixed quote”, “Lahore business hours”). I
 invents a figure and never says “contact for price” as a substitute price.
 
 A yellow **preview-only** banner at the top of `/pk` and the city pages lists every
-field still missing. It is compiled out of production (`NODE_ENV === "production"`),
-so it cannot reach a live visitor.
+field still missing. It is hidden by default and only renders when the dev server is
+started with `NEXT_PUBLIC_PK_CHECKLIST=1`; it is also compiled out of production
+(`NODE_ENV === "production"`), so it cannot reach a live visitor or a review screenshot.
 
 ## Checklist from section 10 of the brief
 
