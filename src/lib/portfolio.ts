@@ -815,7 +815,7 @@ const originalProjects: Project[] = [
       "Properties Pak is WordbitX's live Pakistan property portal — society and phase listings, map-led search, plot/file detail pages and dealer enquiry flows, built, launched and maintained by WordbitX.",
     metaTitle: "Properties Pak — Pakistan Property Portal | WordbitX Project Profile",
     metaDescription:
-      "Properties Pak, WordbitX's live property portal: society, phase and block listings, map-based search, plot/file detail pages, dealer dashboards and enquiry routing for Pakistani housing sales.",
+      "Properties Pak, our live property portal: society and block listings, map search, plot detail pages, dealer dashboards and enquiry routing.",
     image: media.realEstateAgent,
     imageAlt: "Property consultant reviewing plot files and society layout plans",
     gallery: [

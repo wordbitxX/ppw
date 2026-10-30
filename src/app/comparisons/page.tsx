@@ -27,7 +27,7 @@ const comparisonSlugs = [
 ];
 
 const description =
-  "Honest comparisons before you choose: Shopify vs WooCommerce, Flutter vs React Native, WordPress vs custom, agency-style custom software vs ready-made, CRM vs ERP, SEO vs Google Ads.";
+  "Honest comparisons: Shopify vs WooCommerce, Flutter vs React Native, WordPress vs custom, custom software vs ready-made, CRM vs ERP and SEO vs Google Ads.";
 
 const faqs: Faq[] = [
   {

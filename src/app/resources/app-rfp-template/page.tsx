@@ -7,7 +7,7 @@ import { seoTitleAbsolute } from "@/lib/seo-title";
 import type { Faq } from "@/lib/types";
 
 const description =
-  "A copy-ready app RFP template: the sections to include so software companies reply with comparable, serious quotes — goals, scope, integrations, timeline and budget band.";
+  "A copy-ready app RFP template: the sections that make software companies reply with comparable quotes — goals, scope, integrations, timeline, budget.";
 
 const sections: { title: string; text: string; prompt: string }[] = [
   {

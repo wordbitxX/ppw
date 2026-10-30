@@ -1,18 +1,25 @@
 import type { MarketContent } from "@/lib/market-landing";
-import { fixedPackages, usdRatePkr } from "@/lib/price-ladder";
+import { fixedPackages, priceTiers, usdRatePkr } from "@/lib/price-ladder";
 import { siteConfig, usWhatsappLink } from "@/lib/site";
 
 /**
  * /usa — the dollar-priced shop-front page for US and international clients.
  *
  * Same structure as /pk (price first, one line per idea) with every number in
- * USD and the US phone/WhatsApp line from siteConfig. The prices are the
- * dollar equivalents of the published rupee packages, rounded up for the extra
- * sales and timezone work a US engagement carries — the owner can change the
- * numbers here without touching the layout.
+ * USD and the US phone/WhatsApp line from siteConfig.
+ *
+ * Prices come from the shared ladder (src/lib/price-ladder.ts) and start at
+ * $150 so a one-location US business is not priced out — the owner's call,
+ * 30 Oct 2026. Every price string is interpolated, so changing the ladder
+ * changes this page, the calculator, /pricing and the blog together.
+ *
+ * Copy note: this page must not read like /pk with the currency swapped. The
+ * sentences below talk about stateside hours, USD invoices and US site types
+ * (DTC store, service business, SaaS marketing site) rather than reusing the
+ * Pakistani wording.
  */
 
-/** Dollar prices come from the shared ladder (src/lib/price-ladder.ts). */
+/** Dollar prices come from the shared ladder. */
 export const usPrices = {
   starter: fixedPackages.us.starter,
   business: fixedPackages.us.business,
@@ -35,13 +42,13 @@ export const usMarket: MarketContent = {
     title: "Websites for US businesses, priced in dollars",
     priceLabel: "Websites from",
     price: usPrices.starter,
-    sub: `Business site ${usPrices.business}. Online store ${usPrices.store}. Fixed price in USD, 2–3 weeks, ${usPrices.supportMonths} months support.`,
+    sub: `Fixed USD price: ${usPrices.starter} for a 5-page site, ${usPrices.business} for up to 10 pages, ${usPrices.store} for a store. Live in 2–3 weeks.`,
     chips: ["Fixed USD quote", `${usPrices.supportMonths} months support`, "You own it all"],
     demoId: "luxury-restaurant",
     image: "/demos/cover/luxury-restaurant.jpg",
     imageAlt: "Illustration of a restaurant dining room with the Maison Noor website WordbitX built, shown on a tablet",
     priceCardLabel: "Business website",
-    priceCardNote: "Online stores from $1,499. Every quote in USD.",
+    priceCardNote: `Online stores from ${usPrices.store}. Every quote and invoice in USD.`,
     priceCardChip: `${usPrices.supportMonths} months support`,
     stats: [
       { value: "Since 2021", label: "Building websites" },
@@ -54,17 +61,17 @@ export const usMarket: MarketContent = {
     whatsapp: (message) =>
       usWhatsappLink(
         message ??
-          "Hello WordbitX, I saw your US website packages ($499 / $899 / $1,499). I would like to discuss my business website.",
+          `Hello WordbitX, I saw your US website packages (${usPrices.starter} / ${usPrices.business} / ${usPrices.store}). I would like to discuss my business website.`,
       ),
     phoneDisplay: siteConfig.usPhoneDisplay,
     phoneRaw: siteConfig.usPhoneRaw,
-    hours: "Calls booked in ET / PT",
+    hours: "Calls booked to your time zone (ET / PT / CT)",
   },
   regionSwitch: { href: "/pk", label: "Pakistan pricing in rupees" },
   packages: {
     eyebrow: "Pricing",
     title: "Three packages in dollars",
-    description: "Fixed price, fixed scope. Pay in USD.",
+    description: "Fixed price, fixed scope, no hourly surprises.",
     items: [
       {
         id: "starter",
@@ -74,12 +81,12 @@ export const usMarket: MarketContent = {
         note: "A clean 5-page site for a small business.",
         features: [
           "5 mobile-first pages",
-          "Contact form + WhatsApp button",
+          "Contact form + click-to-call",
           "SEO basics, sitemap, Search Console",
-          "Google Analytics setup",
+          "Google Analytics 4 setup",
           `${usPrices.supportMonths} months support`,
         ],
-        message: "Hello WordbitX, I want the $499 Starter Website package. Here is my business:",
+        message: `Hello WordbitX, I want the ${usPrices.starter} Starter Website package. Here is my business:`,
       },
       {
         id: "business",
@@ -90,14 +97,14 @@ export const usMarket: MarketContent = {
         features: [
           "Up to 10 pages",
           "WordPress CMS you can edit",
-          "Google Business + analytics setup",
+          "Google Business Profile + analytics",
           "Speed and mobile optimisation",
           "30 days of design revisions",
           `${usPrices.supportMonths} months support`,
         ],
         featured: true,
         badge: "Most popular",
-        message: "Hello WordbitX, I want the $899 Business Website package. Here is my business:",
+        message: `Hello WordbitX, I want the ${usPrices.business} Business Website package. Here is my business:`,
       },
       {
         id: "store",
@@ -108,11 +115,11 @@ export const usMarket: MarketContent = {
         features: [
           "Up to 50 products",
           "Card payments and checkout",
-          "Shipping and tax setup",
+          "Shipping and sales-tax setup",
           "Order emails + inventory",
           `${usPrices.supportMonths} months support`,
         ],
-        message: "Hello WordbitX, I want the $1,499 Online Store package. Here is my store:",
+        message: `Hello WordbitX, I want the ${usPrices.store} Online Store package. Here is my store:`,
       },
     ],
     addOns: [
@@ -121,46 +128,46 @@ export const usMarket: MarketContent = {
       { label: "SEO retainer", price: usPrices.seo },
       { label: "Custom web app", price: usPrices.customApp },
     ],
-    note: "Custom apps, CRM/ERP and AI work are quoted after a free call — always in writing.",
+    note: `Anything past a fixed package — ${priceTiers.custom.usdLabel} for custom builds — is quoted after a short call, in writing.`,
   },
   included: {
     eyebrow: "Included",
-    title: `What you get from ${usPrices.starter}`,
-    intro: "One fixed price. These are in every package.",
+    title: `What comes with every US package`,
+    intro: "In all three packages, from the starter up.",
     chips: ["Fixed USD quote", `${usPrices.supportMonths} months support`, "You own it all"],
     items: [
-      { title: "Mobile-first build", text: "Sharp and fast on every screen." },
-      { title: "Enquiry forms", text: "Calls, email and WhatsApp in one tap." },
-      { title: "SEO basics", text: "Titles, sitemap and Search Console." },
-      { title: "Analytics", text: "GA4 and conversion tracking wired up." },
-      { title: "Training call", text: "Edit text, photos and prices yourself." },
-      { title: `${usPrices.supportMonths} months support`, text: "Fixes and small changes after launch." },
+      { title: "Mobile-first build", text: "Readable and fast on a phone, first." },
+      { title: "Lead forms", text: "Click-to-call, email and contact forms." },
+      { title: "Search basics", text: "Titles, sitemap, Search Console." },
+      { title: "GA4 + events", text: "Traffic and conversions measured." },
+      { title: "Handover call", text: "A recorded walkthrough, not a PDF." },
+      { title: `${usPrices.supportMonths} months support`, text: "Fixes and small edits after launch." },
     ],
   },
   services: {
     eyebrow: "Services",
     title: "What we build",
-    description: "Websites, stores, apps and software — one team.",
+    description: "Websites, stores, apps and software — one team, one invoice.",
     items: [
       { slug: "web-development", title: "Website design", text: "Fast, mobile-first business sites.", icon: "design" },
-      { slug: "wordpress-development", title: "WordPress", text: "Custom themes you can edit.", icon: "wordpress" },
-      { slug: "ecommerce-shopify", title: "Shopify", text: "Stores with payments and shipping.", icon: "ecommerce" },
-      { slug: "seo-services", title: "SEO", text: "Technical and local search work.", icon: "seo" },
-      { slug: "custom-software-development", title: "Custom software", text: "Portals, dashboards and tools.", icon: "software" },
+      { slug: "wordpress-development", title: "WordPress", text: "Themes your marketing team can edit.", icon: "wordpress" },
+      { slug: "ecommerce-shopify", title: "Shopify", text: "DTC stores with payments and shipping.", icon: "ecommerce" },
+      { slug: "seo-services", title: "SEO", text: "Technical fixes and local search.", icon: "seo" },
+      { slug: "custom-software-development", title: "Custom software", text: "Portals, dashboards and internal tools.", icon: "software" },
       { slug: "mobile-app-development", title: "Mobile apps", text: "iOS and Android from one codebase.", icon: "mobile" },
     ],
   },
   why: {
     eyebrow: "Why WordbitX",
     title: "Why US businesses work with us",
-    description: "Senior build quality, dollar pricing, direct communication.",
+    description: "One team in Lahore, US-friendly hours, USD prices.",
     items: [
-      { title: "US hours overlap", text: "Calls booked in ET/PT, replies next business day.", icon: "chat" },
-      { title: "Fixed USD quote", text: "Scope, timeline and price in writing.", icon: "doc" },
+      { title: "Calls in your time zone", text: "Booked in ET, CT or PT.", icon: "chat" },
+      { title: "Flat USD price", text: "Quoted in writing before work starts.", icon: "doc" },
       { title: "You own everything", text: "Domain, hosting, code and every login.", icon: "lock" },
-      { title: "Direct with the builders", text: "You talk to the people writing the code.", icon: "badge" },
-      { title: "Fast by default", text: "Core Web Vitals and mobile taken seriously.", icon: "mobile" },
-      { title: "Since 2021", text: "A registered company in Lahore, Pakistan.", icon: "pin" },
+      { title: "No account manager", text: "You talk to the builders.", icon: "badge" },
+      { title: "Built for speed", text: "Core Web Vitals checked before launch.", icon: "mobile" },
+      { title: "Since 2021", text: "Registered in Lahore — no fake US office.", icon: "pin" },
     ],
   },
   work: {
@@ -181,10 +188,10 @@ export const usMarket: MarketContent = {
     title: "Four steps to launch",
     description: "One written quote. No surprise invoices.",
     items: [
-      { step: "01", title: "Free call", text: "15 minutes on what the site must do." },
-      { step: "02", title: "Written quote", text: "Scope, timeline and price in USD." },
-      { step: "03", title: "Build", text: "Mobile-first, on a live preview link." },
-      { step: "04", title: "Launch", text: "We launch, train you, support 3 months." },
+      { step: "01", title: "15-minute call", text: "Booked in ET / PT." },
+      { step: "02", title: "Fixed quote", text: "Scope, timeline and price in USD." },
+      { step: "03", title: "Build", text: "You watch it on a live preview link." },
+      { step: "04", title: "Handover", text: "Launch, walkthrough, 3 months support." },
     ],
   },
   faqs: {
@@ -194,8 +201,11 @@ export const usMarket: MarketContent = {
     items: [
       {
         question: "How much does a website cost?",
-        answer:
-          "Starter website $499, business website $899, online store $1,499. Custom apps and platforms are quoted after a short call — always in writing.",
+        answer: `Starter website ${usPrices.starter}, business website ${usPrices.business}, online store ${usPrices.store}. Custom builds run ${priceTiers.custom.usdLabel} and are quoted after a short call — always in writing.`,
+      },
+      {
+        question: "Is there anything cheaper?",
+        answer: `No — ${usPrices.starter} is the floor, and it is a real site: 5 pages, mobile-first, forms and ${usPrices.supportMonths} months of support.`,
       },
       {
         question: "Are prices really in dollars?",
@@ -205,7 +215,7 @@ export const usMarket: MarketContent = {
       {
         question: "What about time zones?",
         answer:
-          "We book calls in ET/PT, usually between 8am and 11am Eastern, and reply within one business day.",
+          "Calls are booked in ET, CT or PT, usually 8–11am Eastern. Replies land within one business day.",
       },
       {
         question: "Do I own the website?",
@@ -213,16 +223,12 @@ export const usMarket: MarketContent = {
       },
       {
         question: "How long does it take?",
-        answer: "2–3 weeks for a 5–10 page website. An online store usually takes 4–6 weeks.",
+        answer: `2–3 weeks for a 5–10 page site. An online store usually takes 4–6 weeks.`,
       },
       {
-        question: "Is support included?",
-        answer: `Yes — ${usPrices.supportMonths} months of fixes and small changes after launch. A care plan (${usPrices.care}) is optional after that.`,
-      },
-      {
-        question: "Who builds the site?",
+        question: "Who actually builds it?",
         answer:
-          "A senior team based in Lahore, Pakistan — the same people who quote, design and ship it. You talk to them directly.",
+          "A senior team in Lahore, Pakistan — the people who quote, design and ship it. No US office, and we do not pretend otherwise.",
       },
     ],
   },

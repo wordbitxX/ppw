@@ -7,12 +7,12 @@ import { absoluteUrl, siteConfig } from "@/lib/site";
 export const metadata: Metadata = {
   title: { absolute: `Websites for US Businesses from ${usPrices.starter} | WordbitX` },
   description:
-    "Mobile-first websites for US businesses from $499, business sites $899, online stores $1,499. Fixed USD quotes, 3 months support, calls booked in ET/PT.",
+    `Mobile-first websites for US businesses from ${usPrices.starter}: starter ${usPrices.starter}, business ${usPrices.business}, online store ${usPrices.store}. Fixed USD quotes, calls in ET/PT.`,
   keywords: [
     "website design USA",
     "website price in USA",
     "website cost in dollars",
-    "small business website $499",
+    "small business website $150",
     "WordPress website USA",
     "Shopify store development USA",
     "custom website United States",
@@ -25,20 +25,11 @@ export const metadata: Metadata = {
     type: "website",
     title: `Websites for US businesses from ${usPrices.starter} | WordbitX`,
     description: `Starter website ${usPrices.starter}. Business website ${usPrices.business}. Online store ${usPrices.store}. Fixed USD quotes.`,
-    images: [
-      {
-        url: siteConfig.ogImage,
-        width: 1200,
-        height: 630,
-        alt: `WordbitX — websites for US businesses from ${usPrices.starter}`,
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: `Websites for US businesses from ${usPrices.starter} | WordbitX`,
     description: `Starter ${usPrices.starter}, business site ${usPrices.business}, online store ${usPrices.store}. Fixed USD quotes.`,
-    images: [siteConfig.ogImage],
   },
 };
 

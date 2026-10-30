@@ -28,6 +28,8 @@ const TYPE_META: Record<
     scaleStep: number;
     scaleUnit: string;
     includes: string[];
+    /** Published US package price — printed instead of a rupee conversion. */
+    usdFixed?: string;
   }
 > = {
   starter: {
@@ -44,6 +46,7 @@ const TYPE_META: Record<
     scaleMax: 8,
     scaleStep: 1,
     scaleUnit: "pages",
+    usdFixed: fixedPackages.us.starter,
     includes: [
       "Mobile-first WordPress website",
       "Contact & WhatsApp buttons",
@@ -290,7 +293,10 @@ export function CostCalculator() {
               {pk(result.low)} – {pk(result.high)}
             </p>
             <p className="mt-1.5 text-sm text-slate-300">
-              {approxUsd(result.low)} – {approxUsd(result.high)} USD · {result.weeksLow}–{result.weeksHigh} weeks
+              {meta.usdFixed
+                ? `${meta.usdFixed} fixed in the US`
+                : `${approxUsd(result.low)} – ${approxUsd(result.high)} USD`}{" "}
+              · {result.weeksLow}–{result.weeksHigh} weeks
             </p>
 
             <div className="mt-6 border-t border-white/10 pt-5">

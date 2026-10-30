@@ -8,7 +8,7 @@ import { projects, projectCategories, portfolioDisclosure } from "@/lib/portfoli
 export const metadata: Metadata = {
   title: "Case Studies | Web, Mobile & eCommerce Projects",
   description:
-    "WordbitX case studies: custom POS platforms, delivery apps, Shopify storefronts, booking portals, AI document processing and marketplace websites — with the decisions behind each build.",
+    "WordbitX case studies: custom POS platforms, delivery apps, Shopify storefronts, booking portals and AI tools — with the decisions behind each build.",
   alternates: { canonical: "/portfolio" },
   keywords: [
     "software development case studies",

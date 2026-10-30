@@ -8,7 +8,7 @@ import { seoTitleAbsolute } from "@/lib/seo-title";
 
 const metaTitle = "Software House in Pakistan — City by City";
 const metaDescription =
-  "Lahore-based software house serving Lahore, Karachi, Islamabad, Faisalabad, Sialkot, Multan, Peshawar, Quetta and Hyderabad — each city page covers that market.";
+  "Lahore-based software house serving Lahore, Karachi, Islamabad, Faisalabad, Sialkot, Multan, Peshawar and Quetta — one page per city.";
 
 export const metadata: Metadata = {
   title: seoTitleAbsolute(metaTitle),

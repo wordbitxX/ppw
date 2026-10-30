@@ -7,7 +7,7 @@ import { absoluteUrl, siteConfig } from "@/lib/site";
 export const metadata: Metadata = {
   title: { absolute: `Websites for Pakistani Businesses from ${pkPrices.basic} | WordbitX` },
   description:
-    "Mobile-first websites for Pakistani shops and businesses from Rs. 20,000, or Rs. 25,000 with domain and 1 year hosting. 3 months support. Lahore-based team.",
+    `Mobile-first websites for Pakistani shops and businesses from ${pkPrices.basic}, or ${pkPrices.allInOne} with domain and 1 year hosting. Lahore-based team.`,
   keywords: [
     "website design Pakistan",
     "website price in Pakistan",
@@ -25,21 +25,12 @@ export const metadata: Metadata = {
     url: "/pk",
     type: "website",
     title: `Websites for Pakistani businesses from ${pkPrices.basic} | WordbitX`,
-    description: "A complete business website from Rs. 20,000. Rs. 25,000 with domain and 1 year hosting.",
-    images: [
-      {
-        url: siteConfig.ogImage,
-        width: 1200,
-        height: 630,
-        alt: `WordbitX — websites for Pakistani businesses from ${pkPrices.basic}`,
-      },
-    ],
+    description: `A complete business website from ${pkPrices.basic}. ${pkPrices.allInOne} with domain and 1 year hosting.`,
   },
   twitter: {
     card: "summary_large_image",
     title: `Websites for Pakistani businesses from ${pkPrices.basic} | WordbitX`,
-    description: "Mobile-first websites for Pakistani businesses. Rs. 20,000, or Rs. 25,000 with domain and 1 year hosting.",
-    images: [siteConfig.ogImage],
+    description: `Mobile-first websites for Pakistani businesses. ${pkPrices.basic}, or ${pkPrices.allInOne} with domain and 1 year hosting.`,
   },
 };
 

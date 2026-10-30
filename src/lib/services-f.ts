@@ -15,7 +15,7 @@ export const servicesF: Service[] = [
       "Amazon seller account setup, listing optimisation, brand store and ongoing Seller Central support.",
     metaTitle: "Amazon Store Setup & Seller Central Management",
     metaDescription:
-      "Amazon store setup and Seller Central support from WordbitX: seller account, listings, A+ content, brand store and catalogue management under your Amazon login.",
+      "Amazon store setup from WordbitX: seller account, listings, A+ content, brand store and catalogue management under your own Seller Central login.",
     primaryKeyword: "Amazon store setup",
     keywords: [
       "Amazon store setup",

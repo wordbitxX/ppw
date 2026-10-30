@@ -7,6 +7,7 @@ import "@fontsource/inter/600.css";
 import "@fontsource/inter/700.css";
 import "./globals.css";
 import { Header } from "@/components/header";
+import { MegaIconSprite } from "@/components/mega-icon-sprite";
 import { Footer } from "@/components/footer";
 import { DeferredWidgets } from "@/components/deferred-widgets";
 import { OrganizationSchema, WebsiteSchema } from "@/components/jsonld";
@@ -119,6 +120,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         >
           Skip to content
         </a>
+        <MegaIconSprite />
         <Header />
         <main id="main-content">{children}</main>
         <Footer />

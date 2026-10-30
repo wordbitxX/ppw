@@ -14,6 +14,7 @@
  *
  * Bands:
  *  - `fixed`  → template WordPress packages with a fixed scope (5–10 pages).
+ *                USD starts at $150 so a small US business is not priced out.
  *  - `custom` → custom design/build: business sites, stores, portals.
  *  - `app`    → custom web apps, ERP/CRM, POS platforms.
  * The calculator models `custom` and `app`; `fixed` is the packaged route.
@@ -36,27 +37,27 @@ export const priceTiers: Record<PriceTier["id"], PriceTier> = {
     name: "Fixed website package",
     includes: "Template WordPress site, 5–10 pages, CMS, basic SEO",
     pkr: { from: 20_000, to: 25_000 },
-    usd: { from: 499, to: 899 },
+    usd: { from: 150, to: 499 },
     pkrLabel: "Rs. 20,000 – 25,000",
-    usdLabel: "$499 – $899",
+    usdLabel: "$150 – $499",
   },
   custom: {
     id: "custom",
     name: "Custom website or store",
     includes: "Custom design, integrations, catalogue or multi-language",
     pkr: { from: 250_000, to: 1_000_000 },
-    usd: { from: 900, to: 3_600 },
+    usd: { from: 600, to: 2_500 },
     pkrLabel: "Rs. 2,50,000 – 10,00,000",
-    usdLabel: "$900 – $3,600",
+    usdLabel: "$600 – $2,500",
   },
   app: {
     id: "app",
     name: "Custom app, ERP or POS",
     includes: "Accounts, roles, workflows, reporting, integrations",
     pkr: { from: 900_000 },
-    usd: { from: 3_500 },
+    usd: { from: 2_500 },
     pkrLabel: "Rs. 9,00,000+",
-    usdLabel: "$3,500+",
+    usdLabel: "$2,500+",
   },
 };
 
@@ -69,13 +70,13 @@ export const fixedPackages = {
     supportMonths: 3,
   },
   us: {
-    starter: "$499",
-    business: "$899",
-    store: "$1,499",
-    domainHosting: "$150",
-    care: "from $99/mo",
-    seo: "from $299/mo",
-    customApp: "from $3,500",
+    starter: "$150",
+    business: "$299",
+    store: "$499",
+    domainHosting: "$50",
+    care: "from $49/mo",
+    seo: "from $149/mo",
+    customApp: "from $2,500",
     supportMonths: 3,
   },
 } as const;

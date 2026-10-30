@@ -13,6 +13,7 @@ import Link from "next/link";
 import { ArrowRight } from "@/components/icons";
 import { contactHref } from "@/lib/site";
 import { seoTitleAbsolute } from "@/lib/seo-title";
+import { fixedPackages } from "@/lib/price-ladder";
 
 export function generateStaticParams() {
   return markets.map((item) => ({ slug: item.slug }));
@@ -65,24 +66,25 @@ export default async function MarketPage({ params }: PageProps) {
         </div>
       </Section>
 
-      {market.slug === "pakistan" || market.slug === "usa" ? (
-        <Section tone="muted" padding="compact">
-          <div className="flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-5 sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-sm leading-relaxed text-ink-600">
-              {market.slug === "usa"
-                ? "Website packages priced in dollars: starter $499, business $899, online store $1,499."
-                : "Website packages priced in rupees: Rs. 20,000, or Rs. 25,000 with domain and 1 year hosting."}
-            </p>
-            <Link
-              href={market.slug === "usa" ? "/usa" : "/pk"}
-              className="group inline-flex shrink-0 items-center gap-1.5 text-sm font-semibold text-brand-700 transition-colors hover:text-brand-600"
-            >
-              {market.slug === "usa" ? "See US pricing" : "See Pakistan pricing"}
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Link>
-          </div>
-        </Section>
-      ) : null}
+      {/* Price anchor on every market page. Non-Pakistan markets are billed from
+          the dollar list, so they point at /usa — an Australian or Canadian
+          reader should never have to convert rupees to find the price. */}
+      <Section tone="muted" padding="compact">
+        <div className="flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-5 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm leading-relaxed text-ink-600">
+            {market.slug === "pakistan"
+              ? `Website packages priced in rupees: ${fixedPackages.pk.starter}, or ${fixedPackages.pk.allInOne} with domain and 1 year hosting.`
+              : `Website packages priced in US dollars: starter ${fixedPackages.us.starter}, business ${fixedPackages.us.business}, online store ${fixedPackages.us.store}.`}
+          </p>
+          <Link
+            href={market.slug === "pakistan" ? "/pk" : "/usa"}
+            className="group inline-flex shrink-0 items-center gap-1.5 text-sm font-semibold text-brand-700 transition-colors hover:text-brand-600"
+          >
+            {market.slug === "pakistan" ? "See Pakistan pricing" : "See US dollar pricing"}
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </Link>
+        </div>
+      </Section>
 
       {market.slug === "pakistan" ? (
         <Section tone="muted">

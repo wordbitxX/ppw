@@ -522,7 +522,7 @@ export const servicesA: Service[] = [
       "User research, wireframes, high-fidelity UI, design systems and brand collateral for web, mobile and software products.",
     metaTitle: "UI UX Design Services | Product & Web Design Agency",
     metaDescription:
-      "UI/UX design services from WordbitX: user research, wireframing, prototyping, design systems and graphic design for websites, mobile apps and business software.",
+      "UI/UX design from WordbitX: user research, wireframing, prototyping and design systems for websites, mobile apps and business software.",
     primaryKeyword: "UI UX design services",
     keywords: [
       "UI UX design services",

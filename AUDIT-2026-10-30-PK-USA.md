@@ -43,8 +43,34 @@ Approved and implemented after this audit was written:
 | Contextual `FixedPriceStrip` on the homepage, website-building services, city + geo pages, `/hire-developers/*` and the calculator | ✅ shipped |
 | Cost blog: fixed-package row + inline links to `/pk` and `/usa`; Lahore "what does a website cost" FAQ pulled back in line | ✅ shipped |
 
-Still open: the P1/P2 items in §3 (copy localisation for `/usa`, homepage H1, thin market pages, 7 long
-descriptions, per-page OG images, bundle weight) — those were not part of the approved P0 scope.
+---
+
+## 0c. P1 / P2 status — shipped 30 Oct 2026 (second pass)
+
+The owner's follow-up was "ok kro sb" — the whole queue, plus: **USD must start at $150** and must not
+look expensive. Both are done in the same branch.
+
+| Item | What changed | Where |
+|---|---|---|
+| **USD entry price cut to $150** | Ladder now reads fixed **$150–499**, custom **$600–2,500**, app **$2,500+**; packages starter **$150** / business **$299** / store **$499**, domain+hosting $50, care from $49/mo, SEO from $149/mo, custom app from $2,500 | `src/lib/price-ladder.ts` |
+| **Every stale dollar figure swept** | 14 hard-coded `$499 / $899 / $1,499` strings replaced with ladder interpolation (meta, FAQ, WhatsApp prefills, JSON-LD Offer prices, blog table, `/pricing` description, calculator copy, `/global/*` callout). Build output now contains **zero** occurrences of `$899` or `$1,499` | `us-landing.ts`, `usa/page.tsx`, `pricing/page.tsx`, `pricing.ts`, `cost-calculator/page.tsx`, `blog-more-a.ts`, `global/[slug]/page.tsx` |
+| **Calculator no longer misquotes the US** | The starter preset used to print "≈ $70 – $90 USD" (a rupee conversion) while `/usa` sold the same site for $499. It now prints **"$150 fixed in the US"** from the package price | `cost-calculator.tsx` |
+| **Blog cost table aligned to the ladder** | Three rows only — fixed $150–499, custom $600–2,500, app $2,500–25,000+ — instead of five overlapping ranges | `blog-more-a.ts` |
+| **`/usa` copy localised** | Rewritten sentence by sentence: US hours (ET/CT/PT), Sales tax, Google Business Profile, DTC stores, "no fake US office", plus a new *"Is there anything cheaper?"* FAQ that names $150 as the floor. Still ~907 words in `<main>` (target ≈890) and only ~26 words longer than `/pk` | `src/lib/us-landing.ts` |
+| **Homepage H1 now matches the title** | H1 was "One Platform. Endless Possibilities."; now **"Software Development Company in Pakistan."** with the tagline demoted to the small tracked line above it | `src/app/page.tsx` |
+| **Thin market pages expanded** | `/global/australia` 408 → **804** words, `/global/canada` 417 → **846**: market-specific demand (trades/booking, DTC, FR-CA), delivery terms (NDA, IP assignment, AEST/ET overlap), hosting region, accessibility, and 4–5 FAQs each — including the price | `src/lib/markets.ts` |
+| **Price anchor on every market page** | `/global/*` used to show a price callout for PK and USA only; now all six markets show the package prices, and non-Pakistan markets link to `/usa` (dollars) instead of rupees | `src/app/global/[slug]/page.tsx` |
+| **Meta descriptions trimmed** | 36 descriptions over 158 characters cut (the 18 `/societies/*` pages were 189–203 chars; `/resources`, `/portfolio`, `/comparisons`, `/glossary`, `/services/*`, `/cities`, `/blog/*`). Crawl of the build: **0 descriptions > 158** | 15 files |
+| **Per-page OG images** | New shared `renderOgCard()` + three route images: `/pk` (Rs. 20,000), `/usa` ($150 / $299 / $499), `/pricing` (PKR + USD ladder). Verified 1200×630 PNG at each URL | `src/lib/og-card.tsx`, `src/app/{pk,usa,pricing}/opengraph-image.tsx` |
+| **Bundle weight** | The header was pulling ~80 KB of brand-logo paths into the shared JS because `header.tsx` (client) imported `MegaServiceIcon`. Glyphs now render once per page as an SVG `<symbol>` sprite from the layout, and the client header draws them with `<use>`. **No brand-path chunk remains in any JS file**; first-load gzip for `/` measured 399 KB → ~347 KB | `mega-icon-sprite.tsx`, `mega-icon-ref.tsx`, `mega-custom-glyphs.tsx`, `mega-brand-map.ts`, `layout.tsx` |
+
+**Verification:** `tsc --noEmit` clean · `next build` ✓ 399/399 static pages · `npm run lint` shows the
+same 6 pre-existing errors as `main` (raw quotes in `hire-developers`, `setState`-in-effect in the two
+review components) and nothing new · all touched routes 200 · `/pk` and `/usa` OG routes return PNG.
+
+**Left alone, deliberately:** the Clutch "Min project size $1,000+" fact in `site.ts` (it is a
+third-party profile fact, not our price list), the under-$25/hr rate band, and the pre-existing lint
+errors above.
 
 ---
 

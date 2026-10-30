@@ -1,3 +1,4 @@
+import { fixedPackages } from "@/lib/price-ladder";
 import type { Faq } from "@/lib/types";
 
 export type PricingBand = {
@@ -94,7 +95,7 @@ export const pricingFaqs: Faq[] = [
   {
     question: "Do you have fixed-price packages, or is everything quoted?",
     answer:
-      "Both. For a standard website there is a fixed package: Rs. 20,000 in Pakistan (Rs. 25,000 with domain and one year of hosting) and $499 in the US, with business and store packages above that — every number is on the Pakistan and USA price pages. Custom builds, portals, POS and ERP are quoted on a written scope, because a sticker there would either scare off a small job or pretend a full system is cheap.",
+      `Both. For a standard website there is a fixed package: ${fixedPackages.pk.starter} in Pakistan (${fixedPackages.pk.allInOne} with domain and one year of hosting) and ${fixedPackages.us.starter} in the US, with business and store packages above that — every number is on the Pakistan and USA price pages. Custom builds, portals, POS and ERP are quoted on a written scope, because a sticker there would either scare off a small job or pretend a full system is cheap.`,
   },
   {
     question: "Why hire a Pakistan software team instead of a local studio?",

@@ -34,13 +34,11 @@ export const morePostsA: BlogPost[] = [
       { type: "p", text: "This guide explains what actually drives cost so you can budget before you talk to any [website development company](/services/web-development)." },
       { type: "h2", text: "Typical cost ranges in 2026" },
       { type: "table", head: ["Type of website", "What you get", "Typical range (USD)"], rows: [
-        ["Fixed-package business site", "5–10 pages, CMS, mobile, basic SEO — price published", "$499 – $899 (Rs. 20,000 – 25,000 in Pakistan)"],
-        ["Custom business site", "Custom design, 10+ pages, integrations", "$900 – $2,500"],
-        ["Content / marketing site", "Blog, landing pages, analytics, schema", "$2,000 – $6,000"],
-        ["Custom web application", "Logins, dashboards, integrations", "$5,000 – $25,000+"],
-        ["eCommerce store", "Catalogue, checkout, payments, shipping", "$2,500 – $15,000"],
+        ["Fixed-package business site", "5–10 pages, CMS, mobile, basic SEO — price published", "$150 – $499 (Rs. 20,000 – 25,000 in Pakistan)"],
+        ["Custom website or online store", "Custom design, integrations, catalogue, multi-language", "$600 – $2,500"],
+        ["Custom web app, portal or POS", "Logins, roles, dashboards, workflows, reporting", "$2,500 – $25,000+"],
       ] },
-      { type: "p", text: "Two of those rows are not estimates on this site: a 5–10 page business website is a fixed **Rs. 20,000** in Pakistan (Rs. 25,000 with domain and one year of hosting) — see the [Pakistan website packages](/pk) — and **$499** in the US, with business and store packages above it on the [US website packages](/usa) page. Everything else in the table is a custom build, which is why it is quoted rather than listed." },
+      { type: "p", text: "The first row is not an estimate: a 5–10 page business website is a fixed **Rs. 20,000** in Pakistan (Rs. 25,000 with domain and one year of hosting) — see the [Pakistan website packages](/pk) — and **$150** in the US, with business and store packages above it on the [US website packages](/usa) page. Everything else in the table is a custom build, which is why it is quoted rather than listed." },
       { type: "callout", title: "Ask for a milestone quote", text: "A single lump-sum number without a written scope is a guess. Insist on deliverables per milestone so you can see what you are paying for." },
       { type: "h2", text: "What actually drives the price" },
       { type: "ol", items: [
@@ -230,7 +228,7 @@ export const morePostsA: BlogPost[] = [
       "A straight comparison of WordPress and custom development across cost, speed, SEO, security and who should actually update the site.",
     metaTitle: "WordPress vs Custom Website: Which Is Right for You? | WordbitX",
     metaDescription:
-      "WordPress vs custom website development compared: cost, speed, SEO, security, editor experience and when a custom Next.js build is the better long-term choice.",
+      "WordPress vs custom website development: cost, speed, SEO, security, editor experience and when a custom Next.js build is the better choice.",
     keywords: [
       "WordPress vs custom website",
       "WordPress development company",

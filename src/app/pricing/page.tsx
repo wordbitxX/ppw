@@ -12,7 +12,7 @@ import { contactHref } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Software Development Cost | How Quotes Work",
   description:
-    "How WordbitX prices work: fixed website packages in PKR (from Rs. 20,000) and USD (from $499), plus custom builds quoted on a written scope.",
+    `How WordbitX prices: fixed website packages in PKR (from ${fixedPackages.pk.starter}) and USD (from ${fixedPackages.us.starter}), plus custom builds quoted on a written scope.`,
   alternates: { canonical: "/pricing" },
   keywords: [
     "software development cost",

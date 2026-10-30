@@ -29,7 +29,7 @@ export const industries: Industry[] = [
       "Software for retailers who need offline billing, accurate multi-branch stock and owner-level visibility — not another cloud tool that freezes at the counter.",
     metaTitle: "Retail Software Development | POS, Inventory & Branch Systems",
     metaDescription:
-      "Retail software development for stores and chains: offline POS, barcode inventory, multi-branch stock, supplier ledgers and owner dashboards built by WordbitX.",
+      "Retail software for stores and chains: offline POS, barcode inventory, multi-branch stock, supplier ledgers and owner dashboards.",
     image: "/brand/services/pos-software.jpg",
     imageAlt: "Retail point of sale counter with card payment terminal",
     problems: [
@@ -423,7 +423,7 @@ export const industries: Industry[] = [
       "Booking platforms and agency tools built around real travel inventory: packages, dates, seats, rooms and instalment-style payments, with enquiry routing that does not lose a lead at 2am.",
     metaTitle: "Travel Software Development | Booking Platforms & Tour Systems",
     metaDescription:
-      "Travel software for agencies and tour operators: package booking, availability calendars, agent commissions, customer itineraries and lead routing built by WordbitX.",
+      "Travel software for agencies and tour operators: package booking, availability calendars, agent commissions and itineraries, built by WordbitX.",
     image: "/brand/services/ecommerce-development.jpg",
     imageAlt: "Traveller reviewing a tour booking on a laptop",
     problems: [

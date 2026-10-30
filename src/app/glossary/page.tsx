@@ -9,7 +9,7 @@ import { glossaryTerms } from "@/lib/glossary";
 import type { Faq } from "@/lib/types";
 
 const description =
-  "Plain-language definitions of the software terms in our proposals and service pages — API, CRM, ERP, MVP, PWA, SaaS, SEO and more, each linked to the service that delivers it.";
+  "Plain-language definitions of the terms in our proposals: API, CRM, ERP, MVP, PWA, SaaS, SEO and more — each linked to the service that delivers it.";
 
 const faqs: Faq[] = [
   {

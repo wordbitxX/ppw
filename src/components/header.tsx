@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 import { Logo, MenuIcon, CloseIcon, ChevronDown, ArrowRight, WhatsAppIcon } from "@/components/icons";
-import { MegaServiceIcon } from "@/components/mega-service-icon";
+import { MegaServiceIconRef as MegaServiceIcon } from "@/components/mega-icon-ref";
 import { b2bServiceSlugs, megaMenuGroups, services } from "@/lib/services";
 import { fixedPackages } from "@/lib/price-ladder";
 import { mainNav, siteConfig, whatsappLink } from "@/lib/site";

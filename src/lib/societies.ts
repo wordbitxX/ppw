@@ -565,5 +565,5 @@ export function societySoftwareTitle(society: Society) {
 }
 
 export function societySoftwareDescription(society: Society) {
-  return `${society.name} software from WordbitX: plot inventory, file transfers, instalments, dealer CRM and buyer portals. Indicative market ranges are context only — not a price list or investment advice.`;
+  return `${society.name} software from WordbitX: plot inventory, instalments, dealer CRM and buyer portals. Indicative market ranges only, not investment advice.`;
 }
