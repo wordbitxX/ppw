@@ -134,6 +134,10 @@ function PackagesLink({ variant = "outline" }: { variant?: "outline" | "light" }
 }
 
 export default function PakistanLandingPage() {
+  /** The hero mockup opens the Veranne storefront — the "demo" in the hero is
+   *  a real, live site, so it should behave like one. */
+  const heroDemo = demoWebsites.find((entry) => entry.id === "ecommerce");
+
   const work = pkWork
     .map((item) => {
       const demo = demoWebsites.find((entry) => entry.id === item.id);
@@ -239,21 +243,34 @@ export default function PakistanLandingPage() {
                 className="pointer-events-none absolute -inset-6 rounded-[2.5rem] bg-brand-500/12 blur-3xl"
                 aria-hidden="true"
               />
-              <div className="relative overflow-hidden rounded-3xl border border-white/12 bg-navy-900 shadow-[0_50px_110px_-45px_rgba(3,8,20,0.9)]">
+              <a
+                href={heroDemo?.url ?? "/portfolio"}
+                {...(heroDemo ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                aria-label={`Open the ${heroDemo?.name ?? "Veranne"} live demo${heroDemo ? " in a new tab" : ""}`}
+                className="group relative block overflow-hidden rounded-3xl border border-white/12 bg-navy-900 shadow-[0_50px_110px_-45px_rgba(3,8,20,0.9)] transition-all duration-500 hover:-translate-y-1 hover:border-brand-400/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-400"
+              >
                 <Image
                   src="/demos/cover/ecommerce.jpg"
-                  alt="Illustration of a boutique counter with the Veranne online store WordbitX designed, shown on a laptop"
+                  alt={`Illustration of a boutique counter with the ${heroDemo?.name ?? "Veranne"} online store WordbitX designed, shown on a laptop`}
                   width={1600}
                   height={900}
                   priority
                   sizes="(min-width: 1024px) 560px, 92vw"
-                  className="h-auto w-full object-cover"
+                  className="h-auto w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                 />
                 <div
                   className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy-950/85 via-navy-950/10 to-transparent"
                   aria-hidden="true"
                 />
-                <div className="absolute inset-x-4 bottom-4 hidden rounded-2xl border border-white/15 bg-navy-950/80 p-4 backdrop-blur-md sm:block">
+                <span className="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-navy-950/75 px-3 py-1.5 text-[0.6rem] font-bold uppercase tracking-[0.14em] text-white backdrop-blur-md">
+                  <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-400 opacity-75" />
+                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-brand-400" />
+                  </span>
+                  Live demo · {heroDemo?.name ?? "Veranne"}
+                  <ArrowRight className="h-3 w-3 -rotate-45 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                </span>
+                <div className="absolute inset-x-4 bottom-4 hidden rounded-2xl border border-white/15 bg-navy-950/80 p-4 backdrop-blur-md transition-colors duration-300 group-hover:border-brand-400/35 sm:block">
                   <div className="flex items-center justify-between gap-3">
                     <div>
                       <p className="text-[0.6rem] font-bold uppercase tracking-[0.16em] text-brand-300">
@@ -272,7 +289,7 @@ export default function PakistanLandingPage() {
                     Or {pkPrices.allInOne} with domain + 1 year hosting included.
                   </p>
                 </div>
-              </div>
+              </a>
             </div>
           </div>
         </div>
@@ -292,130 +309,8 @@ export default function PakistanLandingPage() {
         </div>
       </section>
 
-      {/* ── WHAT YOU GET ─────────────────────────────────────────────────── */}
-      <Section id="included">
-        <SectionHeading
-          align="center"
-          eyebrow="Included"
-          title={
-            <>
-              What you get for <span className="text-brand-600">{pkPrices.basic}</span>
-            </>
-          }
-          description="A complete business website, not a template drop."
-        />
-        <div className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {pkIncluded.map((item) => (
-            <div key={item.title} className={cardLight}>
-              <div className="flex items-start gap-3">
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-700 ring-1 ring-brand-500/15">
-                  <CheckIcon className="h-4 w-4" />
-                </span>
-                <h3 className="pt-1 text-base font-semibold leading-snug text-ink-900">{item.title}</h3>
-              </div>
-              <p className="mt-3 text-sm leading-relaxed text-ink-500">{item.text}</p>
-            </div>
-          ))}
-        </div>
-        <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <WhatsAppCta className="w-full sm:w-auto" />
-          <PackagesLink variant="light" />
-        </div>
-      </Section>
-
-      {/* ── AT A GLANCE ──────────────────────────────────────────────────── */}
-      <Section tone="muted">
-        <div className="text-center">
-          <Eyebrow>WordbitX at a glance</Eyebrow>
-          <h2 className="mx-auto mt-4 max-w-2xl text-[1.65rem] font-semibold leading-[1.15] text-ink-900 sm:text-4xl lg:text-[2.6rem]">
-            Pakistan’s website partner since 2021
-          </h2>
-        </div>
-
-        <div className="mt-8 overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-r from-navy-950 via-navy-800 to-navy-700 shadow-[0_45px_90px_-55px_rgba(5,39,103,0.9)]">
-          <div className="grid grid-cols-2 gap-y-7 px-4 py-8 sm:px-6 lg:grid-cols-4 lg:items-center lg:gap-y-0 lg:py-9">
-            {pkGlanceStats.map((stat) => (
-              <div key={stat.label} className="px-2 text-center">
-                <p
-                  className={`text-2xl font-semibold tracking-tight sm:text-[2rem] ${
-                    "highlight" in stat && stat.highlight ? "text-brand-300" : "text-white"
-                  }`}
-                >
-                  {stat.value}
-                </p>
-                <p className="mt-2 text-[0.6rem] font-bold uppercase tracking-[0.16em] text-slate-300 sm:text-[0.66rem]">
-                  {stat.label}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <p className="mx-auto mt-7 max-w-3xl text-center text-base leading-relaxed text-ink-600">
-          WordbitX is a web design and development company in Lahore, Pakistan, building since 2021. We build fast,
-          mobile-first WordPress websites, Shopify and WooCommerce stores, custom web apps and FBR-ready POS
-          software for businesses across Pakistan — and handle SEO and maintenance after launch.
-        </p>
-
-        <div className="mt-8 grid gap-4 sm:grid-cols-3">
-          <div className={cardLight}>
-            <div className="flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-700 ring-1 ring-brand-500/15">
-                <PkIcon name="pin" className="h-4.5 w-4.5" />
-              </span>
-              <h3 className="text-sm font-semibold text-ink-900">Office</h3>
-            </div>
-            <p className="mt-3 text-sm leading-relaxed text-ink-500">{siteConfig.addressDisplay}</p>
-            <a
-              href={siteConfig.googleReviewsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-brand-700 hover:text-brand-600"
-            >
-              Open in Google Maps
-              <ArrowRight className="h-3.5 w-3.5" />
-            </a>
-          </div>
-
-          <div className={cardLight}>
-            <div className="flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-700 ring-1 ring-brand-500/15">
-                <PkIcon name="language" className="h-4.5 w-4.5" />
-              </span>
-              <h3 className="text-sm font-semibold text-ink-900">Languages</h3>
-            </div>
-            <p className="mt-3 text-sm leading-relaxed text-ink-500">Urdu and English</p>
-            <p className="mt-1 text-sm leading-relaxed text-ink-500">
-              Bilingual sites with right-to-left Urdu support
-            </p>
-          </div>
-
-          <div className={cardLight}>
-            <div className="flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-700 ring-1 ring-brand-500/15">
-                <ClockIcon className="h-4.5 w-4.5" />
-              </span>
-              <h3 className="text-sm font-semibold text-ink-900">Reply time</h3>
-            </div>
-            <p className="mt-3 text-sm leading-relaxed text-ink-500">Same business day</p>
-            <p className="mt-1 text-sm leading-relaxed text-ink-500">Mon–Sat, 9:00–19:00 PKT</p>
-            <a
-              href={`tel:${siteConfig.phoneRaw}`}
-              className="mt-1 inline-block text-sm font-semibold text-brand-700 hover:text-brand-600"
-            >
-              {siteConfig.phoneDisplay}
-            </a>
-          </div>
-        </div>
-
-        <p className="mt-6 text-center text-xs text-ink-400">
-          Last updated{" "}
-          <time dateTime="2026-10-30">October 30, 2026</time>
-        </p>
-      </Section>
-
       {/* ── PACKAGES ─────────────────────────────────────────────────────── */}
-      <Section id="packages">
+      <Section id="packages" padding="tight-bottom">
         <SectionHeading
           align="center"
           eyebrow="Pricing"
@@ -465,7 +360,7 @@ export default function PakistanLandingPage() {
                 {pkg.features.map((feature) => (
                   <li key={feature} className="flex items-start gap-2.5">
                     <CheckIcon
-                      className={`mt-0.5 h-4 w-4 shrink-0 ${pkg.featured ? "text-brand-300" : "text-brand-600"}`}
+                      className={`mt-0.5 h-4 w-4 shrink-0 ${pkg.featured ? "text-white/85" : "text-navy-700"}`}
                     />
                     <span className={pkg.featured ? "text-slate-200" : "text-ink-700"}>{feature}</span>
                   </li>
@@ -523,6 +418,153 @@ export default function PakistanLandingPage() {
         </p>
       </Section>
 
+      {/* ── WHAT YOU GET ─────────────────────────────────────────────────── */}
+      <Section id="included" padding="tight">
+        <div className="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-[0_45px_110px_-80px_rgba(5,13,33,0.85)]">
+          <div className="h-1 bg-gradient-to-r from-navy-900 via-brand-500 to-navy-900" aria-hidden="true" />
+          <div className="grid lg:grid-cols-[0.95fr_1.05fr]">
+            {/* Offer column — navy, the price and the ask, above the fold of the card. */}
+            <div className="relative overflow-hidden bg-gradient-to-br from-navy-950 via-navy-900 to-navy-800 p-6 text-white sm:p-8 lg:p-10">
+              <div
+                className="pointer-events-none absolute -right-20 -top-24 h-64 w-64 rounded-full bg-brand-500/15 blur-3xl"
+                aria-hidden="true"
+              />
+              <div className="pointer-events-none absolute inset-0 grid-pattern opacity-[0.14]" aria-hidden="true" />
+              <div className="relative flex h-full flex-col justify-center">
+                <Eyebrow tone="dark">Included</Eyebrow>
+                <h2 className="mt-4 text-[1.75rem] font-semibold leading-[1.1] tracking-[-0.02em] sm:text-[2.1rem] lg:text-[2.35rem]">
+                  What you get for <span className="text-brand-300">{pkPrices.basic}</span>
+                </h2>
+                <p className="mt-3 max-w-md text-sm leading-relaxed text-slate-300">
+                  A complete business website, not a template drop. One fixed price, everything listed here, and a
+                  written quote before any work starts.
+                </p>
+
+                <ul className="mt-6 flex flex-wrap gap-2">
+                  {["Fixed written quote", `${pkPrices.supportMonths} months support`, "You own it all"].map((chip) => (
+                    <li
+                      key={chip}
+                      className="rounded-full border border-white/15 bg-white/[0.06] px-3 py-1.5 text-[0.7rem] font-semibold text-slate-200 backdrop-blur-sm"
+                    >
+                      {chip}
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
+                  <WhatsAppCta className="w-full sm:w-auto" />
+                  <PackagesLink />
+                </div>
+              </div>
+            </div>
+
+            {/* Included items — hairline grid so it reads like a spec sheet. */}
+            <div className="grid gap-px bg-slate-200/70 sm:grid-cols-2">
+              {pkIncluded.map((item) => (
+                <div key={item.title} className="group bg-white p-5 transition-colors duration-300 hover:bg-slate-50/80 sm:p-6">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-navy-700 to-navy-900 text-white shadow-[0_12px_24px_-14px_rgba(5,39,103,0.9)] ring-1 ring-navy-900/10 transition-transform duration-300 group-hover:-translate-y-0.5">
+                    <CheckIcon className="h-4 w-4" />
+                  </span>
+                  <h3 className="mt-3.5 text-sm font-semibold text-ink-900">{item.title}</h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-ink-500">{item.text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </Section>
+
+      {/* ── AT A GLANCE ──────────────────────────────────────────────────── */}
+      <Section tone="muted" padding="flush-top" id="glance">
+        <div className="text-center">
+          <Eyebrow>WordbitX at a glance</Eyebrow>
+          <h2 className="mx-auto mt-4 max-w-2xl text-[1.65rem] font-semibold leading-[1.15] text-ink-900 sm:text-4xl lg:text-[2.6rem]">
+            Pakistan’s website partner since 2021
+          </h2>
+        </div>
+
+        <div className="mt-8 overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-r from-navy-950 via-navy-800 to-navy-700 shadow-[0_45px_90px_-55px_rgba(5,39,103,0.9)]">
+          <div className="grid grid-cols-2 gap-y-7 px-4 py-8 sm:px-6 lg:grid-cols-4 lg:items-center lg:gap-y-0 lg:py-9">
+            {pkGlanceStats.map((stat) => (
+              <div key={stat.label} className="px-2 text-center">
+                <p
+                  className={`text-2xl font-semibold tracking-tight sm:text-[2rem] ${
+                    "highlight" in stat && stat.highlight ? "text-brand-300" : "text-white"
+                  }`}
+                >
+                  {stat.value}
+                </p>
+                <p className="mt-2 text-[0.6rem] font-bold uppercase tracking-[0.16em] text-slate-300 sm:text-[0.66rem]">
+                  {stat.label}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <p className="mx-auto mt-7 max-w-3xl text-center text-base leading-relaxed text-ink-600">
+          WordbitX is a web design and development company in Lahore, Pakistan, building since 2021. We build fast,
+          mobile-first WordPress websites, Shopify and WooCommerce stores, custom web apps and FBR-ready POS
+          software for businesses across Pakistan — and handle SEO and maintenance after launch.
+        </p>
+
+        <div className="mt-8 grid gap-4 sm:grid-cols-3">
+          <div className={cardLight}>
+            <div className="flex items-center gap-3">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-navy-700 to-navy-900 text-white shadow-[0_12px_24px_-14px_rgba(5,39,103,0.9)] ring-1 ring-navy-900/10">
+                <PkIcon name="pin" className="h-4.5 w-4.5" />
+              </span>
+              <h3 className="text-sm font-semibold text-ink-900">Office</h3>
+            </div>
+            <p className="mt-3 text-sm leading-relaxed text-ink-500">{siteConfig.addressDisplay}</p>
+            <a
+              href={siteConfig.googleReviewsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-brand-700 hover:text-brand-600"
+            >
+              Open in Google Maps
+              <ArrowRight className="h-3.5 w-3.5" />
+            </a>
+          </div>
+
+          <div className={cardLight}>
+            <div className="flex items-center gap-3">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-navy-700 to-navy-900 text-white shadow-[0_12px_24px_-14px_rgba(5,39,103,0.9)] ring-1 ring-navy-900/10">
+                <PkIcon name="language" className="h-4.5 w-4.5" />
+              </span>
+              <h3 className="text-sm font-semibold text-ink-900">Languages</h3>
+            </div>
+            <p className="mt-3 text-sm leading-relaxed text-ink-500">Urdu and English</p>
+            <p className="mt-1 text-sm leading-relaxed text-ink-500">
+              Bilingual sites with right-to-left Urdu support
+            </p>
+          </div>
+
+          <div className={cardLight}>
+            <div className="flex items-center gap-3">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-navy-700 to-navy-900 text-white shadow-[0_12px_24px_-14px_rgba(5,39,103,0.9)] ring-1 ring-navy-900/10">
+                <ClockIcon className="h-4.5 w-4.5" />
+              </span>
+              <h3 className="text-sm font-semibold text-ink-900">Reply time</h3>
+            </div>
+            <p className="mt-3 text-sm leading-relaxed text-ink-500">Same business day</p>
+            <p className="mt-1 text-sm leading-relaxed text-ink-500">Mon–Sat, 9:00–19:00 PKT</p>
+            <a
+              href={`tel:${siteConfig.phoneRaw}`}
+              className="mt-1 inline-block text-sm font-semibold text-brand-700 hover:text-brand-600"
+            >
+              {siteConfig.phoneDisplay}
+            </a>
+          </div>
+        </div>
+
+        <p className="mt-6 text-center text-xs text-ink-400">
+          Last updated{" "}
+          <time dateTime="2026-10-30">October 30, 2026</time>
+        </p>
+      </Section>
+
       {/* ── SERVICES ─────────────────────────────────────────────────────── */}
       <Section tone="muted" id="services">
         <SectionHeading
@@ -533,7 +575,7 @@ export default function PakistanLandingPage() {
         <div className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {pkServices.map((service) => (
             <Link key={service.slug} href={`/services/${service.slug}`} className={`group ${cardLight}`}>
-              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-50 text-brand-700 ring-1 ring-brand-500/15">
+              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-navy-700 to-navy-900 text-white shadow-[0_12px_24px_-14px_rgba(5,39,103,0.9)] ring-1 ring-navy-900/10">
                 <ServiceIcon name={service.icon} className="h-5 w-5" />
               </span>
               <h3 className="mt-4 text-base font-semibold text-ink-900 group-hover:text-brand-700">{service.title}</h3>
@@ -561,7 +603,7 @@ export default function PakistanLandingPage() {
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {pkWhy.map((item) => (
               <div key={item.title} className={cardDark}>
-                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-400/12 text-brand-300 ring-1 ring-brand-400/25">
+                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-navy-600 text-white ring-1 ring-white/15 shadow-[0_12px_24px_-14px_rgba(3,8,20,0.9)]">
                   <PkIcon name={item.icon} className="h-5 w-5" />
                 </span>
                 <h3 className="mt-4 text-base font-semibold text-white">{item.title}</h3>
@@ -572,7 +614,7 @@ export default function PakistanLandingPage() {
 
           <div className="mt-8 flex flex-col gap-4 rounded-2xl border border-white/10 bg-white/[0.05] p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
             <div className="flex items-start gap-3">
-              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-brand-400/12 text-brand-300 ring-1 ring-brand-400/25">
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-navy-600 text-white ring-1 ring-white/15 shadow-[0_12px_24px_-14px_rgba(3,8,20,0.9)]">
                 <PkIcon name="badge" className="h-4.5 w-4.5" />
               </span>
               <p className="text-sm leading-relaxed text-slate-200">
@@ -796,7 +838,7 @@ export default function PakistanLandingPage() {
           {pkPakistanFeatures.map((item) => (
             <div key={item.title} className={cardLight}>
               <div className="flex items-start gap-3">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-700 ring-1 ring-brand-500/15">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-navy-700 to-navy-900 text-white shadow-[0_12px_24px_-14px_rgba(5,39,103,0.9)] ring-1 ring-navy-900/10">
                   <PkIcon name={item.icon} className="h-4.5 w-4.5" />
                 </span>
                 <h3 className="pt-1.5 text-base font-semibold leading-snug text-ink-900">{item.title}</h3>
