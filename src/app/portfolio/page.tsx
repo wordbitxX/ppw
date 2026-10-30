@@ -6,14 +6,20 @@ import { CtaBand } from "@/components/cta-band";
 import { projects, projectCategories, portfolioDisclosure } from "@/lib/portfolio";
 
 export const metadata: Metadata = {
-  title: "Portfolio | Web, Mobile & eCommerce Projects",
+  title: "Case Studies | Web, Mobile & eCommerce Projects",
   description:
-    "Explore WordbitX project profiles: custom POS platforms, delivery apps, Shopify storefronts, booking portals, AI document processing and marketplace websites.",
+    "WordbitX case studies: custom POS platforms, delivery apps, Shopify storefronts, booking portals, AI document processing and marketplace websites — with the decisions behind each build.",
   alternates: { canonical: "/portfolio" },
-  keywords: ["software development portfolio", "web development projects", "mobile app case studies", "WordbitX portfolio"],
+  keywords: [
+    "software development case studies",
+    "web development projects",
+    "mobile app case studies",
+    "WordbitX portfolio",
+    "software development portfolio",
+  ],
   openGraph: {
     url: "/portfolio",
-    title: "WordbitX Portfolio | Project Profiles",
+    title: "WordbitX Case Studies | Project Profiles",
     description:
       "Project profiles covering software platforms, mobile applications, eCommerce storefronts, AI automation and marketplace websites.",
   },
@@ -23,10 +29,10 @@ export default function PortfolioPage() {
   return (
     <>
       <PageHero
-        eyebrow="Our Portfolio"
-        title="Project Profiles Across Software, Web, Mobile and Commerce"
+        eyebrow="Case Studies"
+        title="Case Studies Across Software, Web, Mobile and Commerce"
         description="Start with the live demo websites — open any one, then tell us if you want something similar. Written project profiles sit below."
-        crumbs={[{ label: "Portfolio", href: "/portfolio" }]}
+        crumbs={[{ label: "Case Studies", href: "/portfolio" }]}
       >
         <div className="flex flex-wrap gap-3">
           <ButtonLink href="#demos">See live demos</ButtonLink>

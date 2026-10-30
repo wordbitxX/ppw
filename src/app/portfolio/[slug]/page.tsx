@@ -63,7 +63,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
         title={project.title}
         description={project.summary}
         crumbs={[
-          { label: "Portfolio", href: "/portfolio" },
+          { label: "Case Studies", href: "/portfolio" },
           { label: project.title, href: `/portfolio/${project.slug}` },
         ]}
       >

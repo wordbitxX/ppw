@@ -169,7 +169,7 @@ export const sitemapIndexItems: { key: SitemapGroupKey; path: string; label: str
   { key: "cities", path: "/sitemaps/cities.xml", label: "Pakistan city pages" },
   { key: "global", path: "/sitemaps/global.xml", label: "Country / market pages" },
   { key: "technologies", path: "/sitemaps/technologies.xml", label: "Technology pages" },
-  { key: "portfolio", path: "/sitemaps/portfolio.xml", label: "Portfolio / demo profiles" },
+  { key: "portfolio", path: "/sitemaps/portfolio.xml", label: "Case studies / demo profiles" },
   { key: "blog", path: "/sitemaps/blog.xml", label: "Blog articles" },
   { key: "topics", path: "/sitemaps/topics.xml", label: "Software topic guides" },
   { key: "legal", path: "/sitemaps/legal.xml", label: "Legal pages" },

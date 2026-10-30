@@ -130,7 +130,7 @@ export const mainNav = [
   { label: "Services", href: "/services" },
   { label: "Industries", href: "/industries" },
   { label: "Products", href: "/products" },
-  { label: "Portfolio", href: "/portfolio" },
+  { label: "Case Studies", href: "/portfolio" },
   { label: "Pricing", href: "/pricing" },
   { label: "Blog", href: "/blog" },
   { label: "Contact Us", href: "/contact" },
