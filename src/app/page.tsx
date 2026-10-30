@@ -264,9 +264,7 @@ export default function HomePage() {
                 className="cine-rise mt-6 text-[2.15rem] font-semibold leading-[1.04] tracking-[-0.03em] sm:text-6xl lg:text-[4.5rem]"
                 style={{ "--d": "0.08s" } as React.CSSProperties}
               >
-                <span className="mb-4 block text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-arc-300 sm:text-xs">
-                  One platform. Endless possibilities.
-                </span>
+                
                 Websites, Apps &
                 <br />
                 <span className="text-gradient-arc">Software That Wins Clients.</span>
