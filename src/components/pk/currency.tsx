@@ -168,7 +168,7 @@ export function useHasPrice(value: PkPrice, usdValue?: PkPrice): boolean {
  * Text that names a currency ("PKR", "Rs.", "$") follows the switch here.
  * Both variants are written out; this never converts a sentence.
  */
-export function CurText({ pkr, usd }: { pkr: ReactNode; usd: ReactNode }) {
+export function CurText({ pkr, usd }: { pkr: string; usd: string }) {
   const { currency } = useCurrency();
   return <>{currency === "USD" ? usd : pkr}</>;
 }
@@ -211,16 +211,76 @@ export function PackagePriceTiles({
   );
 }
 
-/** Just the figure ("Rs. 45,000" / "$160") — the caller prints its own "from". */
-export function PriceAmount({ value, usdValue, fallback = "Fixed quote" }: { value: PkPrice; usdValue?: PkPrice; fallback?: ReactNode }) {
+/**
+ * Just the figure ("Rs. 45,000" / "$160") — the caller prints its own "from".
+ *
+ * Every prop here is a plain string/number on purpose: this component is
+ * rendered from server components, and React's client-reference proxy only
+ * accepts serialisable props. Passing JSX down from a server component is
+ * what produced "Element type is invalid. Received a promise that resolves to
+ * undefined" in the dev preview, so the fallback text is a string pair, not an
+ * element.
+ */
+export function PriceAmount({
+  value,
+  usdValue,
+  fallback = "Fixed quote",
+  fallbackUsd = "Fixed quote in USD",
+}: {
+  value: PkPrice;
+  usdValue?: PkPrice;
+  fallback?: string;
+  fallbackUsd?: string;
+}) {
   const { currency } = useCurrency();
   const text = moneyIn(currency, value, usdValue ?? null);
-  return <>{text ?? fallback}</>;
+  return <>{text ?? (currency === "USD" ? fallbackUsd : fallback)}</>;
 }
 
-/** "from Rs. 45,000" (or "from $160") with a caller-supplied fallback. */
-export function PriceLead({ value, usdValue, fallback = "Fixed quote" }: { value: PkPrice; usdValue?: PkPrice; fallback?: ReactNode }) {
+/** "from Rs. 45,000" (or "from $160"), with a string fallback. */
+export function PriceLead({
+  value,
+  usdValue,
+  fallback = "Fixed quote",
+  fallbackUsd = "Fixed quote in USD",
+}: {
+  value: PkPrice;
+  usdValue?: PkPrice;
+  fallback?: string;
+  fallbackUsd?: string;
+}) {
   const { currency } = useCurrency();
   const text = moneyIn(currency, value, usdValue ?? null);
-  return <>{text ? `from ${text}` : fallback}</>;
+  return <>{text ? `from ${text}` : currency === "USD" ? fallbackUsd : fallback}</>;
+}
+
+/**
+ * The big price line under the /pk hero headline — the one place where the
+ * figure is set in the accent colour. Takes strings only, for the same reason
+ * as PriceAmount above.
+ */
+export function HeroPriceLine({
+  value,
+  usdValue,
+  label = "Websites from",
+  missingLabel = "Websites priced in",
+  missingPkr = "rupees",
+  missingUsd = "dollars or rupees",
+}: {
+  value: PkPrice;
+  usdValue: PkPrice;
+  label?: string;
+  missingLabel?: string;
+  missingPkr?: string;
+  missingUsd?: string;
+}) {
+  const { currency } = useCurrency();
+  const text = moneyIn(currency, value, usdValue);
+
+  return (
+    <>
+      {text ? label : missingLabel}{" "}
+      <span className="text-brand-300">{text ?? (currency === "USD" ? missingUsd : missingPkr)}</span>
+    </>
+  );
 }

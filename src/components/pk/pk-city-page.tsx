@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, CheckIcon, MailIcon, PhoneIcon, WhatsAppIcon } from "@/components/icons";
-import { CurText, CurrencySwitch, PackagePriceTiles } from "@/components/pk/currency";
+import { HeroPriceLine } from "@/components/pk/currency";
 import { FaqSchema, JsonLd } from "@/components/jsonld";
 import { siteConfig, absoluteUrl } from "@/lib/site";
 import {
@@ -18,7 +18,6 @@ import {
   pkr,
   pkPricing,
   pkUsdPricing,
-  usd,
   usdFrom,
 } from "@/lib/pk";
 import type { PkCityPage } from "@/lib/pk-cities";
@@ -137,33 +136,7 @@ export function PkCityView({ page }: { page: PkCityPage }) {
 
             {/* Same price line as /pk — big, straight under the headline. */}
             <p className="mt-5 text-[1.3rem] font-semibold leading-tight sm:text-[1.5rem]">
-              <CurText
-                pkr={
-                  pkPricing.businessWebsite == null ? (
-                    <>
-                      Websites priced in <span className="text-brand-300">rupees</span>
-                    </>
-                  ) : (
-                    <>
-                      Websites from <span className="text-brand-300">{pkr(pkPricing.businessWebsite)}</span>
-                    </>
-                  )
-                }
-                usd={
-                  usdFrom(pkPricing.businessWebsite, pkUsdPricing.businessWebsite) == null ? (
-                    <>
-                      Websites priced in <span className="text-brand-300">dollars or rupees</span>
-                    </>
-                  ) : (
-                    <>
-                      Websites from{" "}
-                      <span className="text-brand-300">
-                        {usd(usdFrom(pkPricing.businessWebsite, pkUsdPricing.businessWebsite) as number)}
-                      </span>
-                    </>
-                  )
-                }
-              />
+              <HeroPriceLine value={pkPricing.businessWebsite} usdValue={usdFrom(pkPricing.businessWebsite, pkUsdPricing.businessWebsite)} />
             </p>
             <p className="mt-2 max-w-xl text-[0.85rem] leading-relaxed text-slate-300">
               Two packages — website only, or with domain and hosting. Same prices across Pakistan, fixed in writing

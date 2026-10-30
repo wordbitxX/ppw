@@ -326,7 +326,7 @@ export function PkPriceCard({ pkg }: { pkg: PkPackage }) {
           from
         </span>
         <span className={`text-[2.1rem] font-bold leading-none tabular-nums ${onNavy ? "text-white" : "text-navy-700"}`}>
-          <PriceAmount value={pkg.price} usdValue={pkg.usdPrice} fallback={<CurText pkr="Fixed quote" usd="Fixed quote in USD" />} />
+          <PriceAmount value={pkg.price} usdValue={pkg.usdPrice} />
         </span>
       </div>
       <p className={`mt-2 text-[0.78rem] leading-snug ${onNavy ? "text-slate-300" : "text-ink-500"}`}>
