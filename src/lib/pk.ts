@@ -285,21 +285,18 @@ export const pkPricePaths = [
       pkPricing.businessWebsite == null && pkPricing.allInOne == null
         ? "Fixed quote in writing, per package"
         : `${websiteFrom()} · ${allInFrom()}`,
-    body: "One-off price per package, both listed above with exactly what is included. No hidden second invoice.",
-    href: "#pricing",
-    hrefLabel: "See both packages",
+    href: "#what-you-get",
+    hrefLabel: "See what is included",
   },
   {
     title: "Stores, apps, POS and custom software",
     price: "Fixed written quote after a free call",
-    body: "Scope changes the price far more than a page count does, so it is quoted against what the build has to do — in writing, before work starts.",
     href: "/contact",
     hrefLabel: "Ask for a quote",
   },
   {
     title: "SEO and care plans",
     price: careFrom(),
-    body: "A written monthly allowance, month to month, with a short report of what ran and what is next. Stop whenever it stops paying.",
     href: "/services/website-maintenance",
     hrefLabel: "See what a care plan covers",
   },

@@ -235,17 +235,12 @@ export function PkPriceCard({ pkg }: { pkg: PkPackage }) {
         <p className={`text-[0.66rem] font-bold uppercase tracking-[0.16em] ${onNavy ? "text-brand-200" : "text-brand-700"}`}>
           {pkg.price == null ? "Package price" : "Starting price"}
         </p>
-        <p className={`mt-1 text-[1.65rem] font-semibold leading-tight ${onNavy ? "text-white" : "text-navy-700"}`}>
+        <p className={`mt-1 text-[1.9rem] font-semibold leading-tight tabular-nums ${onNavy ? "text-white" : "text-navy-700"}`}>
           {priceLead(pkg.price)}
         </p>
         <p className={`mt-1 text-[0.78rem] leading-snug ${onNavy ? "text-slate-200" : "text-ink-600"}`}>
           {pkg.price == null ? "In PKR, written before work starts" : "One-time build. Quoted in PKR, fixed in writing"}
         </p>
-        {process.env.NODE_ENV !== "production" && pkg.price == null ? (
-          <p className="mt-2 inline-block rounded bg-amber-100 px-2 py-0.5 text-[0.62rem] font-semibold text-amber-800">
-            Owner: add the price in src/lib/pk.ts
-          </p>
-        ) : null}
       </div>
 
       <ul className="mt-5 space-y-2.5">
@@ -414,27 +409,36 @@ export function PkFaqList({ faqs }: { faqs: PkFaq[] }) {
 
 export function PkContactBar() {
   return (
-    <div className="border-b border-slate-200 bg-brand-50/80">
-      <div className="container-page flex flex-wrap items-center justify-between gap-x-6 gap-y-1.5 py-2.5">
-        <p className="text-[0.72rem] font-bold uppercase tracking-[0.14em] text-brand-800">
-          Pakistan Prices (PKR)
+    <div className="border-b border-white/10 bg-navy-950">
+      <div className="container-page flex flex-wrap items-center justify-between gap-x-6 gap-y-1 py-2">
+        <p className="flex items-center gap-2 text-[0.7rem] font-medium text-slate-400">
+          <span className="h-1.5 w-1.5 rounded-full bg-brand-500" aria-hidden="true" />
+          <span className="text-slate-300">Lahore, Pakistan</span>
+          <span className="hidden text-white/20 sm:inline" aria-hidden="true">
+            |
+          </span>
+          <span className="hidden sm:inline">SECP &amp; FBR registered</span>
         </p>
-        <div className="flex flex-wrap items-center gap-x-5 gap-y-1.5 text-[0.8rem] font-medium text-navy-700">
-          <a href={pkCallHref} className="inline-flex items-center gap-1.5 hover:text-brand-700">
-            <PhoneIcon className="h-3.5 w-3.5" aria-hidden="true" />
+
+        <div className="flex items-center gap-x-4 gap-y-1 text-[0.74rem] font-medium text-slate-300 sm:gap-x-6">
+          <a href={pkCallHref} className="inline-flex items-center gap-1.5 tabular-nums transition-colors hover:text-white">
+            <PhoneIcon className="h-3.5 w-3.5 text-brand-400" aria-hidden="true" />
             {pkPhone}
           </a>
           <a
             href={pkWhatsAppHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 hover:text-brand-700"
+            className="inline-flex items-center gap-1.5 transition-colors hover:text-white"
           >
-            <WhatsAppIcon className="h-3.5 w-3.5" aria-hidden="true" />
+            <WhatsAppIcon className="h-3.5 w-3.5 text-brand-400" aria-hidden="true" />
             WhatsApp
           </a>
-          <a href={`mailto:${pkEmail}`} className="hidden items-center gap-1.5 hover:text-brand-700 sm:inline-flex">
-            <MailIcon className="h-3.5 w-3.5" aria-hidden="true" />
+          <a
+            href={`mailto:${pkEmail}`}
+            className="hidden items-center gap-1.5 transition-colors hover:text-white md:inline-flex"
+          >
+            <MailIcon className="h-3.5 w-3.5 text-brand-400" aria-hidden="true" />
             {pkEmail}
           </a>
         </div>

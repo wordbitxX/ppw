@@ -1278,7 +1278,8 @@ body.hide-site-cursor .site-cursor-ring {
    /sample — hero concept studio. Every animation lives inside
    no-preference, so reduced-motion visitors get a still composition.
    ========================================================================== */
-@keyframes sm-breathe { 0%, 100% { transform: scale(1.02); } 50% { transform: scale(1.1); } }
+@keyframes sm-breathe { 0%, 100% { transform: scale(1.04); } 50% { transform: scale(1.17); } }
+@keyframes sm-glow { 0%, 100% { opacity: 0.28; transform: scale(0.9); } 50% { opacity: 0.85; transform: scale(1.14); } }
 @keyframes sm-pan { 0%, 100% { transform: scale(1.14) translate3d(-3%, 0, 0); } 50% { transform: scale(1.14) translate3d(3%, 0, 0); } }
 @keyframes sm-sweep { 0% { transform: translateX(-130%) skewX(-18deg); } 100% { transform: translateX(130%) skewX(-18deg); } }
 @keyframes sm-scan { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
@@ -1295,7 +1296,8 @@ body.hide-site-cursor .site-cursor-ring {
 @keyframes sm-drift-y { 0%, 100% { transform: scale(1.08) translate3d(0, -2%, 0); } 50% { transform: scale(1.08) translate3d(0, 2%, 0); } }
 
 @media (prefers-reduced-motion: no-preference) {
-  .sm-breathe { animation: sm-breathe 18s ease-in-out infinite; }
+  .sm-breathe { animation: sm-breathe 15s ease-in-out infinite; }
+  .sm-glow { animation: sm-glow 11s ease-in-out infinite; }
   .sm-pan { animation: sm-pan 36s ease-in-out infinite; }
   .sm-sweep { animation: sm-sweep 7s ease-in-out infinite; }
   .sm-scan { animation: sm-scan 6s linear infinite; }

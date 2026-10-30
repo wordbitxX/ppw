@@ -40,21 +40,24 @@ function Copy({ align = "center", top = false }: { align?: "center" | "left"; to
   return (
     <div className={`container-page relative z-20 flex h-full ${top ? "items-start pt-24 sm:pt-28" : "items-center"} ${left ? "" : "justify-center"}`}>
       <div className={`max-w-3xl ${left ? "" : "text-center"}`}>
-        <p className="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-arc-300 sm:text-xs">Software &amp; AI development company for B2B</p>
+        <p className="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-arc-300 sm:text-xs">
+          Software company in Lahore, Pakistan · Since 2021
+        </p>
         <h2 className="mt-4 text-[2.15rem] font-semibold leading-[1.05] tracking-[-0.03em] sm:text-6xl">
-          One Platform.
+          Websites, apps and software
           <br />
-          <span className="text-gradient-arc">Endless Possibilities.</span>
+          <span className="text-gradient-arc">for Pakistani businesses.</span>
         </h2>
         <p className={`mt-5 max-w-2xl text-base leading-relaxed text-slate-100 sm:text-xl ${left ? "" : "mx-auto"}`}>
-          Web, Mobile &amp; Custom Software Solutions Built to Accelerate Your Business.
+          WordbitX builds websites, online stores, mobile apps and POS systems. Fixed PKR prices, written
+          down before work starts.
         </p>
         <div className={`mt-7 flex flex-col gap-3 sm:flex-row ${left ? "" : "items-stretch justify-center sm:items-center"}`}>
-          <ButtonLink href="/services" className="btn-cine">
-            Explore Our Services
+          <ButtonLink href="/pk" className="btn-cine">
+            See the packages
           </ButtonLink>
           <ButtonLink href="/contact" variant="ghost">
-            Discuss Your Project
+            Talk to us
           </ButtonLink>
         </div>
       </div>
@@ -90,16 +93,26 @@ function S01() {
   );
 }
 
-/* 02 */
+/* 02 — breathing art AND live light in one stage: the glints are drawn on the
+   same curves the art itself lights up, and both ride inside the breathing
+   transform, so the light never drifts off the picture. */
 function S02() {
   return (
-    <Stage n={2} name="Arcs · breathing glow" note="high-glow art, slow zoom">
+    <Stage n={2} name="Arcs · breathing glow + live light" note="art breathes, glints ride its own curves">
       <div className="cine-mask-y absolute inset-0 overflow-hidden" aria-hidden="true">
         <div className="sm-breathe absolute inset-0">
           <CineImage variant="arcs" />
+          <div
+            className="sm-glow absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(ellipse 46% 38% at 50% 49%, rgba(127,220,255,0.42) 0%, rgba(63,180,255,0.16) 42%, transparent 72%)",
+            }}
+          />
+          <LightArcs glow={0.5} />
         </div>
       </div>
-      <div className="absolute inset-0 z-10 bg-midnight/35" aria-hidden="true" />
+      <div className="absolute inset-0 z-10 bg-midnight/25" aria-hidden="true" />
       {vignette}
       <Copy />
     </Stage>
@@ -449,7 +462,7 @@ function S20() {
 
 export const heroConcepts = [
   { n: 1, name: "Calm arcs", kind: "image + light" },
-  { n: 2, name: "Arcs breathing", kind: "image" },
+  { n: 2, name: "Arcs breathing + light", kind: "image" },
   { n: 3, name: "Mesh drift", kind: "image" },
   { n: 4, name: "Flow + grid", kind: "image" },
   { n: 5, name: "Ribbon scan", kind: "image" },

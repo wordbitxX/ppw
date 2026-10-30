@@ -6,7 +6,6 @@ import {
   pkBookingHref,
   pkCallHref,
   pkEmail,
-  pkHeroPrice,
   pkPackages,
   pkPhone,
   pkQuoteLine,
@@ -89,7 +88,10 @@ export function PkCityView({ page }: { page: PkCityPage }) {
 
   return (
     <div className="bg-white pb-24 lg:pb-0">
-      <div className="pt-16 lg:pt-[72px]">
+      {/* The fixed header is dark and translucent: keeping this offset strip
+          navy-950 means it blends into the masthead instead of greying out
+          over a white gap, and the page opens on one continuous dark block. */}
+      <div className="bg-navy-950 pt-16 lg:pt-[72px]">
         <PkOwnerBanner />
         <PkContactBar />
       </div>
@@ -127,54 +129,41 @@ export function PkCityView({ page }: { page: PkCityPage }) {
 
             <p className="mt-3 max-w-xl text-[0.95rem] leading-relaxed text-slate-200 sm:text-lg">{page.lead}</p>
 
-            <div className="mt-5 rounded-2xl bg-white p-4 text-ink-900 shadow-[0_26px_60px_-34px_rgba(3,8,20,0.85)] sm:p-5">
-              <p className="text-[0.64rem] font-bold uppercase tracking-[0.16em] text-brand-700">
-                Website packages · same across Pakistan · PKR
-              </p>
-              <p className="mt-1 text-[1.5rem] font-semibold leading-[1.1] text-navy-700 sm:text-[1.8rem]">
-                {pkHeroPrice.headline}
-              </p>
-              <p className="mt-1 text-[0.82rem] leading-snug text-ink-500">
-                Price in PKR, fixed in writing before work starts.
-              </p>
-
-              {pkPricing.businessWebsite == null && pkPricing.allInOne == null ? (
-                <p className="mt-3 rounded-xl bg-slate-50 px-3 py-2 text-[0.8rem] text-ink-600">
-                  Both package prices are written on your quote — in rupees, before any work starts.
-                </p>
-              ) : (
-                <div className="mt-3 grid gap-2 sm:grid-cols-2">
-                  {pkPackages.map((pkg) => (
-                    <div key={pkg.id} className="rounded-xl border border-slate-200 px-3 py-2">
-                      <p className="text-[0.62rem] font-bold uppercase tracking-[0.12em] text-ink-500">{pkg.name}</p>
-                      <p className="text-[0.95rem] font-semibold leading-snug text-navy-700">
-                        {pkg.price == null ? "Fixed quote" : `from ${pkr(pkg.price)}`}
-                      </p>
-                    </div>
-                  ))}
+            <div className="mt-6 grid max-w-xl gap-2.5 sm:grid-cols-2">
+              {pkPackages.map((pkg) => (
+                <div key={pkg.id} className="rounded-xl border border-white/15 bg-white/[0.07] px-4 py-3">
+                  <p className="text-[0.6rem] font-bold uppercase tracking-[0.14em] text-brand-300">
+                    {pkg.name}
+                  </p>
+                  <p className="mt-1 text-[1.15rem] font-semibold leading-tight text-white">
+                    {pkg.price == null ? "Fixed quote in PKR" : `from ${pkr(pkg.price)}`}
+                  </p>
                 </div>
-              )}
+              ))}
             </div>
+            <p className="mt-2 max-w-xl text-[0.74rem] leading-snug text-slate-300">
+              Same two packages across Pakistan — both prices written on your quote, in rupees.
+            </p>
 
-            <div className="mt-4 flex flex-col gap-2.5 sm:flex-row">
+            <div className="mt-5 flex flex-col gap-2.5 sm:flex-row sm:items-center">
               <PkButton href={pkBookingHref}>Book a free call</PkButton>
-              <a
-                href={pkWhatsAppHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/40 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+              <Link
+                href="/pk#pricing"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/35 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
               >
-                <WhatsAppIcon className="h-4 w-4 text-brand-300" aria-hidden="true" />
-                Call / WhatsApp: {pkPhone}
-              </a>
+                See the two packages
+                <ArrowRight className="h-4 w-4 rotate-90" aria-hidden="true" />
+              </Link>
             </div>
 
-            <p className="mt-3 text-[0.78rem] text-slate-300">
-              Free call, no obligation.{" "}
-              <Link href="/pk" className="font-semibold text-brand-300 hover:text-white">
-                See the full Pakistan pricing page
-              </Link>
-              .
+            <p className="mt-3 text-[0.8rem] text-slate-300">
+              Free call, no obligation · or call / WhatsApp{" "}
+              <a
+                href={pkCallHref}
+                className="font-semibold tabular-nums text-white underline decoration-brand-400/70 underline-offset-4 transition-colors hover:text-brand-200"
+              >
+                {pkPhone}
+              </a>
             </p>
           </div>
 
