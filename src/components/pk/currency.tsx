@@ -3,17 +3,26 @@
 /**
  * PKR / USD price switch.
  *
- * The header carries the switch; everything that prints a price inside the
- * /pk pages reads it from here. Default is PKR (the offer is a Pakistan
- * offer); a visitor who picks USD keeps that choice on the next page load via
- * localStorage.
+ * This file is the ONLY client component involved in pricing, and it holds no
+ * price text at all: it just writes `data-currency` on <html>. Every price on
+ * the /pk pages is rendered on the server twice (.pk-pkr and .pk-usd) and CSS
+ * shows the chosen one (see globals.css).
  *
- * No exchange rate is invented: a USD figure appears only when the owner has
- * either pasted an explicit dollar price or a rate in `pkUsdPricing`.
+ * Why it is built this way: passing price components across the
+ * server → client boundary produced "Element type is invalid. Received a
+ * promise that resolves to undefined" in the dev preview, for a plain numeric
+ * prop as well as for a JSX one. Keeping price markup entirely on the server
+ * removes that whole class of failure — and it means a crawler, a first paint
+ * and a JS-free browser all see the rupee price.
+ *
+ * Default is PKR (this is a Pakistan offer); a visitor who picks USD keeps the
+ * choice on the next load via localStorage. No exchange rate is invented: a USD
+ * figure appears only when the owner has pasted one, or a rate, in
+ * `pkUsdPricing`.
  */
 
-import { createContext, useCallback, useContext, useMemo, useSyncExternalStore, type ReactNode } from "react";
-import { moneyIn, usdFrom, type PkCurrency, type PkPackage, type PkPrice } from "@/lib/pk";
+import { useEffect, useSyncExternalStore } from "react";
+import type { PkCurrency } from "@/lib/pk";
 
 const STORAGE_KEY = "wbx-pk-currency";
 
@@ -66,28 +75,13 @@ function writeCurrency(next: PkCurrency) {
   listeners.forEach((listener) => listener());
 }
 
-type CurrencyContextValue = {
-  currency: PkCurrency;
-  setCurrency: (next: PkCurrency) => void;
-};
-
-const CurrencyContext = createContext<CurrencyContextValue>({
-  currency: "PKR",
-  setCurrency: () => {},
-});
-
-export function CurrencyProvider({ children }: { children: ReactNode }) {
-  const currency = useSyncExternalStore(subscribeCurrency, readCurrency, () => "PKR" as PkCurrency);
-  const setCurrency = useCallback((next: PkCurrency) => writeCurrency(next), []);
-  const value = useMemo(() => ({ currency, setCurrency }), [currency, setCurrency]);
-  return <CurrencyContext.Provider value={value}>{children}</CurrencyContext.Provider>;
-}
-
-export function useCurrency() {
-  return useContext(CurrencyContext);
-}
-
-/** Segmented PKR | USD control. Used in the header and inside the /pk price card. */
+/**
+ * Everything the client needs to know about the switch lives in this one
+ * component, so the module is imported by the header (a client component) and
+ * nowhere else. A provider in the root layout was tried first; it worked, but
+ * it meant a server layout imported a client module for no reason, and the
+ * whole point of this file is to keep the price boundary as small as possible.
+ */
 export function CurrencySwitch({
   tone = "dark",
   size = "sm",
@@ -97,9 +91,15 @@ export function CurrencySwitch({
   size?: "sm" | "md";
   label?: string;
 }) {
-  const { currency, setCurrency } = useCurrency();
-  const options: PkCurrency[] = ["PKR", "USD"];
+  const currency = useSyncExternalStore(subscribeCurrency, readCurrency, () => "PKR" as PkCurrency);
 
+  // Prices are rendered on the server in both currencies and switched by CSS;
+  // this attribute is the only thing the client has to change.
+  useEffect(() => {
+    document.documentElement.dataset.currency = currency;
+  }, [currency]);
+
+  const options: PkCurrency[] = ["PKR", "USD"];
   const onDark = tone === "dark";
   const pad = size === "md" ? "px-3 py-1.5 text-[0.8rem]" : "px-2.5 py-1 text-[0.72rem]";
 
@@ -117,7 +117,7 @@ export function CurrencySwitch({
           <button
             key={option}
             type="button"
-            onClick={() => setCurrency(option)}
+            onClick={() => writeCurrency(option)}
             aria-pressed={active}
             className={`rounded-md font-semibold tabular-nums transition-colors ${pad} ${
               active
@@ -134,153 +134,5 @@ export function CurrencySwitch({
         );
       })}
     </div>
-  );
-}
-
-/**
- * A price that follows the switch. Renders nothing when no number exists in
- * either currency, so callers keep their own honest fallback line.
- */
-export function PriceLine({
-  value,
-  usdValue,
-  prefix = "from ",
-  className = "",
-}: {
-  value: PkPrice;
-  usdValue?: PkPrice;
-  prefix?: string;
-  className?: string;
-}) {
-  const { currency } = useCurrency();
-  const text = moneyIn(currency, value, usdValue ?? null);
-  if (text == null) return null;
-  return <span className={className}>{`${prefix}${text}`}</span>;
-}
-
-/** True once a real figure exists in the active currency. */
-export function useHasPrice(value: PkPrice, usdValue?: PkPrice): boolean {
-  const { currency } = useCurrency();
-  return moneyIn(currency, value, usdValue ?? null) != null;
-}
-
-/**
- * Text that names a currency ("PKR", "Rs.", "$") follows the switch here.
- * Both variants are written out; this never converts a sentence.
- */
-export function CurText({ pkr, usd }: { pkr: string; usd: string }) {
-  const { currency } = useCurrency();
-  return <>{currency === "USD" ? usd : pkr}</>;
-}
-
-export { usdFrom };
-
-/**
- * The two package price tiles — used in the hero card (light) and on navy.
- * Reads the switch, so it must stay a client component.
- */
-export function PackagePriceTiles({
-  packages,
-  tone = "light",
-}: {
-  packages: PkPackage[];
-  tone?: "light" | "dark";
-}) {
-  const { currency } = useCurrency();
-  const frame =
-    tone === "dark"
-      ? "rounded-xl border border-white/15 bg-white/[0.06] px-4 py-3"
-      : "rounded-xl border border-slate-200 px-3 py-2";
-  const name = tone === "dark" ? "text-brand-300" : "text-ink-500";
-  const value = tone === "dark" ? "text-white" : "text-navy-700";
-
-  return (
-    <div className="grid gap-2 sm:grid-cols-2">
-      {packages.map((pkg) => {
-        const price = moneyIn(currency, pkg.price, pkg.usdPrice);
-        return (
-          <div key={pkg.id} className={frame}>
-            <p className={`text-[0.62rem] font-bold uppercase tracking-[0.12em] ${name}`}>{pkg.name}</p>
-            <p className={`text-[1rem] font-semibold leading-snug tabular-nums ${value}`}>
-              {price ? `from ${price}` : <CurText pkr="Fixed quote" usd="Fixed quote in USD" />}
-            </p>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
-
-/**
- * Just the figure ("Rs. 45,000" / "$160") — the caller prints its own "from".
- *
- * Every prop here is a plain string/number on purpose: this component is
- * rendered from server components, and React's client-reference proxy only
- * accepts serialisable props. Passing JSX down from a server component is
- * what produced "Element type is invalid. Received a promise that resolves to
- * undefined" in the dev preview, so the fallback text is a string pair, not an
- * element.
- */
-export function PriceAmount({
-  value,
-  usdValue,
-  fallback = "Fixed quote",
-  fallbackUsd = "Fixed quote in USD",
-}: {
-  value: PkPrice;
-  usdValue?: PkPrice;
-  fallback?: string;
-  fallbackUsd?: string;
-}) {
-  const { currency } = useCurrency();
-  const text = moneyIn(currency, value, usdValue ?? null);
-  return <>{text ?? (currency === "USD" ? fallbackUsd : fallback)}</>;
-}
-
-/** "from Rs. 45,000" (or "from $160"), with a string fallback. */
-export function PriceLead({
-  value,
-  usdValue,
-  fallback = "Fixed quote",
-  fallbackUsd = "Fixed quote in USD",
-}: {
-  value: PkPrice;
-  usdValue?: PkPrice;
-  fallback?: string;
-  fallbackUsd?: string;
-}) {
-  const { currency } = useCurrency();
-  const text = moneyIn(currency, value, usdValue ?? null);
-  return <>{text ? `from ${text}` : currency === "USD" ? fallbackUsd : fallback}</>;
-}
-
-/**
- * The big price line under the /pk hero headline — the one place where the
- * figure is set in the accent colour. Takes strings only, for the same reason
- * as PriceAmount above.
- */
-export function HeroPriceLine({
-  value,
-  usdValue,
-  label = "Websites from",
-  missingLabel = "Websites priced in",
-  missingPkr = "rupees",
-  missingUsd = "dollars or rupees",
-}: {
-  value: PkPrice;
-  usdValue: PkPrice;
-  label?: string;
-  missingLabel?: string;
-  missingPkr?: string;
-  missingUsd?: string;
-}) {
-  const { currency } = useCurrency();
-  const text = moneyIn(currency, value, usdValue);
-
-  return (
-    <>
-      {text ? label : missingLabel}{" "}
-      <span className="text-brand-300">{text ?? (currency === "USD" ? missingUsd : missingPkr)}</span>
-    </>
   );
 }

@@ -62,6 +62,18 @@ An explicit USD figure wins; otherwise the rate converts and rounds to the
 nearest 5. With both blank the USD view says “Fixed quote in USD” — it never
 converts with a guessed rate.
 
+### How the PKR / USD switch works
+
+The header switch does not change any React state that holds price text. Every
+price is rendered on the server twice — `.pk-pkr` (rupees) and `.pk-usd`
+(dollars) — and one CSS rule in `src/app/globals.css` shows the chosen one via
+`data-currency` on `<html>`. Consequences worth knowing:
+
+- the rupee price is what a crawler, a first paint and a JS-free browser sees;
+- the choice is remembered in `localStorage` under `wbx-pk-currency`;
+- if a USD figure is missing, the dollar line reads “Fixed quote in USD”
+  rather than showing a converted guess.
+
 ### Offices
 
 `pkOffices` in `src/lib/pk.ts` lists three: DHA Phase 2 (head office, street

@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { ArrowRight, CheckIcon, MailIcon, PhoneIcon, WhatsAppIcon } from "@/components/icons";
-import { HeroPriceLine } from "@/components/pk/currency";
 import { FaqSchema, JsonLd } from "@/components/jsonld";
 import { siteConfig, absoluteUrl } from "@/lib/site";
 import {
@@ -18,6 +17,7 @@ import {
   pkr,
   pkPricing,
   pkUsdPricing,
+  usd,
   usdFrom,
 } from "@/lib/pk";
 import type { PkCityPage } from "@/lib/pk-cities";
@@ -34,6 +34,7 @@ import {
   PkSection,
   PkStickyContact,
   PkTrustStrip,
+  PriceText,
 } from "@/components/pk/pk-ui";
 
 /** Which of the six approved builds to show on each city page. */
@@ -47,6 +48,29 @@ const citySampleIds: Record<string, string[]> = {
 
 export function PkCityView({ page }: { page: PkCityPage }) {
   const samples = citySampleIds[page.slug] ?? ["properties-pak", "motor", "ecommerce"];
+
+  // Same hero price line as /pk — both currencies rendered on the server.
+  const heroUsdAmount = usdFrom(pkPricing.businessWebsite, pkUsdPricing.businessWebsite);
+  const heroPkr =
+    pkPricing.businessWebsite == null ? (
+      <>
+        Websites priced in <span className="text-brand-300">rupees</span>
+      </>
+    ) : (
+      <>
+        Websites from <span className="text-brand-300">{pkr(pkPricing.businessWebsite)}</span>
+      </>
+    );
+  const heroUsd =
+    heroUsdAmount == null ? (
+      <>
+        Websites priced in <span className="text-brand-300">dollars or rupees</span>
+      </>
+    ) : (
+      <>
+        Websites from <span className="text-brand-300">{usd(heroUsdAmount)}</span>
+      </>
+    );
   const otherCities = page.nearby
     .map((slug) => ({ slug }))
     .filter(Boolean);
@@ -136,7 +160,7 @@ export function PkCityView({ page }: { page: PkCityPage }) {
 
             {/* Same price line as /pk — big, straight under the headline. */}
             <p className="mt-5 text-[1.3rem] font-semibold leading-tight sm:text-[1.5rem]">
-              <HeroPriceLine value={pkPricing.businessWebsite} usdValue={usdFrom(pkPricing.businessWebsite, pkUsdPricing.businessWebsite)} />
+              <PriceText pkr={heroPkr} usd={heroUsd} />
             </p>
             <p className="mt-2 max-w-xl text-[0.85rem] leading-relaxed text-slate-300">
               Two packages — website only, or with domain and hosting. Same prices across Pakistan, fixed in writing
@@ -501,7 +525,7 @@ export function PkCityView({ page }: { page: PkCityPage }) {
             <h2 className="text-[0.7rem] font-bold uppercase tracking-[0.16em] text-brand-700">Related pages</h2>
             <ul className="mt-3 grid gap-2 sm:grid-cols-2">
               {page.related.map((link) => (
-                <li key={link.href}>
+                <li key={`${link.href}-${link.label}`}>
                   <Link
                     href={link.href}
                     className="inline-flex items-center gap-1.5 text-[0.88rem] font-medium text-ink-600 hover:text-brand-700"

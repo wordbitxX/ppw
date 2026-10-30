@@ -1274,6 +1274,19 @@ body.hide-site-cursor .site-cursor-ring {
   .tab-progress { transform: scaleX(1); opacity: 0.35; }
 }
 
+/* PKR / USD price switch -----------------------------------------------
+   Every price on the Pakistan pages is rendered ON THE SERVER in both
+   currencies: .pk-pkr holds the rupee line, .pk-usd the dollar line. The
+   header switch sets data-currency on <html> and these two rules pick one.
+   Default (no attribute, or JS off) = rupees, which is also what a crawler
+   and a first paint see. No price text is ever mounted by React on the
+   client, so the price markup can never break hydration. */
+.pk-usd { display: none; }
+[data-currency="USD"] .pk-usd { display: inline; }
+[data-currency="USD"] .pk-pkr { display: none; }
+[data-currency="USD"] .pk-usd-block { display: block; }
+.pk-usd-block { display: none; }
+
 /* ==========================================================================
    /sample — hero concept studio. Every animation lives inside
    no-preference, so reduced-motion visitors get a still composition.

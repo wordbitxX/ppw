@@ -646,10 +646,15 @@ export const pkFaqs: PkFaq[] = [
   {
     q: "How do I start? What happens after I message you?",
     a: "Message us on WhatsApp or book a free call and tell us what the business does and what the site must achieve. You get a short reply, a few questions, then a fixed written quote with scope, price in rupees and dates. Work starts only when you approve it.",
-    links: [
-      { label: "Book a free call", href: pkBookingHref },
-      { label: "Contact page", href: "/contact" },
-    ],
+    // pkBookingHref falls back to /contact while no booking URL is set — in
+    // that case one link is enough, otherwise the list repeats the same key.
+    links:
+      pkBookingHref === "/contact"
+        ? [{ label: "Contact page", href: "/contact" }]
+        : [
+            { label: "Book a free call", href: pkBookingHref },
+            { label: "Contact page", href: "/contact" },
+          ],
   },
 ];
 

@@ -12,7 +12,7 @@ import { ShowcaseStage } from "@/components/showcase-stage";
 import { demoWebsites } from "@/lib/demos";
 import { demoPreview, demoStageSrc } from "@/lib/demo-shots";
 import { siteConfig, absoluteUrl } from "@/lib/site";
-import { usdFrom } from "@/lib/pk";
+import { usd, usdFrom } from "@/lib/pk";
 import {
   pkAbout,
   pkBookingHref,
@@ -47,7 +47,6 @@ import {
   priceLead,
   type PkFaq,
 } from "@/lib/pk";
-import { HeroPriceLine, PackagePriceTiles } from "@/components/pk/currency";
 import {
   PkButton,
   PkContactBar,
@@ -61,6 +60,7 @@ import {
   PkSamples,
   PkSection,
   PkStickyContact,
+  PriceText,
   PkTrustStrip,
 } from "@/components/pk/pk-ui";
 
@@ -76,6 +76,30 @@ const costGuides = [
 export function PkPageView() {
   const preview = propertiesPak ? demoPreview(propertiesPak) : null;
   const priceRange = pkPriceRange();
+
+  // The hero price line, written once for each currency. Both are rendered on
+  // the server; the header switch only picks which one is visible.
+  const heroUsdAmount = usdFrom(pkPricing.businessWebsite, pkUsdPricing.businessWebsite);
+  const heroPkr =
+    pkPricing.businessWebsite == null ? (
+      <>
+        Websites priced in <span className="text-brand-300">rupees</span>
+      </>
+    ) : (
+      <>
+        Websites from <span className="text-brand-300">{pkr(pkPricing.businessWebsite)}</span>
+      </>
+    );
+  const heroUsd =
+    heroUsdAmount == null ? (
+      <>
+        Websites priced in <span className="text-brand-300">dollars or rupees</span>
+      </>
+    ) : (
+      <>
+        Websites from <span className="text-brand-300">{usd(heroUsdAmount)}</span>
+      </>
+    );
 
   const localBusiness = {
     "@context": "https://schema.org",
@@ -159,7 +183,7 @@ export function PkPageView() {
             {/* The price, in the same slot the reference uses: a big line
                 straight under the headline, the figure in the accent colour. */}
             <p className="mt-5 text-[1.35rem] font-semibold leading-tight sm:text-[1.6rem]">
-              <HeroPriceLine value={pkPricing.businessWebsite} usdValue={usdFrom(pkPricing.businessWebsite, pkUsdPricing.businessWebsite)} />
+              <PriceText pkr={heroPkr} usd={heroUsd} />
             </p>
 
             <p className="mt-3 max-w-xl text-[0.95rem] leading-relaxed text-slate-200 sm:text-[1rem]">

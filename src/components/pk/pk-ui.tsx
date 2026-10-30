@@ -12,12 +12,12 @@ import {
   WhatsAppIcon,
 } from "@/components/icons";
 import { ShowcaseStage } from "@/components/showcase-stage";
-import { CurText, PriceAmount } from "@/components/pk/currency";
 import { demoWebsites, type DemoWebsite } from "@/lib/demos";
 import { demoPreview, demoStageSrc } from "@/lib/demo-shots";
 import {
   pkAddress,
   pkCallHref,
+  pkPackages,
   pkEmail,
   pkOffices,
   pkPending,
@@ -32,6 +32,9 @@ import {
   type PkFaq,
   type PkPackage,
   priceLead,
+  pkr,
+  usd,
+  usdFrom,
 } from "@/lib/pk";
 
 function MapPinIcon({ className = "" }: { className?: string }) {
@@ -326,11 +329,18 @@ export function PkPriceCard({ pkg }: { pkg: PkPackage }) {
           from
         </span>
         <span className={`text-[2.1rem] font-bold leading-none tabular-nums ${onNavy ? "text-white" : "text-navy-700"}`}>
-          <PriceAmount value={pkg.price} usdValue={pkg.usdPrice} />
+          <PriceText
+            pkr={pkg.price == null ? "Fixed quote" : pkr(pkg.price)}
+            usd={
+              usdFrom(pkg.price, pkg.usdPrice ?? null) == null
+                ? "Fixed quote in USD"
+                : usd(usdFrom(pkg.price, pkg.usdPrice ?? null) as number)
+            }
+          />
         </span>
       </div>
       <p className={`mt-2 text-[0.78rem] leading-snug ${onNavy ? "text-slate-300" : "text-ink-500"}`}>
-        <CurText
+        <PriceText
           pkr="One-time build. Quoted in PKR, fixed in writing."
           usd="One-time build. Quoted in USD or PKR, fixed in writing."
         />
@@ -476,7 +486,7 @@ export function PkFaqList({ faqs }: { faqs: PkFaq[] }) {
             {faq.links?.length ? (
               <ul className="mt-3 flex flex-wrap gap-2">
                 {faq.links.map((link) => (
-                  <li key={link.href}>
+                  <li key={`${link.href}-${link.label}`}>
                     <Link
                       href={link.href}
                       className="inline-flex items-center gap-1 rounded-full bg-[#EEF3FB] px-3 py-1 text-[0.74rem] font-semibold text-navy-700 hover:bg-brand-50 hover:text-brand-800"
@@ -688,6 +698,64 @@ export function PkPricesBanner({ text }: { text?: string }) {
           <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
         </Link>
       </div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Prices (server-rendered, CSS-switched)                               */
+/* ------------------------------------------------------------------ */
+
+/**
+ * A price that exists in both currencies at once.
+ *
+ * Both lines are rendered here on the server; CSS (see .pk-pkr / .pk-usd in
+ * globals.css) shows the one the header switch asked for. Nothing about a
+ * price is ever sent to the client as a component, so the price can never be
+ * the reason hydration throws.
+ */
+export function PriceText({ pkr, usd }: { pkr: ReactNode; usd: ReactNode }) {
+  return (
+    <>
+      <span className="pk-pkr">{pkr}</span>
+      <span className="pk-usd">{usd}</span>
+    </>
+  );
+}
+
+/** The two package price tags used in the hero and on the city pages. */
+export function PkPriceTags({ tone = "light" }: { tone?: "light" | "dark" }) {
+  const frame =
+    tone === "dark"
+      ? "rounded-xl border border-white/15 bg-white/[0.06] px-4 py-3"
+      : "rounded-xl border border-slate-200 px-3 py-2";
+
+  return (
+    <div className="grid gap-2 sm:grid-cols-2">
+      {pkPackages.map((pkg) => {
+        const usdPrice = usdFrom(pkg.price, pkg.usdPrice ?? null);
+        return (
+          <div key={pkg.id} className={frame}>
+            <p
+              className={`text-[0.62rem] font-bold uppercase tracking-[0.12em] ${
+                tone === "dark" ? "text-brand-300" : "text-ink-500"
+              }`}
+            >
+              {pkg.name}
+            </p>
+            <p
+              className={`text-[1rem] font-semibold leading-snug tabular-nums ${
+                tone === "dark" ? "text-white" : "text-navy-700"
+              }`}
+            >
+              <PriceText
+                pkr={pkg.price == null ? "Fixed quote" : `from ${pkr(pkg.price)}`}
+                usd={usdPrice == null ? "Fixed quote in USD" : `from ${usd(usdPrice)}`}
+              />
+            </p>
+          </div>
+        );
+      })}
     </div>
   );
 }
