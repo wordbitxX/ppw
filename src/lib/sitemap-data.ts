@@ -72,6 +72,10 @@ export function getSitemapGroups(now = staticUpdated): Record<SitemapGroupKey, S
       entry("/topics", { lastModified: now, changeFrequency: "weekly", priority: 0.5 }),
       entry("/contact", { lastModified: now, changeFrequency: "monthly", priority: 0.7 }),
       entry("/pricing", { lastModified: now, changeFrequency: "weekly", priority: sitemapPriority("/pricing", 0.9) }),
+      // Pakistan landing page: price-led, one-scroll page for the "website
+      // price in Pakistan" intent the /pricing page deliberately does not
+      // answer with a number.
+      entry("/pk", { lastModified: now, changeFrequency: "weekly", priority: 0.9 }),
       entry("/tools/cost-calculator", { lastModified: now, changeFrequency: "monthly", priority: 0.85 }),
       entry("/comparisons", { lastModified: now, changeFrequency: "monthly", priority: 0.7 }),
       entry("/glossary", { lastModified: now, changeFrequency: "monthly", priority: 0.6 }),
