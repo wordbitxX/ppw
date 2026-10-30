@@ -41,23 +41,23 @@ function Copy({ align = "center", top = false }: { align?: "center" | "left"; to
     <div className={`container-page relative z-20 flex h-full ${top ? "items-start pt-24 sm:pt-28" : "items-center"} ${left ? "" : "justify-center"}`}>
       <div className={`max-w-3xl ${left ? "" : "text-center"}`}>
         <p className="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-arc-300 sm:text-xs">
-          Software company in Lahore, Pakistan · Since 2021
+          Software engineering studio · Lahore, Pakistan
         </p>
         <h2 className="mt-4 text-[2.15rem] font-semibold leading-[1.05] tracking-[-0.03em] sm:text-6xl">
-          Websites, apps and software
+          Software, engineered
           <br />
-          <span className="text-gradient-arc">for Pakistani businesses.</span>
+          <span className="text-gradient-arc">properly.</span>
         </h2>
         <p className={`mt-5 max-w-2xl text-base leading-relaxed text-slate-100 sm:text-xl ${left ? "" : "mx-auto"}`}>
-          WordbitX builds websites, online stores, mobile apps and POS systems. Fixed PKR prices, written
-          down before work starts.
+          Websites, commerce platforms, mobile apps and the systems behind them — scoped, priced and
+          delivered by one Lahore team since 2021.
         </p>
         <div className={`mt-7 flex flex-col gap-3 sm:flex-row ${left ? "" : "items-stretch justify-center sm:items-center"}`}>
           <ButtonLink href="/pk" className="btn-cine">
-            See the packages
+            Pakistan pricing
           </ButtonLink>
           <ButtonLink href="/contact" variant="ghost">
-            Talk to us
+            Start a project
           </ButtonLink>
         </div>
       </div>

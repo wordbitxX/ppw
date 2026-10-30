@@ -106,14 +106,14 @@ function ConceptColumn() {
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:py-16">
         <div>
           <p className="text-[0.68rem] font-bold uppercase tracking-[0.18em] text-brand-300">
-            Software company · Lahore · Since 2021
+            Software engineering · Lahore · Est. 2021
           </p>
           <h3 className="mt-3 text-[2.1rem] font-semibold leading-[1.05] tracking-[-0.03em] sm:text-[3rem]">
-            Software that earns its place in your business.
+            Build the system your business runs on.
           </h3>
           <p className="mt-3 max-w-md text-[0.95rem] leading-relaxed text-slate-200">
-            Websites, stores, apps and the systems behind them — built in Lahore, delivered across Pakistan and to
-            clients in the USA, UK and UAE.
+            WordbitX designs, builds and maintains websites, commerce platforms and internal software for companies in
+            Pakistan and their clients in the USA, UK and UAE.
           </p>
           <div className="mt-5 flex flex-wrap gap-2.5">
             <span className="rounded-xl bg-brand-600 px-4 py-2.5 text-sm font-semibold">Start a project</span>
@@ -170,11 +170,11 @@ function ConceptLedger() {
         <div className="grid gap-8 px-5 py-9 sm:px-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-12 lg:py-14">
           <div>
             <h3 className="font-serif text-[2.2rem] font-normal leading-[1.02] tracking-[-0.02em] text-navy-700 sm:text-[2.9rem]">
-              A software studio that shows its work.
+              Precise software, plainly priced.
             </h3>
             <p className="mt-4 max-w-sm text-[0.92rem] leading-relaxed text-ink-700">
-              We build the website, the store, the app and the system behind it — then hand you the code. Every claim on
-              this page can be clicked and checked.
+              A Lahore studio, founded in 2021. Six disciplines, one engineering team, and a written scope agreed before
+              the first line of code ships.
             </p>
             <p className="mt-5 font-mono text-[0.68rem] uppercase tracking-[0.18em] text-navy-700/60">Index</p>
             <ul className="mt-2 space-y-1.5">
@@ -247,8 +247,8 @@ function ConceptSpotlight() {
             Your next website should pay for itself.
           </h3>
           <p className="mx-auto mt-4 max-w-xl text-[0.98rem] leading-relaxed text-slate-200">
-            Websites, stores and business software for Pakistani companies — with a fixed written quote and no
-            surprises after the invoice.
+            We build the site, the store and the system behind it — quoted in writing, delivered on schedule, and handed
+            over with the code in your name.
           </p>
           <div className="mt-6 flex flex-col justify-center gap-2.5 sm:flex-row">
             <span className="rounded-xl bg-brand-600 px-5 py-3 text-sm font-semibold">Book a free call</span>
@@ -290,7 +290,7 @@ function ConceptGrid() {
           <div>
             <p className="font-mono text-[0.66rem] uppercase tracking-[0.24em] text-brand-300">WordbitX / 2021—2026</p>
             <h3 className="mt-2 max-w-xl text-[2rem] font-semibold leading-[1.06] tracking-[-0.03em] sm:text-[2.7rem]">
-              Engineering studio. Websites, systems, apps.
+              Engineering studio — web, commerce, systems.
             </h3>
           </div>
           <div className="font-mono text-[0.68rem] uppercase leading-relaxed tracking-[0.12em] text-slate-300">

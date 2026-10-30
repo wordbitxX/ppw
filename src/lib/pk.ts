@@ -49,6 +49,31 @@ export const pkPricing: {
   hours: null,
 };
 
+/**
+ * The US-dollar side of the price switch in the header.
+ *
+ * Two ways to fill it, either is fine:
+ *   a) paste explicit USD figures below (best — round numbers you choose), or
+ *   b) paste today's PKR-per-USD rate and the PKR prices above are converted
+ *      and rounded to the nearest 5 dollars.
+ * While both are empty the USD view says "quoted in USD" instead of a number —
+ * it never converts with a guessed rate.
+ */
+export const pkUsdPricing: {
+  businessWebsite: PkPrice;
+  allInOne: PkPrice;
+  renewalYear2: PkPrice;
+  maintenanceMonthly: PkPrice;
+  /** PKR per 1 USD. Only used when an explicit USD figure is missing. */
+  rate: number | null;
+} = {
+  businessWebsite: null,
+  allInOne: null,
+  renewalYear2: null,
+  maintenanceMonthly: null,
+  rate: null,
+};
+
 /** Update this whenever prices, packages or copy on the Pakistan pages change. */
 export const pkUpdated = { iso: "2026-10-29", label: "October 2026" };
 
@@ -63,11 +88,79 @@ export const pkBookingHref = pkPricing.bookingUrl ?? "/contact";
 export const pkAddress = siteConfig.addressDisplay;
 export const pkEmail = siteConfig.email;
 export const pkPhone = siteConfig.phoneDisplay;
+
+/**
+ * Where we actually sit. Two in Lahore, one in Islamabad.
+ *
+ * `street` is the full postal line; `mapUrl` is the Google Maps pin. Both stay
+ * null until the owner confirms them — the card then says the pin is shared on
+ * request instead of printing a made-up address.
+ */
+export type PkOffice = {
+  id: string;
+  city: string;
+  area: string;
+  role: string;
+  street: string | null;
+  mapUrl: string | null;
+  note: string;
+};
+
+export const pkOffices: PkOffice[] = [
+  {
+    id: "lahore-dha",
+    city: "Lahore",
+    area: "DHA Phase 2",
+    role: "Head office",
+    street: siteConfig.addressDisplay,
+    mapUrl: null,
+    note: "Meetings by appointment — the team that scopes your build sits here.",
+  },
+  {
+    id: "lahore-johar-town",
+    city: "Lahore",
+    area: "Johar Town",
+    role: "Lahore office",
+    street: null,
+    mapUrl: null,
+    note: "Build and support team for Lahore projects.",
+  },
+  {
+    id: "islamabad",
+    city: "Islamabad",
+    area: "Islamabad",
+    role: "Islamabad office",
+    street: null,
+    mapUrl: null,
+    note: "North-region meetings and on-site installations.",
+  },
+];
 export const pkUsPhone = siteConfig.usPhoneDisplay;
 
 /** 45000 → "Rs. 45,000". No locale surprises between build machines. */
 export function pkr(value: number): string {
   return `Rs. ${String(Math.round(value)).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+}
+
+export type PkCurrency = "PKR" | "USD";
+
+/** 120 → "$120". Same grouping rules as pkr(), no locale surprises. */
+export function usd(value: number): string {
+  return `$${String(Math.round(value)).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+}
+
+/** A USD figure for a PKR price: explicit if the owner gave one, else rate-based. */
+export function usdFrom(value: PkPrice, explicit: PkPrice): PkPrice {
+  if (explicit != null) return explicit;
+  if (value == null || pkUsdPricing.rate == null) return null;
+  return Math.round(value / pkUsdPricing.rate / 5) * 5;
+}
+
+/** "$120" / "Rs. 45,000" for the active currency, or null while nothing is set. */
+export function moneyIn(currency: PkCurrency, value: PkPrice, explicit: PkPrice): string | null {
+  const resolved = currency === "USD" ? usdFrom(value, explicit) : value;
+  if (resolved == null) return null;
+  return currency === "USD" ? usd(resolved) : pkr(resolved);
 }
 
 /** "from Rs. 45,000" — or an honest line while the owner's number is pending. */
@@ -91,10 +184,18 @@ export const pkHeroPrice = {
   eyebrow: "Website packages",
   headline:
     pkPricing.businessWebsite == null
-      ? "Clear PKR pricing, fixed in writing"
+      ? "Clear pricing, fixed in writing"
       : `Websites from ${pkr(pkPricing.businessWebsite)}`,
+  headlineUsd:
+    usdFrom(pkPricing.businessWebsite, pkUsdPricing.businessWebsite) == null
+      ? "Clear pricing, fixed in writing"
+      : `Websites from ${usd(usdFrom(pkPricing.businessWebsite, pkUsdPricing.businessWebsite) as number)}`,
   detail:
     pkPricing.businessWebsite == null
+      ? "Two packages below — website only, or website with domain and hosting."
+      : "Two packages below. Scope, price and dates are agreed in writing before work starts.",
+  detailUsd:
+    usdFrom(pkPricing.businessWebsite, pkUsdPricing.businessWebsite) == null
       ? "Two packages below — website only, or website with domain and hosting."
       : "Two packages below. Scope, price and dates are agreed in writing before work starts.",
 };
@@ -133,6 +234,8 @@ export type PkPackage = {
   name: string;
   tagline: string;
   price: PkPrice;
+  /** Optional explicit USD figure; blank falls back to the rate in pkUsdPricing. */
+  usdPrice: PkPrice;
   popular: boolean;
   bullets: string[];
   footnote: string;
@@ -144,6 +247,7 @@ export const pkPackages: PkPackage[] = [
     name: "Business Website",
     tagline: "A website that makes the phone ring.",
     price: pkPricing.businessWebsite,
+    usdPrice: pkUsdPricing.businessWebsite,
     popular: false,
     bullets: [
       "Mobile-first website, built for phones and Pakistani mobile data",
@@ -159,6 +263,7 @@ export const pkPackages: PkPackage[] = [
     name: "Website + Domain + Hosting",
     tagline: "The one most businesses take.",
     price: pkPricing.allInOne,
+    usdPrice: pkUsdPricing.allInOne,
     popular: true,
     bullets: [
       "Everything in the Business Website package",

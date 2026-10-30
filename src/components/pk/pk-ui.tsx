@@ -11,12 +11,14 @@ import {
   WhatsAppIcon,
 } from "@/components/icons";
 import { ShowcaseStage } from "@/components/showcase-stage";
+import { CurText, PriceLead } from "@/components/pk/currency";
 import { demoWebsites, type DemoWebsite } from "@/lib/demos";
 import { demoPreview, demoStageSrc } from "@/lib/demo-shots";
 import {
   pkAddress,
   pkCallHref,
   pkEmail,
+  pkOffices,
   pkPending,
   pkPhone,
   pkPricing,
@@ -30,6 +32,15 @@ import {
   type PkPackage,
   priceLead,
 } from "@/lib/pk";
+
+function MapPinIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+      <path d="M12 21s7-5.1 7-11a7 7 0 1 0-14 0c0 5.9 7 11 7 11Z" />
+      <circle cx="12" cy="10" r="2.6" />
+    </svg>
+  );
+}
 
 /* ------------------------------------------------------------------ */
 /* Layout primitives                                                    */
@@ -161,20 +172,81 @@ export function PkButton({
 /* Trust strip                                                          */
 /* ------------------------------------------------------------------ */
 
+/**
+ * The four-line trust strip under the hero. Deliberately shaped like a
+ * property-board: four even cells, one icon each, a rule between them. Same
+ * four facts as before — nothing added that the owner has not confirmed.
+ */
 export function PkTrustStrip() {
+  const icons = [ClockIcon, ShieldIcon, CheckIcon, PhoneIcon];
+
   return (
-    <div className="border-y border-slate-200 bg-slate-50">
-      <div className="container-page grid gap-x-6 gap-y-4 py-5 sm:grid-cols-2 lg:grid-cols-4">
-        {pkTrust.map((item) => (
-          <div key={item.title} className="flex items-start gap-2.5">
-            <CheckIcon className="mt-0.5 h-4 w-4 shrink-0 text-brand-600" aria-hidden="true" />
-            <p className="text-sm leading-snug text-ink-700">
-              <span className="font-semibold text-navy-700">{item.title}</span>
-              <span className="block text-[0.8rem] text-ink-500">{item.body}</span>
-            </p>
-          </div>
-        ))}
+    <div className="border-y border-slate-200 bg-white">
+      <div className="container-page grid divide-y divide-slate-200 sm:grid-cols-2 sm:divide-y-0 lg:grid-cols-4">
+        {pkTrust.map((item, index) => {
+          const Icon = icons[index % icons.length];
+          return (
+            <div
+              key={item.title}
+              className={`flex items-start gap-3 py-5 sm:px-5 sm:py-6 ${
+                index > 0 ? "sm:border-l sm:border-slate-200" : ""
+              } ${index === 2 ? "sm:border-l-0 lg:border-l" : ""}`}
+            >
+              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-navy-700 text-white">
+                <Icon className="h-4.5 w-4.5" aria-hidden="true" />
+              </span>
+              <p className="text-sm leading-snug">
+                <span className="block font-semibold text-navy-700">{item.title}</span>
+                <span className="mt-0.5 block text-[0.8rem] leading-snug text-ink-500">{item.body}</span>
+              </p>
+            </div>
+          );
+        })}
       </div>
+    </div>
+  );
+}
+
+/** Where we actually sit — two Lahore offices and one in Islamabad. */
+export function PkOffices({ tone = "light" }: { tone?: "light" | "muted" }) {
+  return (
+    <div className={`grid gap-4 sm:grid-cols-2 lg:grid-cols-3`}>
+      {pkOffices.map((office) => (
+        <article
+          key={office.id}
+          className={`rounded-2xl border border-slate-200 p-5 ${tone === "muted" ? "bg-white" : "bg-slate-50"}`}
+        >
+          <p className="text-[0.62rem] font-bold uppercase tracking-[0.14em] text-brand-700">{office.role}</p>
+          <h3 className="mt-1.5 flex items-center gap-2 text-[1.05rem] font-semibold text-navy-700">
+            <span className="grid h-6 w-6 place-items-center rounded-md bg-navy-700 text-white">
+              <MapPinIcon className="h-3.5 w-3.5" aria-hidden="true" />
+            </span>
+            {office.area === office.city ? office.city : `${office.area}, ${office.city}`}
+          </h3>
+          <p className="mt-2 text-[0.84rem] leading-relaxed text-ink-600">
+            {office.street ?? "Street address and map pin shared when your meeting is booked."}
+          </p>
+          <p className="mt-2 text-[0.78rem] leading-relaxed text-ink-500">{office.note}</p>
+          {office.mapUrl ? (
+            <a
+              href={office.mapUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-3 inline-flex items-center gap-1 text-[0.8rem] font-semibold text-brand-700 hover:text-brand-800"
+            >
+              Open in Google Maps
+              <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+            </a>
+          ) : (
+            <p className="mt-3 text-[0.74rem] font-medium text-ink-500">
+              Pin coming —{" "}
+              <a href={pkCallHref} className="text-brand-700 hover:text-brand-800">
+                ask on {pkPhone}
+              </a>
+            </p>
+          )}
+        </article>
+      ))}
     </div>
   );
 }
@@ -236,10 +308,13 @@ export function PkPriceCard({ pkg }: { pkg: PkPackage }) {
           {pkg.price == null ? "Package price" : "Starting price"}
         </p>
         <p className={`mt-1 text-[1.9rem] font-semibold leading-tight tabular-nums ${onNavy ? "text-white" : "text-navy-700"}`}>
-          {priceLead(pkg.price)}
+          <PriceLead value={pkg.price} usdValue={pkg.usdPrice} />
         </p>
         <p className={`mt-1 text-[0.78rem] leading-snug ${onNavy ? "text-slate-200" : "text-ink-600"}`}>
-          {pkg.price == null ? "In PKR, written before work starts" : "One-time build. Quoted in PKR, fixed in writing"}
+          <CurText
+            pkr={pkg.price == null ? "In PKR, written before work starts" : "One-time build. Quoted in PKR, fixed in writing"}
+            usd={pkg.price == null ? "In USD or PKR, written before work starts" : "One-time build. Quoted in USD or PKR, fixed in writing"}
+          />
         </p>
       </div>
 
@@ -481,8 +556,12 @@ export function PkDetailsStrip() {
         <div>
           <p className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-brand-700">Company</p>
           <p className="mt-2 text-sm font-semibold leading-snug text-navy-700">WordbitX TECHNOLOGY SMC – PVT. LTD.</p>
-          <p className="mt-1 text-[0.82rem] leading-relaxed text-ink-500">{pkAddress}</p>
-          <p className="mt-1 text-[0.82rem] leading-relaxed text-ink-500">SECP &amp; FBR registered</p>
+          <ul className="mt-1 space-y-0.5 text-[0.82rem] leading-relaxed text-ink-500">
+            {pkOffices.map((office) => (
+              <li key={office.id}>{office.area === office.city ? office.city : `${office.area}, ${office.city}`}</li>
+            ))}
+          </ul>
+          <p className="mt-1.5 text-[0.82rem] leading-relaxed text-ink-500">SECP &amp; FBR registered</p>
         </div>
 
         <div>

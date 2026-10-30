@@ -21,6 +21,7 @@ import {
   pkFacts,
   pkFaqs,
   pkFaqsForSchema,
+  pkHeroPrice,
   pkIncluded,
   pkIndustries,
   pkMetaDescription,
@@ -36,6 +37,8 @@ import {
   pkSteps,
   pkTimelineNote,
   pkUpdated,
+  pkUsdPricing,
+  moneyIn,
   pkUsPhone,
   pkWhatsAppHref,
   pkr,
@@ -43,12 +46,14 @@ import {
   priceLead,
   type PkFaq,
 } from "@/lib/pk";
+import { CurText, CurrencySwitch, PackagePriceTiles } from "@/components/pk/currency";
 import {
   PkButton,
   PkContactBar,
   PkDetailsStrip,
   PkFaqList,
   PkHeading,
+  PkOffices,
   PkOwnerBanner,
   PkPriceCard,
   PkSamples,
@@ -132,10 +137,12 @@ export function PkPageView() {
         <PkContactBar />
       </div>
 
-      {/* 1 — HERO: navy band. Short on purpose — a shop window, not a brochure:
-          what we are, what we sell, the two prices, two ways to act. */}
+      {/* 1 — HERO: navy band, white price card, two buttons. This is the
+          version the owner approved — flat colour, real copy, price on the
+          first screen — with the BrandBees rhythm: eyebrow, headline, price,
+          one supporting line, two actions, one phone line, product shot. */}
       <section className="relative overflow-hidden bg-navy-700 text-white">
-        <div className="container-page grid gap-9 pb-11 pt-8 sm:pt-10 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:gap-14 lg:pb-14 lg:pt-12">
+        <div className="container-page grid gap-9 pb-10 pt-8 sm:pb-12 sm:pt-10 lg:grid-cols-[1.03fr_0.97fr] lg:items-center lg:gap-14 lg:pb-14 lg:pt-12">
           <div>
             <nav aria-label="Breadcrumb" className="text-[0.72rem] text-slate-300">
               <ol className="flex items-center gap-1.5">
@@ -149,44 +156,59 @@ export function PkPageView() {
               </ol>
             </nav>
 
-            <p className="mt-4 text-[0.68rem] font-bold uppercase tracking-[0.16em] text-brand-300">
-              Software company in Lahore · Since 2021
+            <p className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.07] px-3 py-1 text-[0.66rem] font-semibold uppercase tracking-[0.14em] text-brand-200">
+              <span className="h-1.5 w-1.5 rounded-full bg-brand-400" aria-hidden="true" />
+              Pakistan-based software company · Since 2021 · Lahore
             </p>
 
-            <h1 className="mt-3 text-[2.1rem] font-semibold leading-[1.05] tracking-[-0.025em] text-white sm:text-[2.7rem] lg:text-[3.1rem]">
+            <h1 className="mt-4 text-[2rem] font-semibold leading-[1.06] tracking-[-0.025em] text-white sm:text-[2.6rem] lg:text-[3rem]">
               Professional websites for Pakistani businesses
             </h1>
 
-            <p className="mt-3 max-w-xl text-[0.95rem] leading-relaxed text-slate-200">
-              Websites, online stores, apps and POS systems — built in Lahore, priced in rupees, fixed in
-              writing before work starts.
+            <p className="mt-3 max-w-xl text-[0.9rem] leading-relaxed text-slate-200">
+              <span className="font-semibold text-white">WordbitX TECHNOLOGY SMC – PVT. LTD.</span> is a registered
+              Pakistani software company based in Lahore. Since 2021 we have built websites, stores, apps and POS
+              systems across Pakistan and for clients in the USA, UK and UAE.
             </p>
 
-            {/* PRICE — above the fold, shop-window style. Real digits once the
-                owner supplies them; never a made-up rupee figure. */}
-            <div className="mt-6 grid max-w-xl gap-2.5 sm:grid-cols-2">
-              {pkPackages.map((pkg) => (
-                <div key={pkg.id} className="rounded-xl border border-white/15 bg-white/[0.07] px-4 py-3">
-                  <p className="text-[0.6rem] font-bold uppercase tracking-[0.14em] text-brand-300">
-                    {pkg.name}
-                  </p>
-                  <p className="mt-1 text-[1.15rem] font-semibold leading-tight text-white">
-                    {pkg.price == null ? "Fixed quote in PKR" : `from ${pkr(pkg.price)}`}
-                  </p>
-                </div>
-              ))}
+            {/* PRICE — the anchor of the page, and always above the fold. */}
+            <div className="mt-5 rounded-2xl bg-white p-4 text-ink-900 shadow-[0_26px_60px_-34px_rgba(3,8,20,0.85)] sm:p-5">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <p className="text-[0.64rem] font-bold uppercase tracking-[0.16em] text-brand-700">
+                  <CurText pkr={`${pkHeroPrice.eyebrow} · PKR`} usd={`${pkHeroPrice.eyebrow} · USD`} />
+                </p>
+                <CurrencySwitch tone="light" />
+              </div>
+              <p className="mt-1 text-[1.5rem] font-semibold leading-[1.1] text-navy-700 sm:text-[1.9rem]">
+                <CurText pkr={pkHeroPrice.headline} usd={pkHeroPrice.headlineUsd} />
+              </p>
+              <p className="mt-1 text-[0.82rem] leading-snug text-ink-500">
+                <CurText pkr={pkHeroPrice.detail} usd={pkHeroPrice.detailUsd} />
+              </p>
+
+              <div className="mt-3">
+                <PackagePriceTiles packages={pkPackages} />
+              </div>
+              {pkPricing.businessWebsite == null && pkUsdPricing.businessWebsite == null ? (
+                <p className="mt-2.5 text-[0.76rem] leading-snug text-ink-500">
+                  Both package prices are written on your quote — before any work starts.
+                </p>
+              ) : null}
             </div>
-            <p className="mt-2 max-w-xl text-[0.74rem] leading-snug text-slate-300">
-              Both prices are written on your quote — in rupees, before any work starts.
-            </p>
 
-            <div className="mt-5 flex flex-col gap-2.5 sm:flex-row sm:items-center">
-              <PkButton href={pkBookingHref} ariaLabel="Book a free call about your website">
-                Book a free call
-              </PkButton>
+            <div className="mt-4 flex flex-col gap-2.5 sm:flex-row sm:items-center">
+              <a
+                href={pkWhatsAppHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-500 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-600"
+              >
+                <WhatsAppIcon className="h-4 w-4" aria-hidden="true" />
+                Contact us on WhatsApp
+              </a>
               <a
                 href="#pricing"
-                className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/35 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/40 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
               >
                 See the two packages
                 <ArrowRight className="h-4 w-4 rotate-90" aria-hidden="true" />
@@ -194,11 +216,11 @@ export function PkPageView() {
             </div>
 
             <p className="mt-3 text-[0.8rem] text-slate-300">
-              Free call, no obligation · or call / WhatsApp{" "}
-              <a
-                href={pkCallHref}
-                className="font-semibold tabular-nums text-white underline decoration-brand-400/70 underline-offset-4 transition-colors hover:text-brand-200"
-              >
+              <Link href="/contact" className="font-semibold text-white underline decoration-brand-400/70 underline-offset-4 hover:text-brand-200">
+                Book a free call
+              </Link>{" "}
+              or call{" "}
+              <a href={pkCallHref} className="font-semibold tabular-nums text-white hover:text-brand-200">
                 {pkPhone}
               </a>
             </p>
@@ -219,8 +241,9 @@ export function PkPageView() {
               <figcaption className="mt-2.5 flex items-start gap-2 text-[0.78rem] leading-snug text-slate-300">
                 <CheckIcon className="mt-0.5 h-3.5 w-3.5 shrink-0 text-brand-300" aria-hidden="true" />
                 <span>
-                  <span className="font-semibold text-white">Live:</span> Properties Pak — a property portal we
-                  built and still run.{preview.isCover ? " The image is an illustration." : ""}{" "}
+                  <span className="font-semibold text-white">Properties Pak</span> — a live property portal WordbitX
+                  built, launched and still runs.
+                  {preview.isCover ? " The image above is an illustration; open the site to see the real product." : ""}{" "}
                   <a
                     href={propertiesPak.url}
                     target="_blank"
@@ -537,15 +560,21 @@ export function PkPageView() {
         </ul>
       </PkSection>
 
-      {/* 11 — cities */}
-      <PkSection id="cities">
+      {/* 11 — offices + cities */}
+      <PkSection id="offices">
         <PkHeading
-          eyebrow="Cities we serve"
-          title="Based in Lahore, working across Pakistan"
-          lead="Most work runs over chat and video calls. Lahore is the one city where we can also meet in person."
+          eyebrow="Where we are"
+          title="Two offices in Lahore, one in Islamabad"
+          lead="Meetings are by appointment. Everything else — scoping, design reviews, demos — runs over chat, calls and screen shares."
         />
 
-        <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-7">
+          <PkOffices />
+        </div>
+
+        <h3 className="mt-10 text-[0.68rem] font-bold uppercase tracking-[0.16em] text-ink-500">City pages</h3>
+
+        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {pkCities.linked.map((city) => (
             <Link
               key={city.href}

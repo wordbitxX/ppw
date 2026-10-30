@@ -7,6 +7,7 @@ import "@fontsource/inter/600.css";
 import "@fontsource/inter/700.css";
 import "./globals.css";
 import { Header } from "@/components/header";
+import { CurrencyProvider } from "@/components/pk/currency";
 import { Footer } from "@/components/footer";
 import { DeferredWidgets } from "@/components/deferred-widgets";
 import { OrganizationSchema, WebsiteSchema } from "@/components/jsonld";
@@ -119,9 +120,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         >
           Skip to content
         </a>
-        <Header />
-        <main id="main-content">{children}</main>
-        <Footer />
+        {/* PKR / USD switch is rendered in the header; only the /pk pages
+            print prices from it, so the provider is global but harmless. */}
+        <CurrencyProvider>
+          <Header />
+          <main id="main-content">{children}</main>
+          <Footer />
+        </CurrencyProvider>
         <DeferredWidgets />
         <OrganizationSchema />
         <WebsiteSchema />

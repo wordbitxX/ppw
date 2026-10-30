@@ -7,6 +7,7 @@ import type { CSSProperties } from "react";
 import { Logo, MenuIcon, CloseIcon, ChevronDown, ArrowRight, WhatsAppIcon } from "@/components/icons";
 import { MegaServiceIcon } from "@/components/mega-service-icon";
 import { FlagIcon } from "@/components/flag-icon";
+import { CurrencySwitch } from "@/components/pk/currency";
 import { b2bServiceSlugs, megaMenuGroups, services } from "@/lib/services";
 import { mainNav, siteConfig, whatsappLink } from "@/lib/site";
 
@@ -751,23 +752,28 @@ export function Header() {
           </nav>
 
           <div className="hidden items-center gap-2.5 lg:flex">
-            {/* Pakistan prices (PKR) — the one route into /pk. International
-                visitors are never redirected; this is a deliberate click. */}
-            <Link
-              href="/pk"
-              onClick={backToTopIfCurrent("/pk")}
-              aria-label="Pakistan Prices (PKR)"
-              className={`hidden shrink-0 items-center gap-2 whitespace-nowrap rounded-xl border px-3 py-2.5 text-[0.8rem] font-semibold transition-colors xl:inline-flex xl:text-[0.84rem] 2xl:px-3.5 2xl:text-sm ${
+            {/* Prices control. The flag opens the Pakistan prices page (the one
+                deliberate route into /pk — international visitors are never
+                redirected), and the two chips switch every price on that page
+                between rupees and dollars. */}
+            <div
+              className={`hidden shrink-0 items-center gap-0.5 whitespace-nowrap rounded-xl border p-1 transition-colors lg:flex ${
                 isActive("/pk")
-                  ? "border-brand-400/60 bg-brand-500/15 text-white"
-                  : "border-brand-400/35 bg-brand-500/10 text-brand-200 hover:border-brand-300/70 hover:text-white"
+                  ? "border-brand-400/60 bg-brand-500/15"
+                  : "border-white/15 bg-white/[0.06]"
               }`}
             >
-              <FlagIcon slug="pakistan" className="h-3.5 w-5" />
-              {/* Full label from 2xl, short label below it — the nav needs the room. */}
-              <span className="2xl:hidden">PKR Prices</span>
-              <span className="hidden 2xl:inline">Pakistan Prices (PKR)</span>
-            </Link>
+              <Link
+                href="/pk"
+                onClick={backToTopIfCurrent("/pk")}
+                aria-label="Pakistan prices"
+                title="Pakistan prices"
+                className="grid h-7 w-8 place-items-center rounded-lg text-slate-300 transition-colors hover:bg-white/10 hover:text-white"
+              >
+                <FlagIcon slug="pakistan" className="h-3.5 w-5" />
+              </Link>
+              <CurrencySwitch tone="dark" />
+            </div>
             {/* Halo lives on a wrapper: the button itself clips its light sweep.
                 Surface styling lives in .cta-surface, which is a deep emerald
                 ramp so the white label clears AA. */}
@@ -845,10 +851,14 @@ export function Header() {
             >
               <span className="flex items-center gap-2.5">
                 <FlagIcon slug="pakistan" className="h-4 w-6" />
-                Pakistan Prices (PKR)
+                Pakistan Prices
               </span>
               <ArrowRight className="h-4 w-4" />
             </Link>
+            <div className="mb-2 flex items-center justify-between gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-2.5">
+              <span className="text-[0.78rem] font-medium text-slate-300">Show prices in</span>
+              <CurrencySwitch tone="dark" size="md" />
+            </div>
             {mainNav.map((item) => {
               if (item.label === "Services") {
                 return (

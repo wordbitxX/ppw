@@ -44,6 +44,30 @@ export const pkPricing = {
 };
 ```
 
+### Prices in dollars (the PKR / USD switch)
+
+The header switch reads `pkUsdPricing` in the same file. Two ways to fill it:
+
+```ts
+export const pkUsdPricing = {
+  businessWebsite: null,   // explicit USD, e.g. 160
+  allInOne: null,          // e.g. 200
+  renewalYear2: null,
+  maintenanceMonthly: null,
+  rate: null,              // OR paste PKR per 1 USD, e.g. 278
+};
+```
+
+An explicit USD figure wins; otherwise the rate converts and rounds to the
+nearest 5. With both blank the USD view says “Fixed quote in USD” — it never
+converts with a guessed rate.
+
+### Offices
+
+`pkOffices` in `src/lib/pk.ts` lists three: DHA Phase 2 (head office, street
+already filled), Johar Town and Islamabad. For the last two, fill `street` and
+`mapUrl` — until then the cards say the pin is shared when a meeting is booked.
+
 Paste a number and, with no other change:
 
 - both hero price tags switch from “Fixed quote in PKR” to “from Rs. 45,000”;
