@@ -36,6 +36,10 @@ export const pkGlanceStats = [
   { value: "3 months", label: "Support included" },
 ] as const;
 
+/** What the team actually builds on. The Rs. 20,000 package is WordPress; the
+ *  rest is quoted per project, so the price cards stay honest. */
+export const pkPlatforms = ["WordPress", "WooCommerce", "Shopify", "Custom Next.js builds"] as const;
+
 export const pkIncluded: { title: string; text: string }[] = [
   {
     title: "Mobile-first WordPress website",
@@ -126,9 +130,9 @@ export const pkServices: { slug: string; title: string; text: string; icon: Icon
     icon: "wordpress",
   },
   {
-    slug: "woocommerce-development",
-    title: "Ecommerce / WooCommerce",
-    text: "Online stores with PKR pricing, COD and courier-ready orders.",
+    slug: "ecommerce-shopify",
+    title: "Shopify & ecommerce",
+    text: "Shopify and WooCommerce stores with PKR pricing, COD and courier-ready orders.",
     icon: "ecommerce",
   },
   {
@@ -387,7 +391,7 @@ export const pkFaqs: Faq[] = [
   {
     question: "Which platform do you build on?",
     answer:
-      "Most business websites and online stores run on WordPress with WooCommerce — easy for your team to edit. Portals, POS software and web apps are built as custom Next.js and Node applications. We recommend the platform that fits the workflow, not a favourite stack.",
+      "Most business websites run on WordPress, and online stores on WooCommerce — easy for your team to edit and cheap to host. We build on Shopify when you want Shopify's checkout, apps and inventory across channels. Portals, POS software and web apps are custom Next.js and Node applications. We recommend the platform that fits the workflow, not a favourite stack.",
   },
   {
     question: "Can you redesign my existing website?",

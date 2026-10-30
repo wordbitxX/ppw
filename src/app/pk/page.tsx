@@ -25,6 +25,7 @@ import {
   pkHeroStats,
   pkIncluded,
   pkPackages,
+  pkPlatforms,
   pkPakistanFeatures,
   pkPrices,
   pkSectors,
@@ -37,12 +38,14 @@ import {
 export const metadata: Metadata = {
   title: { absolute: "Websites for Pakistani Businesses from Rs. 20,000 | WordbitX" },
   description:
-    "Mobile-first WordPress websites for Pakistani businesses from Rs. 20,000 — or Rs. 25,000 with domain and 1 year hosting. 3 months support. Lahore-based team.",
+    "Mobile-first WordPress, Shopify and custom websites for Pakistani businesses from Rs. 20,000 — or Rs. 25,000 with domain and 1 year hosting. 3 months support. Lahore-based team.",
   keywords: [
     "website design Pakistan",
     "website price in Pakistan",
     "web design company Lahore",
     "WordPress website Pakistan",
+    "Shopify store development Pakistan",
+    "custom website Pakistan",
     "website Rs 20,000",
     "ecommerce website Pakistan",
     "FBR POS software Pakistan",
@@ -143,7 +146,7 @@ export default function PakistanLandingPage() {
     "@type": "Service",
     "@id": `${absoluteUrl("/pk")}#service`,
     name: "Website design and development for Pakistani businesses",
-    serviceType: "Website design, WordPress development and ecommerce",
+    serviceType: "Website design, WordPress and WooCommerce, Shopify and custom development",
     url: absoluteUrl("/pk"),
     provider: {
       "@type": "Organization",
@@ -205,8 +208,8 @@ export default function PakistanLandingPage() {
                 Websites from <span className="text-brand-300">{pkPrices.basic}</span>
               </p>
               <p className="mt-3 max-w-xl text-base leading-relaxed text-slate-300">
-                Mobile-first WordPress and custom websites, built by a Lahore team. Add your domain and 1 year of
-                hosting for {pkPrices.allInOne}. {pkPrices.supportMonths} months of support included.
+                Mobile-first WordPress sites, Shopify stores and custom builds, built by a Lahore team. Add your domain
+                and 1 year of hosting for {pkPrices.allInOne}. {pkPrices.supportMonths} months of support included.
               </p>
               <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
                 <WhatsAppCta />
@@ -350,8 +353,8 @@ export default function PakistanLandingPage() {
 
         <p className="mx-auto mt-7 max-w-3xl text-center text-base leading-relaxed text-ink-600">
           WordbitX is a web design and development company in Lahore, Pakistan, building since 2021. We build fast,
-          mobile-first WordPress websites, WooCommerce stores and FBR-ready POS software for businesses across
-          Pakistan — and handle SEO and maintenance after launch.
+          mobile-first WordPress websites, Shopify and WooCommerce stores, custom web apps and FBR-ready POS
+          software for businesses across Pakistan — and handle SEO and maintenance after launch.
         </p>
 
         <div className="mt-8 grid gap-4 sm:grid-cols-3">
@@ -488,8 +491,28 @@ export default function PakistanLandingPage() {
           ))}
         </div>
 
-        <p className="mx-auto mt-7 max-w-2xl text-center text-xs leading-relaxed text-ink-400">
-          Prices in PKR, quoted in writing before work starts. Online stores (WooCommerce), custom WordPress builds,
+        <div className="mx-auto mt-8 max-w-2xl rounded-2xl border border-slate-200 bg-slate-50/80 px-5 py-4">
+          <p className="text-center text-[0.65rem] font-bold uppercase tracking-[0.18em] text-ink-400">
+            More than WordPress
+          </p>
+          <p className="mt-2 text-center text-sm leading-relaxed text-ink-600">
+            The {pkPrices.basic} package runs on WordPress. We also build Shopify and WooCommerce stores and fully
+            custom Next.js websites — each quoted in writing.
+          </p>
+          <ul className="mt-3 flex flex-wrap justify-center gap-2">
+            {pkPlatforms.map((platform) => (
+              <li
+                key={platform}
+                className="rounded-full border border-slate-200 bg-white px-2.5 py-1 text-[0.7rem] font-semibold text-ink-600"
+              >
+                {platform}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <p className="mx-auto mt-6 max-w-2xl text-center text-xs leading-relaxed text-ink-400">
+          Prices in PKR, quoted in writing before work starts. Online stores (WooCommerce or Shopify), custom builds,
           FBR POS software and SEO are quoted after a free call.
         </p>
         <p className="mt-2 text-center text-xs text-ink-400">
