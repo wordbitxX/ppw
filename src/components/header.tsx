@@ -115,7 +115,7 @@ function MenuIntro({
   );
 }
 
-/** Portfolio popup — the flagship project profiles (slugs from src/lib/portfolio.ts). */
+/** Case studies popup — the flagship project profiles (slugs from src/lib/portfolio.ts). */
 const portfolioMajors: [string, string][] = [
   ["real-estate-listing-marketplace", "Real Estate Listing Marketplace"],
   ["multi-branch-retail-pos-platform", "Multi-Branch Retail POS Platform"],
@@ -171,7 +171,7 @@ function NavDrop({
         onClick={onLinkClick}
         aria-expanded={isOpen}
         aria-haspopup="true"
-        className={`flex items-center gap-1.5 rounded-lg px-2.5 py-2 text-sm font-medium transition-colors ${
+        className={`flex items-center gap-1.5 whitespace-nowrap rounded-lg px-2 py-2 text-sm font-medium transition-colors xl:px-2.5 ${
           activeRoute ? "text-brand-300" : "text-slate-200 hover:text-white"
         }`}
       >
@@ -385,18 +385,19 @@ export function Header() {
       }`}
     >
       <div className="container-page">
-        <div className="flex h-16 items-center justify-between gap-3 lg:h-[72px] lg:gap-4">
+        <div className="flex h-16 items-center justify-between gap-3 lg:gap-4 xl:h-[72px]">
           <Link
             href="/"
             onClick={backToTopIfCurrent("/")}
             className="min-w-0 shrink text-white"
             aria-label={`${siteConfig.name} home`}
           >
-            <Logo />
+            {/* Nav carries nine items — the legal tagline lives in the footer. */}
+            <Logo secondaryTagline="" />
             <span className="sr-only">{siteConfig.name} home</span>
           </Link>
 
-          <nav aria-label="Main navigation" className="hidden items-center gap-1 lg:flex">
+          <nav aria-label="Main navigation" className="hidden items-center gap-1 xl:flex">
             {mainNav.map((item) => {
               if (item.label === "Services") {
                 return (
@@ -664,7 +665,7 @@ export function Header() {
                 );
               }
 
-              if (item.label === "Portfolio") {
+              if (item.href === "/portfolio") {
                 return (
                   <NavDrop
                     key={item.href}
@@ -681,9 +682,9 @@ export function Header() {
                     <div className="nav-pop overflow-hidden rounded-2xl bg-navy-950 shadow-[0_32px_84px_-24px_rgba(0,0,0,0.9)] ring-1 ring-white/10 backdrop-blur-xl">
                       <div className="flex items-stretch">
                         <MenuIntro
-                          title="Selected work"
+                          title="Case studies"
                           desc="Platforms we designed, built and still run."
-                          cta="All portfolio"
+                          cta="All case studies"
                           ctaHref="/portfolio"
                           className="w-56"
                         />
@@ -723,7 +724,7 @@ export function Header() {
                   key={item.href}
                   href={item.href}
                   onClick={backToTopIfCurrent(item.href)}
-                  className={`inline-flex items-center gap-1.5 rounded-lg px-2.5 py-2 text-sm font-medium transition-colors ${
+                  className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-lg px-2 py-2 text-sm font-medium transition-colors xl:px-2.5 ${
                     isActive(item.href) ? "text-brand-300" : "text-slate-200 hover:text-white"
                   }`}
                 >
@@ -733,7 +734,7 @@ export function Header() {
             })}
           </nav>
 
-          <div className="hidden items-center gap-2.5 lg:flex">
+          <div className="hidden items-center gap-2.5 xl:flex">
             {/* Halo lives on a wrapper: the button itself clips its light sweep.
                 Surface styling lives in .cta-surface, which is a deep emerald
                 ramp so the white label clears AA. */}
@@ -743,7 +744,7 @@ export function Header() {
             >
               <Link
                 href="/contact"
-                className="cta-live cta-surface group inline-flex items-center gap-2 rounded-xl px-4.5 py-2.5 text-sm font-bold tracking-tight transition-all hover:-translate-y-0.5"
+                className="cta-live cta-surface group inline-flex items-center gap-2 whitespace-nowrap rounded-xl px-3.5 py-2.5 text-sm font-bold tracking-tight transition-all hover:-translate-y-0.5 xl:px-4.5"
               >
                 <span className="relative flex h-2 w-2" aria-hidden="true">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-500" />
@@ -755,7 +756,7 @@ export function Header() {
             </span>
           </div>
 
-          <div className="flex min-w-0 items-center gap-2 lg:hidden">
+          <div className="flex min-w-0 items-center gap-2 xl:hidden">
             {/* Primary CTA replaces the WhatsApp shortcut that used to sit here.
                 The label and the ornaments are responsive because this bar is
                 tight: on a 375px screen only about 169px is left once the
@@ -800,7 +801,7 @@ export function Header() {
       {mobileOpen && (
         <div
           id="mobile-navigation"
-          className="min-h-[calc(100dvh-4rem)] max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-white/10 bg-midnight lg:hidden"
+          className="min-h-[calc(100dvh-4rem)] max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-white/10 bg-midnight xl:hidden"
         >
           <nav aria-label="Mobile navigation" className="container-page space-y-1 py-5">
             {mainNav.map((item) => {
@@ -987,11 +988,11 @@ export function Header() {
                 );
               }
 
-              if (item.label === "Portfolio") {
+              if (item.href === "/portfolio") {
                 return (
                   <MobileDrop
                     key={item.href}
-                    label="Portfolio"
+                    label="Case Studies"
                     expanded={mobileDrop === "portfolio"}
                     onToggle={() => setMobileDrop(mobileDrop === "portfolio" ? null : "portfolio")}
                   >

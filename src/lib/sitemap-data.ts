@@ -72,6 +72,10 @@ export function getSitemapGroups(now = staticUpdated): Record<SitemapGroupKey, S
       entry("/topics", { lastModified: now, changeFrequency: "weekly", priority: 0.5 }),
       entry("/contact", { lastModified: now, changeFrequency: "monthly", priority: 0.7 }),
       entry("/pricing", { lastModified: now, changeFrequency: "weekly", priority: sitemapPriority("/pricing", 0.9) }),
+      // Pakistan landing page: price-led, one-scroll page for the "website
+      // price in Pakistan" intent the /pricing page deliberately does not
+      // answer with a number.
+      entry("/pk", { lastModified: now, changeFrequency: "weekly", priority: 0.9 }),
       entry("/tools/cost-calculator", { lastModified: now, changeFrequency: "monthly", priority: 0.85 }),
       entry("/comparisons", { lastModified: now, changeFrequency: "monthly", priority: 0.7 }),
       entry("/glossary", { lastModified: now, changeFrequency: "monthly", priority: 0.6 }),
@@ -165,7 +169,7 @@ export const sitemapIndexItems: { key: SitemapGroupKey; path: string; label: str
   { key: "cities", path: "/sitemaps/cities.xml", label: "Pakistan city pages" },
   { key: "global", path: "/sitemaps/global.xml", label: "Country / market pages" },
   { key: "technologies", path: "/sitemaps/technologies.xml", label: "Technology pages" },
-  { key: "portfolio", path: "/sitemaps/portfolio.xml", label: "Portfolio / demo profiles" },
+  { key: "portfolio", path: "/sitemaps/portfolio.xml", label: "Case studies / demo profiles" },
   { key: "blog", path: "/sitemaps/blog.xml", label: "Blog articles" },
   { key: "topics", path: "/sitemaps/topics.xml", label: "Software topic guides" },
   { key: "legal", path: "/sitemaps/legal.xml", label: "Legal pages" },

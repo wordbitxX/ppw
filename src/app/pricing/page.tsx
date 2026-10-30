@@ -64,6 +64,21 @@ export default function PricingPage() {
             </Card>
           ))}
         </div>
+        {/* Fixed-price route for the small-business intent. The rest of this
+            page explains why custom software is quoted; a Pakistani shop owner
+            who just wants a five-page site needs a number, so it lives on /pk. */}
+        <div className="mt-8 flex flex-col gap-4 rounded-2xl border border-brand-200 bg-brand-50/60 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+          <div className="max-w-2xl">
+            <h3 className="text-base font-semibold text-ink-900">Pakistan website packages from Rs. 20,000</h3>
+            <p className="mt-1.5 text-sm leading-relaxed text-ink-500">
+              A fixed-price business website, or Rs. 25,000 with domain and one year of hosting. Included features,
+              renewal pricing and the written-quote process are all on one page.
+            </p>
+          </div>
+          <ButtonLink href="/pk" className="shrink-0">
+            See the packages
+          </ButtonLink>
+        </div>
       </Section>
 
       <Section tone="muted" id="ranges">

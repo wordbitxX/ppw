@@ -16,11 +16,19 @@ export function Section({
    * measured (e.g. a section that is above the fold).
    */
   deferPaint = true,
+  /**
+   * Vertical rhythm. "flush-top" removes the top padding so a section can sit
+   * tight under the one before it (the owner asked for the gap above the
+   * at-a-glance band to shrink). "tight-bottom" is the mirror image, for a
+   * section that ends in its own card and should not push air below it.
+   */
+  padding = "default",
 }: {
   children: ReactNode;
   className?: string;
   tone?: "light" | "muted" | "dark";
   id?: string;
+  padding?: "default" | "compact" | "flush-top" | "tight" | "tight-bottom";
   deferPaint?: boolean;
 }) {
   const toneClass =
@@ -29,10 +37,20 @@ export function Section({
       : tone === "muted"
         ? "bg-slate-50 text-ink-900"
         : "bg-white text-ink-900";
+  const paddingClass =
+    padding === "compact"
+      ? "py-9 sm:py-14 lg:py-16"
+      : padding === "flush-top"
+        ? "pt-6 pb-12 sm:pt-8 sm:pb-20 lg:pt-10 lg:pb-24"
+        : padding === "tight"
+        ? "pt-10 pb-4 sm:pt-14 sm:pb-6 lg:pt-16 lg:pb-8"
+        : padding === "tight-bottom"
+          ? "pt-12 pb-4 sm:pt-20 sm:pb-6 lg:pt-24 lg:pb-8"
+          : "py-12 sm:py-20 lg:py-24";
   return (
     <section
       id={id}
-      className={`${toneClass} scroll-mt-24 py-12 sm:py-20 lg:py-24 ${deferPaint ? "defer-paint" : ""} ${className}`}
+      className={`${toneClass} scroll-mt-24 ${paddingClass} ${deferPaint ? "defer-paint" : ""} ${className}`}
     >
       <div className="container-page">{children}</div>
     </section>

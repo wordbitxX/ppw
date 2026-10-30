@@ -75,6 +75,11 @@ export function Footer() {
                   </li>
                 ))}
                 <li>
+                  <Link href="/pk" className="text-slate-400 transition-colors hover:text-brand-300">
+                    Pakistan website packages
+                  </Link>
+                </li>
+                <li>
                   <Link href="/software-house" className="text-slate-400 transition-colors hover:text-brand-300">
                     Cities in Pakistan
                   </Link>

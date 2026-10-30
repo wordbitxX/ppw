@@ -20,7 +20,7 @@ const company: [string, string][] = [
   ["/technologies", "Technologies"],
   ["/industries", "All industries"],
   ["/products", "Products & demos"],
-  ["/portfolio", "Portfolio"],
+  ["/portfolio", "Case Studies"],
   ["/hire-developers", "Hire developers"],
   ["/topics", "Guides & topics"],
   ["/blog", "Blog"],

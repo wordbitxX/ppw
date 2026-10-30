@@ -348,7 +348,7 @@ export default function HomePage() {
                 ["/services/saas-application-development", "Business software"],
                 ["/industries", "Industries"],
                 ["/global", "Global markets"],
-                ["/portfolio", "Portfolio"],
+                ["/portfolio", "Case Studies"],
                 ["/topics", "Topics"],
                 ["/pricing", "Pricing"],
                 ["/process", "Process"],
@@ -433,7 +433,7 @@ export default function HomePage() {
               the showcase websites below. Each slide links to its project page.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
-              <ButtonLink href="/portfolio">View the portfolio</ButtonLink>
+              <ButtonLink href="/portfolio">View all case studies</ButtonLink>
               <ButtonLink href="/products" variant="ghost">
                 Products &amp; demos
               </ButtonLink>
@@ -727,7 +727,7 @@ export default function HomePage() {
             description="Scope write-ups of software, mobile and e-commerce work — separate from the live demo sites above. Each profile links to a full project page."
           />
           <ButtonLink href="/portfolio" variant="secondary" className="shrink-0">
-            View Full Portfolio
+            View All Case Studies
           </ButtonLink>
         </div>
         <div className="mt-8">
