@@ -68,6 +68,8 @@ export type Project = {
   summary: string;
   metaTitle: string;
   metaDescription: string;
+  /** Search phrases relevant to this specific project profile. */
+  keywords?: string[];
   image: string;
   imageAlt: string;
   gallery: { src: string; alt: string; caption: string }[];
@@ -82,6 +84,8 @@ export type Project = {
   engagement: string;
   /** Public live URL for WordbitX's own products (e.g. Properties Pak). Rendered as a visit link on the project page. */
   liveUrl?: string;
+  /** Optional public dashboard for an interactive demo. */
+  demoDashboardUrl?: string;
   /** Public disclosure label; use for confidential client work. */
   clientLabel?: string;
   /** Explains what can be publicly verified without inventing results. */

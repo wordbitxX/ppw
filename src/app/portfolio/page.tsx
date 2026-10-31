@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
 import { PageHero, Section, SectionHeading, ButtonLink } from "@/components/ui";
 import { PortfolioExplorer } from "@/components/portfolio-explorer";
 import { DemosSection } from "@/components/demos-section";
@@ -41,6 +43,24 @@ export default function PortfolioPage() {
           </ButtonLink>
         </div>
       </PageHero>
+
+      <Section padding="compact" deferPaint={false}>
+        <article className="grid overflow-hidden rounded-3xl border border-white/10 bg-navy-950 text-white shadow-card lg:grid-cols-2">
+          <div className="relative min-h-64 overflow-hidden lg:min-h-full">
+            <Image src="/brand/portfolio/salon-booking-dark.webp" alt="Illustrative dark salon workspace with a booking dashboard" fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" />
+            <span className="absolute bottom-3 left-3 rounded-full bg-navy-950/80 px-3 py-1 text-[0.65rem] text-slate-200">Illustrative image</span>
+          </div>
+          <div className="flex flex-col items-start justify-center p-6 sm:p-10">
+            <span className="text-xs font-semibold uppercase tracking-[0.16em] text-brand-300">Featured case study · WordbitX demo</span>
+            <h2 className="mt-4 text-2xl font-semibold tracking-tight sm:text-3xl">Salon Booking &amp; Management System</h2>
+            <p className="mt-4 max-w-xl text-sm leading-relaxed text-slate-300 sm:text-base">A salon appointment system for Pakistan and worldwide, with chair schedules, staff and an owner dashboard. Explore the interactive demo with simulated WhatsApp conversations and sample data.</p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <ButtonLink href="/portfolio/salon-whatsapp-booking-recovery-dashboard">View case study</ButtonLink>
+              <Link href="/products/salon-booking-system" className="inline-flex items-center rounded-xl border border-white/20 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10">Explore the product</Link>
+            </div>
+          </div>
+        </article>
+      </Section>
 
       <DemosSection />
 

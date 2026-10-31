@@ -41,6 +41,7 @@ const industryLinks: [string, string][] = [
 /** Products popup — the seven ecosystem products (names/slugs from src/lib/products.ts). */
 const productLinks: [string, string][] = [
   ["properties-pak", "Properties Pak"],
+  ["salon-booking-system", "Salon Booking System"],
   ["motor", "MOTOR Pakistan"],
   ["healthcare", "Medicare Plus"],
   ["education", "WordbitX Education Platform"],
@@ -67,6 +68,7 @@ const industryBlurbs: Record<string, string> = {
 };
 const productBlurbs: Record<string, string> = {
   "properties-pak": "Pakistan's property marketplace",
+  "salon-booking-system": "Appointments & salon dashboard",
   motor: "Cars, bikes, EVs & rentals",
   healthcare: "Clinic platform & booking",
   education: "School, academy & college ERP",
@@ -405,8 +407,9 @@ export function Header() {
             className="min-w-0 shrink text-white"
             aria-label={`${siteConfig.name} home`}
           >
-            {/* Nav carries nine items — the legal tagline lives in the footer. */}
-            <Logo secondaryTagline="" />
+            {/* The legal lockup is shown on mobile; the desktop navigation stays unchanged. */}
+            <span className="lg:hidden"><Logo className="header-mobile-logo" /></span>
+            <span className="hidden lg:inline"><Logo secondaryTagline="" /></span>
             <span className="sr-only">{siteConfig.name} home</span>
           </Link>
 
@@ -826,13 +829,10 @@ export function Header() {
                 squeezed inside a 40px-tall button. Label is now 0.8rem with
                 normal tracking, the button is pinned to h-10 so it lines up
                 with the menu button, and the arrow returns from 400px up. */}
-            <span
-              className="cta-halo relative inline-flex shrink-0 rounded-xl"
-              style={{ "--cta-halo-color": "rgba(28, 168, 48, 0.5)" } as CSSProperties}
-            >
+            <span className="relative inline-flex shrink-0 rounded-xl">
               <Link
                 href="/contact"
-                className="cta-live cta-surface group inline-flex h-10 items-center gap-1.5 whitespace-nowrap rounded-xl px-3.5 text-[0.8rem] font-semibold sm:gap-2 sm:px-4 sm:text-sm"
+                className="group inline-flex h-10 items-center gap-1.5 whitespace-nowrap rounded-xl border border-white/25 bg-white/[0.04] px-2 text-[0.7rem] font-semibold text-white transition-colors hover:border-brand-400/60 hover:bg-white/10 min-[400px]:px-3.5 min-[400px]:text-[0.8rem] sm:gap-2 sm:px-4 sm:text-sm"
               >
                 <span className="relative hidden h-2 w-2 sm:flex" aria-hidden="true">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-500" />

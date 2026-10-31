@@ -59,6 +59,8 @@ export default async function ProductPage({ params }: PageProps) {
           <ButtonLink href={showcase.url} external>
             Open {showcase.host}
           </ButtonLink>
+          {showcase.dashboardUrl ? <ButtonLink href={showcase.dashboardUrl} external variant="ghost">Open demo dashboard</ButtonLink> : null}
+          {showcase.caseStudyHref ? <ButtonLink href={showcase.caseStudyHref} variant="ghost">View case study</ButtonLink> : null}
           <ButtonLink href="/contact" variant="ghost">
             Discuss Your Project
           </ButtonLink>

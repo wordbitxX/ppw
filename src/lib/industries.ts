@@ -469,7 +469,7 @@ export const industries: Industry[] = [
     ],
     modules: ["Appointments", "Packages", "Client history", "Staff commission", "Reminders", "Billing"],
     services: ["web-development", "mobile-app-development", "pos-software", "crm-erp-solutions", "social-media-marketing"],
-    projects: [],
+    projects: ["salon-whatsapp-booking-recovery-dashboard"],
     posts: ["how-seo-helps-businesses-grow", "how-to-choose-a-web-development-company"],
     faqs: [
       { question: "Can customers book a specific stylist?", answer: "Yes. Booking is by service, staff member and chair availability, not just by time slot." },

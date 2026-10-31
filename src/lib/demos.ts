@@ -56,6 +56,9 @@ export type DemoWebsite = {
   /** Industry pages where this live demo should be showcased. */
   industrySlugs?: string[];
   relatedService?: { slug: string; title: string };
+  /** Optional on-site case study and a public owner dashboard. */
+  caseStudyHref?: string;
+  dashboardUrl?: string;
 };
 
 export const demosDisclosure =
@@ -83,6 +86,25 @@ export const demoWebsites: DemoWebsite[] = [
     accent: "from-emerald-700 via-navy-800 to-brand-600",
     industrySlugs: ["real-estate"],
     relatedService: { slug: "real-estate-portals", title: "Real Estate Portals" },
+  },
+  {
+    id: "salon-booking-system",
+    name: "Salon Booking System",
+    category: "Salon / Booking & Management",
+    label: "Demo",
+    kind: "demo",
+    description:
+      "A salon appointment booking and management demo for Pakistan and worldwide: explore chair schedules, staff, waitlists and the owner dashboard. WhatsApp conversations are simulated.",
+    url: "https://saloonai.vercel.app/",
+    host: "saloonai.vercel.app",
+    proof:
+      "Appointment and chair-wise schedules, owner dashboard, waitlist and simulated WhatsApp booking scenarios with sample data.",
+    cover: "/brand/portfolio/salon-booking-dark.webp",
+    accent: "from-navy-950 via-emerald-900 to-navy-800",
+    industrySlugs: ["salon-beauty"],
+    relatedService: { slug: "custom-web-application-development", title: "Custom Web Applications" },
+    caseStudyHref: "/portfolio/salon-whatsapp-booking-recovery-dashboard",
+    dashboardUrl: "https://saloonai.vercel.app/dashboard",
   },
   {
     id: "motor",

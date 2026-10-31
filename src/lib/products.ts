@@ -106,6 +106,38 @@ export const productDetails: ProductDetail[] = [
     ],
   },
   {
+    slug: "salon-booking-system",
+    productName: "Salon Booking System",
+    tagline: "Salon appointment booking, chair schedules and an owner dashboard — an interactive WordbitX demo.",
+    metaTitle: "Salon Booking & Management System | WordbitX",
+    metaDescription: "Explore a salon booking system demo with appointment scheduling, chair and staff views, waitlists and a simulated WhatsApp booking assistant.",
+    overview: [
+      "This WordbitX salon booking system demo shows how a beauty salon can organise appointments, staff and chairs alongside a customer booking experience. The sample salon is based in Lahore; the workflow can inform a custom build for salons in Pakistan and internationally.",
+      "Open the owner dashboard to explore appointment sources, a chair-by-chair schedule, pending enquiries and a waitlist. The interactive chat simulates booking, reminders and missed enquiry recovery; it is not connected to live WhatsApp.",
+      "The salon, customers and dashboard figures are sample data, not a client deployment or evidence of measured results. Messaging, language and integrations for another market would be agreed and built for that salon's needs.",
+    ],
+    builtFor: ["Beauty salons and hair studios", "Appointment-led beauty businesses", "Salons managing multiple staff or chairs", "Salon owners in Pakistan and worldwide"],
+    capabilities: [
+      { title: "Appointment management", body: "Explore bookings by service, date, time, source, chair and staff member in the demo dashboard." },
+      { title: "Chair-by-chair schedule", body: "The floor view displays sample appointments and free slots, with a guard against overlapping bookings on the same chair." },
+      { title: "Waitlist and cancellations", body: "Try the simulated cancellation workflow to see how a free slot can be offered to a waiting client." },
+      { title: "Simulated booking chat", body: "Explore service enquiries, appointment confirmation, missed-message follow-up and owner override in a WhatsApp-style demo. No live WhatsApp connection is active." },
+      { title: "Owner dashboard", body: "See sample recovery counters, appointments, pending enquiries and reminders together on a responsive owner view." },
+      { title: "Salon services and retail shelf", body: "The demo includes editable salon details, services and prices, plus a sample retail product shelf." },
+    ],
+    insideTheBuild: [
+      "A responsive web interface brings the sample customer booking flow and owner dashboard into the same demo.",
+      "The chair-level schedule demonstrates how appointment conflicts can be handled before a booking is confirmed.",
+      "The demo uses sample data and simulated conversations; any production messaging provider, language or regional requirements require a separate implementation.",
+    ],
+    relatedServiceSlugs: ["custom-web-application-development", "custom-software-development", "ai-solutions"],
+    faqs: [
+      { q: "Is this a real salon or a demo?", a: "It is an interactive WordbitX demo with a fictional sample salon and data. It is not a client case or a live WhatsApp integration." },
+      { q: "Can this type of salon booking system be built for businesses outside Pakistan?", a: "Yes. WordbitX can scope a custom salon booking system for a business in Pakistan or internationally; languages, currency, integrations and local requirements are agreed for the individual build." },
+      { q: "Does the demo connect to WhatsApp?", a: "No. WhatsApp-style conversations and missed-call follow-ups are simulated. A live WhatsApp integration would need its own setup and applicable provider approvals." },
+    ],
+  },
+  {
     slug: "motor",
     productName: "MOTOR Pakistan",
     tagline: "An automotive marketplace — used cars, new launches, bikes, EVs and rentals.",

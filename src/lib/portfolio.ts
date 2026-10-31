@@ -4,7 +4,7 @@ import { moreProjects } from "@/lib/portfolio-more";
 import { projectPhotos, withTopicPhoto } from "@/lib/topic-photos";
 
 export const portfolioDisclosure =
-  "Client names, commercial figures and confidential product screens are shared privately on request. The profiles below describe the scope, architecture and functionality WordbitX delivers. Newer profiles are explicitly labelled Confidential Client / public scope profile when the client has not approved public identification. We use relevant licensed industry photography rather than inventing a client logo, screenshot or result.";
+  "Client names, commercial figures and confidential product screens are shared privately on request. The profiles below describe the scope, architecture and functionality WordbitX delivers. Newer profiles are explicitly labelled Confidential Client / public scope profile when the client has not approved public identification. We use relevant licensed photography or clearly labelled illustrative images rather than inventing a client logo, screenshot or result.";
 export const projectCategories: ("All Projects" | ProjectCategory)[] = [
   "All Projects",
   "Websites",
@@ -16,6 +16,78 @@ export const projectCategories: ("All Projects" | ProjectCategory)[] = [
 ];
 
 const originalProjects: Project[] = [
+  {
+    slug: "salon-whatsapp-booking-recovery-dashboard",
+    title: "Salon Booking & Management System",
+    type: "Salon appointment booking and management demo",
+    category: "Software",
+    industry: "Salon & Beauty",
+    year: "2026",
+    engagement: "WordbitX interactive demo — salon booking and owner dashboard",
+    clientLabel: "WordbitX Demo",
+    publicStatus: "Interactive demonstration with simulated messages and sample salon data. There is no live WhatsApp connection or verified client outcome.",
+    summary:
+      "A salon booking system demo with appointment scheduling, chair and staff management, an owner dashboard and simulated WhatsApp enquiry recovery.",
+    metaTitle: "Salon Booking System Case Study | WordbitX",
+    metaDescription:
+      "Explore a salon booking system demo for Pakistan and worldwide: appointments, staff and chair scheduling, waitlists and simulated WhatsApp enquiries.",
+    keywords: [
+      "salon booking system",
+      "salon appointment scheduling software",
+      "salon management system",
+      "salon booking software Pakistan",
+      "salon appointment booking software Lahore",
+      "salon WhatsApp booking system",
+      "salon management dashboard",
+      "missed booking recovery software",
+      "beauty salon appointment software",
+      "salon waitlist management",
+    ],
+    image: "/brand/portfolio/salon-booking-dark.webp",
+    imageAlt: "Dark illustrative salon workspace with a booking dashboard on a laptop and a phone",
+    liveUrl: "https://saloonai.vercel.app/",
+    demoDashboardUrl: "https://saloonai.vercel.app/dashboard",
+    gallery: [
+      {
+        src: "/brand/portfolio/salon-booking-dark.webp",
+        alt: "Dark illustrative salon workspace with appointment dashboard and mobile phone",
+        caption: "Illustrative concept image — open the demo dashboard to see the actual interface.",
+      },
+    ],
+    overview: [
+      "This WordbitX demo is a salon booking and management system for organising appointments, services, staff and chairs. It uses an illustrative Lahore salon and models a customer conversation in Roman Urdu and English, from service and price questions to a booking confirmation.",
+      "The workflow is relevant to beauty salons in Pakistan and internationally; a production build would be scoped to the salon’s location, language, scheduling needs and messaging integrations.",
+      "The owner dashboard brings sample bookings, missed enquiries, recovered bookings, waitlist entries, reminders and chair-wise schedules together. The demo uses simulated messages and sample data: it is not connected to live WhatsApp, and its numbers are not client results.",
+    ],
+    challenge: [
+      "Show how a salon could respond when enquiries arrive after hours or reception is busy.",
+      "Make service prices, appointment availability and booking details easier to find in one workflow.",
+      "Give an owner a clear view of missed enquiries, staff, chairs and upcoming appointments.",
+    ],
+    solution: [
+      "An interactive simulated WhatsApp-style chat demonstrates service enquiries, booking and owner override.",
+      "A chair-by-chair floor view shows sample appointments and demonstrates a same-chair, same-time booking conflict guard.",
+      "A dashboard brings sample recovery counters, pending replies, schedules, reminders and a waitlist into one view.",
+      "A sample product shelf demonstrates how salon retail products can be presented alongside the booking experience.",
+    ],
+    features: [
+      "Simulated missed-message and missed-call booking scenarios",
+      "Roman Urdu and English customer conversation demo",
+      "Salon appointment dashboard with chair and staff views",
+      "Chair-level scheduling and double-booking guard",
+      "Cancellation and waitlist backfill scenarios",
+      "Sample reminders, owner override and review requests",
+      "Editable demo salon services, prices and settings",
+      "Sample retail product shelf and order workflow",
+    ],
+    technologies: ["Responsive web app", "Simulated WhatsApp chat", "Owner dashboard"],
+    outcomes: [
+      "Demonstrates a path from a missed enquiry to a salon appointment using sample data.",
+      "Shows how an owner can inspect bookings, pending messages and the waitlist in one dashboard.",
+      "Illustrates appointment conflict handling without claiming real-world recovery results.",
+    ],
+    relatedServices: ["custom-web-application-development", "custom-software-development", "ai-solutions"],
+  },
   {
     slug: "multi-branch-retail-pos-platform",
     title: "Multi-Branch Retail POS Platform",

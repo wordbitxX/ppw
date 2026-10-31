@@ -100,6 +100,16 @@ function DemoPanel({ demo, priority }: { demo: DemoWebsite; priority: boolean })
           >
             {isLive ? "Build me a property portal" : "Get a similar site"}
           </Link>
+          {demo.caseStudyHref ? (
+            <Link href={demo.caseStudyHref} className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-navy-800 transition-colors hover:border-brand-400 hover:text-brand-700">
+              View case study
+            </Link>
+          ) : null}
+          {demo.dashboardUrl ? (
+            <a href={demo.dashboardUrl} target="_blank" rel={showcaseRel(demo.dashboardUrl)} className="text-center text-sm font-medium text-ink-500 underline-offset-4 hover:text-brand-700 hover:underline">
+              Open owner dashboard ↗
+            </a>
+          ) : null}
           {demo.relatedService ? (
             <Link
               href={`/services/${demo.relatedService.slug}`}
