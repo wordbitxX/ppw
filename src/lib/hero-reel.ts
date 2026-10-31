@@ -58,6 +58,11 @@ const reelProducts: { id: string; title: string; badge: string }[] = [
     badge: "Flagship Product",
   },
   {
+    id: "salon-booking-system",
+    title: "Salon booking system — appointments, chair schedules and owner dashboard.",
+    badge: "Interactive Demo",
+  },
+  {
     id: "motor",
     title: "Auto marketplace — 21 brands, EV and hybrid, English and اردو.",
     badge: "Our Product",

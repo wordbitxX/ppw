@@ -16,6 +16,7 @@ import { FlagIcon } from "@/components/flag-icon";
 import { AiServicesDeck } from "@/components/ai-services-deck";
 import { HeroReel } from "@/components/hero-reel";
 import { HeroFX } from "@/components/hero-fx";
+import { MobileHomeHero } from "@/components/mobile-home-hero";
 import { CineBackdrop, CineImage, LightArcs } from "@/components/cinematic";
 import { CtaBand } from "@/components/cta-band";
 import { FixedPriceStrip } from "@/components/fixed-price-strip";
@@ -220,10 +221,55 @@ const homeDeckMedia: Record<string, { src: string; alt: string }> = {
 /** Curated highlights — the full lists live on /industries and /global. */
 const featuredMarketSlugs = ["pakistan", "usa", "uk", "uae"];
 
+function CoreSoftwareRail() {
+  return (
+            <ScrollRail
+              label="Core WordbitX software"
+              className="mx-auto max-w-4xl"
+              trackClassName="no-scrollbar flex snap-x gap-2 overflow-x-auto overscroll-x-contain pb-0.5 text-xs text-slate-300 sm:text-[0.8rem] lg:flex-wrap lg:justify-center lg:overflow-x-visible"
+            >
+              {[
+                ["/services/custom-software-development", "Custom software"],
+                ["/services/web-development", "Web development"],
+                ["/services/ecommerce-shopify", "Shopify stores"],
+                ["/services/ecommerce-development", "E-commerce websites"],
+                ["/services/mobile-app-development", "Mobile apps"],
+                ["/services/seo-services", "SEO services"],
+                ["/services/digital-marketing", "Digital marketing"],
+                ["/services/ai-solutions", "AI solutions"],
+                ["/services/saas-application-development", "Business software"],
+                ["/industries", "Industries"],
+                ["/global", "Global markets"],
+                ["/portfolio", "Case Studies"],
+                ["/topics", "Topics"],
+                ["/pricing", "Pricing"],
+                ["/process", "Process"],
+              ].map(([href, label]) => (
+                <Link
+                  key={href}
+                  href={href}
+                  className="shrink-0 snap-start whitespace-nowrap rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 transition-colors hover:border-arc-300/50 hover:bg-white/[0.08] hover:text-arc-300"
+                >
+                  {label}
+                </Link>
+              ))}
+            </ScrollRail>
+  );
+}
+
 export default function HomePage() {
   const homeServices = getServices(homeServiceSlugs).map((service) => {
     const media = homeDeckMedia[service.slug];
     return media ? { ...service, image: media.src, imageAlt: media.alt } : service;
+  });
+  // Put the most requested service types first in the mobile vertical list.
+  const mobileServiceOrder = ["web-development", "mobile-app-development"];
+  const mobileHomeServices = [...homeServices].sort((a, b) => {
+    const rank = (slug: string) => {
+      const index = mobileServiceOrder.indexOf(slug);
+      return index === -1 ? mobileServiceOrder.length : index;
+    };
+    return rank(a.slug) - rank(b.slug);
   });
   const latestPosts = sortedPosts.slice(0, 6);
   const heroSlides = getHeroSlides();
@@ -232,6 +278,12 @@ export default function HomePage() {
     .filter((market): market is NonNullable<typeof market> => Boolean(market));
 
   const spriteIcons = marqueeTech;
+  const heroStats = [
+    { value: "2021", label: "Established · Lahore" },
+    { value: String(services.length), label: "Services & solutions" },
+    { value: String(industries.length), label: "Industries modelled" },
+    { value: String(markets.length), label: "Countries served" },
+  ];
 
   return (
     <>
@@ -244,12 +296,14 @@ export default function HomePage() {
           HTML. Motion: glints travelling the arcs, a slow flare pulse, pointer
           parallax and a connected-node network (HeroFX) — all off under
           prefers-reduced-motion. */}
-      <section className="cine-surface relative overflow-hidden bg-midnight pt-24 text-white sm:pt-36 lg:pt-44">
-          <div className="relative flex flex-col">
-            {/* Network sits above the art (z-1) and under the copy (z-10), like the sample combo. */}
-            <div className="absolute inset-0 z-[1]">
+      <section className="cine-surface home-hero-surface relative overflow-hidden bg-midnight pt-24 text-white sm:pt-36 lg:pt-44">
+          <div className="relative">
+            {/* One network layer spans the active mobile or desktop hero. */}
+            <div className="pointer-events-none absolute inset-0 z-[1]">
               <HeroFX />
             </div>
+            <MobileHomeHero />
+            <div className="relative hidden flex-col sm:flex">
           <div className="container-page relative z-10 order-2 -mt-60 sm:order-1 sm:mt-0">
             <div className="mx-auto max-w-4xl text-center">
               <div className="cine-rise">
@@ -323,10 +377,13 @@ export default function HomePage() {
             </div>
           </div>
 
+            </div>
           </div>
 
-        <div className="container-page relative z-10 mt-8 sm:-mt-10">
-          <p className="mx-auto max-w-3xl text-center text-base leading-relaxed text-slate-100 [text-shadow:0_1px_18px_rgba(3,8,20,0.95)] sm:text-lg">
+        {/* On mobile the facts lead into the service links; desktop order is unchanged. */}
+        <div className="flex flex-col sm:block">
+        <div className="container-page relative z-10 order-2 hidden sm:block sm:order-none sm:-mt-10">
+          <p className="mx-auto hidden max-w-3xl text-center text-base leading-relaxed text-slate-100 [text-shadow:0_1px_18px_rgba(3,8,20,0.95)] sm:block sm:text-lg">
             Websites, Apps, Shopify &amp; E-commerce Stores, POS and CRM/ERP Systems — grown with SEO, ASO and
             Digital Marketing, plus practical AI where it helps the workflow. Clients across the USA, UK, UAE,
             Canada, Australia and worldwide.
@@ -334,38 +391,8 @@ export default function HomePage() {
           {/* One line that scrolls with flanking arrows below lg; at lg+ every
               pill wraps into view (owner request, 16 Oct — no sideways scroll
               on desktop). ScrollRail keeps the links server-rendered. */}
-          <nav aria-label="Core WordbitX software" className="mt-7">
-            <ScrollRail
-              label="Core WordbitX software"
-              className="mx-auto max-w-4xl"
-              trackClassName="no-scrollbar flex snap-x gap-2 overflow-x-auto overscroll-x-contain pb-0.5 text-xs text-slate-300 sm:text-[0.8rem] lg:flex-wrap lg:justify-center lg:overflow-x-visible"
-            >
-              {[
-                ["/services/custom-software-development", "Custom software"],
-                ["/services/web-development", "Web development"],
-                ["/services/ecommerce-shopify", "Shopify stores"],
-                ["/services/ecommerce-development", "E-commerce websites"],
-                ["/services/mobile-app-development", "Mobile apps"],
-                ["/services/seo-services", "SEO services"],
-                ["/services/digital-marketing", "Digital marketing"],
-                ["/services/ai-solutions", "AI solutions"],
-                ["/services/saas-application-development", "Business software"],
-                ["/industries", "Industries"],
-                ["/global", "Global markets"],
-                ["/portfolio", "Case Studies"],
-                ["/topics", "Topics"],
-                ["/pricing", "Pricing"],
-                ["/process", "Process"],
-              ].map(([href, label]) => (
-                <Link
-                  key={href}
-                  href={href}
-                  className="shrink-0 snap-start whitespace-nowrap rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 transition-colors hover:border-arc-300/50 hover:bg-white/[0.08] hover:text-arc-300"
-                >
-                  {label}
-                </Link>
-              ))}
-            </ScrollRail>
+          <nav aria-label="Core WordbitX software" className="mt-5 sm:mt-7">
+            <CoreSoftwareRail />
           </nav>
         </div>
 
@@ -374,30 +401,35 @@ export default function HomePage() {
             further down. The duplicate ServiceRingFacts copy in the team
             section was removed instead. Same honest data: every value counted
             from the site's own records (services, industries, markets). */}
-        <div className="container-page mt-10 sm:mt-12">
-          <div className="grid grid-cols-2 gap-y-8 rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-8 text-center shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)] sm:grid-cols-4 sm:gap-y-0 sm:divide-x sm:divide-white/10 sm:py-9">
-            {[
-              { value: "2021", label: "Established · Lahore" },
-              { value: String(services.length), label: "Services & solutions" },
-              { value: String(industries.length), label: "Industries modelled" },
-              { value: String(markets.length), label: "Countries served" },
-            ].map((stat) => (
+        <div className="container-page order-1 mt-8 sm:order-none sm:mt-12">
+          <div className="grid grid-cols-4 gap-1.5 sm:hidden" aria-label="Company facts">
+            {heroStats.map((stat) => (
+              <div key={stat.label} className="min-w-0 px-1 py-2 text-center">
+                <p className="text-gradient-arc text-xl font-semibold tracking-tight">{stat.value}</p>
+                <p className="mt-1.5 text-[0.55rem] font-medium leading-tight text-slate-400">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+          <div className="hidden grid-cols-2 gap-y-8 rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-8 text-center shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)] sm:grid sm:grid-cols-4 sm:gap-y-0 sm:divide-x sm:divide-white/10 sm:py-9">
+            {heroStats.map((stat) => (
               <div key={stat.label} className="px-2">
                 <p className="text-gradient-arc text-4xl font-semibold tracking-tight sm:text-[2.75rem] sm:leading-none">{stat.value}</p>
                 <p className="mt-3 text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-slate-400">{stat.label}</p>
               </div>
             ))}
           </div>
-          <p className="mx-auto mt-4 max-w-2xl text-center text-xs leading-relaxed text-slate-500">
+          <p className="mx-auto mt-4 hidden max-w-2xl text-center text-xs leading-relaxed text-slate-500 sm:block">
             Numbers we can show — every service, industry and market links to its own page on this site.
           </p>
+        </div>
+
         </div>
 
         {/* Tech marquee sits flush at the hero's base (no bottom padding on
             the section) so its bottom hairline is the only divider before the
             "Built for" rail — the two strips read as one unit: what we build
             with, then who we build for. */}
-        <div className="relative mt-10 border-y border-white/10 py-4 sm:mt-14 sm:py-5">
+        <div className="relative mt-10 hidden border-y border-white/10 py-4 sm:mt-14 sm:block sm:py-5">
           <div className="marquee-mask overflow-hidden">
             <div className="animate-marquee flex w-max items-center gap-10">
               {[...marqueeTech, ...marqueeTech].map((tech, index) => (
@@ -411,20 +443,24 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Keep the hero outside the reordered content so it always appears first. */}
+      <div className="flex flex-col sm:contents">
       {/* SECTOR RAIL — thirteen industry links flush against the hero's base.
           "Is this for my business?" is the first question a visitor has, and
           the block that answers it properly still sits ten screens down. This
           puts the answer, and thirteen high-intent internal links, at the top
           of the page for the cost of one line of text. */}
+      <div className="order-1 sm:contents">
       <IndustryStrip />
 
       {/* CERTIFICATIONS — dark band under the hero, the way Lahore peers
           (Rextech) surface their SECP/FBR registration marks. */}
       <CredibilityStrip />
+      </div>
 
       {/* PRODUCT REEL — moved here from the old hero (the cinematic hero is
           pure brand/atmosphere now). Same HeroReel, same curated slides. */}
-      <section className="cine-surface cine-rim defer-paint relative overflow-hidden py-14 text-white sm:py-20 lg:py-24">
+      <section className="cine-surface cine-rim defer-paint order-2 relative overflow-hidden py-14 text-white sm:py-20 lg:py-24">
         <CineBackdrop variant="ribbon" opacity={0.38} position="80% 55%" scrimLeft />
         <div className="container-page relative grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
           <div>
@@ -456,7 +492,7 @@ export default function HomePage() {
           seven-stage delivery process (same data as /process); right: the six
           capability cards. No stock team illustrations — fake faces under
           this headline would undercut the point. */}
-      <section className="cine-surface cine-rim defer-paint relative overflow-hidden py-12 text-white sm:py-20 lg:py-24">
+      <section className="cine-surface cine-rim defer-paint order-5 relative hidden overflow-hidden py-12 text-white sm:block sm:py-20 lg:py-24">
         <CineBackdrop variant="flow" opacity={0.55} position="0% 50%" />
         <div className="container-page relative z-10">
           <SectionHeading
@@ -604,6 +640,7 @@ export default function HomePage() {
       {/* ================= WHAT WE DO =================
           Services grid, then the 16-service ring as its navigator. The ring
           used to sit four sections lower behind its own trust heading. */}
+      <div className="order-3 sm:contents">
       <AiServicesDeck tone="light">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl">
@@ -628,7 +665,10 @@ export default function HomePage() {
           </Link>
         </div>
 
-        <div className="mt-10">
+        <div className="mt-10 grid gap-5 sm:hidden">
+          {mobileHomeServices.map((service) => <ServiceCard key={service.slug} service={service} tone="light" premium />)}
+        </div>
+        <div className="mt-10 hidden sm:block">
           <IndustryRail label="services">
             {homeServices.map((service) => (
               <div key={service.slug} className="flex w-[85%] shrink-0 snap-start sm:w-[calc(50%-0.5rem)] lg:w-[calc((100%-2rem)/3)] xl:w-[calc((100%-3rem)/4)]">
@@ -638,6 +678,8 @@ export default function HomePage() {
           </IndustryRail>
         </div>
       </AiServicesDeck>
+      </div>
+      </div>
 
 
       {/* ================= PROOF =================

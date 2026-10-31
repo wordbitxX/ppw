@@ -1,0 +1,83 @@
+.section { background: #f3f5f3; color: #101b2c; padding: 120px 24px 100px; }
+.container { max-width: 1000px; margin: 0 auto; }
+.intro { display: flex; justify-content: space-between; align-items: end; gap: 32px; }
+.kicker { color: #178f4c; font-size: 10px; font-weight: 700; letter-spacing: .18em; }
+.intro h1 { margin: 16px 0 0; font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1.05; letter-spacing: -.055em; font-weight: 700; }
+.intro h1 span { color: #788b83; }
+.intro > p { max-width: 285px; margin: 0 0 5px; color: #61706b; font-size: 14px; line-height: 1.7; }
+.jump { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 32px; }
+.jump a { display: flex; align-items: center; gap: 9px; border: 1px solid #d8e1da; border-radius: 50px; padding: 9px 13px; color: #33443e; background: #fff; font-size: 11px; font-weight: 600; text-decoration: none; }
+.jump a:hover { border-color: #1db35a; }
+.jump a span:first-child { color: #169d4b; }
+.jump a span:last-child { color: #9aa8a0; }
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 70px 48px; margin-top: 68px; }
+.option { scroll-margin-top: 100px; min-width: 0; }
+.optionHeading { display: flex; align-items: start; gap: 12px; max-width: 390px; margin: 0 auto 18px; }
+.optionNumber { display: grid; place-items: center; flex: 0 0 31px; height: 31px; border: 1px solid #c9d8cd; border-radius: 50%; color: #189c4f; font-size: 10px; font-weight: 700; }
+.optionHeading h2 { font-size: 17px; line-height: 1.2; font-weight: 700; letter-spacing: -.02em; }
+.optionHeading p { margin-top: 5px; color: #718079; font-size: 12px; line-height: 1.5; }
+.phone { position: relative; overflow: hidden; width: 100%; max-width: 390px; min-height: 710px; margin: 0 auto; border-radius: 24px; background: #071120; color: #f8fbff; box-shadow: 0 24px 55px rgba(20, 38, 32, .14); }
+.phoneHeader { position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; padding: 25px 25px 0; }
+.brand { font-size: 19px; font-weight: 700; letter-spacing: -.06em; }
+.brand span { color: #1ca830; }
+.menu { display: flex; flex-direction: column; justify-content: center; gap: 5px; width: 34px; height: 34px; padding: 9px; border: 1px solid rgba(255,255,255,.2); border-radius: 50%; }
+.menu i { display: block; height: 1px; background: #c4d2db; }
+.content1, .content2, .content3, .content4 { position: relative; z-index: 1; }
+.content1 { padding: 67px 27px 0; }
+.eyebrow { display: flex; align-items: center; gap: 8px; color: #8bcfa4; font-size: 9px; font-weight: 700; letter-spacing: .13em; }
+.eyebrow > span { width: 6px; height: 6px; flex: 0 0 6px; border-radius: 50%; background: #28c963; box-shadow: 0 0 12px #28c963; }
+.phone h3 { font-size: clamp(2.25rem, 8.7vw, 3.3rem); font-weight: 700; line-height: 1.06; letter-spacing: -.055em; }
+.phone h3 em { font-style: normal; color: #99dcf7; }
+.content1 h3 { margin-top: 25px; }
+.description { color: #b9c5d1; font-size: 14px; line-height: 1.7; }
+.content1 .description { max-width: 310px; margin-top: 21px; }
+.actions { display: flex; flex-direction: column; gap: 10px; }
+.content1 .actions { margin-top: 27px; }
+.action { display: flex; justify-content: space-between; align-items: center; gap: 10px; min-height: 50px; padding: 0 17px; border: 1px solid #1ca830; border-radius: 9px; background: #1ca830; color: #061b12; font-size: 12px; font-weight: 700; text-decoration: none; transition: background .2s; }
+.action:hover { background: #38d16d; }
+.action span { font-size: 18px; font-weight: 400; }
+.secondary { border-color: #334658; background: rgba(255,255,255,.03); color: #ecf5f9; }
+.secondary:hover { background: rgba(255,255,255,.1); }
+.promises { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 22px; color: #a9c1b4; font-size: 10px; }
+.planet { height: 140px; margin: 8px -27px 0; background: url('/brand/samples/planet.webp') center 60% / cover no-repeat; mask-image: linear-gradient(transparent, black 40%); }
+.phone2 { background: radial-gradient(ellipse at 50% 45%, #112945, #071020 65%); }
+.content2 { padding: 66px 25px 25px; text-align: center; }
+.content2 .eyebrow { justify-content: center; }
+.content2 h3 { margin-top: 26px; }
+.content2 .description { max-width: 285px; margin: 20px auto 0; }
+.arc { height: 210px; margin: 10px -25px 0; background: url('/brand/cinematic/arcs-calm.webp') center / cover no-repeat; mask-image: linear-gradient(transparent, black 30%, black 75%, transparent); }
+.content2 .actions { margin-top: 4px; text-align: left; }
+.bottomline { display: flex; justify-content: space-between; margin-top: 26px; color: #8b9cad; font-size: 9px; letter-spacing: .12em; }
+.phone3 { background: #06121e; }
+.content3 { padding: 75px 27px 28px; }
+.editorialLabel { color: #d1dce4; font-size: 10px; letter-spacing: .08em; }
+.editorialLabel span { color: #8194a2; }
+.content3 h3 { margin-top: 38px; }
+.content3 .description { max-width: 265px; margin-top: 20px; }
+.facets { height: 205px; margin: 8px -27px 0; background: url('/brand/samples/facets.webp') 65% center / cover no-repeat; mask-image: linear-gradient(transparent, black 35%, black 75%, transparent); }
+.serviceLine { color: #8397a4; font-size: 9px; letter-spacing: .13em; }
+.serviceLine span { margin: 0 7px; color: #3f606b; }
+.content3 .actions { margin-top: 25px; }
+.phone4 { background: radial-gradient(ellipse at 90% 40%, #163553, transparent 55%), #091327; }
+.content4 { padding: 72px 27px 30px; }
+.content4 h3 { margin-top: 28px; }
+.content4 h3 em { color: #a3e2c3; }
+.content4 .description { max-width: 300px; margin-top: 23px; }
+.tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 26px; }
+.tags span { padding: 8px 10px; border: 1px solid #304a57; border-radius: 50px; color: #a7c0c7; font-size: 9px; letter-spacing: .07em; }
+.content4 .actions { margin-top: 34px; }
+.proof { display: flex; align-items: center; gap: 12px; margin-top: 35px; padding-top: 22px; border-top: 1px solid #2a3d4b; color: #91a7b4; font-size: 11px; line-height: 1.6; }
+.proof strong { color: #dce8eb; font-weight: 500; }
+.proofDot { display: grid; place-items: center; width: 36px; height: 36px; flex: 0 0 36px; border-radius: 50%; background: #173c31; color: #41d980; font-size: 19px; }
+@media (max-width: 640px) {
+  .section { padding: 110px 20px 70px; }
+  .intro { display: block; }
+  .intro > p { max-width: 440px; margin-top: 20px; }
+  .grid { grid-template-columns: 1fr; gap: 48px; margin-top: 48px; }
+  .phone { min-height: 690px; }
+}
+@media (max-width: 350px) {
+  .section { padding-left: 14px; padding-right: 14px; }
+  .phone h3 { font-size: 2.2rem; }
+  .content1, .content3, .content4 { padding-left: 22px; padding-right: 22px; }
+}

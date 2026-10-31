@@ -1337,3 +1337,15 @@ body.hide-site-cursor .site-cursor-ring {
     animation: none;
   }
 }
+
+/* Keep the legal lockup and header actions comfortable on narrow phones. */
+@media (max-width: 399px) {
+  .header-mobile-logo { gap: 4px; }
+  .header-mobile-logo > span:first-child { font-size: 1rem; }
+  .header-mobile-logo > span:last-child { font-size: 0.42rem; }
+}
+
+/* Match the mobile hero copy to the darker image area. */
+@media (max-width: 639px) {
+  .home-hero-surface { background: #030814; }
+}

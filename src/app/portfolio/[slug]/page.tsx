@@ -12,6 +12,7 @@ import { getServices } from "@/lib/services";
 import { techCategories } from "@/lib/technologies";
 import type { TechItem } from "@/lib/technologies";
 import { seoTitleAbsolute } from "@/lib/seo-title";
+import { absoluteUrl } from "@/lib/site";
 
 export function generateStaticParams() {
   return projects.map((project) => ({ slug: project.slug }));
@@ -29,6 +30,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: seoTitleAbsolute(project.metaTitle),
     description: project.metaDescription,
+    ...(project.keywords ? { keywords: project.keywords } : {}),
+    robots: { index: true, follow: true },
     alternates: { canonical: `/portfolio/${project.slug}` },
     openGraph: {
       type: "article",
@@ -36,6 +39,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: project.metaTitle,
       description: project.metaDescription,
       images: [{ url: project.image, alt: project.imageAlt }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: project.metaTitle,
+      description: project.metaDescription,
+      images: [project.image],
     },
   };
 }
@@ -58,6 +67,20 @@ export default async function ProjectDetailPage({ params }: PageProps) {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "@id": absoluteUrl(`/portfolio/${project.slug}`),
+          url: absoluteUrl(`/portfolio/${project.slug}`),
+          name: project.title,
+          description: project.metaDescription,
+          primaryImageOfPage: absoluteUrl(project.image),
+          about: { "@type": "Thing", name: project.type },
+          isPartOf: { "@type": "WebSite", url: absoluteUrl("/") },
+        }).replace(/</g, "\\u003c") }}
+      />
       <PageHero
         eyebrow={project.category}
         title={project.title}
@@ -89,10 +112,15 @@ export default async function ProjectDetailPage({ params }: PageProps) {
            <p className="mt-3 text-xs text-slate-500">{project.publicStatus}</p>
          ) : null}
          {project.liveUrl ? (
-           <div className="mt-4">
-             <ButtonLink href={project.liveUrl} className="w-fit">
-               Visit live product
+           <div className="mt-4 flex flex-wrap gap-3">
+             <ButtonLink href={project.liveUrl} external className="w-fit">
+               {isWordbitxDemo ? "Explore the demo" : "Visit live product"}
              </ButtonLink>
+             {project.demoDashboardUrl ? (
+               <ButtonLink href={project.demoDashboardUrl} external variant="ghost" className="w-fit">
+                 Open demo dashboard
+               </ButtonLink>
+             ) : null}
            </div>
          ) : null}
       </PageHero>

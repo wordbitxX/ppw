@@ -11,7 +11,7 @@ import { seoTitleAbsolute } from "@/lib/seo-title";
 
 const metaTitle = "Our Products — Software WordbitX Built and Runs";
 const metaDescription =
-  "Seven products built by WordbitX: a live Pakistan property marketplace, an automotive marketplace, a school ERP, a clinic platform and more. All openable.";
+  "Explore WordbitX products and demos: a live property marketplace, salon booking system, automotive marketplace, school ERP and clinic platform.";
 
 export const metadata: Metadata = {
   title: seoTitleAbsolute(metaTitle),
@@ -69,7 +69,7 @@ export default function ProductsPage() {
       <Section tone="muted">
         <SectionHeading
           eyebrow="Platform Builds"
-          title="Six platforms you can open and click through"
+          title={`${showcases.length} platforms you can open and click through`}
           description="Each one is a complete build with real software behind it — search, booking, checkout, dashboards. The businesses they describe are illustrative; the engineering is not."
         />
         <div className="mt-10 grid gap-8">
