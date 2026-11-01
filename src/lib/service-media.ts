@@ -28,13 +28,24 @@ const photoFile: Record<string, string> = {
   "ecommerce-development": "jewellery-store",
 };
 
+/**
+ * Two services use the premium "device on a lit surface" brand renders that
+ * live in /brand/home (the deck set) instead of a /brand/services photo: the
+ * card and the detail page must show the same picture, and these are the
+ * cleanest web/laptop and phone shots in the repo.
+ */
+const fullPathOverrides: Record<string, string> = {
+  "web-development": "/brand/home/deck-web-development-v3.jpg",
+  "mobile-app-development": "/brand/home/deck-mobile-app-development-v3.jpg",
+};
+
 /** Custom photography for each service card and detail page. */
 export function servicePhoto(slug: string) {
-  return `/brand/services/${photoFile[slug] ?? slug}.jpg`;
+  return fullPathOverrides[slug] ?? `/brand/services/${photoFile[slug] ?? slug}.jpg`;
 }
 
 export const serviceImageAlts: Record<string, string> = {
-  "web-development": "Designer building a custom business website on an ultrawide monitor in a premium studio",
+  "web-development": "Laptop showing a custom business website design on a bright studio desk",
   "custom-web-application-development": "Engineer working on a custom web application dashboard across dual monitors",
   "ecommerce-development": "Jewellery counter with a custom store's product page open on a laptop",
   "ecommerce-shopify": "Fashion rail with a Shopify storefront open on a phone and a laptop",
@@ -44,7 +55,7 @@ export const serviceImageAlts: Record<string, string> = {
   "android-app-development": "Android app listing and Play Console screens ready for store submission",
   "ios-app-development": "iPhone app listing beside an App Store publishing dashboard",
   "flutter-app-development": "Professional using a cross-platform business app in a glass office lobby",
-  "mobile-app-development": "Professional using a business mobile app in a modern office lobby",
+  "mobile-app-development": "Two phones showing a mobile app dashboard, maps and profile screens",
   "game-development": "Game studio desk with a 3D engine viewport and a controller",
   "custom-software-development": "Leadership team reviewing a custom operations dashboard in a boardroom",
   "enterprise-software-solutions": "Executives reviewing an operations dashboard in a glass conference room",
