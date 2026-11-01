@@ -1,3 +1,5 @@
+import { Questions } from "@/components/questions";
+import { pkQuestions } from "@/lib/question-bank";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero, Section, SectionHeading, ButtonLink, CheckList, Card } from "@/components/ui";
@@ -251,7 +253,8 @@ export default function PricingPage() {
         primaryLabel="Start a quote"
         primaryHref="/contact"
       />
-      <FaqSchema faqs={pricingFaqs} />
+      <FaqSchema faqs={[...pricingFaqs, ...pkQuestions.map(q=>({question:q.question,answer:`${q.answer} Read more: ${q.href}`}))]} />
+      <Questions title="Pakistan prices, hosting and offers" items={pkQuestions} schema={false} />
     </>
   );
 }

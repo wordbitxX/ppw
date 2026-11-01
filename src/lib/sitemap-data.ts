@@ -52,6 +52,7 @@ function entry(path: string, options: Omit<SitemapEntry, "url">): SitemapEntry {
 export function getSitemapGroups(now = staticUpdated): Record<SitemapGroupKey, SitemapEntry[]> {
   return {
     core: [
+      entry("/faqs", { lastModified: "2026-11-01", changeFrequency: "monthly", priority: 0.8 }),
       entry("/", { lastModified: now, changeFrequency: "weekly", priority: sitemapPriority("/", 1) }),
       entry("/about", { lastModified: now, changeFrequency: "monthly", priority: 0.8 }),
       entry("/services", { lastModified: now, changeFrequency: "weekly", priority: 0.9 }),
@@ -119,7 +120,7 @@ export function getSitemapGroups(now = staticUpdated): Record<SitemapGroupKey, S
     ),
     blog: blogPosts.map((post) =>
       entry(`/blog/${post.slug}`, {
-        lastModified: now,
+        lastModified: post.updatedAt ?? post.publishedAt,
         changeFrequency: "monthly",
         priority: 0.7,
       }),

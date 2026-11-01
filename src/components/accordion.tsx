@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import { RichText } from "./rich-text";
 import { useState } from "react";
 import type { Faq } from "@/lib/types";
 import { ChevronDown } from "@/components/icons";
@@ -40,13 +42,14 @@ export function FaqAccordion({ faqs, tone = "light" }: { faqs: Faq[]; tone?: "li
             <div className={`grid transition-all duration-300 ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
               <div className="overflow-hidden">
                 <p className={`px-5 pb-5 text-sm leading-relaxed ${tone === "dark" ? "text-slate-300" : "text-ink-500"}`}>
-                  {faq.answer}
+                  <RichText text={faq.answer} />
                 </p>
               </div>
             </div>
           </div>
         );
       })}
+      <p className="pt-2 text-sm"><Link href="/faqs" className="text-brand-600 underline">All questions in the FAQ hub</Link></p>
     </div>
   );
 }

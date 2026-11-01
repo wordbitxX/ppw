@@ -1,3 +1,6 @@
+import { Questions } from "@/components/questions";
+import { serviceQuestions } from "@/lib/question-bank";
+import guides2026 from "@/lib/guides-2026.json";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -355,6 +358,8 @@ export default async function ServiceDetailPage({ params }: PageProps) {
       )}
 
       {/* FAQ */}
+      <Questions items={serviceQuestions(service.slug)} schema={false} />
+      {guides2026.some(p=>p.relatedServices.includes(service.slug)) && <Section><SectionHeading title="Related guides"/><div className="mt-6 grid gap-3 sm:grid-cols-2">{guides2026.filter(p=>p.relatedServices.includes(service.slug)).map(p=><Link key={p.slug} href={`/blog/${p.slug}`} className="rounded-2xl border border-slate-200 p-5 text-brand-600 underline">{p.title}</Link>)}</div></Section>}
       <Section tone="muted">
         <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
           <SectionHeading
@@ -435,7 +440,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         url={`/services/${service.slug}`}
         serviceType={service.primaryKeyword}
       />
-      <FaqSchema faqs={service.faqs} />
+      <FaqSchema faqs={[...service.faqs, ...serviceQuestions(service.slug).map(q=>({question:q.question,answer:`${q.answer} Read more: ${q.href}`}))]} />
     </>
   );
 }
