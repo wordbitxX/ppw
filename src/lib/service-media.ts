@@ -11,6 +11,13 @@ const photoFile: Record<string, string> = {
   "firebase-integration": "mobile-app-development",
   "website-maintenance": "wordpress-development",
   "app-maintenance": "mobile-app-development",
+  /* SEO and Digital Marketing were both "a person at two monitors", so next to
+     Web Development and AI the four cards read as the same picture. SEO now
+     uses the storefront + map-listings photo (what ranking actually looks like
+     to a customer) and Digital Marketing the content-calendar flatlay (the
+     campaigns and posts themselves). Both files were already in the brand set. */
+  "seo-services": "local-seo",
+  "digital-marketing": "social-media-marketing",
 };
 
 /** Custom photography for each service card and detail page. */
@@ -52,9 +59,9 @@ export const serviceImageAlts: Record<string, string> = {
   "tiktok-shop-setup": "Creator filming products for a live shop with a ring light and tripod",
   "facebook-instagram-shop": "Fashion studio with a phone product grid and clothing rack",
   "google-merchant-center": "Product feed spreadsheet and shopping-ad previews on a dual-monitor desk",
-  "digital-marketing": "Campaign war-room with multiple screens of ads, creatives and analytics",
+  "digital-marketing": "Content-calendar flatlay with a camera, phone and planned social posts",
   "social-media-marketing": "Content-calendar flatlay with a camera, phone and editorial notes",
-  "seo-services": "SEO analyst reviewing search rankings and a keyword spreadsheet",
+  "seo-services": "City storefront beside a phone showing the local map pack and review listings",
   "technical-seo": "Technical SEO workstation with a crawl table and HTML inspector",
   "local-seo": "City storefront with a phone showing a local map pack in the foreground",
   "website-speed-optimization": "Website performance scores and a stopwatch on a studio desk",

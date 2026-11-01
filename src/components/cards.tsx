@@ -199,8 +199,10 @@ export function ServicePhotoCard({ service }: { service: Service }) {
         <span className="mt-2 line-clamp-2 text-xs leading-relaxed text-slate-300 sm:text-sm">
           {service.summary}
         </span>
+        {/* "View Website Development" rather than a bare "View": on a page with
+            eight photo tiles the label confirms which service the card opens. */}
         <span className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-brand-300 transition-colors group-hover:text-white">
-          View
+          View {service.shortTitle}
           <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
         </span>
       </span>
