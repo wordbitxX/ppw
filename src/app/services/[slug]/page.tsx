@@ -8,7 +8,7 @@ import { CtaBand } from "@/components/cta-band";
 import { FixedPriceStrip } from "@/components/fixed-price-strip";
 import { FaqAccordion } from "@/components/accordion";
 import { FaqSchema, ServiceSchema } from "@/components/jsonld";
-import { TechChip } from "@/components/tech-icon";
+import { TechChip, TechGlyph } from "@/components/tech-icon";
 import { CheckIcon, ArrowRight } from "@/components/icons";
 import { MegaServiceIcon } from "@/components/mega-service-icon";
 import { getService, getServices, serviceSlugs } from "@/lib/services";
@@ -93,9 +93,48 @@ export default async function ServiceDetailPage({ params }: PageProps) {
       <Section>
         <div className="grid items-start gap-12 lg:grid-cols-[1.05fr_0.95fr]">
           <div>
-            <IconTile size="lg">
-              <MegaServiceIcon slug={service.slug} className="h-7 w-7" />
-            </IconTile>
+            {service.slug === "web-development" ? (
+              <ul aria-label="Website development technologies" className="flex flex-wrap gap-x-2 gap-y-3">
+                {[
+                  { name: "WordPress", icon: "siWordpress" },
+                  { name: "Laravel", icon: "siLaravel" },
+                  { name: "Flutter", icon: "siFlutter" },
+                  { name: "Python", icon: "siPython" },
+                  { name: "React", icon: "siReact" },
+                  { name: "Next.js", icon: "siNextdotjs" },
+                ].map((item) => (
+                  <li key={item.name} className="flex w-12 flex-col items-center gap-1.5 text-center">
+                    <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 ring-1 ring-brand-500/15">
+                      <TechGlyph item={item} className="h-6 w-6" />
+                    </span>
+                    <span className="text-[10px] font-medium leading-tight text-ink-500">{item.name}</span>
+                  </li>
+                ))}
+              </ul>
+            ) : service.slug === "mobile-app-development" ? (
+              <ul aria-label="Mobile app development platforms and technologies" className="flex flex-wrap gap-x-1.5 gap-y-3">
+                {[
+                  { name: "Android", icon: "siAndroid" },
+                  { name: "iOS", icon: "siApple" },
+                  { name: "Flutter", icon: "siFlutter" },
+                  { name: "Dart", icon: "siDart" },
+                  { name: "Kotlin", icon: "siKotlin" },
+                  { name: "Swift", icon: "siSwift" },
+                  { name: "React Native", icon: "siReact" },
+                ].map((item) => (
+                  <li key={item.name} className="flex w-11 flex-col items-center gap-1.5 text-center">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-50 ring-1 ring-brand-500/15">
+                      <TechGlyph item={item} className="h-6 w-6" />
+                    </span>
+                    <span className="text-[10px] font-medium leading-tight text-ink-500">{item.name}</span>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <IconTile size="lg">
+                <MegaServiceIcon slug={service.slug} className="h-7 w-7" />
+              </IconTile>
+            )}
             <h2 className="mt-6 text-2xl font-semibold text-ink-900 sm:text-3xl">
               {service.title} services from WordbitX
             </h2>

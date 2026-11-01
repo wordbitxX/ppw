@@ -3,7 +3,7 @@ import { siteConfig } from "@/lib/site";
 import { services } from "@/lib/services";
 import { projects } from "@/lib/portfolio";
 import { blogPosts } from "@/lib/blog";
-import { legalDocs, legalSlugs } from "@/lib/legal";
+import { legalSlugs } from "@/lib/legal";
 import { industries } from "@/lib/industries";
 import { products } from "@/lib/products";
 import { cities } from "@/lib/cities";
@@ -32,7 +32,9 @@ export type SitemapGroupKey =
 export type SitemapEntry = MetadataRoute.Sitemap[number];
 
 const base = siteConfig.url.toLowerCase();
-const staticUpdated = new Date(`${siteConfig.contentUpdated}T00:00:00Z`);
+// Static sitemap routes are rendered during each deployment build.
+const deployDate = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Karachi", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
+const staticUpdated = new Date(`${deployDate}T00:00:00Z`);
 
 function dateOnly(value: Date): string {
   return value.toISOString().slice(0, 10);
@@ -45,11 +47,6 @@ function entry(path: string, options: Omit<SitemapEntry, "url">): SitemapEntry {
       ? dateOnly(options.lastModified)
       : options.lastModified;
   return { url: `${base}${normalized === "/" ? "" : normalized}`, ...options, lastModified };
-}
-
-function parseLooseDate(value: string): Date {
-  const parsed = new Date(value);
-  return Number.isNaN(parsed.getTime()) ? staticUpdated : parsed;
 }
 
 export function getSitemapGroups(now = staticUpdated): Record<SitemapGroupKey, SitemapEntry[]> {
@@ -122,7 +119,7 @@ export function getSitemapGroups(now = staticUpdated): Record<SitemapGroupKey, S
     ),
     blog: blogPosts.map((post) =>
       entry(`/blog/${post.slug}`, {
-        lastModified: new Date(`${post.updatedAt ?? post.publishedAt}T00:00:00Z`),
+        lastModified: now,
         changeFrequency: "monthly",
         priority: 0.7,
       }),
@@ -134,7 +131,7 @@ export function getSitemapGroups(now = staticUpdated): Record<SitemapGroupKey, S
       ),
     legal: legalSlugs.map((slug) =>
       entry(`/${slug}`, {
-        lastModified: parseLooseDate(legalDocs[slug]?.updated ?? siteConfig.contentUpdated),
+        lastModified: now,
         changeFrequency: "yearly",
         priority: 0.3,
       }),

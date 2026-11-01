@@ -19,6 +19,7 @@ import { HeroFX } from "@/components/hero-fx";
 import { MobileHomeHero } from "@/components/mobile-home-hero";
 import { CineBackdrop, CineImage, LightArcs } from "@/components/cinematic";
 import { CtaBand } from "@/components/cta-band";
+import { BookingButton } from "@/components/booking-button";
 import { FixedPriceStrip } from "@/components/fixed-price-strip";
 import { FaqAccordion } from "@/components/accordion";
 import { TechGlyph, TechIconSprite } from "@/components/tech-icon";
@@ -176,46 +177,16 @@ const homeServiceSlugs = [
   "ai-solutions",
 ];
 
-/**
- * Home-deck imagery: eight dedicated premium product scenes replace the
- * generic per-service photos under /brand/services.
- * Each service has one recognisable subject in a coordinated ivory studio
- * with restrained emerald accents. Dedicated to this deck so the
- * /services index and blog photography stay untouched.
- */
+/** Conceptual service illustrations, not client screenshots. */
 const homeDeckMedia: Record<string, { src: string; alt: string }> = {
-  "web-development": {
-    src: "/brand/home/deck-web-development-v3.jpg",
-    alt: "Silver laptop with an emerald website interface and floating browser panel in an ivory studio",
-  },
-  "ecommerce-shopify": {
-    src: "/brand/home/deck-ecommerce-shopify-v3.jpg",
-    alt: "Skincare storefront on a laptop beside premium products and sage gift packaging",
-  },
-  "ecommerce-development": {
-    src: "/brand/home/deck-ecommerce-development-v3.jpg",
-    alt: "Marketplace dashboard with product cards, a parcel and barcode scanner in a bright studio",
-  },
-  "mobile-app-development": {
-    src: "/brand/home/deck-mobile-app-development-v3.jpg",
-    alt: "Titanium smartphones displaying emerald and navy app interfaces on sculptural ivory pedestals",
-  },
-  "pos-software": {
-    src: "/brand/home/deck-pos-software-v3.jpg",
-    alt: "Boutique touchscreen POS terminal with a receipt printer and contactless card reader",
-  },
-  "seo-services": {
-    src: "/brand/home/deck-seo-services-v3.jpg",
-    alt: "Search analytics display with an emerald growth chart and floating search result cards",
-  },
-  "digital-marketing": {
-    src: "/brand/home/deck-digital-marketing-v3.jpg",
-    alt: "Campaign dashboard and floating advertising creatives above ivory studio plinths",
-  },
-  "ai-solutions": {
-    src: "/brand/home/deck-ai-solutions-v3.jpg",
-    alt: "Glass cube containing an emerald neural network beside a workflow automation display",
-  },
+  "web-development": { src: "/brand/home/service-web-new.webp", alt: "Conceptual illustration of web development on a laptop" },
+  "ecommerce-shopify": { src: "/brand/home/service-shopify-new.webp", alt: "Conceptual illustration of an online store" },
+  "ecommerce-development": { src: "/brand/home/service-ecommerce-new.webp", alt: "Conceptual illustration of e-commerce development" },
+  "mobile-app-development": { src: "/brand/home/service-mobile-new.webp", alt: "Conceptual illustration of mobile app development" },
+  "pos-software": { src: "/brand/home/service-pos-new.webp", alt: "Conceptual illustration of a point-of-sale system" },
+  "seo-services": { src: "/brand/home/service-seo-new.webp", alt: "Conceptual illustration of search engine optimization" },
+  "digital-marketing": { src: "/brand/home/service-marketing-new.webp", alt: "Conceptual illustration of digital marketing" },
+  "ai-solutions": { src: "/brand/home/service-ai-new.webp", alt: "Conceptual illustration of AI solutions" },
 };
 
 /** Curated highlights — the full lists live on /industries and /global. */
@@ -302,27 +273,19 @@ export default function HomePage() {
             <div className="pointer-events-none absolute inset-0 z-[1]">
               <HeroFX />
             </div>
+            <div className="home-hero-heading container-page relative z-10 max-sm:!px-3 pt-11 text-center sm:pt-0">
+              <Eyebrow tone="dark">Pakistan-based · Software, SEO &amp; marketing · Worldwide</Eyebrow>
+              <p className="mt-4 text-sm font-semibold tracking-tight text-slate-200 lg:text-2xl lg:leading-tight">Big ideas. <span className="text-gradient-arc">Built to grow.</span></p>
+              <h1 className="mx-auto mt-2 sm:mt-6 lg:mt-3 text-[clamp(1.25rem,7.3vw,1.875rem)] font-semibold leading-[1.1] sm:leading-[1.04] tracking-[-0.03em] sm:text-6xl lg:text-[4.5rem]">
+                Websites, Apps &amp;{" "}<br />
+                <span className="home-headline-middle">Software That</span>{" "}
+                <span className="text-gradient-arc">Win Clients.</span>
+              </h1>
+            </div>
             <MobileHomeHero />
             <div className="relative hidden flex-col sm:flex">
           <div className="container-page relative z-10 order-2 -mt-60 sm:order-1 sm:mt-0">
             <div className="mx-auto max-w-4xl text-center">
-              <div className="cine-rise">
-                <Eyebrow tone="dark">Pakistan-based · Software, SEO &amp; marketing · Worldwide</Eyebrow>
-              </div>
-              {/* Audit 30 Oct 2026: the H1 used to read "One Platform. Endless
-                  Possibilities." while the <title> said "Software Development
-                  Company in Pakistan" — the strongest on-page signal did not
-                  match the query we want. The tagline is kept, demoted to the
-                  small tracked line, and the keyword now leads the H1. */}
-              <h1
-                className="cine-rise mt-6 text-[2.15rem] font-semibold leading-[1.04] tracking-[-0.03em] sm:text-6xl lg:text-[4.5rem]"
-                style={{ "--d": "0.08s" } as React.CSSProperties}
-              >
-                
-                Websites, Apps &
-                <br />
-                <span className="text-gradient-arc">Software That Win Clients.</span>
-              </h1>
               {/* Sized to break 3 lines on phones and almost exactly 2 on
                   desktop (one sentence per line at lg: max-w-4xl + text-xl).
                   "WordbitX" carries the same arc gradient as the Endless
@@ -334,23 +297,24 @@ export default function HomePage() {
                 <strong className="text-gradient-arc">WordbitX</strong> is a software development company in Pakistan for businesses worldwide. We build Websites, Mobile Apps, Shopify and Custom software solutions to accelerate your business.
               </p>
               <div
-                className="cine-rise mt-7 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center"
+                className="mt-7 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center"
                 style={{ "--d": "0.3s" } as React.CSSProperties}
               >
                 {/* Primary carries the conversion (the green button is the
                     biggest target on the page); exploration stays one step
                     back — the services mega-menu and the service sections
                     below already serve that intent. */}
-                <ButtonLink href="/contact" className="btn-cine">
-                  Discuss Your Project
+                <ButtonLink href="/contact" className="btn-cine !text-[#031a09] hover:!bg-[#2ec243]">
+                  Let’s build together
                 </ButtonLink>
+                <BookingButton />
                 <ButtonLink href="/services" variant="ghost">
                   Explore Our Services
                 </ButtonLink>
               </div>
 
               <ul
-                className="hero-promises cine-rise -mx-2 mt-7 grid max-w-4xl grid-cols-[1.1fr_0.9fr] items-center justify-center gap-x-1 gap-y-3 text-[0.58rem] min-[380px]:text-[0.65rem] sm:mx-auto sm:flex sm:flex-wrap font-medium text-slate-200 [text-shadow:0_1px_14px_rgba(3,8,20,0.95)] sm:gap-x-6 sm:text-[0.8rem]"
+                className="hero-promises -mx-2 mt-7 grid max-w-4xl grid-cols-[1.1fr_0.9fr] items-center justify-center gap-x-1 gap-y-3 text-[0.58rem] min-[380px]:text-[0.65rem] sm:mx-auto sm:flex sm:flex-wrap font-medium text-slate-200 [text-shadow:0_1px_14px_rgba(3,8,20,0.95)] sm:gap-x-6 sm:text-[0.8rem]"
                 style={{ "--d": "0.38s" } as React.CSSProperties}
               >
                 {["You own the code, repo & hosting", "Written scope before build", "Weekly demos & staging URLs"].map((item) => (
@@ -365,7 +329,7 @@ export default function HomePage() {
 
           {/* The art stage. Same viewBox + cover fit for image, arcs and flare so
               the travelling light lines up with the picture at every size. */}
-          <div className="pointer-events-none relative z-0 order-1 h-64 sm:order-2 sm:-mt-28 sm:h-[26rem] lg:-mt-36 lg:h-[30rem]" aria-hidden="true">
+          <div className="pointer-events-none relative z-0 order-1 h-64 sm:order-2 sm:-mt-28 sm:h-[26rem] lg:-mt-36 lg:h-[22rem]" aria-hidden="true">
             <div className="cine-hero-stage cine-mask-y absolute inset-0">
               <CineImage variant="calm" priority />
               <LightArcs />
@@ -382,11 +346,9 @@ export default function HomePage() {
 
         {/* On mobile the facts lead into the service links; desktop order is unchanged. */}
         <div className="flex flex-col sm:block">
-        <div className="container-page relative z-10 order-2 hidden sm:block sm:order-none sm:-mt-10">
+        <div className="container-page relative z-10 order-2 hidden sm:block sm:order-none sm:-mt-10 lg:-mt-16">
           <p className="mx-auto hidden max-w-3xl text-center text-base leading-relaxed text-slate-100 [text-shadow:0_1px_18px_rgba(3,8,20,0.95)] sm:block sm:text-lg">
-            Websites, Apps, Shopify &amp; E-commerce Stores, POS and CRM/ERP Systems — grown with SEO, ASO and
-            Digital Marketing, plus practical AI where it helps the workflow. Clients across the USA, UK, UAE,
-            Canada, Australia and worldwide.
+            From Pakistan to the USA, UK, UAE and beyond — SEO, ASO, digital marketing and practical AI to support your growth.
           </p>
           {/* One line that scrolls with flanking arrows below lg; at lg+ every
               pill wraps into view (owner request, 16 Oct — no sideways scroll
@@ -883,7 +845,7 @@ export default function HomePage() {
         <FixedPriceStrip />
       </Section>
 
-      <CtaBand />
+      <CtaBand showBooking />
       <ExploreDirectory />
       <FaqSchema faqs={homeFaqs} />
     </>

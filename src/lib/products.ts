@@ -93,7 +93,7 @@ export const productDetails: ProductDetail[] = [
     faqs: [
       {
         q: "Is Properties Pak a demo?",
-        a: "No. It is a real, live product owned and operated by WordbitX at propertiespak.com. Everything else on this page is a showcase build; this one is a trading platform.",
+        a: "No. It is a real, live product owned and operated by WordbitX at dha.wordbitx.pk. Everything else on this page is a showcase build; this one is a trading platform.",
       },
       {
         q: "Can you build something like this for us?",

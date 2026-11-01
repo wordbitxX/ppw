@@ -16,13 +16,13 @@
 export type MegaBrand = { key: string; hex: string };
 
 export const megaBrandBySlug: Record<string, MegaBrand> = {
+  "web-development": { key: "siWordpress", hex: "21759B" },
   "ecommerce-shopify": { key: "siShopify", hex: "7AB55C" },
   "woocommerce-development": { key: "siWoocommerce", hex: "96588A" },
   "wordpress-development": { key: "siWordpress", hex: "21759B" },
   "android-app-development": { key: "siAndroid", hex: "3DDC84" },
   "ios-app-development": { key: "siApple", hex: "000000" },
   "flutter-app-development": { key: "siFlutter", hex: "02569B" },
-  "mobile-app-development": { key: "siReact", hex: "61DAFB" },
   "game-development": { key: "siUnity", hex: "FFFFFF" },
   "firebase-integration": { key: "siFirebase", hex: "DD2C00" },
   "ui-ux-design": { key: "siFigma", hex: "F24E1E" },

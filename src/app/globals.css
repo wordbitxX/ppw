@@ -1349,3 +1349,11 @@ body.hide-site-cursor .site-cursor-ring {
 @media (max-width: 639px) {
   .home-hero-surface { background: #030814; }
 }
+
+/* The homepage shares one heading across breakpoints. */
+@media (max-width: 639px) {
+  .home-hero-heading > span { gap: 0.25rem; padding-inline: 0.5rem; font-size: 0.5rem; letter-spacing: 0.04em; white-space: nowrap; }
+}
+@media (min-width: 640px) {
+  .home-headline-middle { background-image: linear-gradient(100deg, #ffffff 0%, var(--color-arc-200) 38%, var(--color-arc-400) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+}

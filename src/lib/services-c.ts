@@ -28,7 +28,7 @@ export const servicesC: Service[] = [
     overview: [
       "Property is not sold the way generic listing software assumes. A buyer in Pakistan asks about a society, a phase, a block, a plot number, whether the file is transferable and how many instalments remain. Imported real estate templates model none of that, so agencies end up tracking the real information in a spreadsheet beside the website.",
       "WordbitX builds property portals around the actual structure of the market. Inventory is organised by society, phase, block and plot, files carry transfer and payment history, and instalment plans generate their own schedules and overdue alerts. Dealers get a CRM that records who brought the lead, so commission is calculated from data rather than argument.",
-      "We run this stack ourselves. Properties Pak (propertiespak.com) is our own live Pakistan property portal — society and phase listings, map-led search, plot and file detail pages, and dealer enquiry routing. It is a production product, not a demo, and the fastest way to judge what we would build for you.",
+      "We run this stack ourselves. Properties Pak (dha.wordbitx.pk) is our own live Pakistan property portal — society and phase listings, map-led search, plot and file detail pages, and dealer enquiry routing. It is a production product, not a demo, and the fastest way to judge what we would build for you.",
     ],
     whoNeeds: [
       "Property agencies and dealer networks managing plot inventory",

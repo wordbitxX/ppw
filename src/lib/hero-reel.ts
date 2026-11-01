@@ -10,12 +10,7 @@
  * caches. Until a screenshot has been committed for a product, the reel shows
  * that product's illustrated cover and says so in the alt text.
  *
- * Slide 1 is deliberately a local optimised team illustration (the WordbitX
- * studio huddle, swapped in 2026-10-08 for a shot with the brand wall
- * visible): it stays the LCP element (local, priority) so the speed work in
- * the performance pass is not undone, and it keeps the hero's "one
- * accountable team" promise visually concrete before the reel moves on to
- * what that team shipped.
+ * The local company photo leads the reel; product slides follow it.
  *
  * Every line of product copy below is a fact that is visible on the live site
  * it describes. No client names, revenue or outcome claims — same bar as

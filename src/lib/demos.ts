@@ -65,7 +65,7 @@ export const demosDisclosure =
   "Items labelled Demo below are demo / sample websites created by WordbitX to showcase design and development capabilities. They are not real client projects, case studies or endorsements, and no client names, revenue figures or results are implied. Items labelled Live Project are real, publicly available products built by WordbitX. Where a card shows an illustrated cover instead of a screenshot, the cover is artwork representing the kind of business the software serves — open the link to see the actual site.";
 
 /** Hosts WordbitX owns or operates — these get normal (dofollow) links. */
-export const ownedHosts = ["wordbitx.pk", "wordbitxtech.com", "propertiespak.com"];
+export const ownedHosts = ["wordbitx.pk", "wordbitxtech.com"];
 
 export const demoWebsites: DemoWebsite[] = [
   {
@@ -76,8 +76,8 @@ export const demoWebsites: DemoWebsite[] = [
     kind: "live",
     description:
       "Properties Pak is our live Pakistan property portal — society and phase listings, map-led search, plot/file detail pages and dealer enquiry flows. Built, launched and maintained by WordbitX.",
-    url: "https://propertiespak.com",
-    host: "propertiespak.com",
+    url: "https://dha.wordbitx.pk",
+    host: "dha.wordbitx.pk",
     proof:
       "Society, phase and block level listings, map-led search, plot/file detail pages and dealer enquiry routing.",
     shot: "/demos/properties-pak.jpg",

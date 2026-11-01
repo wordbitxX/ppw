@@ -399,7 +399,7 @@ export function ReviewSlider() {
             </p>
             <div className="mt-6 grid gap-4 md:grid-cols-3">
               <a
-                href="https://propertiespak.com"
+                href="https://dha.wordbitx.pk"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group rounded-xl border border-slate-200 bg-slate-50 p-4 transition-colors hover:border-brand-300"
@@ -410,7 +410,7 @@ export function ReviewSlider() {
                   around — it is not a screenshot.
                 </p>
                 <span className="mt-2 inline-block text-xs font-semibold text-brand-600 group-hover:underline">
-                  Visit propertiespak.com →
+                  Visit dha.wordbitx.pk →
                 </span>
               </a>
               <a
@@ -470,7 +470,7 @@ export function ReviewSlider() {
                 </div>
                 <p className="mt-3 text-sm tracking-wide text-amber-500" aria-label={`${review.rating} out of 5 stars`}>
                   {"★".repeat(review.rating)}
-                  <span className="text-slate-300">{"★".repeat(5 - review.rating)}</span>
+                  <span className="text-slate-300">{"☆".repeat(5 - review.rating)}</span>
                 </p>
                 <p className="mt-3 text-sm leading-relaxed text-ink-600">{review.quote}</p>
               </article>

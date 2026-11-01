@@ -42,8 +42,8 @@ export function ServiceCard({
                 : "from-navy-950 via-navy-950/20 to-transparent"
             }`}
           />
-          <span className="absolute bottom-3 left-3 inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl bg-brand-500/90 text-white ring-1 ring-white/20">
-            <MegaServiceIcon monochrome slug={service.slug} className="h-5 w-5" />
+          <span className={`absolute bottom-3 left-3 inline-flex h-10 ${service.slug === "mobile-app-development" ? "w-[4.25rem]" : "w-10"} items-center justify-center overflow-hidden rounded-xl bg-brand-500/90 text-white ring-1 ring-white/20`}>
+            <MegaServiceIcon monochrome slug={service.slug} className={service.slug === "mobile-app-development" ? "h-5 w-12" : "h-5 w-5"} />
           </span>
         </span>
         <span className="flex flex-1 flex-col p-6 pt-5">
@@ -97,20 +97,20 @@ export function ServiceCard({
             className="object-cover transition-transform duration-700 group-hover:scale-105"
           />
           <span className="absolute inset-0 bg-gradient-to-t from-navy-950/60 via-transparent to-transparent" />
-          <span className="absolute bottom-4 left-4 flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl bg-brand-500 text-white shadow-lg">
-            <MegaServiceIcon monochrome slug={service.slug} className="h-5 w-5" />
+          <span className={`absolute bottom-4 left-4 flex h-10 ${service.slug === "mobile-app-development" ? "w-[4.25rem]" : "w-10"} items-center justify-center overflow-hidden rounded-xl bg-brand-500 text-white shadow-lg`}>
+            <MegaServiceIcon monochrome slug={service.slug} className={service.slug === "mobile-app-development" ? "h-5 w-12" : "h-5 w-5"} />
           </span>
         </span>
       )}
       {!showImage && (
         <span
-          className={`inline-flex h-12 w-12 items-center justify-center rounded-xl transition-colors ${
+          className={`inline-flex h-12 ${service.slug === "mobile-app-development" ? "w-[4.5rem]" : "w-12"} items-center justify-center rounded-xl transition-colors ${
             tone === "dark"
               ? "bg-brand-400/12 text-brand-300 ring-1 ring-brand-400/20 group-hover:bg-brand-400/20"
               : "bg-brand-50 text-brand-600 ring-1 ring-brand-500/15 group-hover:bg-brand-100"
           }`}
         >
-          <MegaServiceIcon slug={service.slug} className="h-6 w-6" />
+          <MegaServiceIcon slug={service.slug} className={service.slug === "mobile-app-development" ? "h-6 w-12" : "h-6 w-6"} />
         </span>
       )}
       <span className="flex flex-1 flex-col p-6">

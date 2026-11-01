@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import type { CSSProperties } from "react";
 import { Logo, MenuIcon, CloseIcon, ChevronDown, ArrowRight, WhatsAppIcon } from "@/components/icons";
 import { MegaServiceIconRef as MegaServiceIcon } from "@/components/mega-icon-ref";
 import { b2bServiceSlugs, megaMenuGroups, services } from "@/lib/services";
@@ -397,7 +396,7 @@ export function Header() {
         scrolled || mobileOpen
           ? "border-b border-white/10 bg-midnight/90 backdrop-blur-xl"
           : "border-b border-transparent bg-midnight/40 backdrop-blur-sm"
-      }`}
+      } ${pathname === "/" ? "max-sm:!bg-[#030814]" : ""}`}
     >
       <div className="container-page">
         <div className="flex h-16 items-center justify-between gap-2 lg:h-[68px] lg:gap-3 xl:h-[72px] xl:gap-4">
@@ -407,9 +406,9 @@ export function Header() {
             className="min-w-0 shrink text-white"
             aria-label={`${siteConfig.name} home`}
           >
-            {/* The legal lockup is shown on mobile; the desktop navigation stays unchanged. */}
+            {/* Show the company legal lockup on both mobile and desktop. */}
             <span className="lg:hidden"><Logo className="header-mobile-logo" /></span>
-            <span className="hidden lg:inline"><Logo secondaryTagline="" /></span>
+            <span className="hidden lg:inline"><Logo /></span>
             <span className="sr-only">{siteConfig.name} home</span>
           </Link>
 
@@ -526,7 +525,7 @@ export function Header() {
                                     className="group flex items-center gap-2.5 rounded-lg px-2.5 py-2 transition-colors duration-150 hover:bg-white/[0.05]"
                                   >
                                     <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/[0.06] text-slate-400 ring-1 ring-white/10 transition-colors duration-150 group-hover:bg-brand-500/15 group-hover:text-brand-300 group-hover:ring-brand-400/30">
-                                      <MegaServiceIcon slug={service.slug} className="h-4 w-4" />
+                                      <MegaServiceIcon slug={service.slug} className={service.slug === "mobile-app-development" ? "h-4 w-6" : "h-4 w-4"} />
                                     </span>
                                     <span className="min-w-0 flex-1 truncate text-[0.88rem] font-medium text-slate-200 transition-colors duration-150 group-hover:text-white">
                                       {service.shortTitle}
@@ -794,16 +793,11 @@ export function Header() {
           </nav>
 
           <div className="hidden shrink-0 items-center gap-2.5 lg:flex">
-            {/* Halo lives on a wrapper: the button itself clips its light sweep.
-                Surface styling lives in .cta-surface, which is a deep emerald
-                ramp so the white label clears AA. */}
-            <span
-              className="cta-halo relative inline-flex rounded-xl"
-              style={{ "--cta-halo-color": "rgba(28, 168, 48, 0.5)" } as CSSProperties}
-            >
+            {/* Match the translucent mobile header action. */}
+            <span className="relative inline-flex rounded-xl">
               <Link
                 href="/contact"
-                className="cta-live cta-surface group inline-flex items-center gap-2 whitespace-nowrap rounded-xl px-3 py-2.5 text-[0.8rem] font-bold tracking-tight transition-all hover:-translate-y-0.5 xl:px-4.5 xl:text-sm"
+                className="group inline-flex items-center gap-2 whitespace-nowrap rounded-xl border border-white/25 bg-white/[0.04] px-3 py-2.5 text-[0.8rem] font-semibold tracking-tight text-white transition-colors hover:border-brand-400/60 hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white xl:px-4.5 xl:text-sm"
               >
                 <span className="relative flex h-2 w-2" aria-hidden="true">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-500" />
@@ -818,7 +812,7 @@ export function Header() {
             </span>
           </div>
 
-          <div className="flex min-w-0 items-center gap-2 lg:hidden">
+          <div className="flex min-w-0 items-center gap-3 lg:hidden">
             {/* Primary CTA replaces the WhatsApp shortcut that used to sit here.
                 The label and the ornaments are responsive because this bar is
                 tight: on a 375px screen only about 169px is left once the
@@ -906,7 +900,7 @@ export function Header() {
                                     className="flex items-center gap-2.5 rounded-lg px-2 py-2 transition-colors hover:bg-white/[0.05]"
                                   >
                                     <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-white/[0.06] text-slate-400 ring-1 ring-white/10">
-                                      <MegaServiceIcon slug={service.slug} className="h-3.5 w-3.5" />
+                                      <MegaServiceIcon slug={service.slug} className={service.slug === "mobile-app-development" ? "h-3.5 w-6" : "h-3.5 w-3.5"} />
                                     </span>
                                     <span className="min-w-0 flex-1 truncate text-[0.83rem] text-slate-300">
                                       {service.shortTitle}
@@ -946,7 +940,7 @@ export function Header() {
                                   className="flex items-center gap-2.5 rounded-lg px-2 py-2 transition-colors hover:bg-white/[0.05]"
                                 >
                                   <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-white/[0.06] text-slate-400 ring-1 ring-white/10">
-                                    <MegaServiceIcon slug={service.slug} className="h-3.5 w-3.5" />
+                                    <MegaServiceIcon slug={service.slug} className={service.slug === "mobile-app-development" ? "h-3.5 w-6" : "h-3.5 w-3.5"} />
                                   </span>
                                   <span className="min-w-0 flex-1 truncate text-[0.83rem] text-slate-300">
                                     {service.shortTitle}

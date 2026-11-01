@@ -193,7 +193,7 @@ export const pkMarket: MarketContent = {
       },
       {
         question: "How long does it take?",
-        answer: "2–3 weeks for a 5–8 page website once content is ready. Online stores take 4–6 weeks.",
+        answer: "2–3 weeks for a 5–10 page website once content is ready. Online stores take 4–6 weeks.",
       },
       {
         question: "Do you build FBR POS software?",
