@@ -11,9 +11,7 @@ export function MobileHomeHero() {
     <div className={styles.hero}>
       <div className={styles.content}>
         <p className={styles.description}>
-          <strong className="text-gradient-arc">WordbitX</strong> builds Websites, Mobile Apps, Shopify, POS, CRM, ERP
-          <br />
-          Softwares &amp; Custom software solutions to accelerate your business.
+          <strong className="text-gradient-arc">WordbitX</strong> builds websites, apps, Shopify stores &amp; custom software.
         </p>
         <ul className={styles.promises}>
           {["You own the code, repo & hosting", "Written scope before build", "Weekly demos & staging URLs"].map((item) => (

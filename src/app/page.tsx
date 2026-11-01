@@ -267,16 +267,11 @@ export default function HomePage() {
                   desktop (one sentence per line at lg: max-w-4xl + text-xl).
                   "WordbitX" carries the same arc gradient as the Endless
                   headline above it so the brand word reads premium. */}
-              {/* Two lines, one size: the break is authored, so the list of
-                  what we build and the outcome never reflow differently on a
-                  wide screen. "WordbitX" keeps the arc gradient. */}
               <p
-                className="cine-rise mx-auto mt-5 max-w-4xl text-balance text-[0.9375rem] leading-snug tracking-[-0.01em] text-slate-100 sm:text-lg lg:text-[1.35rem] lg:leading-tight"
+                className="cine-rise mx-auto mt-5 max-w-4xl text-balance text-[0.8125rem] leading-relaxed text-slate-100 sm:text-base lg:text-xl"
                 style={{ "--d": "0.16s" } as React.CSSProperties}
               >
-                <strong className="text-gradient-arc">WordbitX</strong> builds Websites, Mobile Apps, Shopify, POS, CRM, ERP
-                <br className="hidden sm:block" />{" "}
-                Softwares &amp; Custom software solutions to accelerate your business.
+                <strong className="text-gradient-arc">WordbitX</strong> is a software development company in Pakistan for businesses worldwide. We build Websites, Mobile Apps, Shopify and Custom software solutions to accelerate your business.
               </p>
               <div
                 className="mt-7 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center"
