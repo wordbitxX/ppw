@@ -12,10 +12,7 @@
 .hero h1 { margin-top: 26px; color: #f8fbff; font-size: clamp(2.7rem, 11vw, 4rem); line-height: 1.05; font-weight: 700; letter-spacing: -.055em; }
 .hero h1 span { color: #1ca830; }
 .description { max-width: 350px; margin: 14px auto 0; color: #c3ced9; font-size: 14px; line-height: 1.55; text-wrap: balance; }
-/* Lead line carries the sentence (heavier, larger); the outcome sits under it
-   smaller, the same two-weight treatment as the desktop hero. */
-.descriptionLead { max-width: 360px; margin-top: 12px; color: #f1f6fb; font-size: 15px; font-weight: 600; line-height: 1.4; letter-spacing: -.01em; }
-.descriptionTail { max-width: 320px; margin-top: 6px; color: #a9b8c7; font-size: 12px; line-height: 1.5; }
+
 .art { position: relative; height: 196px; margin: -48px -24px 0; overflow: hidden; }
 .artImage { position: absolute; inset: 0; mix-blend-mode: screen; -webkit-mask-image: linear-gradient(transparent, #000 12%, #000 75%, transparent); mask-image: linear-gradient(transparent, #000 12%, #000 75%, transparent); }
 .glow { position: absolute; inset: 0; background: radial-gradient(ellipse 55% 34% at 50% 50%, rgba(125, 217, 255, .75), rgba(34, 118, 255, .35) 42%, transparent 75%); mix-blend-mode: screen; pointer-events: none; }
