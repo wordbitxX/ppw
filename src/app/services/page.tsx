@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { PageHero, Section, SectionHeading, ButtonLink, CheckList } from "@/components/ui";
-import { ServiceCard } from "@/components/cards";
+import { ServiceCard, ServicePhotoCard } from "@/components/cards";
 import { CtaBand } from "@/components/cta-band";
 import { AiB2bBand } from "@/components/ai-b2b-band";
 import { FaqAccordion } from "@/components/accordion";
@@ -128,12 +128,16 @@ export default function ServicesPage() {
           title="Start with the services most clients come for"
           description="Website, apps, Shopify, e-commerce, POS and SEO — the six we are asked for most often. Every card opens a full page: who it is for, what problems it solves, what you receive and how we deliver it."
         />
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {/* The six most-requested services use the same portrait photo tiles as
+            the home page, so the top of this page looks like the top of the
+            homepage. The full catalogue below stays a light, scannable grid —
+            sixty tall photo cards would be a wall nobody reads. */}
+        <div className="mt-12 grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-3">
           {popularServices.map((service) => {
             const anchor = anchorFor(service.slug);
             return (
               <div key={service.slug} id={anchor} className="scroll-mt-28">
-                <ServiceCard service={service} showImage />
+                <ServicePhotoCard service={service} />
               </div>
             );
           })}
