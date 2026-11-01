@@ -4,6 +4,7 @@ import Image from "next/image";
 import { PageHero, Section, SectionHeading, ButtonLink, Eyebrow } from "@/components/ui";
 import { CtaBand } from "@/components/cta-band";
 import { SolutionCards } from "@/components/solution-cards";
+import { IndustryPhotoCard } from "@/components/cards";
 import { ArrowRight } from "@/components/icons";
 import { industries } from "@/lib/industries";
 import { propertiesPak } from "@/lib/demos";
@@ -32,24 +33,12 @@ export default function IndustriesPage() {
       </PageHero>
       <Section>
         <SectionHeading eyebrow="Sectors" title="Choose an industry" />
-        <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {/* Same tile, same size and same content as the home page's industry
+            section (shared IndustryPhotoCard): photo, dark gradient, name,
+            two-line tagline, Explore, plus a live-demo chip where one exists. */}
+        <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
           {industries.map((industry) => (
-            <Link
-              key={industry.slug}
-              href={`/industries/${industry.slug}`}
-              className="group overflow-hidden rounded-2xl border border-slate-200 bg-white transition-all hover:-translate-y-1 hover:border-brand-200"
-            >
-              <span className="relative block aspect-[16/9] bg-slate-100">
-                <Image src={industry.image} alt={industry.imageAlt} fill sizes="(max-width:768px) 100vw, 33vw" className="object-cover" />
-              </span>
-              <span className="block p-6">
-                <span className="block text-lg font-semibold text-ink-900">{industry.name}</span>
-                <span className="mt-2 block text-sm leading-relaxed text-ink-500">{industry.summary}</span>
-                <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-brand-600">
-                  View industry <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </span>
-              </span>
-            </Link>
+            <IndustryPhotoCard key={industry.slug} industry={industry} />
           ))}
         </div>
       </Section>

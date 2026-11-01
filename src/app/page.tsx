@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Section, SectionHeading, ButtonLink, Eyebrow } from "@/components/ui";
-import { ServicePhotoCard, PostCard, ProjectCard } from "@/components/cards";
+import { IndustryPhotoCard, ServicePhotoCard, PostCard, ProjectCard } from "@/components/cards";
 import { DemosSection } from "@/components/demos-section";
 import { CredibilityStrip } from "@/components/certifications-band";
 import { IndustryStrip } from "@/components/industry-strip";
@@ -27,7 +27,6 @@ import { FaqSchema } from "@/components/jsonld";
 import {
   ArrowRight,
   CheckIcon,
-  IndustryIcon,
   WhatsAppIcon,
   SearchIcon,
   ShieldIcon,
@@ -38,8 +37,6 @@ import {
 } from "@/components/icons";
 import { getServices, services } from "@/lib/services";
 import { industries } from "@/lib/industries";
-import { industryTileMedia } from "@/lib/industry-tile-media";
-import { industryDemoLinks } from "@/lib/industry-demos";
 import { markets } from "@/lib/markets";
 import { projects } from "@/lib/portfolio";
 import { sortedPosts } from "@/lib/blog";
@@ -661,74 +658,14 @@ export default function HomePage() {
         </div>
         <div className="mt-8">
           <IndustryRail label="industries">
-            {industries.map((industry) => {
-              const media = industryTileMedia[industry.slug];
-              const demos = industryDemoLinks(industry.slug);
-              return (
-                /* The card is a plain container: "Explore" is the stretched
-                   link over the whole tile, and any live-demo chip sits above
-                   it on its own z-index, so the two links never nest and the
-                   tile stays fully clickable. */
-                <div
-                  key={industry.slug}
-                  className="group relative flex aspect-[4/5] w-[78%] shrink-0 snap-start flex-col justify-end overflow-hidden rounded-2xl border border-slate-200 bg-navy-900 transition-all duration-500 focus-within:border-brand-300 hover:-translate-y-1 hover:border-brand-300 hover:shadow-[0_30px_60px_-34px_rgba(5,13,33,0.65)] sm:w-[calc(50%-0.5rem)] lg:w-[calc((100%-3rem)/4.25)]"
-                >
-                  {media ? (
-                    <Image
-                      src={media.src}
-                      alt={media.alt}
-                      fill
-                      sizes="(max-width: 640px) 78vw, (max-width: 1024px) 50vw, 25vw"
-                      className="photo-card-img object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                  ) : null}
-                  <span
-                    aria-hidden="true"
-                    className="absolute inset-0 bg-gradient-to-t from-midnight via-midnight/55 to-midnight/5"
-                  />
-                  <span className="relative p-5">
-                    <span className="flex items-center gap-2.5">
-                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/10 text-brand-200 ring-1 ring-white/20 backdrop-blur-sm transition-colors duration-300 group-hover:bg-brand-500 group-hover:text-white">
-                        <IndustryIcon name={industry.slug} className="h-5 w-5" />
-                      </span>
-                      <h3 className="text-base font-semibold text-white">{industry.name}</h3>
-                    </span>
-                    <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-slate-300">{industry.tagline}</p>
-                    <span className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-brand-300 transition-colors group-hover:text-white">
-                      Explore
-                      <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
-                    </span>
-                  </span>
-
-                  {/* Explore always goes to the industry page. */}
-                  <Link
-                    href={`/industries/${industry.slug}`}
-                    className="absolute inset-0 z-10 rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-400"
-                  >
-                    <span className="sr-only">Explore {industry.name} software</span>
-                  </Link>
-
-                  {/* Separate chip, separate link — only for sectors with a
-                      demo that actually runs. */}
-                  {demos.length > 0 ? (
-                    <span className="absolute right-3 top-3 z-20 flex flex-col items-end gap-1.5">
-                      {demos.map((demo) => (
-                        <a
-                          key={demo.id}
-                          href={demo.url}
-                          target="_blank"
-                          rel={demo.rel}
-                          className="inline-flex items-center gap-1 rounded-full bg-brand-500 px-2.5 py-1 text-[0.62rem] font-semibold text-white shadow-[0_10px_24px_-14px_rgba(0,0,0,0.9)] ring-1 ring-white/25 transition-colors hover:bg-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
-                        >
-                          {demo.label}
-                          <span aria-hidden="true">↗</span>
-                        </a>
-                      ))}
-                    </span>
-                  ) : null}
-                </div>
-              );
-            })}
+            {industries.map((industry) => (
+              <div
+                key={industry.slug}
+                className="w-[78%] shrink-0 snap-start sm:w-[calc(50%-0.5rem)] lg:w-[calc((100%-3rem)/4.25)]"
+              >
+                <IndustryPhotoCard industry={industry} />
+              </div>
+            ))}
           </IndustryRail>
         </div>
       </Section>

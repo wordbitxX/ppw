@@ -1,7 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { BlogPost, Project, Service } from "@/lib/types";
-import { ArrowRight, ClockIcon } from "@/components/icons";
+import type { Industry } from "@/lib/industries";
+import { industryTileMedia } from "@/lib/industry-tile-media";
+import { industryDemoLinks } from "@/lib/industry-demos";
+import { ArrowRight, ClockIcon, IndustryIcon } from "@/components/icons";
 import { MegaServiceIcon } from "@/components/mega-service-icon";
 import { formatDate } from "@/lib/blog";
 
@@ -230,6 +233,70 @@ export function ServicePhotoCard({ service, dense = false }: { service: Service;
         </span>
       </span>
     </Link>
+  );
+}
+
+/**
+ * Industry photo tile — used by the home-page "Industries" section and by the
+ * /industries directory, so both show the same card at the same size.
+ *
+ * One card, two links: "Explore" is a stretched link over the whole tile to the
+ * industry page, and any live-demo chip sits above it on its own z-index (never
+ * nested anchors). Only the six sectors with a working demo get a chip.
+ */
+export function IndustryPhotoCard({ industry }: { industry: Industry }) {
+  const media = industryTileMedia[industry.slug] ?? { src: industry.image, alt: industry.imageAlt };
+  const demos = industryDemoLinks(industry.slug);
+
+  return (
+    <div className="group relative flex aspect-[4/5] w-full flex-col justify-end overflow-hidden rounded-2xl border border-slate-200 bg-navy-900 transition-all duration-500 focus-within:border-brand-300 hover:-translate-y-1 hover:border-brand-300 hover:shadow-[0_30px_60px_-34px_rgba(5,13,33,0.65)]">
+      <Image
+        src={media.src}
+        alt={media.alt}
+        fill
+        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+        className="photo-card-img object-cover transition-transform duration-700 group-hover:scale-105"
+      />
+      <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-midnight via-midnight/55 to-midnight/5" />
+
+      <span className="relative p-4 sm:p-5">
+        <span className="flex items-center gap-2.5">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/10 text-brand-200 ring-1 ring-white/20 backdrop-blur-sm transition-colors duration-300 group-hover:bg-brand-500 group-hover:text-white">
+            <IndustryIcon name={industry.slug} className="h-5 w-5" />
+          </span>
+          <h3 className="text-sm font-semibold text-white sm:text-base">{industry.name}</h3>
+        </span>
+        <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-slate-300 sm:text-sm">{industry.tagline}</p>
+        <span className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-brand-300 transition-colors group-hover:text-white">
+          Explore
+          <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+        </span>
+      </span>
+
+      <Link
+        href={`/industries/${industry.slug}`}
+        className="absolute inset-0 z-10 rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-400"
+      >
+        <span className="sr-only">Explore {industry.name} software</span>
+      </Link>
+
+      {demos.length > 0 ? (
+        <span className="absolute right-3 top-3 z-20 flex flex-col items-end gap-1.5">
+          {demos.map((demo) => (
+            <a
+              key={demo.id}
+              href={demo.url}
+              target="_blank"
+              rel={demo.rel}
+              className="inline-flex items-center gap-1 rounded-full bg-brand-500 px-2.5 py-1 text-[0.62rem] font-semibold text-white shadow-[0_10px_24px_-14px_rgba(0,0,0,0.9)] ring-1 ring-white/25 transition-colors hover:bg-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+            >
+              {demo.label}
+              <span aria-hidden="true">↗</span>
+            </a>
+          ))}
+        </span>
+      ) : null}
+    </div>
   );
 }
 
