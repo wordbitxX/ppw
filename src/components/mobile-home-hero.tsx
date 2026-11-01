@@ -10,9 +10,10 @@ export function MobileHomeHero() {
   return (
     <div className={styles.hero}>
       <div className={styles.content}>
-        <p className={styles.description}>
-          <strong className="text-gradient-arc">WordbitX</strong> builds websites, apps, Shopify stores &amp; custom software.
+        <p className={`${styles.description} ${styles.descriptionLead}`}>
+          <strong className="text-gradient-arc">WordbitX</strong> builds Websites, Mobile Apps, Shopify, POS, CRM Softwares and Custom software solutions
         </p>
+        <p className={`${styles.description} ${styles.descriptionTail}`}>to accelerate your business.</p>
         <ul className={styles.promises}>
           {["You own the code, repo & hosting", "Written scope before build", "Weekly demos & staging URLs"].map((item) => (
             <li key={item}><CheckIcon style={{ width: 12, height: 12, flexShrink: 0, color: "#2ec243" }} />{item}</li>
