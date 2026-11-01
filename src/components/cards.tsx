@@ -152,16 +152,21 @@ export function ServiceCard({
  * files are already cropped around the subject, upscaled to 1152x1440 and
  * sharpened, so the tile stays crisp on 2x screens. Nothing here is a new photo
  * — same picture, framed for the card.
+ *
+ * Each file is named after the PHOTO it crops (`portrait-<source>.jpg`), not
+ * after the service: when a card switches photo, the URL changes, which is the
+ * only way to beat the image optimizer's year-long cache and any browser copy
+ * of the old bytes.
  */
 const portraitCropped: Record<string, string> = {
-  "web-development": "/brand/services/card/web-development.jpg",
-  "ecommerce-shopify": "/brand/services/card/ecommerce-shopify.jpg",
-  "ecommerce-development": "/brand/services/card/ecommerce-development.jpg",
-  "mobile-app-development": "/brand/services/card/mobile-app-development.jpg",
-  "pos-software": "/brand/services/card/pos-software.jpg",
-  "seo-services": "/brand/services/card/seo-services.jpg",
-  "digital-marketing": "/brand/services/card/digital-marketing.jpg",
-  "ai-solutions": "/brand/services/card/ai-solutions.jpg",
+  "web-development": "/brand/services/card/portrait-web-development.jpg",
+  "ecommerce-shopify": "/brand/services/card/portrait-facebook-instagram-shop.jpg",
+  "ecommerce-development": "/brand/services/card/portrait-jewellery-store.jpg",
+  "mobile-app-development": "/brand/services/card/portrait-mobile-app-development.jpg",
+  "pos-software": "/brand/services/card/portrait-pos-software.jpg",
+  "seo-services": "/brand/services/card/portrait-local-seo.jpg",
+  "digital-marketing": "/brand/services/card/portrait-social-media-marketing.jpg",
+  "ai-solutions": "/brand/services/card/portrait-ai-solutions.jpg",
 };
 
 export function ServicePhotoCard({ service }: { service: Service }) {
