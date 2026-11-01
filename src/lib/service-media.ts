@@ -18,6 +18,14 @@ const photoFile: Record<string, string> = {
      campaigns and posts themselves). Both files were already in the brand set. */
   "seo-services": "local-seo",
   "digital-marketing": "social-media-marketing",
+  /* The two store cards were both "a laptop with a product grid on a counter"
+     (skincare vs boutique). Shopify now shows the clothing-rail + phone
+     storefront scene (a direct-to-consumer brand launch) and E-Commerce the
+     jewellery counter (a custom catalogue with per-product detail). POS keeps
+     the till photo — it is the only shot on the site with an actual terminal,
+     printer and scanner, which is exactly what that service is. */
+  "ecommerce-shopify": "facebook-instagram-shop",
+  "ecommerce-development": "jewellery-store",
 };
 
 /** Custom photography for each service card and detail page. */
@@ -28,8 +36,8 @@ export function servicePhoto(slug: string) {
 export const serviceImageAlts: Record<string, string> = {
   "web-development": "Designer building a custom business website on an ultrawide monitor in a premium studio",
   "custom-web-application-development": "Engineer working on a custom web application dashboard across dual monitors",
-  "ecommerce-development": "Luxury boutique checkout with an online store on a laptop beside a card terminal",
-  "ecommerce-shopify": "Direct-to-consumer packing studio with a product storefront open on a laptop",
+  "ecommerce-development": "Jewellery counter with a custom store's product page open on a laptop",
+  "ecommerce-shopify": "Fashion rail with a Shopify storefront open on a phone and a laptop",
   "woocommerce-development": "Commerce studio with a storefront and shop dashboard on a desktop screen",
   "wordpress-development": "Editorial office with a content management editor and blog layout on an iMac",
   "custom-cms-development": "Team reviewing structured content blocks on a custom CMS",
