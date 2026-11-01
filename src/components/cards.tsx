@@ -215,6 +215,43 @@ export function ServicePhotoCard({ service }: { service: Service }) {
   );
 }
 
+/**
+ * Compact photo tile for the long service catalogue on /services.
+ *
+ * Same photography as the big tiles, but short: a 4:3 photo with the service
+ * name on a dark gradient, four to a row on desktop. No summary line — a
+ * 60-item catalogue has to stay scannable, which is why this variant exists
+ * instead of repeating the portrait card fifty-four times.
+ */
+export function ServiceCompactCard({ service }: { service: Service }) {
+  return (
+    <Link
+      href={`/services/${service.slug}`}
+      className="group relative block overflow-hidden rounded-xl border border-slate-200 bg-navy-900 transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-300 hover:shadow-[0_20px_40px_-28px_rgba(5,13,33,0.6)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400"
+    >
+      <span className="relative block aspect-[4/3] overflow-hidden">
+        <Image
+          src={service.image}
+          alt={service.imageAlt}
+          fill
+          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+          className="object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+        <span
+          aria-hidden="true"
+          className="absolute inset-0 bg-gradient-to-t from-midnight/95 via-midnight/35 to-transparent"
+        />
+        <span className="absolute inset-x-3 bottom-2.5 flex items-end justify-between gap-2">
+          <span className="text-[0.8rem] font-semibold leading-snug text-white sm:text-sm">{service.shortTitle}</span>
+          <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white/12 text-brand-200 ring-1 ring-white/20 transition-colors duration-300 group-hover:bg-brand-500 group-hover:text-white">
+            <ArrowRight className="h-3.5 w-3.5" />
+          </span>
+        </span>
+      </span>
+    </Link>
+  );
+}
+
 export type PostSummary = Pick<
   BlogPost,
   "slug" | "title" | "excerpt" | "category" | "image" | "imageAlt" | "publishedAt" | "readingMinutes"
