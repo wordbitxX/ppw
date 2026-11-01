@@ -133,6 +133,58 @@ export function ServiceCard({
   );
 }
 
+/**
+ * Portrait photo card — the "What We Do" services grid.
+ *
+ * Deliberately the same construction as the home-page industry tiles: a tall
+ * 4:5 frame, the brand photo full-bleed, a dark gradient rising from the
+ * bottom, white title and description over it, and a green "View →" label.
+ * The whole card is one link, so the hit area never depends on hitting a
+ * small button.
+ *
+ * The image is always the committed file in /brand/services (never a stock or
+ * generated photo) — `service.image` is resolved from `service-media.ts`.
+ */
+export function ServicePhotoCard({ service }: { service: Service }) {
+  return (
+    <Link
+      href={`/services/${service.slug}`}
+      className="group relative flex aspect-[4/5] w-full flex-col justify-end overflow-hidden rounded-2xl border border-slate-200 bg-navy-900 transition-all duration-500 hover:-translate-y-1 hover:border-brand-300 hover:shadow-[0_30px_60px_-34px_rgba(5,13,33,0.65)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400"
+    >
+      <Image
+        src={service.image}
+        alt={service.imageAlt}
+        fill
+        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 40vw, 25vw"
+        className="object-cover transition-transform duration-700 group-hover:scale-105"
+      />
+      <span
+        aria-hidden="true"
+        className="absolute inset-0 bg-gradient-to-t from-midnight via-midnight/55 to-midnight/5"
+      />
+      <span className="relative p-4 sm:p-5">
+        <span className="flex items-center gap-2.5">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-white/10 text-brand-200 ring-1 ring-white/20 backdrop-blur-sm transition-colors duration-300 group-hover:bg-brand-500 group-hover:text-white">
+            <MegaServiceIcon
+              monochrome
+              slug={service.slug}
+              className={service.slug === "mobile-app-development" ? "h-4 w-8" : "h-5 w-5"}
+            />
+          </span>
+          <h3 className="text-sm font-semibold leading-snug text-white sm:text-base">{service.title}</h3>
+        </span>
+        <span className="mt-2 line-clamp-2 block text-xs leading-relaxed text-slate-300 sm:text-sm">
+          {service.summary}
+        </span>
+        <span className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-brand-300 transition-colors group-hover:text-white">
+          View
+          <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+        </span>
+      </span>
+    </Link>
+  );
+}
+
 export type PostSummary = Pick<
   BlogPost,
   "slug" | "title" | "excerpt" | "category" | "image" | "imageAlt" | "publishedAt" | "readingMinutes"

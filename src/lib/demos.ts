@@ -95,8 +95,8 @@ export const demoWebsites: DemoWebsite[] = [
     kind: "demo",
     description:
       "A salon appointment booking and management demo for Pakistan and worldwide: explore chair schedules, staff, waitlists and the owner dashboard. WhatsApp conversations are simulated.",
-    url: "https://saloonai.vercel.app/",
-    host: "saloonai.vercel.app",
+    url: "https://salon.wordbitx.pk",
+    host: "salon.wordbitx.pk",
     proof:
       "Appointment and chair-wise schedules, owner dashboard, waitlist and simulated WhatsApp booking scenarios with sample data.",
     cover: "/brand/portfolio/salon-booking-dark.webp",
@@ -104,7 +104,7 @@ export const demoWebsites: DemoWebsite[] = [
     industrySlugs: ["salon-beauty"],
     relatedService: { slug: "custom-web-application-development", title: "Custom Web Applications" },
     caseStudyHref: "/portfolio/salon-whatsapp-booking-recovery-dashboard",
-    dashboardUrl: "https://saloonai.vercel.app/dashboard",
+    dashboardUrl: "https://salon.wordbitx.pk/dashboard",
   },
   {
     id: "motor",

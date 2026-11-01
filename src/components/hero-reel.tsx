@@ -174,7 +174,18 @@ export function HeroReel({ slides }: { slides: HeroSlide[] }) {
                 <p className="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-brand-300">
                   {slide.eyebrow}
                 </p>
-                {slide.href ? (
+                {slide.href && slide.external ? (
+                  <a
+                    href={slide.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    tabIndex={active ? undefined : -1}
+                    className="group/slide mt-1 inline-flex items-start gap-1.5 text-sm font-medium leading-snug text-white underline-offset-4 hover:underline"
+                  >
+                    <span>{slide.title}</span>
+                    <span aria-hidden="true" className="mt-0.5">↗</span>
+                  </a>
+                ) : slide.href ? (
                   <Link
                     href={slide.href}
                     tabIndex={active ? undefined : -1}

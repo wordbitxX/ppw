@@ -8,6 +8,7 @@ import { FaqAccordion } from "@/components/accordion";
 import { FaqSchema } from "@/components/jsonld";
 import { DemoLaptop } from "@/components/demo-laptop";
 import { industries, getIndustry } from "@/lib/industries";
+import { industryDemoLinks } from "@/lib/industry-demos";
 import { demosForIndustry } from "@/lib/demos";
 import { getServices } from "@/lib/services";
 import { getProject } from "@/lib/portfolio";
@@ -47,6 +48,7 @@ export default async function IndustryPage({ params }: PageProps) {
   const relatedPosts = getPosts(industry.posts);
   const relatedTopics = getTopics(industryTopicSlugs[industry.slug] ?? []);
   const liveDemos = demosForIndustry(industry.slug);
+  const demoLinks = industryDemoLinks(industry.slug);
 
   return (
     <>
@@ -65,6 +67,27 @@ export default async function IndustryPage({ params }: PageProps) {
             Browse services
           </ButtonLink>
         </div>
+
+        {/* Live demo button — only the six sectors that actually have a
+            working demo get one, and it opens that exact demo site. */}
+        {demoLinks.length > 0 ? (
+          <div className="mt-5 flex flex-wrap items-center gap-3">
+            {demoLinks.map((demo) => (
+              <a
+                key={demo.id}
+                href={demo.url}
+                target="_blank"
+                rel={demo.rel}
+                className="group/demo inline-flex items-center gap-2 rounded-xl bg-brand-500 px-5 py-3 text-sm font-semibold text-white shadow-[0_18px_40px_-20px_rgba(28,168,48,0.85)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-300"
+              >
+                {demo.label}
+                <span aria-hidden="true" className="transition-transform duration-300 group-hover/demo:-translate-y-0.5">↗</span>
+                <span className="sr-only"> (opens {demo.host} in a new tab)</span>
+              </a>
+            ))}
+            <span className="text-sm text-slate-400">{demoLinks[0].host}</span>
+          </div>
+        ) : null}
       </PageHero>
 
       <Section>

@@ -19,13 +19,17 @@ export type ShowcaseTabItem = {
  * Desktop keeps the original single-panel layout; previews can also auto-advance.
  */
 
-const AUTO_ADVANCE_MS = 7000;
+const AUTO_ADVANCE_MS = 6000;
 
 export function ShowcaseTabs({ items, footer }: { items: ShowcaseTabItem[]; footer?: ReactNode }) {
   const [active, setActive] = useState(0);
   const [manualPause, setManualPause] = useState(false);
   const [reduced, setReduced] = useState(true);
   const [motionOverride, setMotionOverride] = useState(false);
+  /* True only after the visitor presses "Play auto-rotation". An explicit play
+     wins over the hover pause — otherwise the timer could never run, because
+     the pointer is still sitting on the button that started it. */
+  const [explicitPlay, setExplicitPlay] = useState(false);
   const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
   const [inView, setInView] = useState(false);
@@ -53,8 +57,9 @@ export function ShowcaseTabs({ items, footer }: { items: ShowcaseTabItem[]; foot
   }, []);
 
   const playing = !manualPause && (!reduced || motionOverride);
+  const pauseOnHover = hovered && !explicitPlay;
   useEffect(() => {
-    if (!playing || !inView || !visible || hovered || focused || items.length < 2) return;
+    if (!playing || !inView || !visible || pauseOnHover || focused || items.length < 2) return;
     const timer = window.setTimeout(() => {
       const next = (active + 1) % items.length;
       const track = panelsRef.current;
@@ -64,7 +69,7 @@ export function ShowcaseTabs({ items, footer }: { items: ShowcaseTabItem[]; foot
       setActive(next);
     }, AUTO_ADVANCE_MS);
     return () => window.clearTimeout(timer);
-  }, [active, playing, inView, visible, hovered, focused, items.length]);
+  }, [active, playing, inView, visible, pauseOnHover, focused, items.length]);
 
   // Each mobile preview has its own height; do not leave a tall empty area
   // below shorter cards just because another slide has more content.
@@ -96,6 +101,7 @@ export function ShowcaseTabs({ items, footer }: { items: ShowcaseTabItem[]; foot
   }, [active]);
 
   const select = (index: number, focus = false) => {
+    setExplicitPlay(false);
     const next = (index + items.length) % items.length;
     setActive(next);
     const track = panelsRef.current;
@@ -126,15 +132,17 @@ export function ShowcaseTabs({ items, footer }: { items: ShowcaseTabItem[]; foot
       ref={rootRef}
       onPointerEnter={(event) => { if (event.pointerType === "mouse") setHovered(true); }}
       onPointerLeave={() => setHovered(false)}
-      onFocusCapture={() => setFocused(true)}
-      onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false); }}
       className="grid gap-6 lg:grid-cols-[20rem_minmax(0,1fr)] lg:gap-8"
     >
       <div className="min-w-0">
+        {/* Focus pause lives here and on the panel below, not on the whole
+            block: the rotate button must not pause the rotation it started. */}
         <div
           role="tablist"
           aria-label="Live projects"
           aria-orientation="vertical"
+          onFocusCapture={() => setFocused(true)}
+          onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false); }}
           className="relative flex gap-2 overflow-x-auto overscroll-x-contain pb-3 [scrollbar-width:thin] lg:flex-col lg:gap-1.5 lg:overflow-visible lg:pb-0"
         >
           {items.map((item, index) => {
@@ -189,11 +197,18 @@ export function ShowcaseTabs({ items, footer }: { items: ShowcaseTabItem[]; foot
         </div>
         <button
           type="button"
+          aria-pressed={playing}
           onClick={() => {
-            if (playing) setManualPause(true);
-            else { setManualPause(false); setMotionOverride(true); }
+            if (playing) {
+              setManualPause(true);
+              setExplicitPlay(false);
+            } else {
+              setManualPause(false);
+              setMotionOverride(true);
+              setExplicitPlay(true);
+            }
           }}
-          className="mt-3 rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-ink-700 hover:border-brand-400"
+          className="mt-3 rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-ink-700 transition-colors hover:border-brand-400 hover:text-brand-700"
         >
           {playing ? "Pause auto-rotation" : "Play auto-rotation"}
         </button>
@@ -206,6 +221,8 @@ export function ShowcaseTabs({ items, footer }: { items: ShowcaseTabItem[]; foot
           role="region"
           aria-label="Live project previews — swipe to explore"
           tabIndex={0}
+          onFocusCapture={() => setFocused(true)}
+          onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false); }}
           onScroll={(event) => {
             const track = event.currentTarget;
             if (!window.matchMedia("(max-width: 1023px)").matches) return;
@@ -215,12 +232,15 @@ export function ShowcaseTabs({ items, footer }: { items: ShowcaseTabItem[]; foot
           className="flex h-[var(--preview-height,auto)] snap-x snap-mandatory items-start gap-4 overflow-x-auto overscroll-x-contain pb-4 [scrollbar-width:thin] lg:block lg:h-auto lg:overflow-visible lg:pb-0"
         >
           {items.map((item, index) => (
+            /* `.showcase-panel-fade` is a plain CSS class scoped to >=1024px
+               (see globals.css): going from display:none to visible restarts
+               the animation, so the new panel fades in instead of snapping. */
             <div
               key={item.id}
               id={`showcase-panel-${item.id}`}
               role="tabpanel"
               aria-labelledby={`showcase-tab-${item.id}`}
-              className={`w-full min-w-0 shrink-0 snap-start snap-always ${index === active ? "lg:animate-reveal" : "lg:hidden"}`}
+              className={`w-full min-w-0 shrink-0 snap-start snap-always ${index === active ? "showcase-panel-fade" : "lg:hidden"}`}
             >
               {item.panel}
             </div>

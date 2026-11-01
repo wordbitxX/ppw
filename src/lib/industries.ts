@@ -455,8 +455,8 @@ export const industries: Industry[] = [
     metaTitle: "Salon Software Development | Appointments, Packages & Billing",
     metaDescription:
       "Salon and beauty software: online appointments, service packages, staff commissions, client history and billing built by WordbitX.",
-    image: "/brand/services/custom-software-development.jpg",
-    imageAlt: "Stylist working with a client in a modern salon",
+    image: "/demos/cover/salon-beauty.jpg",
+    imageAlt: "Salon styling station with a ring-light mirror, brushes and a booking tablet",
     problems: [
       { title: "Appointments in a diary book", text: "Double bookings and forgotten clients are a daily event, not an exception." },
       { title: "No-shows with no policy", text: "Without reminders or deposits, empty chairs cost the day's revenue." },

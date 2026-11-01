@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Section, SectionHeading, ButtonLink, Eyebrow } from "@/components/ui";
-import { ServiceCard, PostCard, ProjectCard } from "@/components/cards";
+import { ServicePhotoCard, PostCard, ProjectCard } from "@/components/cards";
 import { DemosSection } from "@/components/demos-section";
 import { CredibilityStrip } from "@/components/certifications-band";
 import { IndustryStrip } from "@/components/industry-strip";
@@ -39,6 +39,7 @@ import {
 import { getServices, services } from "@/lib/services";
 import { industries } from "@/lib/industries";
 import { industryTileMedia } from "@/lib/industry-tile-media";
+import { industryDemoLinks } from "@/lib/industry-demos";
 import { markets } from "@/lib/markets";
 import { projects } from "@/lib/portfolio";
 import { sortedPosts } from "@/lib/blog";
@@ -177,18 +178,6 @@ const homeServiceSlugs = [
   "ai-solutions",
 ];
 
-/** Conceptual service illustrations, not client screenshots. */
-const homeDeckMedia: Record<string, { src: string; alt: string }> = {
-  "web-development": { src: "/brand/home/service-web-new.webp", alt: "Conceptual illustration of web development on a laptop" },
-  "ecommerce-shopify": { src: "/brand/home/service-shopify-new.webp", alt: "Conceptual illustration of an online store" },
-  "ecommerce-development": { src: "/brand/home/service-ecommerce-new.webp", alt: "Conceptual illustration of e-commerce development" },
-  "mobile-app-development": { src: "/brand/home/service-mobile-new.webp", alt: "Conceptual illustration of mobile app development" },
-  "pos-software": { src: "/brand/home/service-pos-new.webp", alt: "Conceptual illustration of a point-of-sale system" },
-  "seo-services": { src: "/brand/home/service-seo-new.webp", alt: "Conceptual illustration of search engine optimization" },
-  "digital-marketing": { src: "/brand/home/service-marketing-new.webp", alt: "Conceptual illustration of digital marketing" },
-  "ai-solutions": { src: "/brand/home/service-ai-new.webp", alt: "Conceptual illustration of AI solutions" },
-};
-
 /** Curated highlights — the full lists live on /industries and /global. */
 const featuredMarketSlugs = ["pakistan", "usa", "uk", "uae"];
 
@@ -229,19 +218,10 @@ function CoreSoftwareRail() {
 }
 
 export default function HomePage() {
-  const homeServices = getServices(homeServiceSlugs).map((service) => {
-    const media = homeDeckMedia[service.slug];
-    return media ? { ...service, image: media.src, imageAlt: media.alt } : service;
-  });
-  // Put the most requested service types first in the mobile vertical list.
-  const mobileServiceOrder = ["web-development", "mobile-app-development"];
-  const mobileHomeServices = [...homeServices].sort((a, b) => {
-    const rank = (slug: string) => {
-      const index = mobileServiceOrder.indexOf(slug);
-      return index === -1 ? mobileServiceOrder.length : index;
-    };
-    return rank(a.slug) - rank(b.slug);
-  });
+  /* The eight "What We Do" cards keep the owner's order and use the committed
+     brand photography in /brand/services (resolved by service-media.ts), the
+     same files their own service pages use. */
+  const homeServices = getServices(homeServiceSlugs);
   const latestPosts = sortedPosts.slice(0, 6);
   const heroSlides = getHeroSlides();
   const featuredMarkets = featuredMarketSlugs
@@ -627,14 +607,14 @@ export default function HomePage() {
           </Link>
         </div>
 
-        <div className="mt-10 grid gap-5 sm:hidden">
-          {mobileHomeServices.map((service) => <ServiceCard key={service.slug} service={service} tone="light" premium />)}
+        <div className="mt-10 grid grid-cols-2 gap-3 sm:hidden">
+          {homeServices.map((service) => <ServicePhotoCard key={service.slug} service={service} />)}
         </div>
         <div className="mt-10 hidden sm:block">
           <IndustryRail label="services">
             {homeServices.map((service) => (
-              <div key={service.slug} className="flex w-[85%] shrink-0 snap-start sm:w-[calc(50%-0.5rem)] lg:w-[calc((100%-2rem)/3)] xl:w-[calc((100%-3rem)/4)]">
-                <ServiceCard service={service} tone="light" premium />
+              <div key={service.slug} className="flex w-[calc(50%-0.5rem)] shrink-0 snap-start lg:w-[calc((100%-3rem)/4.25)]">
+                <ServicePhotoCard service={service} />
               </div>
             ))}
           </IndustryRail>
@@ -688,11 +668,15 @@ export default function HomePage() {
           <IndustryRail label="industries">
             {industries.map((industry) => {
               const media = industryTileMedia[industry.slug];
+              const demos = industryDemoLinks(industry.slug);
               return (
-                <Link
+                /* The card is a plain container: "Explore" is the stretched
+                   link over the whole tile, and any live-demo chip sits above
+                   it on its own z-index, so the two links never nest and the
+                   tile stays fully clickable. */
+                <div
                   key={industry.slug}
-                  href={`/industries/${industry.slug}`}
-                  className="group relative flex aspect-[4/5] w-[78%] shrink-0 snap-start flex-col justify-end overflow-hidden rounded-2xl border border-slate-200 bg-navy-900 transition-all duration-500 hover:-translate-y-1 hover:border-brand-300 hover:shadow-[0_30px_60px_-34px_rgba(5,13,33,0.65)] sm:w-[calc(50%-0.5rem)] lg:w-[calc((100%-3rem)/4.25)]"
+                  className="group relative flex aspect-[4/5] w-[78%] shrink-0 snap-start flex-col justify-end overflow-hidden rounded-2xl border border-slate-200 bg-navy-900 transition-all duration-500 focus-within:border-brand-300 hover:-translate-y-1 hover:border-brand-300 hover:shadow-[0_30px_60px_-34px_rgba(5,13,33,0.65)] sm:w-[calc(50%-0.5rem)] lg:w-[calc((100%-3rem)/4.25)]"
                 >
                   {media ? (
                     <Image
@@ -720,7 +704,34 @@ export default function HomePage() {
                       <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
                     </span>
                   </span>
-                </Link>
+
+                  {/* Explore always goes to the industry page. */}
+                  <Link
+                    href={`/industries/${industry.slug}`}
+                    className="absolute inset-0 z-10 rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-400"
+                  >
+                    <span className="sr-only">Explore {industry.name} software</span>
+                  </Link>
+
+                  {/* Separate chip, separate link — only for sectors with a
+                      demo that actually runs. */}
+                  {demos.length > 0 ? (
+                    <span className="absolute right-3 top-3 z-20 flex flex-col items-end gap-1.5">
+                      {demos.map((demo) => (
+                        <a
+                          key={demo.id}
+                          href={demo.url}
+                          target="_blank"
+                          rel={demo.rel}
+                          className="inline-flex items-center gap-1 rounded-full bg-brand-500 px-2.5 py-1 text-[0.62rem] font-semibold text-white shadow-[0_10px_24px_-14px_rgba(0,0,0,0.9)] ring-1 ring-white/25 transition-colors hover:bg-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+                        >
+                          {demo.label}
+                          <span aria-hidden="true">↗</span>
+                        </a>
+                      ))}
+                    </span>
+                  ) : null}
+                </div>
               );
             })}
           </IndustryRail>

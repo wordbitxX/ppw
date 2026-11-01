@@ -309,6 +309,31 @@ body.hide-site-cursor .site-cursor-ring {
   animation: reveal-up 0.75s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+/* Showcase tab panel: short fade when the selected project changes. Scoped to
+   the desktop layout, where only one panel is displayed at a time; the phone
+   layout is a horizontal swipe rail and must keep every panel visible. Going
+   from `display: none` to `display: block` restarts this animation. */
+@keyframes showcase-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (min-width: 1024px) {
+  .showcase-panel-fade {
+    animation: showcase-fade 0.35s ease-out both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .showcase-panel-fade {
+    animation: none !important;
+  }
+}
+
 @keyframes assist-in {
   from {
     opacity: 0;

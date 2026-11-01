@@ -45,8 +45,8 @@ const originalProjects: Project[] = [
     ],
     image: "/brand/portfolio/salon-booking-dark.webp",
     imageAlt: "Dark illustrative salon workspace with a booking dashboard on a laptop and a phone",
-    liveUrl: "https://saloonai.vercel.app/",
-    demoDashboardUrl: "https://saloonai.vercel.app/dashboard",
+    liveUrl: "https://salon.wordbitx.pk",
+    demoDashboardUrl: "https://salon.wordbitx.pk/dashboard",
     gallery: [
       {
         src: "/brand/portfolio/salon-booking-dark.webp",
