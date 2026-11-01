@@ -132,12 +132,12 @@ export default function ServicesPage() {
             the home page, so the top of this page looks like the top of the
             homepage. The full catalogue below stays a light, scannable grid —
             sixty tall photo cards would be a wall nobody reads. */}
-        <div className="mt-12 grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-3">
+        <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
           {popularServices.map((service) => {
             const anchor = anchorFor(service.slug);
             return (
               <div key={service.slug} id={anchor} className="scroll-mt-28">
-                <ServicePhotoCard service={service} />
+                <ServicePhotoCard service={service} dense />
               </div>
             );
           })}

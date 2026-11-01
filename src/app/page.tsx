@@ -607,17 +607,12 @@ export default function HomePage() {
           </Link>
         </div>
 
-        <div className="mt-10 grid grid-cols-2 gap-3 sm:hidden">
-          {homeServices.map((service) => <ServicePhotoCard key={service.slug} service={service} />)}
-        </div>
-        <div className="mt-10 hidden sm:block">
-          <IndustryRail label="services">
-            {homeServices.map((service) => (
-              <div key={service.slug} className="flex w-[calc(50%-0.5rem)] shrink-0 snap-start lg:w-[calc((100%-3rem)/3.25)]">
-                <ServicePhotoCard service={service} />
-              </div>
-            ))}
-          </IndustryRail>
+        {/* All eight tiles, four to a row on desktop (two rows), smaller and
+            denser than a rail — no sideways scrolling, nothing hidden. */}
+        <div className="mt-8 grid grid-cols-2 gap-3 sm:mt-10 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
+          {homeServices.map((service) => (
+            <ServicePhotoCard key={service.slug} service={service} dense />
+          ))}
         </div>
       </AiServicesDeck>
       </div>

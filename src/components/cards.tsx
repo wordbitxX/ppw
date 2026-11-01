@@ -169,7 +169,7 @@ const portraitCropped: Record<string, string> = {
   "ai-solutions": "/brand/services/card/portrait-deck-ai-v2.jpg",
 };
 
-export function ServicePhotoCard({ service }: { service: Service }) {
+export function ServicePhotoCard({ service, dense = false }: { service: Service; dense?: boolean }) {
   const src = portraitCropped[service.slug] ?? service.image;
   return (
     <Link
@@ -188,27 +188,45 @@ export function ServicePhotoCard({ service }: { service: Service }) {
         aria-hidden="true"
         className="absolute inset-0 bg-gradient-to-t from-midnight via-midnight/55 to-midnight/5"
       />
-      <span className="relative p-4 sm:p-5">
-        <span className="flex items-center gap-2.5">
-          <span className="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-white/10 text-brand-200 ring-1 ring-white/20 backdrop-blur-sm transition-colors duration-300 group-hover:bg-brand-500 group-hover:text-white">
+      <span className={dense ? "relative p-3" : "relative p-4 sm:p-5"}>
+        <span className="flex items-center gap-2">
+          <span
+            className={`flex shrink-0 items-center justify-center overflow-hidden rounded-lg bg-white/10 text-brand-200 ring-1 ring-white/20 backdrop-blur-sm transition-colors duration-300 group-hover:bg-brand-500 group-hover:text-white ${
+              dense ? "h-7 w-7" : "h-9 w-9"
+            }`}
+          >
             <MegaServiceIcon
               monochrome
               slug={service.slug}
-              className={service.slug === "mobile-app-development" ? "h-4 w-8" : "h-5 w-5"}
+              className={
+                service.slug === "mobile-app-development"
+                  ? dense ? "h-3 w-6" : "h-4 w-8"
+                  : dense ? "h-4 w-4" : "h-5 w-5"
+              }
             />
           </span>
-          <h3 className="text-[0.95rem] font-semibold leading-snug text-white sm:text-lg">{service.title}</h3>
+          <h3 className={`font-semibold leading-snug text-white ${dense ? "text-[0.82rem]" : "text-[0.95rem] sm:text-lg"}`}>
+            {service.title}
+          </h3>
         </span>
         {/* Two lines only. `line-clamp-2` sets display:-webkit-box, so it must
             not be combined with a `block` utility or the clamp is dropped. */}
-        <span className="mt-2 line-clamp-2 text-xs leading-relaxed text-slate-300 sm:text-sm">
+        <span
+          className={`mt-1.5 line-clamp-2 leading-relaxed text-slate-300 ${
+            dense ? "text-[0.7rem] leading-snug" : "text-xs sm:text-sm"
+          }`}
+        >
           {service.summary}
         </span>
         {/* "View Website Development" rather than a bare "View": on a page with
             eight photo tiles the label confirms which service the card opens. */}
-        <span className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-brand-300 transition-colors group-hover:text-white">
+        <span
+          className={`inline-flex items-center gap-1.5 font-semibold text-brand-300 transition-colors group-hover:text-white ${
+            dense ? "mt-2 text-[0.68rem]" : "mt-3 text-xs"
+          }`}
+        >
           View {service.shortTitle}
-          <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+          <ArrowRight className={`${dense ? "h-3 w-3" : "h-3.5 w-3.5"} transition-transform duration-300 group-hover:translate-x-1`} />
         </span>
       </span>
     </Link>
