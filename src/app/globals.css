@@ -313,6 +313,13 @@ body.hide-site-cursor .site-cursor-ring {
    the desktop layout, where only one panel is displayed at a time; the phone
    layout is a horizontal swipe rail and must keep every panel visible. Going
    from `display: none` to `display: block` restarts this animation. */
+/* Photo tiles (services + industries): a light contrast/saturation lift so the
+   committed brand photography reads crisp and premium behind white text,
+   instead of washing out under the gradient. */
+.photo-card-img {
+  filter: saturate(1.06) contrast(1.05);
+}
+
 @keyframes showcase-fade {
   from {
     opacity: 0;

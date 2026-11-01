@@ -1,4 +1,4 @@
-import { fixedPackages, priceTiers } from "@/lib/price-ladder";
+import { fixedPackages, priceTiers, storePrices } from "@/lib/price-ladder";
 
 /**
  * The plain-language summary box at the top of every service page.
@@ -18,6 +18,7 @@ import { fixedPackages, priceTiers } from "@/lib/price-ladder";
 
 const PRICE = {
   web: `from ${fixedPackages.pk.starter} for a standard 5–10 page site, or ${fixedPackages.us.starter} for US clients`,
+  store: `from ${storePrices.pkr.label} in Pakistan, or ${storePrices.usd.label} for US clients`,
   custom: `from ${priceTiers.custom.pkrLabel} in Pakistan, or ${priceTiers.custom.usdLabel} for US clients`,
   app: `from ${priceTiers.app.pkrLabel} in Pakistan, or ${priceTiers.app.usdLabel} for US clients`,
   seo: `a monthly retainer — ${fixedPackages.us.seo} for US clients, PKR agreed on scope`,
@@ -57,7 +58,7 @@ export const serviceSummaries: Record<string, ServiceSummary> = {
   "ecommerce-shopify": {
     plain:
       "A Shopify store that looks like your brand: products, payments, delivery charges and the apps it needs, set up in your own account.",
-    from: PRICE.custom,
+    from: PRICE.store,
   },
   "pos-software": {
     plain:
@@ -172,7 +173,7 @@ export const serviceSummaries: Record<string, ServiceSummary> = {
   "woocommerce-development": {
     plain:
       "An online store on WordPress and WooCommerce that you can run and edit without calling a developer.",
-    from: PRICE.custom,
+    from: PRICE.store,
   },
   "custom-cms-development": {
     plain:

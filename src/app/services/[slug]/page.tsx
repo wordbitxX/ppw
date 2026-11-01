@@ -103,13 +103,33 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                 In plain words
               </p>
               <p className="mt-2 max-w-3xl text-base leading-relaxed text-ink-700 sm:text-lg">{summary.plain}</p>
-              <p className="mt-2 max-w-3xl text-sm leading-relaxed text-ink-600">
-                <span className="font-semibold text-ink-900">What it costs: </span>
-                {summary.from}.
-              </p>
+              {/* The website-building pages carry the full /pk price block
+                  directly below, so the one-line cost is not repeated there. */}
+              {["web-development", "wordpress-development"].includes(service.slug) ? null : (
+                <p className="mt-2 max-w-3xl text-sm leading-relaxed text-ink-600">
+                  <span className="font-semibold text-ink-900">What it costs: </span>
+                  {summary.from}.
+                </p>
+              )}
             </div>
           </div>
         </section>
+      ) : null}
+
+      {/* PRICE — immediately under the hero, above the overview, so the first
+          thing a client sees on this page is the number: "Websites from
+          Rs. 20,000", both packages, WhatsApp and phone, with a small reel of
+          real builds beside it. Same numbers as /pk. */}
+      {["web-development", "wordpress-development"].includes(service.slug) ? (
+        <Section padding="compact">
+          <PkPriceBlock
+            heading={
+              service.slug === "wordpress-development"
+                ? "WordPress websites for your shop, clinic or business"
+                : undefined
+            }
+          />
+        </Section>
       ) : null}
 
       {/* OVERVIEW + VISUAL */}
@@ -190,21 +210,6 @@ export default async function ServiceDetailPage({ params }: PageProps) {
 
       {/* Fixed-price route — shown on the website-building services where the
           "how much" query actually lands. */}
-      {/* The /pk price block, on the two services that are sold as the
-          Rs. 20,000 / Rs. 25,000 package: price, both packages, WhatsApp and
-          phone in one place — no click out to /pk needed. */}
-      {["web-development", "wordpress-development"].includes(service.slug) ? (
-        <Section padding="compact">
-          <PkPriceBlock
-            heading={
-              service.slug === "wordpress-development"
-                ? "WordPress websites for your shop, clinic or business"
-                : undefined
-            }
-          />
-        </Section>
-      ) : null}
-
       {[
         "ecommerce-shopify",
         "woocommerce-development",

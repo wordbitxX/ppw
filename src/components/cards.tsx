@@ -145,18 +145,39 @@ export function ServiceCard({
  * The image is always the committed file in /brand/services (never a stock or
  * generated photo) — `service.image` is resolved from `service-media.ts`.
  */
+/**
+ * Portrait 4:5 crops made from the same committed brand photographs
+ * (`public/brand/services/card/`). The source photos are 1280x720 landscape, so
+ * using them in a tall card either letterboxes or crops to a soft slice; these
+ * files are already cropped around the subject, upscaled to 1152x1440 and
+ * sharpened, so the tile stays crisp on 2x screens. Nothing here is a new photo
+ * — same picture, framed for the card.
+ */
+const portraitCropped: Record<string, string> = {
+  "web-development": "/brand/services/card/web-development.jpg",
+  "ecommerce-shopify": "/brand/services/card/ecommerce-shopify.jpg",
+  "ecommerce-development": "/brand/services/card/ecommerce-development.jpg",
+  "mobile-app-development": "/brand/services/card/mobile-app-development.jpg",
+  "pos-software": "/brand/services/card/pos-software.jpg",
+  "seo-services": "/brand/services/card/seo-services.jpg",
+  "digital-marketing": "/brand/services/card/digital-marketing.jpg",
+  "ai-solutions": "/brand/services/card/ai-solutions.jpg",
+};
+
 export function ServicePhotoCard({ service }: { service: Service }) {
+  const src = portraitCropped[service.slug] ?? service.image;
   return (
     <Link
       href={`/services/${service.slug}`}
       className="group relative flex aspect-[4/5] w-full flex-col justify-end overflow-hidden rounded-2xl border border-slate-200 bg-navy-900 transition-all duration-500 hover:-translate-y-1 hover:border-brand-300 hover:shadow-[0_30px_60px_-34px_rgba(5,13,33,0.65)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400"
     >
       <Image
-        src={service.image}
+        src={src}
         alt={service.imageAlt}
         fill
-        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 40vw, 25vw"
-        className="object-cover transition-transform duration-700 group-hover:scale-105"
+        quality={90}
+        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 40vw, 33vw"
+        className="photo-card-img object-cover transition-transform duration-700 group-hover:scale-105"
       />
       <span
         aria-hidden="true"

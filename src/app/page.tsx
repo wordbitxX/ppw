@@ -591,7 +591,7 @@ export default function HomePage() {
               What We Do
             </span>
             <h2 className="mt-4 text-[1.65rem] font-semibold leading-[1.15] text-ink-900 sm:text-4xl lg:text-[2.75rem]">
-              Software, Stores, SEO and Marketing
+              Software, Stores, SEO &amp; Marketing in Pakistan
             </h2>
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg">
               Websites, Shopify, e-commerce, apps and POS — then SEO and ads so those products grow. Every service has
@@ -684,7 +684,7 @@ export default function HomePage() {
                       alt={media.alt}
                       fill
                       sizes="(max-width: 640px) 78vw, (max-width: 1024px) 50vw, 25vw"
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="photo-card-img object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                   ) : null}
                   <span

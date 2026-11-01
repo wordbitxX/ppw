@@ -18,6 +18,10 @@ const nextConfig: NextConfig = {
   ],
   images: {
     formats: ["image/avif", "image/webp"],
+    /* 90 is used by the portrait service/industry photo tiles, where a light
+       crop+sharpen can show JPEG mush at the default 75 on 2x screens. Next 16
+       rejects any quality that is not listed here (400 "q not allowed"). */
+    qualities: [75, 90],
     // Keep optimised variants for a year — these are static marketing photos,
     // so re-optimising them on every deploy is wasted origin time.
     minimumCacheTTL: ONE_YEAR,
