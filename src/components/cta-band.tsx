@@ -1,3 +1,4 @@
+import { BookingButton } from "@/components/booking-button";
 import { ButtonLink } from "@/components/ui";
 import { CineBackdrop } from "@/components/cinematic";
 import { CineFx } from "@/components/cine-fx";
@@ -10,12 +11,14 @@ export function CtaBand({
   primaryLabel = "Start Your Project",
   primaryHref = "/contact",
   whatsappMessage,
+  showBooking = false,
 }: {
   title?: string;
   description?: string;
   primaryLabel?: string;
   primaryHref?: string;
   whatsappMessage?: string;
+  showBooking?: boolean;
 }) {
   return (
     <section className="defer-paint bg-white py-12 sm:py-20">
@@ -36,6 +39,7 @@ export function CtaBand({
                 <ButtonLink href={primaryHref} className="btn-cine w-full sm:w-auto">
                   {primaryLabel}
                 </ButtonLink>
+                {showBooking ? <BookingButton /> : null}
                 <a
                   href={whatsappLink(whatsappMessage)}
                   target="_blank"

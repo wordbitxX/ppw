@@ -125,9 +125,9 @@ const intents: Intent[] = [
     id: "property",
     keywords: ["dha", "bahria", "smart city", "etihad", "society", "plot", "real estate", "property", "file"],
     reply: () => ({
-      text: `WordbitX is a software company — we do not sell plots. We build listing portals and dealer CRM: societies, phases, blocks, file status and instalments.\n\nReply here with: dealer or developer, how many listings, and whether buyers need a public search.\nOur own live property portal: propertiespak.com (Properties Pak) — built and run by WordbitX.\n\n${handoffLines()}`,
+      text: `WordbitX is a software company — we do not sell plots. We build listing portals and dealer CRM: societies, phases, blocks, file status and instalments.\n\nReply here with: dealer or developer, how many listings, and whether buyers need a public search.\nOur own live property portal: dha.wordbitx.pk (Properties Pak) — built and run by WordbitX.\n\n${handoffLines()}`,
       links: [
-        { href: "https://propertiespak.com", label: "Properties Pak — live property portal", external: true },
+        { href: "https://dha.wordbitx.pk", label: "Properties Pak — live property portal", external: true },
         ...humanHandoff(),
       ],
       followUps: ["Dealer CRM + public listings", "How do we start?", "Show other live demos"],
@@ -217,7 +217,7 @@ const intents: Intent[] = [
     reply: () => ({
       text: `${demoWebsites.length} WordbitX showcase websites — Properties Pak (our own live property portal), plus motor, healthcare, education, e-commerce, restaurant, salon and business demos. The demos are labelled demos, not client case studies. Open one in a new tab if you want to look; tell me here if you want a similar build and I will take the requirements in this chat.\n\n${handoffLines()}`,
       links: [
-        { href: "https://propertiespak.com", label: "Properties Pak — live property portal", external: true },
+        { href: "https://dha.wordbitx.pk", label: "Properties Pak — live property portal", external: true },
         { href: "https://motor.wordbitx.pk", label: "Motor demo", external: true },
         { href: "https://medicare.wordbitx.pk", label: "Healthcare demo", external: true },
         { href: "https://education.wordbitx.pk", label: "Education demo", external: true },

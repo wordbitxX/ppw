@@ -80,7 +80,7 @@ export const industries: Industry[] = [
     faqs: [
       { question: "Can this handle DHA or Smart City style inventory?", answer: "Yes. Each society defines its own phases, blocks and file rules rather than being forced into a generic property type." },
       { question: "Do you invent client relationships with those societies?", answer: "No. Society names describe inventory structures we support, not endorsements or retained clients." },
-      { question: "Can we see a real property portal you built?", answer: "Yes. Properties Pak (propertiespak.com) is our own live Pakistan property portal — society and phase listings, map-led search, plot/file detail pages and dealer enquiry routing. It is a production product you can open right now, not a mock-up." },
+      { question: "Can we see a real property portal you built?", answer: "Yes. Properties Pak (dha.wordbitx.pk) is our own live Pakistan property portal — society and phase listings, map-led search, plot/file detail pages and dealer enquiry routing. It is a production product you can open right now, not a mock-up." },
     ],
   },
   {

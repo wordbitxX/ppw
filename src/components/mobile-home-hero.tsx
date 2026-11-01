@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { CineImage } from "@/components/cinematic";
 import { CheckIcon } from "@/components/icons";
+import { BookingButton } from "@/components/booking-button";
+import { whatsappLink } from "@/lib/site";
 import styles from "./mobile-home-hero-v2.module.css";
 
 /** The mobile-only version of the Centered Statement concept on /sample. */
@@ -8,14 +10,12 @@ export function MobileHomeHero() {
   return (
     <div className={styles.hero}>
       <div className={styles.content}>
-        <p className={styles.eyebrow}><span aria-hidden="true" /> Software · Design · Growth</p>
-        <h1>Big ideas.<br /><span>Built to grow.</span></h1>
-        <p className={styles.description} style={{ fontSize: "15px" }}>
-          From websites and apps to custom software, WordbitX turns your next idea into a powerful, lasting digital advantage.
+        <p className={styles.description}>
+          <strong className="text-gradient-arc">WordbitX</strong> builds websites, apps, Shopify stores &amp; custom software.
         </p>
-        <ul style={{ display: "grid", gridTemplateColumns: "max-content max-content", justifyContent: "center", columnGap: 10, rowGap: 8, margin: "24px -16px 0", color: "#e2e8f0", fontSize: "clamp(9px, 2.6vw, 10px)", fontWeight: 500, lineHeight: 1.4 }}>
-          {["You own the code, repo & hosting", "Written scope before build", "Weekly demos & staging URLs"].map((item, index) => (
-            <li key={item} style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 3, whiteSpace: "nowrap", gridColumn: index === 2 ? "1 / -1" : undefined }}><CheckIcon style={{ width: 12, height: 12, flexShrink: 0, color: "#2ec243" }} />{item}</li>
+        <ul className={styles.promises}>
+          {["You own the code, repo & hosting", "Written scope before build", "Weekly demos & staging URLs"].map((item) => (
+            <li key={item}><CheckIcon style={{ width: 12, height: 12, flexShrink: 0, color: "#2ec243" }} />{item}</li>
           ))}
         </ul>
       </div>
@@ -27,6 +27,12 @@ export function MobileHomeHero() {
         <Link href="/contact" className={styles.action}>
           Let’s build together <span aria-hidden="true">↗</span>
         </Link>
+        <div className="mt-3 grid grid-cols-2 gap-2">
+          <BookingButton className="w-full !px-2" />
+          <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="inline-flex w-full items-center justify-center rounded-xl border border-arc-300/25 bg-white/5 px-2 py-3 text-sm font-semibold text-white">
+            Contact us
+          </a>
+        </div>
         <div className={styles.location}><span>Pakistan based</span><span>Worldwide ↗</span></div>
       </div>
     </div>

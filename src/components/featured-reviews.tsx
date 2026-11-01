@@ -74,7 +74,7 @@ export function FeaturedReviews({ initialReviews = [] }: { initialReviews?: Site
               >
                 <p className="text-sm tracking-wide text-amber-500" aria-label={`${review.rating} out of 5 stars`}>
                   {"★".repeat(review.rating)}
-                  <span className="text-slate-300">{"★".repeat(5 - review.rating)}</span>
+                  <span className="text-slate-300">{"☆".repeat(5 - review.rating)}</span>
                 </p>
                 <blockquote className="mt-3 flex-1 text-[0.95rem] leading-relaxed text-ink-700">
                   “{review.quote}”

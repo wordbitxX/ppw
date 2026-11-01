@@ -51,9 +51,10 @@ export function IndustryStrip() {
 
           {/* ScrollRail renders the flanking arrows and edge fades; the ul
               holds the chips server-side so every link stays in the HTML. */}
+          <div className="sm:hidden"><ul className="flex flex-wrap gap-2">{industries.map((industry) => <li key={industry.slug}><Link href={`/industries/${industry.slug}`} className="inline-flex rounded-full border border-white/12 bg-white/[0.04] px-3 py-1.5 text-[0.78rem] font-medium text-slate-300">{industry.name}</Link></li>)}<li><Link href="/industries" className="inline-flex rounded-full border border-brand-400/40 bg-brand-500/12 px-3 py-1.5 text-[0.78rem] font-semibold text-brand-200">All {industries.length}</Link></li></ul></div>
           <ScrollRail
             label="Industries we build software for"
-            className="min-w-0 flex-1"
+            className="hidden min-w-0 flex-1 sm:flex"
             trackClassName="industry-rail overflow-x-auto pb-0.5 lg:overflow-x-visible"
             fadeClassName="from-navy-950 via-navy-950/80 to-transparent"
           >

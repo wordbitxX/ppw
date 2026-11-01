@@ -16,30 +16,55 @@ export type ShowcaseTabItem = {
 /**
  * Project switcher: a list on the left, one large preview on the right.
  * Below `lg`, both the chip list and full previews scroll horizontally.
- * Desktop keeps the original single-panel layout and timed transitions.
+ * Desktop keeps the original single-panel layout; previews can also auto-advance.
  */
-/** How long each project stays on screen before the next one is shown. */
+
 const AUTO_ADVANCE_MS = 7000;
 
 export function ShowcaseTabs({ items, footer }: { items: ShowcaseTabItem[]; footer?: ReactNode }) {
   const [active, setActive] = useState(0);
+  const [manualPause, setManualPause] = useState(false);
+  const [reduced, setReduced] = useState(true);
+  const [motionOverride, setMotionOverride] = useState(false);
   const [hovered, setHovered] = useState(false);
-  const [keyboardFocus, setKeyboardFocus] = useState(false);
+  const [focused, setFocused] = useState(false);
   const [inView, setInView] = useState(false);
-  const refs = useRef<Array<HTMLButtonElement | null>>([]);
+  const [visible, setVisible] = useState(true);
   const rootRef = useRef<HTMLDivElement>(null);
+  const refs = useRef<Array<HTMLButtonElement | null>>([]);
   const panelsRef = useRef<HTMLDivElement>(null);
 
-  // Auto-advance only while the block is on screen; hover / focus pauses it.
   useEffect(() => {
     const node = rootRef.current;
     if (!node || typeof IntersectionObserver === "undefined") return;
-    const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), { threshold: 0.35 });
+    const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), { threshold: 0.2 });
     observer.observe(node);
     return () => observer.disconnect();
   }, []);
 
-  const paused = hovered || keyboardFocus || !inView;
+  useEffect(() => {
+    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const sync = () => setReduced(query.matches);
+    const visibility = () => setVisible(document.visibilityState === "visible");
+    sync();
+    document.addEventListener("visibilitychange", visibility);
+    query.addEventListener("change", sync);
+    return () => { document.removeEventListener("visibilitychange", visibility); query.removeEventListener("change", sync); };
+  }, []);
+
+  const playing = !manualPause && (!reduced || motionOverride);
+  useEffect(() => {
+    if (!playing || !inView || !visible || hovered || focused || items.length < 2) return;
+    const timer = window.setTimeout(() => {
+      const next = (active + 1) % items.length;
+      const track = panelsRef.current;
+      if (track && window.matchMedia("(max-width: 1023px)").matches) {
+        track.scrollTo({ left: next * (track.clientWidth + 16), behavior: "instant" });
+      }
+      setActive(next);
+    }, AUTO_ADVANCE_MS);
+    return () => window.clearTimeout(timer);
+  }, [active, playing, inView, visible, hovered, focused, items.length]);
 
   // Each mobile preview has its own height; do not leave a tall empty area
   // below shorter cards just because another slide has more content.
@@ -99,10 +124,10 @@ export function ShowcaseTabs({ items, footer }: { items: ShowcaseTabItem[]; foot
   return (
     <div
       ref={rootRef}
-      onPointerEnter={(event) => event.pointerType === "mouse" && setHovered(true)}
+      onPointerEnter={(event) => { if (event.pointerType === "mouse") setHovered(true); }}
       onPointerLeave={() => setHovered(false)}
-      onFocusCapture={(event) => setKeyboardFocus(event.target.matches(":focus-visible"))}
-      onBlurCapture={() => setKeyboardFocus(false)}
+      onFocusCapture={() => setFocused(true)}
+      onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false); }}
       className="grid gap-6 lg:grid-cols-[20rem_minmax(0,1fr)] lg:gap-8"
     >
       <div className="min-w-0">
@@ -158,21 +183,20 @@ export function ShowcaseTabs({ items, footer }: { items: ShowcaseTabItem[]; foot
                     {item.badge}
                   </span>
                 ) : null}
-                {selected ? (
-                  <span aria-hidden="true" className="absolute inset-x-3.5 bottom-0 hidden h-[3px] overflow-hidden rounded-full bg-slate-200 lg:block">
-                    <span
-                      key={active}
-                      data-paused={paused}
-                      onAnimationEnd={() => setActive((current) => (current + 1) % items.length)}
-                      style={{ ["--tab-ms" as string]: `${AUTO_ADVANCE_MS}ms` }}
-                      className="tab-progress block h-full w-full bg-brand-500"
-                    />
-                  </span>
-                ) : null}
               </button>
             );
           })}
         </div>
+        <button
+          type="button"
+          onClick={() => {
+            if (playing) setManualPause(true);
+            else { setManualPause(false); setMotionOverride(true); }
+          }}
+          className="mt-3 rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-ink-700 hover:border-brand-400"
+        >
+          {playing ? "Pause auto-rotation" : "Play auto-rotation"}
+        </button>
         {footer ? <div className="mt-4 hidden lg:block">{footer}</div> : null}
       </div>
 

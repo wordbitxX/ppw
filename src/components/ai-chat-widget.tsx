@@ -128,7 +128,7 @@ export function AiChatWidget() {
         <button
           type="button"
           onClick={() => setOpen(true)}
-          className="group fixed right-4 bottom-[max(1rem,calc(env(safe-area-inset-bottom)+0.75rem))] z-[70] flex h-14 w-14 items-center justify-center transition-transform duration-300 hover:scale-105"
+          className="group fixed right-4 bottom-[max(1rem,calc(env(safe-area-inset-bottom)+0.75rem))] z-[70] flex h-12 w-12 md:h-14 md:w-14 items-center justify-center transition-transform duration-300 hover:scale-105"
           aria-label="Ask WordbitX AI"
         >
           {/* Orbiting gradient arc — the "advanced AI" shell around the orb. */}

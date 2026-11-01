@@ -77,7 +77,7 @@ export function HeroReel({ slides }: { slides: HeroSlide[] }) {
   }, []);
 
   /* If the slide we are showing just dropped out of the reel, fall back to the
-     team photo. Derived during render — no state sync, no cascading render. */
+     first usable slide. Derived during render — no state sync, no cascading render. */
   const effectiveId = usable.some((slide) => slide.id === activeId)
     ? activeId
     : (usable[0]?.id ?? "");

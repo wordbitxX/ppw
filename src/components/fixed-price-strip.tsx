@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "@/components/icons";
-import { fixedPackages, packagePages, priceTiers } from "@/lib/price-ladder";
+import { fixedPackages, packagePages } from "@/lib/price-ladder";
 
 /**
  * The fixed-price signpost used on commercial pages.
@@ -35,7 +35,7 @@ export function FixedPriceStrip({
     >
       <p className="text-sm leading-relaxed text-ink-600">
         <span className="font-semibold text-ink-900">{lead}</span>{" "}
-        {second} — 5–10 pages, CMS, {priceTiers.fixed.includes.toLowerCase()}, {fixedPackages.pk.supportMonths} months
+        {second} — 5–10 pages, CMS, basic SEO, {fixedPackages.pk.supportMonths} months
         support.
       </p>
       <div className="flex shrink-0 flex-wrap gap-2">

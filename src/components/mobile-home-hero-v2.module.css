@@ -2,15 +2,16 @@
   position: relative;
   overflow: hidden;
   display: block;
-  padding: 44px 24px 0;
+  padding: 0 24px 0;
   text-align: center;
 }
 .content, .bottom { position: relative; z-index: 1; max-width: 390px; margin: 0 auto; }
+.bottom { margin-top: 24px; }
 .eyebrow { display: flex; justify-content: center; align-items: center; gap: 8px; color: #9fdda8; font-size: 10px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
 .eyebrow span { width: 7px; height: 7px; flex: 0 0 7px; border-radius: 50%; background: #1ca830; box-shadow: 0 0 12px #1ca830; }
 .hero h1 { margin-top: 26px; color: #f8fbff; font-size: clamp(2.7rem, 11vw, 4rem); line-height: 1.05; font-weight: 700; letter-spacing: -.055em; }
 .hero h1 span { color: #1ca830; }
-.description { max-width: 310px; margin: 22px auto 0; color: #c3ced9; line-height: 1.7; }
+.description { max-width: 350px; margin: 14px auto 0; color: #c3ced9; font-size: 14px; line-height: 1.55; text-wrap: balance; }
 .art { position: relative; height: 196px; margin: -48px -24px 0; overflow: hidden; }
 .artImage { position: absolute; inset: 0; mix-blend-mode: screen; -webkit-mask-image: linear-gradient(transparent, #000 12%, #000 75%, transparent); mask-image: linear-gradient(transparent, #000 12%, #000 75%, transparent); }
 .glow { position: absolute; inset: 0; background: radial-gradient(ellipse 55% 34% at 50% 50%, rgba(125, 217, 255, .75), rgba(34, 118, 255, .35) 42%, transparent 75%); mix-blend-mode: screen; pointer-events: none; }
@@ -26,3 +27,7 @@
 @keyframes mobile-hero-breathe { 0%, 100% { transform: scale(1); filter: brightness(.95); } 50% { transform: scale(1.07); filter: brightness(1.2); } }
 @keyframes mobile-hero-glow { 0%, 100% { opacity: .35; transform: scale(.9); } 50% { opacity: .7; transform: scale(1.08); } }
 @media (min-width: 640px) { .hero { display: none; } }
+
+.promises { display: grid; grid-template-columns: max-content max-content; justify-content: center; align-items: center; gap: 8px 6px; margin: 24px -12px 0; color: #e2e8f0; font-size: clamp(8px, 2.56vw, 10px); font-weight: 500; line-height: 1.4; }
+.promises li { display: flex; justify-content: center; align-items: center; gap: 4px; white-space: nowrap; }
+.promises li:last-child { grid-column: 1 / -1; }

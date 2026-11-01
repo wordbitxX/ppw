@@ -1,3 +1,4 @@
+import { MobilePlatformIcons } from "@/components/mobile-platform-icons";
 import { Stroke, customBySlug } from "@/components/mega-custom-glyphs";
 import { isDarkBrand, megaBrandBySlug } from "@/lib/mega-brand-map";
 
@@ -26,37 +27,10 @@ export function MegaServiceIconRef({
   className?: string;
   monochrome?: boolean;
 }) {
-  if (slug === "web-development") {
-    // WordbitX W mark — the same PNG treatment as MegaServiceIcon, no brand path.
-    if (monochrome) {
-      return (
-        <span
-          aria-hidden="true"
-          className={`${className} inline-block scale-125`}
-          style={{
-            backgroundColor: "currentColor",
-            maskImage: "url(/brand/wordbitx-mark.png)",
-            maskSize: "contain",
-            maskRepeat: "no-repeat",
-            maskPosition: "center",
-            WebkitMaskImage: "url(/brand/wordbitx-mark.png)",
-            WebkitMaskSize: "contain",
-            WebkitMaskRepeat: "no-repeat",
-            WebkitMaskPosition: "center",
-          }}
-        />
-      );
-    }
-    return (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img
-        src="/brand/wordbitx-mark.png"
-        alt=""
-        aria-hidden="true"
-        className={`${className} scale-125 rounded-[2px] object-contain`}
-      />
-    );
+  if (slug === "mobile-app-development") {
+    return <MobilePlatformIcons className={className} monochrome={monochrome} />;
   }
+
 
   const brand = megaBrandBySlug[slug];
   if (brand) {

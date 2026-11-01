@@ -1,3 +1,4 @@
+import { CookieSettingsLink } from "@/components/cookie-consent";
 import Link from "next/link";
 import { SamePageTopLink } from "@/components/same-page-top-link";
 import Script from "next/script";
@@ -274,6 +275,7 @@ export function Footer() {
                 </Link>
               </li>
             ))}
+            <li><CookieSettingsLink /></li>
             <li>
               <Link
                 href="/contact"

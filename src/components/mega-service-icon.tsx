@@ -1,3 +1,4 @@
+import { MobilePlatformIcons } from "@/components/mobile-platform-icons";
 import { Stroke, customBySlug } from "@/components/mega-custom-glyphs";
 import { brandIconData, type SimpleIconData } from "@/lib/brand-icon-data";
 import { isDarkBrand, megaBrandBySlug } from "@/lib/mega-brand-map";
@@ -17,13 +18,7 @@ const iconRegistry: Record<string, SimpleIconData | undefined> = brandIconData;
 /**
  * `monochrome` makes every icon render in `currentColor`, whatever it is.
  *
- * It exists because several of these icons carry their own brand colour and
- * two of them are green — the WordbitX W mark is #34B02A and Shopify is
- * #7AB55C — so on any emerald surface (a brand-500 badge, the hive tile under
- * the cursor) they were green on green and simply disappeared. The W is a PNG
- * with a clean alpha channel, so in monochrome mode it is drawn as a CSS mask
- * filled with currentColor instead of as an <img>; that makes it behave
- * exactly like the SVG icons beside it in both the resting and hover state.
+ * This keeps brand glyphs visible on coloured badges and hover surfaces.
  */
 export function MegaServiceIcon({
   slug,
@@ -34,37 +29,10 @@ export function MegaServiceIcon({
   className?: string;
   monochrome?: boolean;
 }) {
-  if (slug === "web-development") {
-    // WordbitX W mark — brand identity for Website Development
-    if (monochrome) {
-      return (
-        <span
-          aria-hidden="true"
-          className={`${className} inline-block scale-125`}
-          style={{
-            backgroundColor: "currentColor",
-            maskImage: "url(/brand/wordbitx-mark.png)",
-            maskSize: "contain",
-            maskRepeat: "no-repeat",
-            maskPosition: "center",
-            WebkitMaskImage: "url(/brand/wordbitx-mark.png)",
-            WebkitMaskSize: "contain",
-            WebkitMaskRepeat: "no-repeat",
-            WebkitMaskPosition: "center",
-          }}
-        />
-      );
-    }
-    return (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img
-        src="/brand/wordbitx-mark.png"
-        alt="WordbitX"
-        aria-hidden="true"
-        className={`${className} scale-125 rounded-[2px] object-contain`}
-      />
-    );
+  if (slug === "mobile-app-development") {
+    return <MobilePlatformIcons className={className} monochrome={monochrome} />;
   }
+
 
   const brandKey = megaBrandBySlug[slug]?.key;
   const brand = brandKey ? iconRegistry[brandKey] : undefined;

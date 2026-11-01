@@ -882,7 +882,7 @@ const originalProjects: Project[] = [
     engagement: "Product design, full-stack development, launch and maintenance",
     clientLabel: "WordbitX Product",
     publicStatus: "Properties Pak is WordbitX's own live product — not a confidential client engagement — so it is named and linked publicly here.",
-    liveUrl: "https://propertiespak.com",
+    liveUrl: "https://dha.wordbitx.pk",
     summary:
       "Properties Pak is WordbitX's live Pakistan property portal — society and phase listings, map-led search, plot/file detail pages and dealer enquiry flows, built, launched and maintained by WordbitX.",
     metaTitle: "Properties Pak — Pakistan Property Portal | WordbitX Project Profile",
@@ -904,7 +904,7 @@ const originalProjects: Project[] = [
     ],
     overview: [
       "Properties Pak is the property portal WordbitX built for itself: a live marketplace for Pakistani housing sales, structured the way the market actually works — by society, phase, block and plot file, not just by generic property type.",
-      "Buyers search by map and filters, dealers manage their inventory and enquiries, and every listing carries the plot/file detail a Pakistani buyer asks for before calling. The portal is live at propertiespak.com and is maintained by WordbitX as its flagship PropTech product.",
+      "Buyers search by map and filters, dealers manage their inventory and enquiries, and every listing carries the plot/file detail a Pakistani buyer asks for before calling. The portal is live at dha.wordbitx.pk and is maintained by WordbitX as its flagship PropTech product.",
     ],
     challenge: [
       "Society structures differ across DHA Lahore, Lahore Smart City, Capital Smart City and Etihad Town style inventory.",
