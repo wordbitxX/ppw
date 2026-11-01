@@ -159,13 +159,13 @@ export function ServiceCard({
  * of the old bytes.
  */
 const portraitCropped: Record<string, string> = {
-  "web-development": "/brand/services/card/portrait-website-security.jpg",
+  "web-development": "/brand/services/card/portrait-ui-ux-design.jpg",
   "ecommerce-shopify": "/brand/services/card/portrait-facebook-instagram-shop.jpg",
   "ecommerce-development": "/brand/services/card/portrait-jewellery-store.jpg",
   "mobile-app-development": "/brand/services/card/portrait-mobile-app-development-v2.jpg",
   "pos-software": "/brand/services/card/portrait-pos-software.jpg",
   "seo-services": "/brand/services/card/portrait-local-seo.jpg",
-  "digital-marketing": "/brand/services/card/portrait-facebook-instagram-ads.jpg",
+  "digital-marketing": "/brand/services/card/portrait-tiktok-shop-setup.jpg",
   "ai-solutions": "/brand/services/card/portrait-deck-ai-v2.jpg",
 };
 

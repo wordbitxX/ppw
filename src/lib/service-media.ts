@@ -17,7 +17,7 @@ const photoFile: Record<string, string> = {
      to a customer) and Digital Marketing the content-calendar flatlay (the
      campaigns and posts themselves). Both files were already in the brand set. */
   "seo-services": "local-seo",
-  "digital-marketing": "facebook-instagram-ads",
+  "digital-marketing": "tiktok-shop-setup",
   "ai-solutions": "ai-solutions",
   /* The two store cards were both "a laptop with a product grid on a counter"
      (skincare vs boutique). Shopify now shows the clothing-rail + phone
@@ -36,7 +36,7 @@ const photoFile: Record<string, string> = {
  * cleanest web/laptop and phone shots in the repo.
  */
 const fullPathOverrides: Record<string, string> = {
-  "web-development": "/brand/services/website-security.jpg",
+  "web-development": "/brand/services/ui-ux-design.jpg",
   "mobile-app-development": "/brand/home/deck-mobile-app-development-v3.jpg",
 };
 
@@ -46,7 +46,7 @@ export function servicePhoto(slug: string) {
 }
 
 export const serviceImageAlts: Record<string, string> = {
-  "web-development": "Dark studio desk with a secure website admin panel glowing on screen",
+  "web-development": "Designer arranging website layouts and wireframes on a dark studio screen",
   "custom-web-application-development": "Engineer working on a custom web application dashboard across dual monitors",
   "ecommerce-development": "Jewellery counter with a custom store's product page open on a laptop",
   "ecommerce-shopify": "Fashion rail with a Shopify storefront open on a phone and a laptop",
@@ -79,7 +79,7 @@ export const serviceImageAlts: Record<string, string> = {
   "tiktok-shop-setup": "Creator filming products for a live shop with a ring light and tripod",
   "facebook-instagram-shop": "Fashion studio with a phone product grid and clothing rack",
   "google-merchant-center": "Product feed spreadsheet and shopping-ad previews on a dual-monitor desk",
-  "digital-marketing": "Dark desk with a live product campaign table on a laptop and a creative on a phone",
+  "digital-marketing": "Dark studio with a ring light, product filming setup and a live shop on a laptop",
   "social-media-marketing": "Content-calendar flatlay with a camera, phone and editorial notes",
   "seo-services": "City storefront beside a phone showing the local map pack and review listings",
   "technical-seo": "Technical SEO workstation with a crawl table and HTML inspector",
