@@ -17,7 +17,8 @@ const photoFile: Record<string, string> = {
      to a customer) and Digital Marketing the content-calendar flatlay (the
      campaigns and posts themselves). Both files were already in the brand set. */
   "seo-services": "local-seo",
-  "digital-marketing": "social-media-marketing",
+  "digital-marketing": "facebook-instagram-ads",
+  "ai-solutions": "ai-solutions",
   /* The two store cards were both "a laptop with a product grid on a counter"
      (skincare vs boutique). Shopify now shows the clothing-rail + phone
      storefront scene (a direct-to-consumer brand launch) and E-Commerce the
@@ -35,7 +36,7 @@ const photoFile: Record<string, string> = {
  * cleanest web/laptop and phone shots in the repo.
  */
 const fullPathOverrides: Record<string, string> = {
-  "web-development": "/brand/home/deck-web-development-v3.jpg",
+  "web-development": "/brand/services/website-security.jpg",
   "mobile-app-development": "/brand/home/deck-mobile-app-development-v3.jpg",
 };
 
@@ -45,7 +46,7 @@ export function servicePhoto(slug: string) {
 }
 
 export const serviceImageAlts: Record<string, string> = {
-  "web-development": "Laptop showing a custom business website design on a bright studio desk",
+  "web-development": "Dark studio desk with a secure website admin panel glowing on screen",
   "custom-web-application-development": "Engineer working on a custom web application dashboard across dual monitors",
   "ecommerce-development": "Jewellery counter with a custom store's product page open on a laptop",
   "ecommerce-shopify": "Fashion rail with a Shopify storefront open on a phone and a laptop",
@@ -61,7 +62,7 @@ export const serviceImageAlts: Record<string, string> = {
   "enterprise-software-solutions": "Executives reviewing an operations dashboard in a glass conference room",
   "saas-application-development": "Laptop showing a SaaS product with billing and admin charts in a loft studio",
   "api-development": "SaaS product billing and connected-systems charts on a laptop",
-  "ai-solutions": "AI workstation with neural graphs and document intelligence on dual monitors",
+  "ai-solutions": "A glowing AI neural sphere held in an open hand",
   "pos-software": "Retail counter with a touchscreen POS terminal, scanner and tap-to-pay",
   "inventory-management-software": "Warehouse worker scanning pallet stock on an industrial tablet",
   "crm-erp-solutions": "Sales operations monitor showing a CRM pipeline and contact cards",
@@ -78,7 +79,7 @@ export const serviceImageAlts: Record<string, string> = {
   "tiktok-shop-setup": "Creator filming products for a live shop with a ring light and tripod",
   "facebook-instagram-shop": "Fashion studio with a phone product grid and clothing rack",
   "google-merchant-center": "Product feed spreadsheet and shopping-ad previews on a dual-monitor desk",
-  "digital-marketing": "Content-calendar flatlay with a camera, phone and planned social posts",
+  "digital-marketing": "Dark desk with a live product campaign table on a laptop and a creative on a phone",
   "social-media-marketing": "Content-calendar flatlay with a camera, phone and editorial notes",
   "seo-services": "City storefront beside a phone showing the local map pack and review listings",
   "technical-seo": "Technical SEO workstation with a crawl table and HTML inspector",
