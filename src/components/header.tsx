@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { Logo, MenuIcon, CloseIcon, ChevronDown, ArrowRight, WhatsAppIcon } from "@/components/icons";
+import { Logo, CloseIcon, ChevronDown, ArrowRight, WhatsAppIcon } from "@/components/icons";
 import { MegaServiceIconRef as MegaServiceIcon } from "@/components/mega-icon-ref";
 import { b2bServiceSlugs, megaMenuGroups, services } from "@/lib/services";
 import { fixedPackages } from "@/lib/price-ladder";
@@ -813,30 +813,43 @@ export function Header() {
           </div>
 
           <div className="flex min-w-0 items-center gap-2 lg:hidden">
-            {/* Mobile CTA = WhatsApp, transparent by design. The old solid
-                "Discuss Project" button competed with the wordmark and pushed
-                the bar to its width limit; a ghost button keeps the bar calm
-                while putting the shortest path to a human (WhatsApp) one tap
-                away. Text stays white, only the glyph carries green. */}
+            {/* Mobile CTA = WhatsApp, transparent and icon-only. The label was
+                dropped on the owner's instruction: at 375px the bar is tight,
+                and the glyph alone is recognised, so it becomes a quiet 40px
+                square that still opens wa.me with the usual message. */}
             <a
               href={whatsappLink()}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex h-10 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-xl border border-white/20 bg-transparent px-2.5 text-[0.72rem] font-semibold text-white transition-colors hover:border-brand-400/60 hover:bg-white/[0.06] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white min-[400px]:px-3 min-[400px]:text-[0.8rem] sm:gap-2 sm:px-4 sm:text-sm"
+              aria-label="Chat on WhatsApp"
+              title="Chat on WhatsApp"
+              className="group inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/20 bg-transparent text-white transition-colors hover:border-brand-400/60 hover:bg-white/[0.06] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
-              <WhatsAppIcon className="h-4 w-4 shrink-0 text-[#25D366] transition-transform group-hover:scale-110 sm:h-[1.125rem] sm:w-[1.125rem]" />
-              <span className="sm:hidden">WhatsApp</span>
-              <span className="hidden sm:inline">Chat on WhatsApp</span>
+              <WhatsAppIcon className="h-[1.15rem] w-[1.15rem] text-[#25D366] transition-transform duration-300 group-hover:scale-110" />
             </a>
             <button
               type="button"
               onClick={() => setMobileOpen((open) => !open)}
-              className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/15 bg-transparent text-white"
+              className="group inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-brand-500/25 bg-brand-500/[0.06] text-white transition-colors hover:border-brand-400/60 hover:bg-brand-500/[0.12]"
               aria-expanded={mobileOpen}
               aria-controls="mobile-navigation"
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
             >
-              {mobileOpen ? <CloseIcon className="h-5 w-5" /> : <MenuIcon className="h-5 w-5" />}
+              {mobileOpen ? (
+                <CloseIcon className="h-5 w-5" />
+              ) : (
+                /* Brand dot (sample concept 02): two hairlines that draw apart
+                   on hover and the green dot that already means "live" on this
+                   site standing in for the third line. */
+                <span aria-hidden="true" className="flex w-5 flex-col gap-[5px]">
+                  <span className="block h-[1.5px] w-5 rounded-full bg-white/85 transition-transform duration-300 group-hover:translate-x-0.5" />
+                  <span className="block h-[1.5px] w-5 rounded-full bg-white/85 transition-transform duration-300 group-hover:-translate-x-0.5" />
+                  <span className="flex items-center gap-1">
+                    <span className="block h-[1.5px] w-3 rounded-full bg-white/50" />
+                    <span className="block h-[5px] w-[5px] rounded-full bg-brand-500 shadow-[0_0_8px_rgba(28,168,48,0.95)]" />
+                  </span>
+                </span>
+              )}
             </button>
           </div>
         </div>

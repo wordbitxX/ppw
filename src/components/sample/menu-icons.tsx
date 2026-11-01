@@ -17,6 +17,7 @@ type Variant = {
   n: string;
   name: string;
   note: string;
+  live?: boolean;
   icon: React.ReactNode;
   buttonClass: string;
 };
@@ -40,6 +41,7 @@ const variants: Variant[] = [
   {
     n: "02",
     name: "Brand dot",
+    live: true,
     note: "Two hairlines and the green dot that already signals 'live' in the header — the third line becomes the brand mark.",
     icon: (
       <span className="flex w-5 flex-col gap-[5px]">
@@ -113,7 +115,14 @@ export function MenuIconConcepts() {
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <p className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-slate-400">{variant.n}</p>
-                  <h3 className="mt-1 text-lg font-semibold tracking-[-0.01em]">{variant.name}</h3>
+                  <h3 className="mt-1 flex items-center gap-2 text-lg font-semibold tracking-[-0.01em]">
+                    {variant.name}
+                    {variant.live ? (
+                      <span className="rounded-full bg-brand-500/15 px-2 py-0.5 text-[0.6rem] font-semibold uppercase tracking-[0.14em] text-brand-300 ring-1 ring-brand-500/30">
+                        Live in header
+                      </span>
+                    ) : null}
+                  </h3>
                 </div>
                 <Button variant={variant} />
               </div>
