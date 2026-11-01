@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { PageHero, Section, SectionHeading, ButtonLink, CheckList } from "@/components/ui";
-import { ServiceCompactCard, ServicePhotoCard } from "@/components/cards";
+import { ServicePhotoCard } from "@/components/cards";
 import { CtaBand } from "@/components/cta-band";
 import { AiB2bBand } from "@/components/ai-b2b-band";
 import { FaqAccordion } from "@/components/accordion";
@@ -48,6 +48,8 @@ const popularSlugs = [
   "ecommerce-development",
   "pos-software",
   "seo-services",
+  "digital-marketing",
+  "ai-solutions",
 ];
 
 /** Quick-jump targets. An id sits on the wrapper of the card it points at. */
@@ -126,12 +128,11 @@ export default function ServicesPage() {
         <SectionHeading
           eyebrow="Most Requested"
           title="Start with the services most clients come for"
-          description="Website, apps, Shopify, e-commerce, POS and SEO — the six we are asked for most often. Every card opens a full page: who it is for, what problems it solves, what you receive and how we deliver it."
+          description="Website, apps, Shopify, e-commerce, POS, SEO, digital marketing and AI — the eight we are asked for most often. Every card opens a full page: who it is for, what problems it solves, what you receive and how we deliver it."
         />
-        {/* The six most-requested services use the same portrait photo tiles as
-            the home page, so the top of this page looks like the top of the
-            homepage. The full catalogue below stays a light, scannable grid —
-            sixty tall photo cards would be a wall nobody reads. */}
+        {/* The eight most-requested services use the same portrait photo tiles
+            as the home page, so the top of this page looks like the top of the
+            homepage. */}
         <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
           {popularServices.map((service) => {
             const anchor = anchorFor(service.slug);
@@ -150,9 +151,12 @@ export default function ServicesPage() {
           title="Every service, with a dedicated page and a defined process"
           description="Custom software, design, marketplaces, ads, hosting and care — the rest of the catalogue, each with its own page."
         />
-        <div className="mt-10 grid grid-cols-2 gap-3.5 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
+        {/* Same tiles as the "Most Requested" block above — size and content
+            match, so the whole page speaks one language instead of turning
+            into a photo gallery. */}
+        <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
           {otherServices.map((service) => (
-            <ServiceCompactCard key={service.slug} service={service} />
+            <ServicePhotoCard key={service.slug} service={service} dense />
           ))}
         </div>
       </Section>
