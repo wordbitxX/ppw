@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { PageHero, Section, SectionHeading, ButtonLink, CheckList } from "@/components/ui";
-import { ServicePhotoCard } from "@/components/cards";
+import { ServiceCard, ServicePhotoCard } from "@/components/cards";
 import { CtaBand } from "@/components/cta-band";
 import { AiB2bBand } from "@/components/ai-b2b-band";
 import { FaqAccordion } from "@/components/accordion";
@@ -151,12 +151,13 @@ export default function ServicesPage() {
           title="Every service, with a dedicated page and a defined process"
           description="Custom software, design, marketplaces, ads, hosting and care — the rest of the catalogue, each with its own page."
         />
-        {/* Same tiles as the "Most Requested" block above — size and content
-            match, so the whole page speaks one language instead of turning
-            into a photo gallery. */}
-        <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
+        {/* The catalogue stays on the default light card: 52 dark photo tiles
+            turned the page into a gallery several screens long, and a
+            text-forward card is far easier to scan when the item count is this
+            high. The eight most-requested services above carry the photography. */}
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {otherServices.map((service) => (
-            <ServicePhotoCard key={service.slug} service={service} dense />
+            <ServiceCard key={service.slug} service={service} showImage />
           ))}
         </div>
       </Section>
