@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { Logo, MenuIcon, CloseIcon, ChevronDown, ArrowRight, WhatsAppIcon } from "@/components/icons";
+import { Logo, CloseIcon, ChevronDown, ArrowRight, WhatsAppIcon, MailIcon, PhoneIcon, SocialIcon } from "@/components/icons";
 import { MegaServiceIconRef as MegaServiceIcon } from "@/components/mega-icon-ref";
 import { b2bServiceSlugs, megaMenuGroups, services } from "@/lib/services";
 import { fixedPackages } from "@/lib/price-ladder";
@@ -217,19 +217,23 @@ function MobileDrop({
   children: React.ReactNode;
 }) {
   return (
-    <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02]">
+    <div className="border-b border-white/[0.07]">
       <button
         type="button"
         onClick={onToggle}
         aria-expanded={expanded}
-        className="flex w-full items-center justify-between px-4 py-3.5 text-left text-base font-medium text-white"
+        className={`flex w-full items-center justify-between gap-3 py-4 text-left text-[1.0625rem] font-medium tracking-[-0.01em] transition-colors ${
+          expanded ? "text-brand-300" : "text-white active:text-brand-300"
+        }`}
       >
         {label}
         <ChevronDown
-          className={`h-4 w-4 transition-transform duration-200 ${expanded ? "rotate-180 text-brand-300" : "text-slate-400"}`}
+          className={`h-4 w-4 shrink-0 transition-transform duration-300 ${
+            expanded ? "rotate-180 text-brand-300" : "text-slate-500"
+          }`}
         />
       </button>
-      {expanded ? <div className="border-t border-white/10 px-2.5 py-2.5">{children}</div> : null}
+      {expanded ? <div className="-mx-1 pb-3">{children}</div> : null}
     </div>
   );
 }
@@ -413,6 +417,15 @@ export function Header() {
           </Link>
 
           <nav aria-label="Main navigation" className="hidden min-w-0 items-center gap-0.5 lg:flex xl:gap-1">
+            <Link
+              href="/"
+              onClick={backToTopIfCurrent("/")}
+              className={`flex items-center justify-between border-b border-white/[0.07] py-4 text-[1.0625rem] font-medium tracking-[-0.01em] transition-colors ${
+                pathname === "/" ? "text-brand-300" : "text-white active:text-brand-300"
+              }`}
+            >
+              Home
+            </Link>
             {mainNav.map((item) => {
               if (item.label === "Services") {
                 return (
@@ -812,40 +825,44 @@ export function Header() {
             </span>
           </div>
 
-          <div className="flex min-w-0 items-center gap-3 lg:hidden">
-            {/* Primary CTA replaces the WhatsApp shortcut that used to sit here.
-                The label and the ornaments are responsive because this bar is
-                tight: on a 375px screen only about 169px is left once the
-                wordmark and the menu button are placed, so below sm the dot
-                and arrow are dropped and the label is shortened. WhatsApp is
-                still available inside the mobile menu.
-                2026-10-09: the old 0.7rem / tracking-tight label looked
-                squeezed inside a 40px-tall button. Label is now 0.8rem with
-                normal tracking, the button is pinned to h-10 so it lines up
-                with the menu button, and the arrow returns from 400px up. */}
-            <span className="relative inline-flex shrink-0 rounded-xl">
-              <Link
-                href="/contact"
-                className="group inline-flex h-10 items-center gap-1.5 whitespace-nowrap rounded-xl border border-white/25 bg-white/[0.04] px-2 text-[0.7rem] font-semibold text-white transition-colors hover:border-brand-400/60 hover:bg-white/10 min-[400px]:px-3.5 min-[400px]:text-[0.8rem] sm:gap-2 sm:px-4 sm:text-sm"
-              >
-                <span className="relative hidden h-2 w-2 sm:flex" aria-hidden="true">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-500" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-500 shadow-[0_0_7px_rgba(28,168,48,0.9)]" />
-                </span>
-                <span className="sm:hidden">Discuss Project</span>
-                <span className="hidden sm:inline">Discuss Your Project</span>
-                <ArrowRight className="hidden h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 min-[400px]:block sm:h-4 sm:w-4" />
-              </Link>
-            </span>
+          <div className="flex min-w-0 items-center gap-2 lg:hidden">
+            {/* Mobile CTA = WhatsApp, transparent and icon-only. The label was
+                dropped on the owner's instruction: at 375px the bar is tight,
+                and the glyph alone is recognised, so it becomes a quiet 40px
+                square that still opens wa.me with the usual message. */}
+            <a
+              href={whatsappLink()}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Chat on WhatsApp"
+              title="Chat on WhatsApp"
+              className="group inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/20 bg-transparent text-white transition-colors hover:border-brand-400/60 hover:bg-white/[0.06] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            >
+              <WhatsAppIcon className="h-[1.15rem] w-[1.15rem] text-[#25D366] transition-transform duration-300 group-hover:scale-110" />
+            </a>
             <button
               type="button"
               onClick={() => setMobileOpen((open) => !open)}
-              className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/15 bg-transparent text-white"
+              className="group inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-brand-500/25 bg-brand-500/[0.06] text-white transition-colors hover:border-brand-400/60 hover:bg-brand-500/[0.12]"
               aria-expanded={mobileOpen}
               aria-controls="mobile-navigation"
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
             >
-              {mobileOpen ? <CloseIcon className="h-5 w-5" /> : <MenuIcon className="h-5 w-5" />}
+              {mobileOpen ? (
+                <CloseIcon className="h-5 w-5" />
+              ) : (
+                /* Brand dot (sample concept 02): two hairlines that draw apart
+                   on hover and the green dot that already means "live" on this
+                   site standing in for the third line. */
+                <span aria-hidden="true" className="flex w-5 flex-col gap-[5px]">
+                  <span className="block h-[1.5px] w-5 rounded-full bg-white/85 transition-transform duration-300 group-hover:translate-x-0.5" />
+                  <span className="block h-[1.5px] w-5 rounded-full bg-white/85 transition-transform duration-300 group-hover:-translate-x-0.5" />
+                  <span className="flex items-center gap-1">
+                    <span className="block h-[1.5px] w-3 rounded-full bg-white/50" />
+                    <span className="block h-[5px] w-[5px] rounded-full bg-brand-500 shadow-[0_0_8px_rgba(28,168,48,0.95)]" />
+                  </span>
+                </span>
+              )}
             </button>
           </div>
         </div>
@@ -854,9 +871,9 @@ export function Header() {
       {mobileOpen && (
         <div
           id="mobile-navigation"
-          className="min-h-[calc(100dvh-4rem)] max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-white/10 bg-midnight lg:hidden"
+          className="min-h-[calc(100dvh-4rem)] max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-white/10 bg-midnight bg-[radial-gradient(ellipse_90%_45%_at_50%_0%,rgba(28,168,48,0.10),transparent_65%)] lg:hidden"
         >
-          <nav aria-label="Mobile navigation" className="container-page space-y-1 py-5">
+          <nav aria-label="Mobile navigation" className="container-page pb-2 pt-1">
             {mainNav.map((item) => {
               if (item.label === "Services") {
                 return (
@@ -1116,7 +1133,7 @@ export function Header() {
                   key={item.href}
                   href={item.href}
                   onClick={backToTopIfCurrent(item.href)}
-                  className={`block rounded-2xl border border-white/10 px-4 py-3.5 text-base font-medium transition-colors hover:bg-white/[0.04] ${
+                  className={`flex items-center justify-between border-b border-white/[0.07] py-4 text-[1.0625rem] font-medium tracking-[-0.01em] transition-colors active:text-brand-300 ${
                     isActive(item.href) ? "text-brand-300" : "text-white"
                   }`}
                 >
@@ -1125,10 +1142,14 @@ export function Header() {
               );
             })}
 
-            <div className="grid gap-3 pt-4 sm:grid-cols-2">
+            {/* Bottom of the sheet, in the order a buyer actually needs it:
+                one clear action, a second way to reach a human, then the dry
+                details (address, both lines, email) and the social row. */}
+            <div className="mt-7 space-y-2.5">
               <Link
                 href="/contact"
-                className="cta-live cta-surface inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold tracking-tight"
+                onClick={() => setMobileOpen(false)}
+                className="cta-live cta-surface flex h-12 w-full items-center justify-center gap-2 rounded-full text-sm font-bold tracking-tight"
               >
                 <span>Discuss Your Project</span> <ArrowRight className="h-4 w-4" />
               </Link>
@@ -1136,14 +1157,72 @@ export function Header() {
                 href={whatsappLink()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 px-4 py-3 text-sm font-semibold text-white"
+                className="flex h-12 w-full items-center justify-center gap-2 rounded-full border border-white/15 bg-white/[0.03] text-sm font-semibold text-white transition-colors active:bg-white/[0.08]"
               >
-                <WhatsAppIcon className="h-4 w-4" /> WhatsApp
+                <WhatsAppIcon className="h-4 w-4 text-[#25D366]" /> Chat on WhatsApp
               </a>
             </div>
-            <p className="pt-3 text-center text-xs text-slate-400">
-              {siteConfig.email} · {siteConfig.phoneDisplay}
-            </p>
+
+            <ul className="mt-7 space-y-3.5 border-t border-white/[0.07] pt-6 text-[0.83rem] text-slate-300">
+              <li className="flex items-start gap-3">
+                <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white/[0.05] text-brand-300 ring-1 ring-white/10">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} aria-hidden="true" className="h-3.5 w-3.5">
+                    <path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z" strokeLinecap="round" strokeLinejoin="round" />
+                    <circle cx="12" cy="10" r="2.5" />
+                  </svg>
+                </span>
+                <span className="leading-relaxed">
+                  {siteConfig.addressDisplay}
+                  <span className="mt-0.5 block text-[0.72rem] uppercase tracking-[0.14em] text-slate-500">Serving clients worldwide</span>
+                </span>
+              </li>
+              <li>
+                <a href={`tel:${siteConfig.phoneRaw}`} className="flex items-center gap-3 transition-colors active:text-white">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white/[0.05] text-brand-300 ring-1 ring-white/10">
+                    <PhoneIcon className="h-3.5 w-3.5" />
+                  </span>
+                  {siteConfig.phoneDisplay}
+                </a>
+              </li>
+              <li>
+                <a href={`tel:${siteConfig.usPhoneRaw}`} className="flex items-center gap-3 transition-colors active:text-white">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white/[0.05] text-brand-300 ring-1 ring-white/10">
+                    <PhoneIcon className="h-3.5 w-3.5" />
+                  </span>
+                  {siteConfig.usPhoneDisplay}
+                  <span className="text-[0.66rem] uppercase tracking-[0.14em] text-slate-500">USA</span>
+                </a>
+              </li>
+              <li>
+                <a href={`mailto:${siteConfig.email}`} className="flex items-center gap-3 transition-colors active:text-white">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white/[0.05] text-brand-300 ring-1 ring-white/10">
+                    <MailIcon className="h-3.5 w-3.5" />
+                  </span>
+                  {siteConfig.email}
+                </a>
+              </li>
+            </ul>
+
+            <div className="mt-6 border-t border-white/[0.07] pb-10 pt-5">
+              <p className="text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-slate-500">Follow us</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {siteConfig.socials.slice(0, 5).map((social) => (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.label}
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-slate-300 transition-colors active:border-brand-400/50 active:text-white"
+                  >
+                    <SocialIcon icon={social.icon} className="h-4 w-4" />
+                  </a>
+                ))}
+              </div>
+              <p className="mt-5 text-[0.68rem] leading-relaxed text-slate-500">
+                {siteConfig.legalDisplayName} · Founded {siteConfig.foundingYear} · {siteConfig.googleRating}★ Google
+              </p>
+            </div>
           </nav>
         </div>
       )}

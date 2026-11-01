@@ -35,8 +35,11 @@ export type HeroSlide = {
   /** "Live Project" / "Demo" — taken verbatim from demos.ts so the showcase
    *  disclosure stays consistent everywhere it is rendered. */
   badge?: string;
-  /** Internal product page this slide links to. */
+  /** Where the slide's title link goes: an internal product page, or the live
+   *  site itself for the ids listed in `slideOpensLiveSite`. */
   href?: string;
+  /** True when `href` points at another host and must open in a new tab. */
+  external?: boolean;
   /** Tailwind gradient painted under the screenshot so a slow or failed
    *  screenshot is never a blank rectangle. */
   accent: string;
@@ -89,6 +92,17 @@ const reelProducts: { id: string; title: string; badge: string }[] = [
   },
 ];
 
+/**
+ * Products whose carousel slide links straight to the live site rather than to
+ * the internal product page.
+ *
+ * Medicare Plus was the visible mismatch: the Products tab opened
+ * https://medicare.wordbitx.pk while this carousel sent the same slide to
+ * /products/healthcare. The owner asked for one destination per product, and
+ * the live URL is the one the tab uses.
+ */
+const slideOpensLiveSite = new Set(["healthcare"]);
+
 export function getHeroSlides(): HeroSlide[] {
   const team: HeroSlide = {
     id: "team",
@@ -123,7 +137,8 @@ export function getHeroSlides(): HeroSlide[] {
         eyebrow: `Our product · ${demo.name}`,
         title,
         badge,
-        href: `/products/${demo.id}`,
+        href: slideOpensLiveSite.has(demo.id) ? demo.url : `/products/${demo.id}`,
+        external: slideOpensLiveSite.has(demo.id),
         accent: demo.accent ?? "from-navy-900 via-brand-700 to-navy-800",
       },
     ];

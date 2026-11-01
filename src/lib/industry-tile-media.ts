@@ -50,8 +50,8 @@ export const industryTileMedia: Record<string, { src: string; alt: string }> = {
     alt: "Packing bench with an order management screen and a shipping label printing",
   },
   hospitality: {
-    src: "/brand/services/travel-booking.jpg",
-    alt: "Booking itinerary open on a laptop beside travel documents",
+    src: "/demos/cover/luxury-restaurant.jpg",
+    alt: "Restaurant dining room with a reservation tablet on the counter",
   },
   finance: {
     src: "/brand/services/saas-application-development.jpg",
@@ -66,11 +66,23 @@ export const industryTileMedia: Record<string, { src: string; alt: string }> = {
     alt: "Advisors mapping a process on a boardroom whiteboard",
   },
   fitness: {
-    src: "/brand/services/mobile-app-development.jpg",
-    alt: "Membership app open on a phone",
+    src: "/brand/industries/fitness.jpg",
+    alt: "Gym front desk with a member tapping their phone to check in at the turnstile",
   },
   construction: {
     src: "/brand/services/construction-site.jpg",
     alt: "Site engineer checking a project schedule on a tablet in front of a building under construction",
+  },
+  /* Two tiles used to have no entry at all and rendered as flat navy slabs.
+     Travel gets the journey/itinerary photo its industry page already uses;
+     hospitality moved to the dining-room scene so the two do not print the
+     same picture side by side in the same rail. */
+  travel: {
+    src: "/brand/services/travel-booking.jpg",
+    alt: "Travel itinerary and flight details open on a laptop beside a passport",
+  },
+  "salon-beauty": {
+    src: "/demos/cover/salon-beauty.jpg",
+    alt: "Salon styling station with a ring-light mirror, brushes and a booking tablet",
   },
 };

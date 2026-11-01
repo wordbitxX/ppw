@@ -87,6 +87,18 @@ export const fixedPackages = {
  */
 export const usdRatePkr = 280;
 
+/**
+ * Store (Shopify / WooCommerce) starting prices — owner's numbers, 1 Nov 2026:
+ * Rs. 30,000–40,000 in Pakistan, $150–$400 for US/international clients. These
+ * are the store entry points, deliberately separate from the website package
+ * (Rs. 20,000 / Rs. 25,000) above, so a store quote never reads as a website
+ * quote.
+ */
+export const storePrices = {
+  pkr: { from: 30_000, to: 40_000, label: "Rs. 30,000 – 40,000" },
+  usd: { from: 150, to: 400, label: "$150 – $400" },
+} as const;
+
 /** Where each market's packages live. Used for internal linking. */
 export const packagePages = {
   pk: { href: "/pk", label: "Pakistan prices (PKR)" },

@@ -2,7 +2,6 @@ import Link from "next/link";
 import { CineImage } from "@/components/cinematic";
 import { CheckIcon } from "@/components/icons";
 import { BookingButton } from "@/components/booking-button";
-import { whatsappLink } from "@/lib/site";
 import styles from "./mobile-home-hero-v2.module.css";
 
 /** The mobile-only version of the Centered Statement concept on /sample. */
@@ -27,11 +26,12 @@ export function MobileHomeHero() {
         <Link href="/contact" className={styles.action}>
           Let’s build together <span aria-hidden="true">↗</span>
         </Link>
-        <div className="mt-3 grid grid-cols-2 gap-2">
-          <BookingButton className="w-full !px-2" />
-          <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="inline-flex w-full items-center justify-center rounded-xl border border-arc-300/25 bg-white/5 px-2 py-3 text-sm font-semibold text-white">
-            Contact us
-          </a>
+        {/* One secondary action only. The green "Let's build together" carries
+            the conversion; the booking link sits under it as a centered outline
+            pill — auto width, same 48px height as the primary, so the two read
+            as a pair instead of two competing full-width blocks. */}
+        <div className="mt-3 flex justify-center">
+          <BookingButton className="!h-12 !rounded-full !px-6" />
         </div>
         <div className={styles.location}><span>Pakistan based</span><span>Worldwide ↗</span></div>
       </div>

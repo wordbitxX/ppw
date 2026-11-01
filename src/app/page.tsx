@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Section, SectionHeading, ButtonLink, Eyebrow } from "@/components/ui";
-import { ServiceCard, PostCard, ProjectCard } from "@/components/cards";
+import { IndustryPhotoCard, ServicePhotoCard, PostCard, ProjectCard } from "@/components/cards";
 import { DemosSection } from "@/components/demos-section";
 import { CredibilityStrip } from "@/components/certifications-band";
 import { IndustryStrip } from "@/components/industry-strip";
@@ -27,7 +27,6 @@ import { FaqSchema } from "@/components/jsonld";
 import {
   ArrowRight,
   CheckIcon,
-  IndustryIcon,
   WhatsAppIcon,
   SearchIcon,
   ShieldIcon,
@@ -38,7 +37,6 @@ import {
 } from "@/components/icons";
 import { getServices, services } from "@/lib/services";
 import { industries } from "@/lib/industries";
-import { industryTileMedia } from "@/lib/industry-tile-media";
 import { markets } from "@/lib/markets";
 import { projects } from "@/lib/portfolio";
 import { sortedPosts } from "@/lib/blog";
@@ -177,18 +175,6 @@ const homeServiceSlugs = [
   "ai-solutions",
 ];
 
-/** Conceptual service illustrations, not client screenshots. */
-const homeDeckMedia: Record<string, { src: string; alt: string }> = {
-  "web-development": { src: "/brand/home/service-web-new.webp", alt: "Conceptual illustration of web development on a laptop" },
-  "ecommerce-shopify": { src: "/brand/home/service-shopify-new.webp", alt: "Conceptual illustration of an online store" },
-  "ecommerce-development": { src: "/brand/home/service-ecommerce-new.webp", alt: "Conceptual illustration of e-commerce development" },
-  "mobile-app-development": { src: "/brand/home/service-mobile-new.webp", alt: "Conceptual illustration of mobile app development" },
-  "pos-software": { src: "/brand/home/service-pos-new.webp", alt: "Conceptual illustration of a point-of-sale system" },
-  "seo-services": { src: "/brand/home/service-seo-new.webp", alt: "Conceptual illustration of search engine optimization" },
-  "digital-marketing": { src: "/brand/home/service-marketing-new.webp", alt: "Conceptual illustration of digital marketing" },
-  "ai-solutions": { src: "/brand/home/service-ai-new.webp", alt: "Conceptual illustration of AI solutions" },
-};
-
 /** Curated highlights — the full lists live on /industries and /global. */
 const featuredMarketSlugs = ["pakistan", "usa", "uk", "uae"];
 
@@ -229,19 +215,10 @@ function CoreSoftwareRail() {
 }
 
 export default function HomePage() {
-  const homeServices = getServices(homeServiceSlugs).map((service) => {
-    const media = homeDeckMedia[service.slug];
-    return media ? { ...service, image: media.src, imageAlt: media.alt } : service;
-  });
-  // Put the most requested service types first in the mobile vertical list.
-  const mobileServiceOrder = ["web-development", "mobile-app-development"];
-  const mobileHomeServices = [...homeServices].sort((a, b) => {
-    const rank = (slug: string) => {
-      const index = mobileServiceOrder.indexOf(slug);
-      return index === -1 ? mobileServiceOrder.length : index;
-    };
-    return rank(a.slug) - rank(b.slug);
-  });
+  /* The eight "What We Do" cards keep the owner's order and use the committed
+     brand photography in /brand/services (resolved by service-media.ts), the
+     same files their own service pages use. */
+  const homeServices = getServices(homeServiceSlugs);
   const latestPosts = sortedPosts.slice(0, 6);
   const heroSlides = getHeroSlides();
   const featuredMarkets = featuredMarketSlugs
@@ -611,11 +588,11 @@ export default function HomePage() {
               What We Do
             </span>
             <h2 className="mt-4 text-[1.65rem] font-semibold leading-[1.15] text-ink-900 sm:text-4xl lg:text-[2.75rem]">
-              Software, Stores, SEO and Marketing
+              Software, Stores, SEO &amp; Marketing in Pakistan
             </h2>
-            <p className="mt-4 text-base leading-relaxed text-slate-600 sm:text-lg">
-              Custom Software, Websites, Shopify, E-Commerce, Web and Mobile — then SEO and Ads so those products can
-              grow. Practical AI is there when a workflow needs it. Every service line has its own page on the services index.
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg">
+              Websites, Shopify, e-commerce, apps and POS — then SEO and ads so those products grow. Every service has
+              its own page.
             </p>
           </div>
           <Link
@@ -627,17 +604,12 @@ export default function HomePage() {
           </Link>
         </div>
 
-        <div className="mt-10 grid gap-5 sm:hidden">
-          {mobileHomeServices.map((service) => <ServiceCard key={service.slug} service={service} tone="light" premium />)}
-        </div>
-        <div className="mt-10 hidden sm:block">
-          <IndustryRail label="services">
-            {homeServices.map((service) => (
-              <div key={service.slug} className="flex w-[85%] shrink-0 snap-start sm:w-[calc(50%-0.5rem)] lg:w-[calc((100%-2rem)/3)] xl:w-[calc((100%-3rem)/4)]">
-                <ServiceCard service={service} tone="light" premium />
-              </div>
-            ))}
-          </IndustryRail>
+        {/* All eight tiles, four to a row on desktop (two rows), smaller and
+            denser than a rail — no sideways scrolling, nothing hidden. */}
+        <div className="mt-8 grid grid-cols-2 gap-3 sm:mt-10 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
+          {homeServices.map((service) => (
+            <ServicePhotoCard key={service.slug} service={service} dense />
+          ))}
         </div>
       </AiServicesDeck>
       </div>
@@ -686,43 +658,14 @@ export default function HomePage() {
         </div>
         <div className="mt-8">
           <IndustryRail label="industries">
-            {industries.map((industry) => {
-              const media = industryTileMedia[industry.slug];
-              return (
-                <Link
-                  key={industry.slug}
-                  href={`/industries/${industry.slug}`}
-                  className="group relative flex aspect-[4/5] w-[78%] shrink-0 snap-start flex-col justify-end overflow-hidden rounded-2xl border border-slate-200 bg-navy-900 transition-all duration-500 hover:-translate-y-1 hover:border-brand-300 hover:shadow-[0_30px_60px_-34px_rgba(5,13,33,0.65)] sm:w-[calc(50%-0.5rem)] lg:w-[calc((100%-3rem)/4.25)]"
-                >
-                  {media ? (
-                    <Image
-                      src={media.src}
-                      alt={media.alt}
-                      fill
-                      sizes="(max-width: 640px) 78vw, (max-width: 1024px) 50vw, 25vw"
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                  ) : null}
-                  <span
-                    aria-hidden="true"
-                    className="absolute inset-0 bg-gradient-to-t from-midnight via-midnight/55 to-midnight/5"
-                  />
-                  <span className="relative p-5">
-                    <span className="flex items-center gap-2.5">
-                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/10 text-brand-200 ring-1 ring-white/20 backdrop-blur-sm transition-colors duration-300 group-hover:bg-brand-500 group-hover:text-white">
-                        <IndustryIcon name={industry.slug} className="h-5 w-5" />
-                      </span>
-                      <h3 className="text-base font-semibold text-white">{industry.name}</h3>
-                    </span>
-                    <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-slate-300">{industry.tagline}</p>
-                    <span className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-brand-300 transition-colors group-hover:text-white">
-                      Explore
-                      <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
-                    </span>
-                  </span>
-                </Link>
-              );
-            })}
+            {industries.map((industry) => (
+              <div
+                key={industry.slug}
+                className="w-[78%] shrink-0 snap-start sm:w-[calc(50%-0.5rem)] lg:w-[calc((100%-3rem)/4.25)]"
+              >
+                <IndustryPhotoCard industry={industry} />
+              </div>
+            ))}
           </IndustryRail>
         </div>
       </Section>

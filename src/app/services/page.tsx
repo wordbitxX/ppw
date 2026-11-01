@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { PageHero, Section, SectionHeading, ButtonLink, CheckList } from "@/components/ui";
-import { ServiceCard } from "@/components/cards";
+import { ServiceCard, ServicePhotoCard } from "@/components/cards";
 import { CtaBand } from "@/components/cta-band";
 import { AiB2bBand } from "@/components/ai-b2b-band";
 import { FaqAccordion } from "@/components/accordion";
@@ -36,6 +36,32 @@ export const metadata: Metadata = {
   },
 };
 
+/**
+ * Ordering (owner request, Nov 2026): the six services people actually ask for
+ * come first — website, apps, Shopify, e-commerce, POS, SEO — and the B2B / AI
+ * band moves below them. Nothing about the individual service pages changes.
+ */
+const popularSlugs = [
+  "web-development",
+  "mobile-app-development",
+  "ecommerce-shopify",
+  "ecommerce-development",
+  "pos-software",
+  "seo-services",
+  "digital-marketing",
+  "ai-solutions",
+];
+
+/** Quick-jump targets. An id sits on the wrapper of the card it points at. */
+const quickJumps: { label: string; id: string; slug: string }[] = [
+  { label: "Websites", id: "websites", slug: "web-development" },
+  { label: "Apps", id: "apps", slug: "mobile-app-development" },
+  { label: "Shopify", id: "shopify", slug: "ecommerce-shopify" },
+  { label: "SEO", id: "seo", slug: "seo-services" },
+];
+
+const anchorFor = (slug: string) => quickJumps.find((jump) => jump.slug === slug)?.id;
+
 const servicesFaqs: Faq[] = [
   {
     question: "Can we combine several services in one engagement?",
@@ -55,6 +81,11 @@ const servicesFaqs: Faq[] = [
 ];
 
 export default function ServicesPage() {
+  const popularServices = popularSlugs
+    .map((slug) => services.find((service) => service.slug === slug))
+    .filter((service): service is (typeof services)[number] => Boolean(service));
+  const otherServices = services.filter((service) => !popularSlugs.includes(service.slug));
+
   return (
     <>
       <PageHero
@@ -76,25 +107,66 @@ export default function ServicesPage() {
           </Link>
           .
         </p>
-      </PageHero>
 
-      {/* B2B + AI services for business buyers (anchor: /services#b2b). */}
-      <AiB2bBand />
+        {/* Quick jump — the four highest-intent groups, one tap away. */}
+        <nav aria-label="Jump to a service group" className="mt-6 flex flex-wrap items-center gap-2">
+          <span className="text-[0.66rem] font-semibold uppercase tracking-[0.16em] text-brand-300">Jump to</span>
+          {quickJumps.map((jump) => (
+            <a
+              key={jump.id}
+              href={`#${jump.id}`}
+              className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/[0.06] px-3.5 py-1.5 text-sm font-semibold text-white transition-colors hover:border-brand-300/60 hover:bg-white/[0.12] hover:text-brand-200"
+            >
+              {jump.label}
+              <span aria-hidden="true">↓</span>
+            </a>
+          ))}
+        </nav>
+      </PageHero>
 
       <Section>
         <SectionHeading
+          eyebrow="Most Requested"
+          title="Start with the services most clients come for"
+          description="Website, apps, Shopify, e-commerce, POS, SEO, digital marketing and AI — the eight we are asked for most often. Every card opens a full page: who it is for, what problems it solves, what you receive and how we deliver it."
+        />
+        {/* The eight most-requested services use the same portrait photo tiles
+            as the home page, so the top of this page looks like the top of the
+            homepage. */}
+        <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
+          {popularServices.map((service) => {
+            const anchor = anchorFor(service.slug);
+            return (
+              <div key={service.slug} id={anchor} className="scroll-mt-28">
+                <ServicePhotoCard service={service} dense />
+              </div>
+            );
+          })}
+        </div>
+      </Section>
+
+      <Section tone="muted">
+        <SectionHeading
           eyebrow="Full Service Range"
           title="Every service, with a dedicated page and a defined process"
-          description="Click any card to see the full breakdown: who it is for, what problems it solves, what you receive and how we deliver it."
+          description="Custom software, design, marketplaces, ads, hosting and care — the rest of the catalogue, each with its own page."
         />
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((service) => (
+        {/* The catalogue stays on the default light card: 52 dark photo tiles
+            turned the page into a gallery several screens long, and a
+            text-forward card is far easier to scan when the item count is this
+            high. The eight most-requested services above carry the photography. */}
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {otherServices.map((service) => (
             <ServiceCard key={service.slug} service={service} showImage />
           ))}
         </div>
       </Section>
 
-      <Section tone="muted">
+      {/* B2B + AI services for business buyers (anchor: /services#b2b) — now
+          after the popular services rather than above them. */}
+      <AiB2bBand />
+
+      <Section>
         <SectionHeading
           eyebrow="How Services Fit Together"
           title="Grouped by the outcome you are trying to reach"

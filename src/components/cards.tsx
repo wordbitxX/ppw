@@ -1,7 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { BlogPost, Project, Service } from "@/lib/types";
-import { ArrowRight, ClockIcon } from "@/components/icons";
+import type { Industry } from "@/lib/industries";
+import { industryTileMedia } from "@/lib/industry-tile-media";
+import { industryDemoLinks } from "@/lib/industry-demos";
+import { ArrowRight, ClockIcon, IndustryIcon } from "@/components/icons";
 import { MegaServiceIcon } from "@/components/mega-service-icon";
 import { formatDate } from "@/lib/blog";
 
@@ -130,6 +133,170 @@ export function ServiceCard({
         </span>
       </span>
     </Link>
+  );
+}
+
+/**
+ * Portrait photo card — the "What We Do" services grid.
+ *
+ * Deliberately the same construction as the home-page industry tiles: a tall
+ * 4:5 frame, the brand photo full-bleed, a dark gradient rising from the
+ * bottom, white title and description over it, and a green "View →" label.
+ * The whole card is one link, so the hit area never depends on hitting a
+ * small button.
+ *
+ * The image is always the committed file in /brand/services (never a stock or
+ * generated photo) — `service.image` is resolved from `service-media.ts`.
+ */
+/**
+ * Portrait 4:5 crops made from the same committed brand photographs
+ * (`public/brand/services/card/`). The source photos are 1280x720 landscape, so
+ * using them in a tall card either letterboxes or crops to a soft slice; these
+ * files are already cropped around the subject, upscaled to 1152x1440 and
+ * sharpened, so the tile stays crisp on 2x screens. Nothing here is a new photo
+ * — same picture, framed for the card.
+ *
+ * Each file is named after the PHOTO it crops (`portrait-<source>.jpg`), not
+ * after the service: when a card switches photo, the URL changes, which is the
+ * only way to beat the image optimizer's year-long cache and any browser copy
+ * of the old bytes.
+ */
+const portraitCropped: Record<string, string> = {
+  "web-development": "/brand/services/card/portrait-ui-ux-design.jpg",
+  "ecommerce-shopify": "/brand/services/card/portrait-facebook-instagram-shop.jpg",
+  "ecommerce-development": "/brand/services/card/portrait-jewellery-store.jpg",
+  "mobile-app-development": "/brand/services/card/portrait-mobile-app-development-v2.jpg",
+  "pos-software": "/brand/services/card/portrait-pos-software.jpg",
+  "seo-services": "/brand/services/card/portrait-local-seo.jpg",
+  "digital-marketing": "/brand/services/card/portrait-tiktok-shop-setup.jpg",
+  "ai-solutions": "/brand/services/card/portrait-deck-ai-v2.jpg",
+};
+
+export function ServicePhotoCard({ service, dense = false }: { service: Service; dense?: boolean }) {
+  const src = portraitCropped[service.slug] ?? service.image;
+  return (
+    <Link
+      href={`/services/${service.slug}`}
+      className="group relative flex aspect-[4/5] w-full flex-col justify-end overflow-hidden rounded-2xl border border-slate-200 bg-navy-900 transition-all duration-500 hover:-translate-y-1 hover:border-brand-300 hover:shadow-[0_30px_60px_-34px_rgba(5,13,33,0.65)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400"
+    >
+      <Image
+        src={src}
+        alt={service.imageAlt}
+        fill
+        quality={90}
+        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 40vw, 33vw"
+        className="photo-card-img object-cover transition-transform duration-700 group-hover:scale-105"
+      />
+      <span
+        aria-hidden="true"
+        className="absolute inset-0 bg-gradient-to-t from-midnight via-midnight/55 to-midnight/5"
+      />
+      <span className={dense ? "relative p-3" : "relative p-4 sm:p-5"}>
+        <span className="flex items-center gap-2">
+          <span
+            className={`flex shrink-0 items-center justify-center overflow-hidden rounded-lg bg-white/10 text-brand-200 ring-1 ring-white/20 backdrop-blur-sm transition-colors duration-300 group-hover:bg-brand-500 group-hover:text-white ${
+              dense ? "h-7 w-7" : "h-9 w-9"
+            }`}
+          >
+            <MegaServiceIcon
+              monochrome
+              slug={service.slug}
+              className={
+                service.slug === "mobile-app-development"
+                  ? dense ? "h-3 w-6" : "h-4 w-8"
+                  : dense ? "h-4 w-4" : "h-5 w-5"
+              }
+            />
+          </span>
+          <h3 className={`font-semibold leading-snug text-white ${dense ? "text-[0.82rem]" : "text-[0.95rem] sm:text-lg"}`}>
+            {service.title}
+          </h3>
+        </span>
+        {/* Two lines only. `line-clamp-2` sets display:-webkit-box, so it must
+            not be combined with a `block` utility or the clamp is dropped. */}
+        <span
+          className={`mt-1.5 line-clamp-2 leading-relaxed text-slate-300 ${
+            dense ? "text-[0.7rem] leading-snug" : "text-xs sm:text-sm"
+          }`}
+        >
+          {service.summary}
+        </span>
+        {/* "View Website Development" rather than a bare "View": on a page with
+            eight photo tiles the label confirms which service the card opens. */}
+        <span
+          className={`inline-flex items-center gap-1.5 font-semibold text-brand-300 transition-colors group-hover:text-white ${
+            dense ? "mt-2 text-[0.68rem]" : "mt-3 text-xs"
+          }`}
+        >
+          View {service.shortTitle}
+          <ArrowRight className={`${dense ? "h-3 w-3" : "h-3.5 w-3.5"} transition-transform duration-300 group-hover:translate-x-1`} />
+        </span>
+      </span>
+    </Link>
+  );
+}
+
+/**
+ * Industry photo tile — used by the home-page "Industries" section and by the
+ * /industries directory, so both show the same card at the same size.
+ *
+ * One card, two links: "Explore" is a stretched link over the whole tile to the
+ * industry page, and any live-demo chip sits above it on its own z-index (never
+ * nested anchors). Only the six sectors with a working demo get a chip.
+ */
+export function IndustryPhotoCard({ industry }: { industry: Industry }) {
+  const media = industryTileMedia[industry.slug] ?? { src: industry.image, alt: industry.imageAlt };
+  const demos = industryDemoLinks(industry.slug);
+
+  return (
+    <div className="group relative flex aspect-[4/5] w-full flex-col justify-end overflow-hidden rounded-2xl border border-slate-200 bg-navy-900 transition-all duration-500 focus-within:border-brand-300 hover:-translate-y-1 hover:border-brand-300 hover:shadow-[0_30px_60px_-34px_rgba(5,13,33,0.65)]">
+      <Image
+        src={media.src}
+        alt={media.alt}
+        fill
+        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+        className="photo-card-img object-cover transition-transform duration-700 group-hover:scale-105"
+      />
+      <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-midnight via-midnight/55 to-midnight/5" />
+
+      <span className="relative p-4 sm:p-5">
+        <span className="flex items-center gap-2.5">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/10 text-brand-200 ring-1 ring-white/20 backdrop-blur-sm transition-colors duration-300 group-hover:bg-brand-500 group-hover:text-white">
+            <IndustryIcon name={industry.slug} className="h-5 w-5" />
+          </span>
+          <h3 className="text-sm font-semibold text-white sm:text-base">{industry.name}</h3>
+        </span>
+        <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-slate-300 sm:text-sm">{industry.tagline}</p>
+        <span className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-brand-300 transition-colors group-hover:text-white">
+          Explore
+          <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+        </span>
+      </span>
+
+      <Link
+        href={`/industries/${industry.slug}`}
+        className="absolute inset-0 z-10 rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-400"
+      >
+        <span className="sr-only">Explore {industry.name} software</span>
+      </Link>
+
+      {demos.length > 0 ? (
+        <span className="absolute right-3 top-3 z-20 flex flex-col items-end gap-1.5">
+          {demos.map((demo) => (
+            <a
+              key={demo.id}
+              href={demo.url}
+              target="_blank"
+              rel={demo.rel}
+              className="inline-flex items-center gap-1 rounded-full bg-brand-500 px-2.5 py-1 text-[0.62rem] font-semibold text-white shadow-[0_10px_24px_-14px_rgba(0,0,0,0.9)] ring-1 ring-white/25 transition-colors hover:bg-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+            >
+              {demo.label}
+              <span aria-hidden="true">↗</span>
+            </a>
+          ))}
+        </span>
+      ) : null}
+    </div>
   );
 }
 

@@ -53,6 +53,14 @@ export function HeroFX() {
     let visible = true;
     const pointer = { x: -9999, y: -9999, active: false };
     const ripples: { x: number; y: number; t: number }[] = [];
+    /* Rapid tapping used to queue an unbounded number of ripples. On a phone
+       that is an O(ripples × nodes) inner loop every frame, which is exactly
+       what froze the network mid-animation after a few taps. Three rings at a
+       time is already more than the eye registers, and one new ring per 140ms
+       keeps repeated taps from stacking up. */
+    const MAX_RIPPLES = 3;
+    const RIPPLE_GAP = 140;
+    let lastRipple = -Infinity;
     const parallax = { x: 0, y: 0, tx: 0, ty: 0 };
 
     const LINK = () => (width < 640 ? 105 : 140);
@@ -177,6 +185,7 @@ export function HeroFX() {
 
     const frame = (now: number) => {
       if (!running) return;
+      raf = 0;
       draw(now);
       parallax.x += (parallax.tx - parallax.x) * 0.06;
       parallax.y += (parallax.ty - parallax.y) * 0.06;
@@ -190,6 +199,23 @@ export function HeroFX() {
       running = true;
       raf = requestAnimationFrame(frame);
     };
+    /* Mobile Safari stops rAF while the page is backgrounded and can leave
+       `running` true with a dead loop, so the next tap paints nothing and the
+       scene looks frozen. `resume` re-arms the loop whenever we come back to
+       the foreground, and every interaction calls it first. */
+    const resume = () => {
+      if (document.hidden) return;
+      const live = running && raf !== 0;
+      if (live) return;
+      // Re-check visibility ourselves: the observer can report a stale "off
+      // screen" state on mobile (address bar collapse, keyboard, fast scroll)
+      // and then start() would refuse to run for the rest of the visit.
+      const rect = host.getBoundingClientRect();
+      visible =
+        rect.bottom > 0 && rect.top < (window.innerHeight || document.documentElement.clientHeight);
+      running = false;
+      start();
+    };
     const stop = () => {
       running = false;
       cancelAnimationFrame(raf);
@@ -200,6 +226,7 @@ export function HeroFX() {
       return { x: event.clientX - rect.left, y: event.clientY - rect.top, rect };
     };
     const onMove = (event: PointerEvent) => {
+      resume();
       const { x, y, rect } = local(event);
       pointer.x = x;
       pointer.y = y;
@@ -215,8 +242,13 @@ export function HeroFX() {
     const onDown = (event: PointerEvent) => {
       // Ignore taps on links/buttons so the effect never competes with conversion.
       if ((event.target as HTMLElement | null)?.closest("a, button, input, textarea, select")) return;
+      resume();
+      const now = performance.now();
+      if (now - lastRipple < RIPPLE_GAP) return;
+      lastRipple = now;
       const { x, y } = local(event);
-      ripples.push({ x, y, t: performance.now() });
+      ripples.push({ x, y, t: now });
+      while (ripples.length > MAX_RIPPLES) ripples.shift();
       pointer.x = x;
       pointer.y = y;
       pointer.active = event.pointerType !== "touch";
@@ -235,7 +267,8 @@ export function HeroFX() {
         start();
       }
     };
-    const onVisibility = () => (document.hidden ? stop() : start());
+    const onVisibility = () => (document.hidden ? stop() : resume());
+    const onPageShow = () => resume();
 
     const io = new IntersectionObserver(
       ([entry]) => {
@@ -257,9 +290,15 @@ export function HeroFX() {
     host.addEventListener("pointercancel", onUp, { passive: true });
     reducedQuery.addEventListener("change", onReduced);
     document.addEventListener("visibilitychange", onVisibility);
+    window.addEventListener("pageshow", onPageShow);
+    window.addEventListener("focus", onPageShow);
     start();
+    // iOS can report the section as visible before layout settles; one delayed
+    // re-arm covers the case where the first rAF never arrived.
+    const boot = window.setTimeout(resume, 400);
 
     return () => {
+      window.clearTimeout(boot);
       stop();
       io.disconnect();
       ro.disconnect();
@@ -270,6 +309,8 @@ export function HeroFX() {
       host.removeEventListener("pointercancel", onUp);
       reducedQuery.removeEventListener("change", onReduced);
       document.removeEventListener("visibilitychange", onVisibility);
+      window.removeEventListener("pageshow", onPageShow);
+      window.removeEventListener("focus", onPageShow);
     };
   }, []);
 

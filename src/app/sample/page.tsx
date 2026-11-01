@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { HeroConcepts, heroConcepts } from "@/components/sample/heroes";
 import { MobileHeroes } from "@/components/sample/mobile-heroes";
+import { MenuIconConcepts } from "@/components/sample/menu-icons";
 
 export const metadata: Metadata = {
   title: "Hero concepts (internal sample)",
@@ -13,6 +14,7 @@ export default function SamplePage() {
   return (
     <>
       <MobileHeroes />
+      <MenuIconConcepts />
       <header className="cine-surface bg-midnight pb-8 pt-28 text-white sm:pt-36">
         <div className="container-page">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-arc-300">Internal · not indexed</p>
