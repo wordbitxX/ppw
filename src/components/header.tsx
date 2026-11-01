@@ -812,31 +812,22 @@ export function Header() {
             </span>
           </div>
 
-          <div className="flex min-w-0 items-center gap-3 lg:hidden">
-            {/* Primary CTA replaces the WhatsApp shortcut that used to sit here.
-                The label and the ornaments are responsive because this bar is
-                tight: on a 375px screen only about 169px is left once the
-                wordmark and the menu button are placed, so below sm the dot
-                and arrow are dropped and the label is shortened. WhatsApp is
-                still available inside the mobile menu.
-                2026-10-09: the old 0.7rem / tracking-tight label looked
-                squeezed inside a 40px-tall button. Label is now 0.8rem with
-                normal tracking, the button is pinned to h-10 so it lines up
-                with the menu button, and the arrow returns from 400px up. */}
-            <span className="relative inline-flex shrink-0 rounded-xl">
-              <Link
-                href="/contact"
-                className="group inline-flex h-10 items-center gap-1.5 whitespace-nowrap rounded-xl border border-white/25 bg-white/[0.04] px-2 text-[0.7rem] font-semibold text-white transition-colors hover:border-brand-400/60 hover:bg-white/10 min-[400px]:px-3.5 min-[400px]:text-[0.8rem] sm:gap-2 sm:px-4 sm:text-sm"
-              >
-                <span className="relative hidden h-2 w-2 sm:flex" aria-hidden="true">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-500" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-500 shadow-[0_0_7px_rgba(28,168,48,0.9)]" />
-                </span>
-                <span className="sm:hidden">Discuss Project</span>
-                <span className="hidden sm:inline">Discuss Your Project</span>
-                <ArrowRight className="hidden h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 min-[400px]:block sm:h-4 sm:w-4" />
-              </Link>
-            </span>
+          <div className="flex min-w-0 items-center gap-2 lg:hidden">
+            {/* Mobile CTA = WhatsApp, transparent by design. The old solid
+                "Discuss Project" button competed with the wordmark and pushed
+                the bar to its width limit; a ghost button keeps the bar calm
+                while putting the shortest path to a human (WhatsApp) one tap
+                away. Text stays white, only the glyph carries green. */}
+            <a
+              href={whatsappLink()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex h-10 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-xl border border-white/20 bg-transparent px-2.5 text-[0.72rem] font-semibold text-white transition-colors hover:border-brand-400/60 hover:bg-white/[0.06] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white min-[400px]:px-3 min-[400px]:text-[0.8rem] sm:gap-2 sm:px-4 sm:text-sm"
+            >
+              <WhatsAppIcon className="h-4 w-4 shrink-0 text-[#25D366] transition-transform group-hover:scale-110 sm:h-[1.125rem] sm:w-[1.125rem]" />
+              <span className="sm:hidden">WhatsApp</span>
+              <span className="hidden sm:inline">Chat on WhatsApp</span>
+            </a>
             <button
               type="button"
               onClick={() => setMobileOpen((open) => !open)}
