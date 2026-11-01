@@ -66,8 +66,8 @@ export const industryTileMedia: Record<string, { src: string; alt: string }> = {
     alt: "Advisors mapping a process on a boardroom whiteboard",
   },
   fitness: {
-    src: "/brand/services/mobile-app-development.jpg",
-    alt: "Membership app open on a phone",
+    src: "/brand/industries/fitness.jpg",
+    alt: "Gym front desk with a member tapping their phone to check in at the turnstile",
   },
   construction: {
     src: "/brand/services/construction-site.jpg",

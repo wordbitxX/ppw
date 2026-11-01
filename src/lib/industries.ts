@@ -364,8 +364,8 @@ export const industries: Industry[] = [
     metaTitle: "Gym & Fitness Software | Memberships and Check-in",
     metaDescription:
       "Fitness software for gyms and studios: memberships, check-in, freezes and staff attendance. Built by WordbitX — not a health programme.",
-    image: "/brand/services/mobile-app-development.jpg",
-    imageAlt: "Membership app shown on a phone and tablet side by side",
+    image: "/brand/industries/fitness.jpg",
+    imageAlt: "Gym front desk with a member tapping their phone to check in at the turnstile",
     problems: [
       { title: "Frozen memberships nobody recorded", text: "Revenue leaks at the desk." },
       { title: "Guests walk in free", text: "No check-in trail." },
