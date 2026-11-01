@@ -171,9 +171,11 @@ export function ServicePhotoCard({ service }: { service: Service }) {
               className={service.slug === "mobile-app-development" ? "h-4 w-8" : "h-5 w-5"}
             />
           </span>
-          <h3 className="text-sm font-semibold leading-snug text-white sm:text-base">{service.title}</h3>
+          <h3 className="text-[0.95rem] font-semibold leading-snug text-white sm:text-lg">{service.title}</h3>
         </span>
-        <span className="mt-2 line-clamp-2 block text-xs leading-relaxed text-slate-300 sm:text-sm">
+        {/* Two lines only. `line-clamp-2` sets display:-webkit-box, so it must
+            not be combined with a `block` utility or the clamp is dropped. */}
+        <span className="mt-2 line-clamp-2 text-xs leading-relaxed text-slate-300 sm:text-sm">
           {service.summary}
         </span>
         <span className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-brand-300 transition-colors group-hover:text-white">

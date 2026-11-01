@@ -6,6 +6,7 @@ import { PageHero, Section, SectionHeading, ButtonLink, CheckList, Card, IconTil
 import { ServiceCard, PostCard, ProjectCard } from "@/components/cards";
 import { CtaBand } from "@/components/cta-band";
 import { FixedPriceStrip } from "@/components/fixed-price-strip";
+import { PkPriceBlock } from "@/components/pk-price-block";
 import { FaqAccordion } from "@/components/accordion";
 import { FaqSchema, ServiceSchema } from "@/components/jsonld";
 import { TechChip, TechGlyph } from "@/components/tech-icon";
@@ -189,9 +190,22 @@ export default async function ServiceDetailPage({ params }: PageProps) {
 
       {/* Fixed-price route — shown on the website-building services where the
           "how much" query actually lands. */}
+      {/* The /pk price block, on the two services that are sold as the
+          Rs. 20,000 / Rs. 25,000 package: price, both packages, WhatsApp and
+          phone in one place — no click out to /pk needed. */}
+      {["web-development", "wordpress-development"].includes(service.slug) ? (
+        <Section padding="compact">
+          <PkPriceBlock
+            heading={
+              service.slug === "wordpress-development"
+                ? "WordPress websites for your shop, clinic or business"
+                : undefined
+            }
+          />
+        </Section>
+      ) : null}
+
       {[
-        "web-development",
-        "wordpress-development",
         "ecommerce-shopify",
         "woocommerce-development",
         "ecommerce-development",

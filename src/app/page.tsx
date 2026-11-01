@@ -593,9 +593,9 @@ export default function HomePage() {
             <h2 className="mt-4 text-[1.65rem] font-semibold leading-[1.15] text-ink-900 sm:text-4xl lg:text-[2.75rem]">
               Software, Stores, SEO and Marketing
             </h2>
-            <p className="mt-4 text-base leading-relaxed text-slate-600 sm:text-lg">
-              Custom Software, Websites, Shopify, E-Commerce, Web and Mobile — then SEO and Ads so those products can
-              grow. Practical AI is there when a workflow needs it. Every service line has its own page on the services index.
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg">
+              Websites, Shopify, e-commerce, apps and POS — then SEO and ads so those products grow. Every service has
+              its own page.
             </p>
           </div>
           <Link
@@ -613,7 +613,7 @@ export default function HomePage() {
         <div className="mt-10 hidden sm:block">
           <IndustryRail label="services">
             {homeServices.map((service) => (
-              <div key={service.slug} className="flex w-[calc(50%-0.5rem)] shrink-0 snap-start lg:w-[calc((100%-3rem)/4.25)]">
+              <div key={service.slug} className="flex w-[calc(50%-0.5rem)] shrink-0 snap-start lg:w-[calc((100%-3rem)/3.25)]">
                 <ServicePhotoCard service={service} />
               </div>
             ))}
