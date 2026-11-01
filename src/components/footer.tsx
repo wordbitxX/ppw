@@ -62,6 +62,7 @@ export function Footer() {
               ))}
             </div>
             <NewsletterForm />
+            <Link href="/faqs" className="mt-5 inline-block underline">Questions &amp; answers</Link>
           </div>
 
           <div className="grid gap-8 sm:grid-cols-3 lg:col-span-8">

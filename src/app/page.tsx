@@ -1,3 +1,5 @@
+import { HomeAdditions } from "@/components/home-additions";
+import guides2026 from "@/lib/guides-2026.json";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -762,6 +764,8 @@ export default function HomePage() {
         </div>
       </Section>
 
+      <HomeAdditions />
+      <Section><SectionHeading eyebrow="Insights" title="Pakistan buying guides"/><div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{guides2026.map(p=><Link key={p.slug} href={`/blog/${p.slug}`} className="rounded-2xl border border-slate-200 p-5 text-brand-600 underline">{p.title}</Link>)}</div></Section>
       {/* FAQ */}
       <Section tone="muted">
         <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
@@ -772,6 +776,7 @@ export default function HomePage() {
           />
           <div>
             <FaqAccordion faqs={homeFaqs} />
+            <Link href="/faqs" className="mt-5 inline-block text-brand-600 underline">Browse all questions and answers</Link>
             <div className="mt-6 flex flex-wrap gap-3">
               <ButtonLink href="/contact">Ask a question</ButtonLink>
               <ButtonLink href="/pricing" variant="secondary">

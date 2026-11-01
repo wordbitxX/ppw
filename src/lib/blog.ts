@@ -1,3 +1,4 @@
+import guides2026 from "./guides-2026.json";
 import type { BlogPost } from "@/lib/types";
 import { media } from "@/lib/media";
 import { morePostsA } from "@/lib/blog-more-a";
@@ -572,9 +573,11 @@ const originalPosts: BlogPost[] = [
   },
 ];
 
-export const blogPosts: BlogPost[] = [...originalPosts, ...morePostsA, ...morePostsB, ...morePostsC, ...morePostsD, ...morePostsE, ...morePostsF].map((post) =>
+const legacyPosts: BlogPost[] = [...originalPosts, ...morePostsA, ...morePostsB, ...morePostsC, ...morePostsD, ...morePostsE, ...morePostsF].map((post) =>
   withTopicPhoto(post, postPhotos),
 );
+
+export const blogPosts: BlogPost[] = [...(guides2026 as BlogPost[]).map(guide => ({...guide, publishedAt: legacyPosts.find(post=>post.slug===guide.slug)?.publishedAt ?? guide.publishedAt})), ...legacyPosts.filter(post => !guides2026.some(guide => guide.slug === post.slug))];
 
 export const blogCategories = [
   "All",

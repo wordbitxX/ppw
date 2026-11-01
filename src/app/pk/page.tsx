@@ -1,3 +1,5 @@
+import { Questions } from "@/components/questions";
+import { pkQuestions } from "@/lib/question-bank";
 import type { Metadata } from "next";
 import { FaqSchema, JsonLd } from "@/components/jsonld";
 import { MarketLanding } from "@/components/market-landing";
@@ -88,7 +90,8 @@ export default function PakistanLandingPage() {
   return (
     <>
       <MarketLanding market={pkMarket} />
-      <FaqSchema faqs={pkMarket.faqs.items} />
+      <Questions title="Questions about prices" items={pkQuestions} schema={false} />
+      <FaqSchema faqs={[...pkMarket.faqs.items, ...pkQuestions.map(q=>({question:q.question,answer:`${q.answer} Read more: ${q.href}`}))]} />
       <JsonLd data={serviceOfferSchema} />
       <JsonLd data={breadcrumbSchema} />
     </>

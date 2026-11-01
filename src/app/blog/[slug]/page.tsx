@@ -1,3 +1,5 @@
+import { Questions } from "@/components/questions";
+import guideFaqs from "@/lib/guide-faqs.json";
 import { CineBackdrop } from "@/components/cinematic";
 import type { Metadata } from "next";
 import Image from "next/image";
@@ -240,6 +242,8 @@ export default async function BlogPostPage({ params }: PageProps) {
           />
         </div>
 
+        {post.image.startsWith("/guides/") && post.image.endsWith(".webp") && <p className="mt-3 text-xs text-ink-500">AI-generated editorial illustration — not a client project or product screenshot.</p>}
+
         <div className="mt-12 grid gap-12 lg:grid-cols-[1fr_20rem]">
           <article className="prose-article max-w-none">
             {post.blocks.map((block, index) => (
@@ -407,6 +411,7 @@ export default async function BlogPostPage({ params }: PageProps) {
         </div>
       </Section>
 
+      {guideFaqs.find(g=>g.slug===post.slug) && <Questions title="Frequently asked questions" items={guideFaqs.find(g=>g.slug===post.slug)!.faqs} />}
       <CtaBand />
 
       <ArticleSchema

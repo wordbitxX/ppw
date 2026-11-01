@@ -417,15 +417,6 @@ export function Header() {
           </Link>
 
           <nav aria-label="Main navigation" className="hidden min-w-0 items-center gap-0.5 lg:flex xl:gap-1">
-            <Link
-              href="/"
-              onClick={backToTopIfCurrent("/")}
-              className={`flex items-center justify-between border-b border-white/[0.07] py-4 text-[1.0625rem] font-medium tracking-[-0.01em] transition-colors ${
-                pathname === "/" ? "text-brand-300" : "text-white active:text-brand-300"
-              }`}
-            >
-              Home
-            </Link>
             {mainNav.map((item) => {
               if (item.label === "Services") {
                 return (
