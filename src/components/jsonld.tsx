@@ -1,6 +1,5 @@
 import { siteConfig, absoluteUrl } from "@/lib/site";
 import { jobs } from "@/lib/careers";
-import { propertiesPak } from "@/lib/demos";
 import type { Faq } from "@/lib/types";
 
 export function JsonLd({ data }: { data: Record<string, unknown> }) {
@@ -64,16 +63,6 @@ export function OrganizationSchema() {
         sameAs: [
           ...siteConfig.socials.map((social) => social.href),
           ...siteConfig.directories.map((directory) => directory.href),
-        ],
-        // Entity link between WordbitX and the live software product it operates.
-        owns: [
-          {
-            "@type": "Product",
-            name: propertiesPak.name,
-            description: propertiesPak.description,
-            category: "Real Estate Portal Software",
-            brand: { "@id": `${siteConfig.url}/#organization` },
-          },
         ],
         knowsAbout: [
           "Custom software development",
