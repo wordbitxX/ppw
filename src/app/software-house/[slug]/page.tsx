@@ -14,7 +14,8 @@ import { getServices } from "@/lib/services";
 import { industries } from "@/lib/industries";
 import { services } from "@/lib/services";
 import { siteConfig, absoluteUrl } from "@/lib/site";
-import { seoTitleAbsolute } from "@/lib/seo-title";
+import { seoTitle, seoTitleAbsolute } from "@/lib/seo-title";
+import { socialMetadata } from "@/lib/social-meta";
 
 export function generateStaticParams() {
   return cities.map((city) => ({ slug: city.slug }));
@@ -31,7 +32,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: seoTitleAbsolute(city.metaTitle),
     description: city.metaDescription,
     alternates: { canonical: `/software-house/${city.slug}` },
-    openGraph: { url: `/software-house/${city.slug}`, title: city.metaTitle, description: city.metaDescription },
+    ...socialMetadata({
+      url: `/software-house/${city.slug}`,
+      title: seoTitle(city.metaTitle),
+      description: city.metaDescription,
+    }),
   };
 }
 

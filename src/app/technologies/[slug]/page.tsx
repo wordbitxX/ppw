@@ -6,7 +6,8 @@ import { CtaBand } from "@/components/cta-band";
 import { techPages, getTechPage } from "@/lib/tech-pages";
 import { getServices } from "@/lib/services";
 import { noindexFollow } from "@/lib/seo-focus";
-import { seoTitleAbsolute } from "@/lib/seo-title";
+import { seoTitle, seoTitleAbsolute } from "@/lib/seo-title";
+import { socialMetadata } from "@/lib/social-meta";
 
 export function generateStaticParams() {
   return techPages.map((item) => ({ slug: item.slug }));
@@ -19,13 +20,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params;
   const tech = getTechPage(slug);
   if (!tech) return { title: "Technology not found" };
-  const servicePath = tech.services[0] ? `/services/${tech.services[0]}` : "/services";
+  const selfPath = `/technologies/${tech.slug}`;
   return {
     title: seoTitleAbsolute(tech.metaTitle),
     description: tech.metaDescription,
-    alternates: { canonical: servicePath },
+    alternates: { canonical: selfPath },
     robots: noindexFollow,
-    openGraph: { url: servicePath, title: tech.metaTitle, description: tech.metaDescription },
+    ...socialMetadata({ url: selfPath, title: seoTitle(tech.metaTitle), description: tech.metaDescription }),
   };
 }
 

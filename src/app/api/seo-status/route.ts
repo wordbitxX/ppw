@@ -1,54 +1,26 @@
+import { NextResponse } from "next/server";
 import { siteConfig } from "@/lib/site";
-import { sitemapIndexItems, absoluteSitemapUrl, getAllSitemapEntries } from "@/lib/sitemap-data";
-
-export const dynamic = "force-static";
+import { adsenseClientId } from "@/lib/adsense";
+import { getSitemapGroups, publishedSitemapIndexItems } from "@/lib/sitemap-data";
 
 export function GET() {
-  const canonical = siteConfig.url.toLowerCase();
-  const sitemapUrls = [absoluteSitemapUrl("/sitemap-index.xml"), ...sitemapIndexItems.map((item) => absoluteSitemapUrl(item.path))];
+  const adsenseConfigured = Boolean(adsenseClientId());
+  const groups = getSitemapGroups();
+  const published = publishedSitemapIndexItems();
+  const counts = Object.fromEntries(published.map((item) => [item.key, groups[item.key].length]));
+  const totalIndexableUrls = Object.values(counts).reduce((sum, n) => sum + n, 0);
 
-  return Response.json({
-    ok: true,
-    canonicalDomain: canonical,
-    indexThis: canonical,
-    doNotIndexTheseRedirectVariants: [
-      "https://wordbitx.pk/",
-      "http://wordbitx.pk/",
-      "http://www.wordbitx.pk/",
-      "wordbitx.pk without protocol",
-      "any preview / vercel / arena URL",
-    ],
-    reason:
-      "Google should index only one canonical URL version. Other protocol/host variants should redirect to the canonical www HTTPS URL and will show as 'Page with redirect' in Search Console by design.",
-    sitemapCount: sitemapUrls.length,
-    canonicalUrlCount: getAllSitemapEntries().length,
-    submitTheseSitemapsInGoogleSearchConsole: [
-      absoluteSitemapUrl("/sitemap.xml"),
-      absoluteSitemapUrl("/sitemap-index.xml"),
-    ],
-    doNotSubmitTheseSitemaps: sitemapUrls.filter(
-      (url) => !url.endsWith("/sitemap.xml") && !url.endsWith("/sitemap-index.xml"),
-    ),
-    priorityInspectionUrls: [
-      `${canonical}/`,
-      `${canonical}/services`,
-      `${canonical}/services/web-development`,
-      `${canonical}/services/ecommerce-shopify`,
-      `${canonical}/services/flutter-app-development`,
-      `${canonical}/services/seo-services`,
-      `${canonical}/services/local-seo`,
-      `${canonical}/blog/software-company-lahore`,
-      `${canonical}/global/usa`,
-      `${canonical}/blog`,
-      `${canonical}/contact`,
-    ],
-    requiredManualGoogleActions: [
-      "Use a Domain Property for wordbitx.pk in Search Console if possible.",
-      "If using URL-prefix property, use https://www.wordbitx.pk/ because the apex redirects to www.",
-      "Submit sitemap-index.xml in Search Console. Delete societies submissions.",
-      "Inspect the canonical www URLs, not redirected apex URLs.",
-      "Do not request indexing for /societies — those pages are noindex.",
-      "Monitor Pages, Sitemaps, Core Web Vitals, HTTPS, Security Issues and Manual Actions.",
-    ],
+  return NextResponse.json({
+    site: siteConfig.url,
+    sitemapIndex: `${siteConfig.url}/sitemap-index.xml`,
+    flatSitemap: `${siteConfig.url}/sitemap.xml`,
+    childSitemaps: published.map((item) => `${siteConfig.url}${item.path}`),
+    counts,
+    totalIndexableUrls,
+    robotsTxt: `${siteConfig.url}/robots.txt`,
+    llmsTxt: `${siteConfig.url}/llms.txt`,
+    adsTxt: `${siteConfig.url}/ads.txt`,
+    adsenseConfigured,
+    googleSiteVerificationConfigured: Boolean(process.env.GOOGLE_SITE_VERIFICATION),
   });
 }

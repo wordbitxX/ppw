@@ -40,6 +40,7 @@ export function CineImage({
       <img
         src={`${art.base}.webp`}
         alt=""
+        aria-hidden="true"
         width={art.width}
         height={art.height}
         loading={priority ? "eager" : "lazy"}

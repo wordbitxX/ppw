@@ -3,20 +3,35 @@ import Link from "next/link";
 import { PageHero, Section, SectionHeading } from "@/components/ui";
 import { TechChip } from "@/components/tech-icon";
 import { CtaBand } from "@/components/cta-band";
+import { WebPageSchema } from "@/components/jsonld";
 import { techCategories } from "@/lib/technologies";
 import { techPages } from "@/lib/tech-pages";
 import { ArrowRight } from "@/components/icons";
+import { socialMetadata } from "@/lib/social-meta";
+
+const techDescription =
+  "The technologies WordbitX actually uses: React, Next.js, Flutter, Node.js, Python, Shopify and the supporting cloud, data and mobile stack.";
 
 export const metadata: Metadata = {
   title: "Technologies We Use | React, Next.js, Flutter",
-  description:
-    "The technologies WordbitX actually uses: React, Next.js, Flutter, Node.js, Python, Shopify and the supporting cloud, data and mobile stack.",
+  description: techDescription,
   alternates: { canonical: "/technologies" },
+  ...socialMetadata({
+    url: "/technologies",
+    title: "Technologies We Use | React, Next.js, Flutter | WordbitX",
+    description: techDescription,
+  }),
 };
 
 export default function TechnologiesPage() {
   return (
     <>
+      <WebPageSchema
+        type="CollectionPage"
+        title="Technologies We Use | React, Next.js, Flutter"
+        description={techDescription}
+        url="/technologies"
+      />
       <PageHero
         eyebrow="Technologies"
         title="A Stack We Use in Production, Not a Logo Wall"

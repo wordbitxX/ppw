@@ -3,6 +3,7 @@ import { FaqSchema, JsonLd } from "@/components/jsonld";
 import { MarketLanding } from "@/components/market-landing";
 import { usMarket, usPrices } from "@/lib/us-landing";
 import { absoluteUrl, siteConfig } from "@/lib/site";
+import { socialMetadata } from "@/lib/social-meta";
 
 export const metadata: Metadata = {
   title: { absolute: `Websites for US Businesses from ${usPrices.starter} | WordbitX` },
@@ -20,17 +21,12 @@ export const metadata: Metadata = {
     "ecommerce website USA",
   ],
   alternates: { canonical: "/usa" },
-  openGraph: {
+  ...socialMetadata({
     url: "/usa",
-    type: "website",
     title: `Websites for US businesses from ${usPrices.starter} | WordbitX`,
     description: `Starter website ${usPrices.starter}. Business website ${usPrices.business}. Online store ${usPrices.store}. Fixed USD quotes.`,
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: `Websites for US businesses from ${usPrices.starter} | WordbitX`,
-    description: `Starter ${usPrices.starter}, business site ${usPrices.business}, online store ${usPrices.store}. Fixed USD quotes.`,
-  },
+    image: "/usa/opengraph-image",
+  }),
 };
 
 export default function UsaLandingPage() {

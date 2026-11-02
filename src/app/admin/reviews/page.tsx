@@ -3,6 +3,8 @@ import { ReviewAdmin } from "@/components/review-admin";
 
 export const metadata: Metadata = {
   title: "Review admin",
+  description: "Private WordbitX moderation interface for submitted homepage client reviews.",
+  alternates: { canonical: "/admin/reviews" },
   robots: { index: false, follow: false, googleBot: { index: false, follow: false } },
 };
 

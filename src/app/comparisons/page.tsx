@@ -5,6 +5,7 @@ import { CtaBand } from "@/components/cta-band";
 import { FaqAccordion } from "@/components/accordion";
 import { FaqSchema } from "@/components/jsonld";
 import { seoTitleAbsolute } from "@/lib/seo-title";
+import { socialMetadata } from "@/lib/social-meta";
 import { getPosts } from "@/lib/blog";
 import type { Faq } from "@/lib/types";
 
@@ -52,7 +53,7 @@ export const metadata: Metadata = {
   description,
   alternates: { canonical: "/comparisons" },
   keywords: ["shopify vs woocommerce", "flutter vs react native", "wordpress vs custom website", "crm vs erp", "seo vs google ads", "custom vs ready made software"],
-  openGraph: { url: "/comparisons", title: "Comparisons | WordbitX", description },
+  ...socialMetadata({ url: "/comparisons", title: "Comparisons | WordbitX", description }),
 };
 
 export default function ComparisonsPage() {

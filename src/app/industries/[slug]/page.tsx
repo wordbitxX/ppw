@@ -15,9 +15,11 @@ import { getProject } from "@/lib/portfolio";
 import { getPosts } from "@/lib/blog";
 import { getTopics } from "@/lib/topics";
 import { industryTopicSlugs } from "@/lib/related-content";
+import { topicCanonical } from "@/lib/seo-focus";
 import Link from "next/link";
 import { contactHref } from "@/lib/site";
-import { seoTitleAbsolute } from "@/lib/seo-title";
+import { seoTitle, seoTitleAbsolute } from "@/lib/seo-title";
+import { socialMetadata } from "@/lib/social-meta";
 
 export function generateStaticParams() {
   return industries.map((item) => ({ slug: item.slug }));
@@ -34,7 +36,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: seoTitleAbsolute(industry.metaTitle),
     description: industry.metaDescription,
     alternates: { canonical: `/industries/${industry.slug}` },
-    openGraph: { url: `/industries/${industry.slug}`, title: industry.metaTitle, description: industry.metaDescription },
+    ...socialMetadata({
+      url: `/industries/${industry.slug}`,
+      title: seoTitle(industry.metaTitle),
+      description: industry.metaDescription,
+      image: industry.image,
+      imageAlt: industry.imageAlt,
+    }),
   };
 }
 
@@ -167,7 +175,7 @@ export default async function IndustryPage({ params }: PageProps) {
           <ul className="mt-8 grid gap-4 sm:grid-cols-2">
             {relatedTopics.map((topic) => (
               <li key={topic.slug}>
-                <Link href={`/topics/${topic.slug}`} className="text-sm font-semibold text-brand-700 hover:text-brand-800">
+                <Link href={topicCanonical(topic.slug)} className="text-sm font-semibold text-brand-700 hover:text-brand-800">
                   {topic.title}
                 </Link>
                 <p className="mt-1 text-sm text-ink-500">{topic.summary}</p>

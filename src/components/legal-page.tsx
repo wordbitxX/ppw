@@ -1,12 +1,14 @@
 import Link from "next/link";
 import { PageHero, Section } from "@/components/ui";
 import { CtaBand } from "@/components/cta-band";
+import { WebPageSchema } from "@/components/jsonld";
 import { legalNav } from "@/lib/site";
 import type { LegalDoc } from "@/lib/legal";
 
 export function LegalPage({ doc }: { doc: LegalDoc }) {
   return (
     <>
+      <WebPageSchema title={doc.title} description={doc.metaDescription} url={`/${doc.slug}`} />
       <PageHero
         eyebrow="Legal"
         title={doc.title}

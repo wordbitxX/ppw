@@ -46,6 +46,7 @@ import { marqueeTech } from "@/lib/technologies";
 import { media } from "@/lib/media";
 import { getHeroSlides } from "@/lib/hero-reel";
 import { siteConfig, whatsappLink } from "@/lib/site";
+import { socialMetadata } from "@/lib/social-meta";
 import { processSteps } from "@/lib/process";
 import type { Faq } from "@/lib/types";
 
@@ -66,11 +67,11 @@ export const metadata: Metadata = {
     "POS software Pakistan",
     "AI solutions",
   ],
-  openGraph: {
+  ...socialMetadata({
     url: "/",
     title: "Software Development Company in Pakistan | WordbitX",
     description: siteConfig.seoDescription,
-  },
+  }),
 };
 
 const homeFaqs: Faq[] = [
@@ -755,9 +756,9 @@ export default function HomePage() {
         </div>
         <div className="mt-12">
           <IndustryRail label="Latest insights">
-            {latestPosts.map((post, index) => (
+            {latestPosts.map((post) => (
               <div key={post.slug} className="w-[85%] shrink-0 snap-start sm:w-[22rem]">
-                <PostCard post={post} priority={index < 2} />
+                <PostCard post={post} />
               </div>
             ))}
           </IndustryRail>

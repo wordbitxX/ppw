@@ -4,6 +4,7 @@ import { CtaBand } from "@/components/cta-band";
 import { FaqAccordion } from "@/components/accordion";
 import { FaqSchema } from "@/components/jsonld";
 import { seoTitleAbsolute } from "@/lib/seo-title";
+import { socialMetadata } from "@/lib/social-meta";
 import type { Faq } from "@/lib/types";
 
 const description =
@@ -45,7 +46,7 @@ export const metadata: Metadata = {
   description,
   alternates: { canonical: "/resources/free-website-audit" },
   keywords: ["free website audit", "website audit Pakistan", "website review service", "website SEO audit"],
-  openGraph: { url: "/resources/free-website-audit", title: "Free Website Audit | WordbitX", description },
+  ...socialMetadata({ url: "/resources/free-website-audit", title: "Free Website Audit | WordbitX", description }),
 };
 
 export default function AuditPage() {

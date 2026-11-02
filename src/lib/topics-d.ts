@@ -507,7 +507,7 @@ export const topicsD: Topic[] = [
     h1: "Visitor Management System for Lobbies, Badges and Hosts",
     category: "Operations",
     summary: "Who is in the building — a log, not a surveillance product we oversell.",
-    metaTitle: "Visitor Management System | Lobby Check-in & Badges",
+    metaTitle: "Visitor Management System: Check-in & Badges",
     metaDescription:
       "Visitor management system: lobby check-in, host notify and badges. WordbitX builds the log; you set the security policy.",
     keywords: ["visitor management system", "lobby check in software", "visitor badge system", "office visitor log"],

@@ -17,8 +17,9 @@ import { CheckIcon, ArrowRight } from "@/components/icons";
 import { MegaServiceIcon } from "@/components/mega-service-icon";
 import { getService, getServices, serviceSlugs } from "@/lib/services";
 import { geoPages } from "@/lib/geo-pages";
-import { seoTitleAbsolute } from "@/lib/seo-title";
-import { contactHref } from "@/lib/site";
+import { seoTitle, seoTitleAbsolute } from "@/lib/seo-title";
+import { socialMetadata } from "@/lib/social-meta";
+import { absoluteUrl, contactHref } from "@/lib/site";
 import { getServiceSummary } from "@/lib/service-summaries";
 import { projectsForService } from "@/lib/portfolio";
 import { getPosts } from "@/lib/blog";
@@ -43,19 +44,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     description: service.metaDescription,
     keywords: service.keywords,
     alternates: { canonical: `/services/${service.slug}` },
-    openGraph: {
+    ...socialMetadata({
       type: "article",
       url: `/services/${service.slug}`,
-      title: service.metaTitle,
+      title: seoTitle(service.metaTitle),
       description: service.metaDescription,
-      images: [{ url: service.image, alt: service.imageAlt }],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: service.metaTitle,
-      description: service.metaDescription,
-      images: [service.image],
-    },
+      image: service.image,
+      imageAlt: service.imageAlt,
+    }),
   };
 }
 
@@ -440,7 +436,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         url={`/services/${service.slug}`}
         serviceType={service.primaryKeyword}
       />
-      <FaqSchema faqs={[...service.faqs, ...serviceQuestions(service.slug).map(q=>({question:q.question,answer:`${q.answer} Read more: ${q.href}`}))]} />
+      <FaqSchema faqs={[...service.faqs, ...serviceQuestions(service.slug).map(q=>({question:q.question,answer:`${q.answer} Read more: ${absoluteUrl(q.href)}`}))]} />
     </>
   );
 }

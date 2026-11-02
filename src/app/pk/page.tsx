@@ -5,6 +5,7 @@ import { FaqSchema, JsonLd } from "@/components/jsonld";
 import { MarketLanding } from "@/components/market-landing";
 import { pkMarket, pkPrices } from "@/lib/pk-landing";
 import { absoluteUrl, siteConfig } from "@/lib/site";
+import { socialMetadata } from "@/lib/social-meta";
 
 export const metadata: Metadata = {
   title: { absolute: `Websites for Pakistani Businesses from ${pkPrices.basic} | WordbitX` },
@@ -23,17 +24,12 @@ export const metadata: Metadata = {
     "cheap website Pakistan",
   ],
   alternates: { canonical: "/pk" },
-  openGraph: {
+  ...socialMetadata({
     url: "/pk",
-    type: "website",
     title: `Websites for Pakistani businesses from ${pkPrices.basic} | WordbitX`,
     description: `A complete business website from ${pkPrices.basic}. ${pkPrices.allInOne} with domain and 1 year hosting.`,
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: `Websites for Pakistani businesses from ${pkPrices.basic} | WordbitX`,
-    description: `Mobile-first websites for Pakistani businesses. ${pkPrices.basic}, or ${pkPrices.allInOne} with domain and 1 year hosting.`,
-  },
+    image: "/pk/opengraph-image",
+  }),
 };
 
 export default function PakistanLandingPage() {
@@ -91,7 +87,7 @@ export default function PakistanLandingPage() {
     <>
       <MarketLanding market={pkMarket} />
       <Questions title="Questions about prices" items={pkQuestions} schema={false} />
-      <FaqSchema faqs={[...pkMarket.faqs.items, ...pkQuestions.map(q=>({question:q.question,answer:`${q.answer} Read more: ${q.href}`}))]} />
+      <FaqSchema faqs={[...pkMarket.faqs.items, ...pkQuestions.map(q=>({question:q.question,answer:`${q.answer} Read more: ${absoluteUrl(q.href)}`}))]} />
       <JsonLd data={serviceOfferSchema} />
       <JsonLd data={breadcrumbSchema} />
     </>

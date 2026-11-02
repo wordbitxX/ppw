@@ -12,7 +12,8 @@ import { products, getProduct } from "@/lib/products";
 import { showcaseRel, demosDisclosure } from "@/lib/demos";
 import { demoPreview } from "@/lib/demo-shots";
 import { getServices } from "@/lib/services";
-import { seoTitleAbsolute } from "@/lib/seo-title";
+import { seoTitle, seoTitleAbsolute } from "@/lib/seo-title";
+import { socialMetadata } from "@/lib/social-meta";
 
 export function generateStaticParams() {
   return products.map((item) => ({ slug: item.slug }));
@@ -25,11 +26,18 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params;
   const product = getProduct(slug);
   if (!product) return { title: "Product not found" };
+  const preview = demoPreview(product.showcase);
   return {
     title: seoTitleAbsolute(product.metaTitle),
     description: product.metaDescription,
     alternates: { canonical: `/products/${product.slug}` },
-    openGraph: { url: `/products/${product.slug}`, title: product.metaTitle, description: product.metaDescription },
+    ...socialMetadata({
+      url: `/products/${product.slug}`,
+      title: seoTitle(product.metaTitle),
+      description: product.metaDescription,
+      image: preview.src,
+      imageAlt: product.productName,
+    }),
   };
 }
 

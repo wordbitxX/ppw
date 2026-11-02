@@ -4,6 +4,7 @@ import { CtaBand } from "@/components/cta-band";
 import { FaqAccordion } from "@/components/accordion";
 import { FaqSchema } from "@/components/jsonld";
 import { seoTitleAbsolute } from "@/lib/seo-title";
+import { socialMetadata } from "@/lib/social-meta";
 import type { Faq } from "@/lib/types";
 
 const description =
@@ -65,7 +66,7 @@ export const metadata: Metadata = {
   description,
   alternates: { canonical: "/resources/app-rfp-template" },
   keywords: ["app RFP template", "software RFP template", "request for proposal app development", "how to hire app developer"],
-  openGraph: { url: "/resources/app-rfp-template", title: "App RFP Template | WordbitX", description },
+  ...socialMetadata({ url: "/resources/app-rfp-template", title: "App RFP Template | WordbitX", description }),
 };
 
 export default function RfpTemplatePage() {

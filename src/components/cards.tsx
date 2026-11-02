@@ -318,7 +318,6 @@ export function PostCard({ post, priority = false }: { post: PostSummary; priori
           src={post.image}
           alt={post.imageAlt}
           fill
-          unoptimized={post.image.startsWith("/")}
           sizes="(max-width: 768px) 100vw, 33vw"
           priority={priority}
           className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -360,7 +359,6 @@ export function ProjectCard({ project, priority = false }: { project: ProjectSum
           src={project.image}
           alt={project.imageAlt}
           fill
-          unoptimized={project.image.startsWith("/")}
           sizes="(max-width: 768px) 100vw, 33vw"
           priority={priority}
           className="object-cover transition-transform duration-500 group-hover:scale-105"

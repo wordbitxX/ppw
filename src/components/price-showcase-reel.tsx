@@ -80,6 +80,8 @@ export function PriceShowcaseReel({ slides }: { slides: PriceShowcaseSlide[] }) 
               <img
                 src={slide.src}
                 alt={slide.alt}
+                width={1200}
+                height={900}
                 loading="lazy"
                 decoding="async"
                 className="absolute inset-0 h-full w-full object-cover"

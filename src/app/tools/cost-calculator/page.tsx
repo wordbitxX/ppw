@@ -5,6 +5,7 @@ import { CtaBand } from "@/components/cta-band";
 import { FaqAccordion } from "@/components/accordion";
 import { FaqSchema, ServiceSchema } from "@/components/jsonld";
 import { seoTitleAbsolute } from "@/lib/seo-title";
+import { socialMetadata } from "@/lib/social-meta";
 import type { Faq } from "@/lib/types";
 
 const calculatorDescription =
@@ -50,12 +51,12 @@ export const metadata: Metadata = {
     "Shopify store cost Pakistan",
     "custom software cost",
   ],
-  openGraph: {
+  ...socialMetadata({
     url: "/tools/cost-calculator",
-    title: "Software Development Cost Calculator | Pakistan Rates",
+    title: "Software Development Cost Calculator | Pakistan Rates | WordbitX",
     description:
       "Point the sliders at your project and get an honest PKR/USD range — built by the team that does the work, consistent with our published under-$25/hr rate.",
-  },
+  }),
 };
 
 export default function CostCalculatorPage() {
@@ -107,7 +108,7 @@ export default function CostCalculatorPage() {
               <h3 className="text-base font-semibold text-ink-900">Add-ons</h3>
               <p className="mt-2 text-sm leading-relaxed text-ink-500">
                 Bilingual content, payments, admin panels, integrations, AI features — each has its own cost, shown
-                in the model rather than hidden in a "miscellaneous" line.
+                in the model rather than hidden in a &ldquo;miscellaneous&rdquo; line.
               </p>
             </Card>
             <Card>

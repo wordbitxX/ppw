@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero, Section, SectionHeading, ButtonLink, Card } from "@/components/ui";
 import { CtaBand } from "@/components/cta-band";
+import { WebPageSchema } from "@/components/jsonld";
 import { seoTitleAbsolute } from "@/lib/seo-title";
+import { socialMetadata } from "@/lib/social-meta";
 
 const description =
   "Free resources from WordbitX: a website launch checklist, a copy-ready app RFP template and a free website audit — plus the cost calculator and glossary.";
@@ -45,12 +47,18 @@ export const metadata: Metadata = {
   description,
   alternates: { canonical: "/resources" },
   keywords: ["website launch checklist", "app RFP template", "free website audit", "software development resources"],
-  openGraph: { url: "/resources", title: "Free Resources | WordbitX", description },
+  ...socialMetadata({ url: "/resources", title: "Free Resources | WordbitX", description }),
 };
 
 export default function ResourcesPage() {
   return (
     <>
+      <WebPageSchema
+        type="CollectionPage"
+        title="Free Resources | Launch Checklist, RFP Template, Audit"
+        description={description}
+        url="/resources"
+      />
       <PageHero
         eyebrow="Resources"
         title="Free things that are actually useful"

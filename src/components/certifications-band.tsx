@@ -5,7 +5,7 @@ import Link from "next/link";
  * background, scrolling horizontally. No claims beyond what is actually held.
  *
  * Marks in the loop:
- *  - SECP + FBR: the two registrations Wordbit X Technology SMC – Pvt. Ltd.
+ *  - SECP + FBR: the two registrations WordbitX Technology SMC – Pvt. Ltd.
  *    holds (the only authority marks allowed).
  *  - Odoo: a platform mark — added at the owner's explicit request (2026-10-08).
  *    It signals a technology we build on, not a government registration.
