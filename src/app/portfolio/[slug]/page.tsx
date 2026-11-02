@@ -13,7 +13,8 @@ import { techCategories } from "@/lib/technologies";
 import type { TechItem } from "@/lib/technologies";
 import { seoTitle, seoTitleAbsolute } from "@/lib/seo-title";
 import { socialMetadata } from "@/lib/social-meta";
-import { absoluteUrl } from "@/lib/site";
+import { absoluteUrl, siteConfig } from "@/lib/site";
+import { propertiesPak } from "@/lib/demos";
 
 export function generateStaticParams() {
   return projects.map((project) => ({ slug: project.slug }));
@@ -73,7 +74,15 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           name: project.title,
           description: project.metaDescription,
           primaryImageOfPage: absoluteUrl(project.image),
-          about: { "@type": "Thing", name: project.type },
+          about: project.slug === "properties-pak-property-portal"
+            ? {
+                "@type": "CreativeWork",
+                name: propertiesPak.name,
+                description: project.summary,
+                url: project.liveUrl,
+                author: { "@id": `${siteConfig.url}/#organization` },
+              }
+            : { "@type": "Thing", name: project.type },
           isPartOf: { "@type": "WebSite", url: absoluteUrl("/") },
         }).replace(/</g, "\\u003c") }}
       />
