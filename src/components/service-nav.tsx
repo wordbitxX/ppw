@@ -116,7 +116,7 @@ export function ServiceIndex() {
       {homeServiceGroups.map((group) => (
         <div key={group.title}>
           <div className="border-t border-brand-400/45 pt-4">
-            <h4 className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-300">{group.title}</h4>
+            <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-300">{group.title}</h3>
             <p className="mt-1 text-xs text-slate-500">{group.blurb}</p>
           </div>
           <ul className="mt-3">

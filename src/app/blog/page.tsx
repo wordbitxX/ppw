@@ -4,9 +4,11 @@ import Link from "next/link";
 import { PageHero, Section, SectionHeading, ButtonLink } from "@/components/ui";
 import { BlogExplorer } from "@/components/blog-explorer";
 import { CtaBand } from "@/components/cta-band";
+import { WebPageSchema } from "@/components/jsonld";
 import { ArrowRight, ClockIcon } from "@/components/icons";
 import { sortedPosts, blogCategories, formatDate } from "@/lib/blog";
 import { services } from "@/lib/services";
+import { socialMetadata } from "@/lib/social-meta";
 
 export const metadata: Metadata = {
   title: "Blog | Software, Shopify, Flutter & SEO Guides",
@@ -21,12 +23,12 @@ export const metadata: Metadata = {
     "school management system software",
     "restaurant POS Pakistan",
   ],
-  openGraph: {
+  ...socialMetadata({
     url: "/blog",
     title: "WordbitX Blog | Software, Shopify, Flutter & SEO",
     description:
       "High-intent guides on choosing a software company, store cost, Flutter vs React Native, local SEO, Amazon and SaaS MVPs.",
-  },
+  }),
 };
 
 type PageProps = {
@@ -42,6 +44,12 @@ export default async function BlogPage({ searchParams }: PageProps) {
 
   return (
     <>
+      <WebPageSchema
+        type="CollectionPage"
+        title="Guides, Comparisons and Technical Explainers"
+        description="Guides from WordbitX: choosing a software company, e-commerce and POS cost, Flutter vs React Native, school systems, SEO vs Google Ads and SaaS MVPs."
+        url="/blog"
+      />
       <PageHero
         eyebrow="Insights"
         title="Guides, Comparisons and Technical Explainers"

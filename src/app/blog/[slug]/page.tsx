@@ -13,7 +13,8 @@ import { ArticleSchema } from "@/components/jsonld";
 import { ArrowRight, ClockIcon, CheckIcon } from "@/components/icons";
 import { blogPosts, getPost, getPosts, adjacentPosts, formatDate, slugifyHeading, sortedPosts } from "@/lib/blog";
 import { getServices } from "@/lib/services";
-import { seoTitleAbsolute } from "@/lib/seo-title";
+import { seoTitle, seoTitleAbsolute } from "@/lib/seo-title";
+import { socialMetadata } from "@/lib/social-meta";
 import { siteConfig } from "@/lib/site";
 import type { BlogBlock } from "@/lib/types";
 
@@ -35,22 +36,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     description: post.metaDescription,
     keywords: post.keywords,
     alternates: { canonical: `/blog/${post.slug}` },
-    openGraph: {
+    ...socialMetadata({
       type: "article",
       url: `/blog/${post.slug}`,
-      title: post.metaTitle,
+      title: seoTitle(post.metaTitle),
       description: post.metaDescription,
+      image: post.image,
+      imageAlt: post.imageAlt,
       publishedTime: post.publishedAt,
       modifiedTime: post.updatedAt ?? post.publishedAt,
       authors: [post.author.name],
-      images: [{ url: post.image, alt: post.imageAlt }],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: post.metaTitle,
-      description: post.metaDescription,
-      images: [post.image],
-    },
+    }),
   };
 }
 
@@ -236,8 +232,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             width={1600}
             height={900}
             priority
-            unoptimized={post.image.startsWith("/")}
-            sizes="100vw"
+            sizes="(min-width: 1280px) 1152px, 100vw"
             className="h-full w-full object-cover"
           />
         </div>

@@ -11,7 +11,7 @@ function Pic({ base, className = "", style }: { base: string; className?: string
     <picture>
       <source type="image/avif" srcSet={`${base}.avif`} />
       <source type="image/webp" srcSet={`${base}.webp`} />
-      <img src={`${base}.webp`} alt="" width={1376} height={768} loading="lazy" decoding="async" className={`cine-art ${className}`} style={style} />
+      <img src={`${base}.webp`} alt="" aria-hidden="true" width={1376} height={768} loading="lazy" decoding="async" className={`cine-art ${className}`} style={style} />
     </picture>
   );
 }

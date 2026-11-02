@@ -3,18 +3,27 @@ import Link from "next/link";
 import Image from "next/image";
 import { PageHero, Section, SectionHeading, ButtonLink, Eyebrow } from "@/components/ui";
 import { CtaBand } from "@/components/cta-band";
+import { WebPageSchema } from "@/components/jsonld";
 import { SolutionCards } from "@/components/solution-cards";
 import { IndustryPhotoCard } from "@/components/cards";
 import { ArrowRight } from "@/components/icons";
 import { industries } from "@/lib/industries";
 import { propertiesPak } from "@/lib/demos";
 import { demoPreview } from "@/lib/demo-shots";
+import { socialMetadata } from "@/lib/social-meta";
+
+const industriesDescription =
+  "Industry software from WordbitX: retail, real estate, healthcare, pharmacy, education, logistics, eCommerce, hospitality, finance, legal and construction.";
 
 export const metadata: Metadata = {
   title: "Software for Retail, Healthcare, Education, More",
-  description:
-    "Industry software from WordbitX: retail, real estate, healthcare, pharmacy, education, logistics, eCommerce, hospitality, finance, legal and construction.",
+  description: industriesDescription,
   alternates: { canonical: "/industries" },
+  ...socialMetadata({
+    url: "/industries",
+    title: "Software for Retail, Healthcare, Education, More | WordbitX",
+    description: industriesDescription,
+  }),
 };
 
 export default function IndustriesPage() {
@@ -23,6 +32,12 @@ export default function IndustriesPage() {
   const preview = demoPreview(propertiesPak);
   return (
     <>
+      <WebPageSchema
+        type="CollectionPage"
+        title="Software Built Around How These Sectors Actually Work"
+        description={industriesDescription}
+        url="/industries"
+      />
       <PageHero
         eyebrow="Industries"
         title="Software Built Around How These Sectors Actually Work"

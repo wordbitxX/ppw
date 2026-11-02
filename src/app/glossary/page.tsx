@@ -5,6 +5,7 @@ import { CtaBand } from "@/components/cta-band";
 import { FaqAccordion } from "@/components/accordion";
 import { FaqSchema } from "@/components/jsonld";
 import { seoTitleAbsolute } from "@/lib/seo-title";
+import { socialMetadata } from "@/lib/social-meta";
 import { glossaryTerms } from "@/lib/glossary";
 import type { Faq } from "@/lib/types";
 
@@ -34,7 +35,7 @@ export const metadata: Metadata = {
   description,
   alternates: { canonical: "/glossary" },
   keywords: ["software glossary", "what is ERP", "what is CRM", "what is API", "MVP meaning", "PWA meaning", "SaaS meaning"],
-  openGraph: { url: "/glossary", title: "Software Glossary | WordbitX", description },
+  ...socialMetadata({ url: "/glossary", title: "Software Glossary | WordbitX", description }),
 };
 
 export default function GlossaryPage() {

@@ -4,6 +4,7 @@ import { CtaBand } from "@/components/cta-band";
 import { FaqAccordion } from "@/components/accordion";
 import { FaqSchema } from "@/components/jsonld";
 import { seoTitleAbsolute } from "@/lib/seo-title";
+import { socialMetadata } from "@/lib/social-meta";
 import type { Faq } from "@/lib/types";
 
 const description =
@@ -73,7 +74,7 @@ export const metadata: Metadata = {
   description,
   alternates: { canonical: "/resources/website-launch-checklist" },
   keywords: ["website launch checklist", "website go live checklist", "website pre launch checks"],
-  openGraph: { url: "/resources/website-launch-checklist", title: "Website Launch Checklist | WordbitX", description },
+  ...socialMetadata({ url: "/resources/website-launch-checklist", title: "Website Launch Checklist | WordbitX", description }),
 };
 
 export default function ChecklistPage() {

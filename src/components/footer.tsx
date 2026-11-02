@@ -250,7 +250,7 @@ export function Footer() {
                 image is slow or blocked. DMCABadgeHelper is loaded lazily so a
                 third-party script never sits in the critical path. */}
             <a
-              href={`//www.dmca.com/Protection/Status.aspx?ID=${siteConfig.dmcaProtectionId}`}
+              href={`https://www.dmca.com/Protection/Status.aspx?ID=${siteConfig.dmcaProtectionId}`}
               title="DMCA.com Protection Status"
               target="_blank"
               rel="noopener noreferrer"

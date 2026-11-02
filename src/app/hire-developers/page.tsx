@@ -6,14 +6,19 @@ import { FaqAccordion } from "@/components/accordion";
 import { FaqSchema, ServiceSchema } from "@/components/jsonld";
 import { ArrowRight } from "@/components/icons";
 import { hireHub, hirePages } from "@/lib/hire-developers";
-import { seoTitleAbsolute } from "@/lib/seo-title";
+import { seoTitle, seoTitleAbsolute } from "@/lib/seo-title";
+import { socialMetadata } from "@/lib/social-meta";
 import { whatsappLink } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: seoTitleAbsolute(hireHub.metaTitle),
   description: hireHub.metaDescription,
   alternates: { canonical: "/hire-developers" },
-  openGraph: { url: "/hire-developers", title: hireHub.metaTitle, description: hireHub.metaDescription },
+  ...socialMetadata({
+    url: "/hire-developers",
+    title: seoTitle(hireHub.metaTitle),
+    description: hireHub.metaDescription,
+  }),
 };
 
 const techPages = hirePages.filter((page) => page.kind === "tech");
@@ -26,7 +31,7 @@ export default function HireDevelopersHubPage() {
         eyebrow="Hire Developers"
         title={hireHub.h1}
         description={hireHub.intro[0]}
-        crumbs={[{ label: "Home", href: "/" }, { label: "Hire Developers", href: "/hire-developers" }]}
+        crumbs={[{ label: "Hire Developers", href: "/hire-developers" }]}
       >
         <div className="flex flex-wrap gap-3">
           <ButtonLink href="/contact">Discuss Your Team</ButtonLink>
@@ -55,7 +60,7 @@ export default function HireDevelopersHubPage() {
               <div key={step.step} className="flex gap-4 rounded-2xl border border-slate-200 bg-white p-5">
                 <span className="text-2xl font-semibold text-brand-500">{step.step}</span>
                 <div>
-                  <h3 className="text-base font-semibold text-ink-900">{step.title}</h3>
+                  <h2 className="text-base font-semibold text-ink-900">{step.title}</h2>
                   <p className="mt-1.5 text-sm leading-relaxed text-ink-500">{step.text}</p>
                 </div>
               </div>
@@ -132,7 +137,7 @@ export default function HireDevelopersHubPage() {
             ))}
             <p className="text-xs leading-relaxed text-ink-400">
               Fractional commitments (20/30/40 hours a week) are scoped at pro-rata rates in writing. The band is
-              consistent with the "Under $25 / hr" rate published on our Clutch profile.
+              consistent with the &ldquo;Under $25 / hr&rdquo; rate published on our Clutch profile.
             </p>
           </div>
         </div>

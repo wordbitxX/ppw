@@ -12,7 +12,8 @@ import { getServices } from "@/lib/services";
 import Link from "next/link";
 import { ArrowRight } from "@/components/icons";
 import { contactHref } from "@/lib/site";
-import { seoTitleAbsolute } from "@/lib/seo-title";
+import { seoTitle, seoTitleAbsolute } from "@/lib/seo-title";
+import { socialMetadata } from "@/lib/social-meta";
 import { fixedPackages } from "@/lib/price-ladder";
 
 export function generateStaticParams() {
@@ -30,7 +31,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: seoTitleAbsolute(market.metaTitle),
     description: market.metaDescription,
     alternates: { canonical: `/global/${market.slug}` },
-    openGraph: { url: `/global/${market.slug}`, title: market.metaTitle, description: market.metaDescription },
+    ...socialMetadata({
+      url: `/global/${market.slug}`,
+      title: seoTitle(market.metaTitle),
+      description: market.metaDescription,
+    }),
   };
 }
 

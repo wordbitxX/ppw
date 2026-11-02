@@ -13,6 +13,7 @@ import { JsonLd } from "@/components/jsonld";
 import { marqueeTech } from "@/lib/technologies";
 import { media } from "@/lib/media";
 import { siteConfig, whatsappLink, absoluteUrl } from "@/lib/site";
+import { socialMetadata } from "@/lib/social-meta";
 import { founder, founderMessage, teamValues } from "@/lib/team";
 
 export const metadata: Metadata = {
@@ -26,12 +27,12 @@ export const metadata: Metadata = {
     "Awais Malick WordbitX",
     "software company Lahore",
   ],
-  openGraph: {
+  ...socialMetadata({
     url: "/about",
     title: "About WordbitX | Software Company in Pakistan",
     description:
       "Founded in 2021 in Pakistan. Custom websites, apps and business software for clients worldwide — you own the code.",
-  },
+  }),
 };
 
 const facts = [
@@ -389,6 +390,7 @@ export default function AboutPage() {
                       <Image
                         src={founder.photo}
                         alt=""
+                        aria-hidden="true"
                         fill
                         unoptimized
                         sizes="44px"

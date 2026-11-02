@@ -19,8 +19,9 @@ export function OrganizationSchema() {
         url: siteConfig.url,
         logo: absoluteUrl("/brand/wordbitx-mark.png"),
         image: absoluteUrl(siteConfig.ogImage),
-        description: siteConfig.description,
-        email: siteConfig.email,
+    description: siteConfig.description,
+    priceRange: "$$",
+    email: siteConfig.email,
         telephone: siteConfig.phoneDisplay,
         foundingDate: String(siteConfig.foundingYear),
         additionalProperty: [
@@ -64,14 +65,14 @@ export function OrganizationSchema() {
           ...siteConfig.socials.map((social) => social.href),
           ...siteConfig.directories.map((directory) => directory.href),
         ],
-        // Entity link between WordbitX and the live product it operates.
+        // Entity link between WordbitX and the live software product it operates.
         owns: [
           {
-            "@type": "WebSite",
+            "@type": "Product",
             name: propertiesPak.name,
-            url: propertiesPak.url,
             description: propertiesPak.description,
-            inLanguage: "en",
+            category: "Real Estate Portal Software",
+            brand: { "@id": `${siteConfig.url}/#organization` },
           },
         ],
         knowsAbout: [
@@ -112,6 +113,35 @@ export function VideoObjectSchema({
         thumbnailUrl,
         uploadDate: siteConfig.contentUpdated,
         publisher: { "@id": `${siteConfig.url}/#organization` },
+      }}
+    />
+  );
+}
+
+export function WebPageSchema({
+  title,
+  description,
+  url,
+  type = "WebPage",
+}: {
+  title: string;
+  description: string;
+  url: string;
+  type?: "WebPage" | "CollectionPage" | "ContactPage";
+}) {
+  const canonicalUrl = absoluteUrl(url);
+  return (
+    <JsonLd
+      data={{
+        "@context": "https://schema.org",
+        "@type": type,
+        "@id": `${canonicalUrl}#webpage`,
+        url: canonicalUrl,
+        name: title,
+        description,
+        inLanguage: "en",
+        isPartOf: { "@id": `${siteConfig.url}/#website` },
+        about: { "@id": `${siteConfig.url}/#organization` },
       }}
     />
   );
@@ -164,8 +194,11 @@ export function ServiceSchema({
         url: absoluteUrl(url),
         provider: {
           "@type": "ProfessionalService",
+          "@id": `${siteConfig.url}/#organization`,
           name: siteConfig.name,
           url: siteConfig.url,
+          image: absoluteUrl(siteConfig.ogImage),
+          priceRange: "$$",
           telephone: siteConfig.phoneDisplay,
           email: siteConfig.email,
           address: {

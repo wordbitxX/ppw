@@ -5,7 +5,9 @@ import { PageHero, Section, SectionHeading, ButtonLink } from "@/components/ui";
 import { PortfolioExplorer } from "@/components/portfolio-explorer";
 import { DemosSection } from "@/components/demos-section";
 import { CtaBand } from "@/components/cta-band";
+import { WebPageSchema } from "@/components/jsonld";
 import { projects, projectCategories, portfolioDisclosure } from "@/lib/portfolio";
+import { socialMetadata } from "@/lib/social-meta";
 
 export const metadata: Metadata = {
   title: "Case Studies | Web, Mobile & eCommerce Projects",
@@ -19,17 +21,23 @@ export const metadata: Metadata = {
     "WordbitX portfolio",
     "software development portfolio",
   ],
-  openGraph: {
+  ...socialMetadata({
     url: "/portfolio",
     title: "WordbitX Case Studies | Project Profiles",
     description:
       "Project profiles covering software platforms, mobile applications, eCommerce storefronts, AI automation and marketplace websites.",
-  },
+  }),
 };
 
 export default function PortfolioPage() {
   return (
     <>
+      <WebPageSchema
+        type="CollectionPage"
+        title="Case Studies Across Software, Web, Mobile and Commerce"
+        description="WordbitX case studies: custom POS platforms, delivery apps, Shopify storefronts, booking portals and AI tools — with the decisions behind each build."
+        url="/portfolio"
+      />
       <PageHero
         eyebrow="Case Studies"
         title="Case Studies Across Software, Web, Mobile and Commerce"

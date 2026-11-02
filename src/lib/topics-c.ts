@@ -28,7 +28,7 @@ export const topicsC: Topic[] = [
     h1: "Software Development Company for UK Product and Agency Teams",
     category: "Global",
     summary: "GMT-friendly stand-ups, written English, and code you own — from Lahore.",
-    metaTitle: "Software Development Company for UK Clients | WordbitX",
+    metaTitle: "UK Guide to Hiring a Software Company | WordbitX",
     metaDescription:
       "Software development company for UK clients: GMT overlap, milestone billing and repositories under your organisation.",
     keywords: ["software development company UK", "hire developers UK offshore", "software house for British companies", "Pakistan software company UK"],

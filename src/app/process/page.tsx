@@ -6,6 +6,7 @@ import { FaqAccordion } from "@/components/accordion";
 import { FaqSchema } from "@/components/jsonld";
 import { ArrowRight } from "@/components/icons";
 import { processFaqs, processSteps } from "@/lib/process";
+import { socialMetadata } from "@/lib/social-meta";
 
 export const metadata: Metadata = {
   title: "Software Development Process | Scope to Launch",
@@ -21,12 +22,12 @@ export const metadata: Metadata = {
     "software company discovery process",
     "offshore software development process",
   ],
-  openGraph: {
+  ...socialMetadata({
     url: "/process",
-    title: "Software Development Process",
+    title: "Software Development Process | WordbitX",
     description:
       "Seven stages from discovery to support. Work starts after a written scope. Code, hosting and analytics stay in your accounts.",
-  },
+  }),
 };
 
 const collaboration = [

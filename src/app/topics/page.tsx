@@ -2,19 +2,29 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero, Section, SectionHeading, ButtonLink } from "@/components/ui";
 import { CtaBand } from "@/components/cta-band";
+import { WebPageSchema } from "@/components/jsonld";
 import { ArrowRight } from "@/components/icons";
 import { topics, topicCategories, topicsInCategory } from "@/lib/topics";
+import { socialMetadata } from "@/lib/social-meta";
+
+const topicsDescription =
+  "Short WordbitX explainers that sit beside the main service pages — comparisons and definitions, not a second services catalogue.";
 
 export const metadata: Metadata = {
   title: "Software Topic Guides",
-  description:
-    "Short WordbitX explainers that sit beside the main service pages — comparisons and definitions, not a second services catalogue.",
+  description: topicsDescription,
   alternates: { canonical: "/topics" },
+  ...socialMetadata({
+    url: "/topics",
+    title: "Software Topic Guides | WordbitX",
+    description: topicsDescription,
+  }),
 };
 
 export default function TopicsPage() {
   return (
     <>
+      <WebPageSchema type="CollectionPage" title="Software Topic Guides" description={topicsDescription} url="/topics" />
       <PageHero
         eyebrow="Topic library"
         title="Software Topics People Actually Search"

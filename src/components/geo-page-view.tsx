@@ -9,7 +9,8 @@ import { ServiceCard } from "@/components/cards";
 import { ArrowRight } from "@/components/icons";
 import { getGeoPage, geoPages } from "@/lib/geo-pages";
 import { getService } from "@/lib/services";
-import { seoTitleAbsolute } from "@/lib/seo-title";
+import { seoTitle, seoTitleAbsolute } from "@/lib/seo-title";
+import { socialMetadata } from "@/lib/social-meta";
 import { contactHref, whatsappLink } from "@/lib/site";
 
 export function geoPageMetadata(slug: string): Metadata {
@@ -19,7 +20,11 @@ export function geoPageMetadata(slug: string): Metadata {
     title: seoTitleAbsolute(page.metaTitle),
     description: page.metaDescription,
     alternates: { canonical: `/${slug}` },
-    openGraph: { url: `/${slug}`, title: page.metaTitle, description: page.metaDescription },
+    ...socialMetadata({
+      url: `/${slug}`,
+      title: seoTitle(page.metaTitle),
+      description: page.metaDescription,
+    }),
   };
 }
 
@@ -40,7 +45,6 @@ export function GeoPageView({ slug }: { slug: string }) {
         title={page.h1}
         description={page.intro[0]}
         crumbs={[
-          { label: "Home", href: "/" },
           { label: page.city, href: `/software-house/${page.citySlug}` },
           { label: page.serviceLabel, href: `/${slug}` },
         ]}

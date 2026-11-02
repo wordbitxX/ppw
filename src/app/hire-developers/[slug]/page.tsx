@@ -10,7 +10,8 @@ import { ServiceCard } from "@/components/cards";
 import { ArrowRight } from "@/components/icons";
 import { getHirePage, hirePages, hireSlugs } from "@/lib/hire-developers";
 import { getService } from "@/lib/services";
-import { seoTitleAbsolute } from "@/lib/seo-title";
+import { seoTitle, seoTitleAbsolute } from "@/lib/seo-title";
+import { socialMetadata } from "@/lib/social-meta";
 import { whatsappLink } from "@/lib/site";
 
 export function generateStaticParams() {
@@ -29,7 +30,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: seoTitleAbsolute(page.metaTitle),
     description: page.metaDescription,
     alternates: { canonical: `/hire-developers/${slug}` },
-    openGraph: { url: `/hire-developers/${slug}`, title: page.metaTitle, description: page.metaDescription },
+    ...socialMetadata({
+      url: `/hire-developers/${slug}`,
+      title: seoTitle(page.metaTitle),
+      description: page.metaDescription,
+    }),
   };
 }
 
@@ -57,7 +62,6 @@ export default async function HireDeveloperPage({ params }: PageProps) {
         title={page.h1}
         description={page.intro[0]}
         crumbs={[
-          { label: "Home", href: "/" },
           { label: "Hire Developers", href: "/hire-developers" },
           { label: page.label, href: `/hire-developers/${slug}` },
         ]}

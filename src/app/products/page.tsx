@@ -2,14 +2,16 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero, Section, SectionHeading, ButtonLink } from "@/components/ui";
 import { CtaBand } from "@/components/cta-band";
+import { WebPageSchema } from "@/components/jsonld";
 import { DemoShot } from "@/components/demo-shot";
 import { ArrowRight, GlobeIcon, CheckIcon } from "@/components/icons";
 import { products, productsIntro } from "@/lib/products";
 import { demosDisclosure, showcaseRel } from "@/lib/demos";
 import { demoPreview } from "@/lib/demo-shots";
-import { seoTitleAbsolute } from "@/lib/seo-title";
+import { seoTitle, seoTitleAbsolute } from "@/lib/seo-title";
+import { socialMetadata } from "@/lib/social-meta";
 
-const metaTitle = "Our Products — Software WordbitX Built and Runs";
+const metaTitle = "Software Products & Platforms We Built & Run";
 const metaDescription =
   "Explore WordbitX products and demos: a live property marketplace, salon booking system, automotive marketplace, school ERP and clinic platform.";
 
@@ -17,7 +19,7 @@ export const metadata: Metadata = {
   title: seoTitleAbsolute(metaTitle),
   description: metaDescription,
   alternates: { canonical: "/products" },
-  openGraph: { url: "/products", title: metaTitle, description: metaDescription },
+  ...socialMetadata({ url: "/products", title: seoTitle(metaTitle), description: metaDescription }),
 };
 
 export default function ProductsPage() {
@@ -26,6 +28,7 @@ export default function ProductsPage() {
 
   return (
     <>
+      <WebPageSchema type="CollectionPage" title={metaTitle} description={metaDescription} url="/products" />
       <PageHero
         eyebrow="Our Products"
         title="Software we built, and still run"

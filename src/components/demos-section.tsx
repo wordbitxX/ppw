@@ -130,12 +130,12 @@ export function DemosSection({ limit }: { limit?: number }) {
   const demos = typeof limit === "number" ? rest.slice(0, limit) : rest;
   const ordered = featured ? [featured, ...demos] : demos;
 
-  const items: ShowcaseTabItem[] = ordered.map((demo, index) => ({
+  const items: ShowcaseTabItem[] = ordered.map((demo) => ({
     id: demo.id,
     name: demo.name,
     category: demo.category,
     badge: demo.kind === "live" ? "Live" : undefined,
-    panel: <DemoPanel demo={demo} priority={index === 0} />,
+    panel: <DemoPanel demo={demo} priority={false} />,
   }));
 
   const footer = (

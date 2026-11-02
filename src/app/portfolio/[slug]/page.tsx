@@ -11,7 +11,8 @@ import { projects, getProject, portfolioDisclosure } from "@/lib/portfolio";
 import { getServices } from "@/lib/services";
 import { techCategories } from "@/lib/technologies";
 import type { TechItem } from "@/lib/technologies";
-import { seoTitleAbsolute } from "@/lib/seo-title";
+import { seoTitle, seoTitleAbsolute } from "@/lib/seo-title";
+import { socialMetadata } from "@/lib/social-meta";
 import { absoluteUrl } from "@/lib/site";
 
 export function generateStaticParams() {
@@ -33,19 +34,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     ...(project.keywords ? { keywords: project.keywords } : {}),
     robots: { index: true, follow: true },
     alternates: { canonical: `/portfolio/${project.slug}` },
-    openGraph: {
+    ...socialMetadata({
       type: "article",
       url: `/portfolio/${project.slug}`,
-      title: project.metaTitle,
+      title: seoTitle(project.metaTitle),
       description: project.metaDescription,
-      images: [{ url: project.image, alt: project.imageAlt }],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: project.metaTitle,
-      description: project.metaDescription,
-      images: [project.image],
-    },
+      image: project.image,
+      imageAlt: project.imageAlt,
+    }),
   };
 }
 
@@ -133,8 +129,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
             width={1600}
             height={900}
             priority
-            unoptimized={project.image.startsWith("/")}
-            sizes="100vw"
+            sizes="(min-width: 1280px) 1152px, 100vw"
             className="h-full w-full object-cover"
           />
         </div>

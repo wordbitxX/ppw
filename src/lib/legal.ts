@@ -16,7 +16,7 @@ export const legalDocs: Record<string, LegalDoc> = {
   "privacy-policy": {
     slug: "privacy-policy",
     title: "Privacy Policy",
-    metaTitle: "Privacy Policy | WordbitX",
+    metaTitle: "Privacy Policy & Data Protection | WordbitX",
     metaDescription:
       "How WordbitX collects, uses, stores and protects personal data submitted through wordbitx.pk, including forms, analytics and third-party services.",
     intro:
@@ -85,7 +85,7 @@ export const legalDocs: Record<string, LegalDoc> = {
   "terms-conditions": {
     slug: "terms-conditions",
     title: "Terms & Conditions",
-    metaTitle: "Terms & Conditions | WordbitX",
+    metaTitle: "Website Terms & Conditions | WordbitX",
     metaDescription:
       "The terms governing use of the WordbitX website and the general conditions that apply to proposals, project engagements, intellectual property and liability.",
     intro:
@@ -144,7 +144,7 @@ export const legalDocs: Record<string, LegalDoc> = {
   "cookie-policy": {
     slug: "cookie-policy",
     title: "Cookie Policy",
-    metaTitle: "Cookie Policy | WordbitX",
+    metaTitle: "Cookie Policy & Analytics Notice | WordbitX",
     metaDescription:
       "Details of the cookies and similar technologies used on wordbitx.pk, what they do, and how you can control them in your browser.",
     intro:
@@ -189,7 +189,7 @@ export const legalDocs: Record<string, LegalDoc> = {
   disclaimer: {
     slug: "disclaimer",
     title: "Disclaimer",
-    metaTitle: "Disclaimer | WordbitX",
+    metaTitle: "Website & Legal Disclaimer | WordbitX",
     metaDescription:
       "Legal disclaimer for wordbitx.pk: no ranking or AdSense guarantees, no invented affiliations, and the limits of website information.",
     intro:

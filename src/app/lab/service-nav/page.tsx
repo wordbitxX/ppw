@@ -12,6 +12,8 @@ import { ServiceCloud, ServiceHive, ServiceIndex, ServiceNavFootnote } from "@/c
  */
 export const metadata: Metadata = {
   title: "Service navigator options (internal)",
+  description: "Internal WordbitX layout comparison for the sixteen homepage service links.",
+  alternates: { canonical: "/lab/service-nav" },
   robots: { index: false, follow: false, nocache: true },
 };
 

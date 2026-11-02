@@ -14,6 +14,8 @@ import { getPosts } from "@/lib/blog";
 import { getTopics } from "@/lib/topics";
 import { absoluteUrl } from "@/lib/site";
 import { propertiesPak, showcaseRel } from "@/lib/demos";
+import { seoTitle, seoTitleAbsolute } from "@/lib/seo-title";
+import { socialMetadata } from "@/lib/social-meta";
 
 export function generateStaticParams() {
   return societies.map((item) => ({ slug: item.slug }));
@@ -29,11 +31,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const title = societySoftwareTitle(society);
   const description = societySoftwareDescription(society);
   return {
-    title,
+    title: seoTitleAbsolute(title),
     description,
     alternates: { canonical: `/societies/${society.slug}` },
     robots: { index: false, follow: true },
-    openGraph: { url: `/societies/${society.slug}`, title, description },
+    ...socialMetadata({ url: `/societies/${society.slug}`, title: seoTitle(title), description }),
   };
 }
 
@@ -316,7 +318,7 @@ export default async function SocietyPage({ params }: PageProps) {
           url: absoluteUrl(`/societies/${society.slug}`),
           name: title,
           description: societySoftwareDescription(society),
-          isPartOf: { "@id": absoluteUrl("/") + "#website" },
+          isPartOf: { "@id": `${absoluteUrl("/")}/#website` },
         }}
       />
     </>

@@ -230,7 +230,8 @@ export function CheckList({
 export type Crumb = { label: string; href: string };
 
 export function Breadcrumbs({ items, tone = "dark" }: { items: Crumb[]; tone?: "light" | "dark" }) {
-  const all: Crumb[] = [{ label: "Home", href: "/" }, ...items];
+  const filtered = items.filter((item, index) => !(index === 0 && item.href === "/"));
+  const all: Crumb[] = [{ label: "Home", href: "/" }, ...filtered];
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",

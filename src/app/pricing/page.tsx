@@ -9,7 +9,8 @@ import { FaqSchema } from "@/components/jsonld";
 import { ArrowRight } from "@/components/icons";
 import { pricingBands, pricingFaqs, pricingModels, retainerExcludes, retainerIncludes } from "@/lib/pricing";
 import { fixedPackages, packagePages, priceTiers } from "@/lib/price-ladder";
-import { contactHref } from "@/lib/site";
+import { absoluteUrl, contactHref } from "@/lib/site";
+import { socialMetadata } from "@/lib/social-meta";
 
 export const metadata: Metadata = {
   title: "Software Development Cost | How Quotes Work",
@@ -30,12 +31,13 @@ export const metadata: Metadata = {
     "Shopify development cost",
     "get a software quote",
   ],
-  openGraph: {
+  ...socialMetadata({
     url: "/pricing",
     title: "Software Development Cost | WordbitX",
     description:
       "No high ‘starting at’ that scares a small job, and no fake cheap ERP. Send a brief — you get a written milestone quote.",
-  },
+    image: "/pricing/opengraph-image",
+  }),
 };
 
 export default function PricingPage() {
@@ -253,7 +255,7 @@ export default function PricingPage() {
         primaryLabel="Start a quote"
         primaryHref="/contact"
       />
-      <FaqSchema faqs={[...pricingFaqs, ...pkQuestions.map(q=>({question:q.question,answer:`${q.answer} Read more: ${q.href}`}))]} />
+      <FaqSchema faqs={[...pricingFaqs, ...pkQuestions.map(q=>({question:q.question,answer:`${q.answer} Read more: ${absoluteUrl(q.href)}`}))]} />
       <Questions title="Pakistan prices, hosting and offers" items={pkQuestions} schema={false} />
     </>
   );

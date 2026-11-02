@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero, Section, SectionHeading, ButtonLink } from "@/components/ui";
 import { CtaBand } from "@/components/cta-band";
+import { WebPageSchema } from "@/components/jsonld";
 import { ArrowRight, CheckIcon } from "@/components/icons";
 import { cities, citiesIntro } from "@/lib/cities";
-import { seoTitleAbsolute } from "@/lib/seo-title";
+import { seoTitle, seoTitleAbsolute } from "@/lib/seo-title";
+import { socialMetadata } from "@/lib/social-meta";
 
 const metaTitle = "Software House in Pakistan — City by City";
 const metaDescription =
@@ -14,12 +16,13 @@ export const metadata: Metadata = {
   title: seoTitleAbsolute(metaTitle),
   description: metaDescription,
   alternates: { canonical: "/software-house" },
-  openGraph: { url: "/software-house", title: metaTitle, description: metaDescription },
+  ...socialMetadata({ url: "/software-house", title: seoTitle(metaTitle), description: metaDescription }),
 };
 
 export default function SoftwareHouseIndexPage() {
   return (
     <>
+      <WebPageSchema type="CollectionPage" title={metaTitle} description={metaDescription} url="/software-house" />
       <PageHero
         eyebrow="Pakistan, city by city"
         title="Software house in Pakistan — built where your customers are"

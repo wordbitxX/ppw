@@ -3,13 +3,14 @@ import Link from "next/link";
 import { PageHero, Section, SectionHeading, Card } from "@/components/ui";
 import { ContactForm } from "@/components/contact-form";
 import { FaqAccordion } from "@/components/accordion";
-import { FaqSchema } from "@/components/jsonld";
+import { FaqSchema, WebPageSchema } from "@/components/jsonld";
 import { MailIcon, PhoneIcon, GlobeIcon, WhatsAppIcon, ClockIcon, CheckIcon, SparkIcon } from "@/components/icons";
 import { TrustBadges } from "@/components/trust-badges";
 import { resolveServiceOption, serviceNames } from "@/lib/services";
 import { siteConfig, usWhatsappLink, whatsappLink } from "@/lib/site";
 import { getJob } from "@/lib/careers";
 import { getHireRole } from "@/lib/hire-roles";
+import { socialMetadata } from "@/lib/social-meta";
 import type { Faq } from "@/lib/types";
 
 export const metadata: Metadata = {
@@ -18,12 +19,12 @@ export const metadata: Metadata = {
     "Contact WordbitX for websites, mobile apps, custom software, eCommerce, SEO and digital marketing. Email info@wordbitx.pk or WhatsApp +92 325 1888841.",
   alternates: { canonical: "/contact" },
   keywords: ["contact WordbitX", "software development quote", "hire app developers", "web development enquiry"],
-  openGraph: {
+  ...socialMetadata({
     url: "/contact",
-    title: "Contact | Get a Project Quote",
+    title: "Contact | Get a Project Quote | WordbitX",
     description:
       "Send your project brief and get an honest assessment, scoped plan and realistic timeline from the WordbitX team.",
-  },
+  }),
 };
 
 const contactFaqs: Faq[] = [
@@ -304,6 +305,12 @@ export default async function ContactPage({ searchParams }: PageProps) {
         </div>
       </Section>
 
+      <WebPageSchema
+        type="ContactPage"
+        title="Contact WordbitX | Get a Project Quote"
+        description="Get a written scope and project quote from WordbitX — software development company in Pakistan serving clients worldwide. Reply within one business day."
+        url="/contact"
+      />
       <FaqSchema faqs={contactFaqs} />
     </>
   );

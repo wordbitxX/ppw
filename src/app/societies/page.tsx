@@ -3,27 +3,36 @@ import Link from "next/link";
 import Image from "next/image";
 import { PageHero, Section, SectionHeading, ButtonLink } from "@/components/ui";
 import { CtaBand } from "@/components/cta-band";
+import { WebPageSchema } from "@/components/jsonld";
 import { ArrowRight } from "@/components/icons";
 import { societies } from "@/lib/societies";
 import { propertiesPak, showcaseRel } from "@/lib/demos";
+import { socialMetadata } from "@/lib/social-meta";
+
+const societiesDescription =
+  "Property portal and management software for DHA, Bahria, Capital Smart City and other Pakistani societies — we build the software, not brokerage.";
 
 export const metadata: Metadata = {
   title: "Society & Housing Portal Software | DHA, Bahria",
-  description:
-    "Property portal and management software for DHA, Bahria, Capital Smart City and other Pakistani societies — we build the software, not brokerage.",
+  description: societiesDescription,
   alternates: { canonical: "/societies" },
-
-  openGraph: {
+  ...socialMetadata({
     url: "/societies",
-    title: "Housing Society Portal Software",
+    title: "Housing Society Portal Software | WordbitX",
     description:
       "Software for society inventory, files, instalments and dealer CRM. Not a plot-price listing site.",
-  },
+  }),
 };
 
 export default function SocietiesPage() {
   return (
     <>
+      <WebPageSchema
+        type="CollectionPage"
+        title="Society Portal & Property Management Software"
+        description={societiesDescription}
+        url="/societies"
+      />
       <PageHero
         eyebrow="Real estate software"
         title="Society Portal & Property Management Software"
@@ -35,7 +44,7 @@ export default function SocietiesPage() {
           <ButtonLink href="/industries/real-estate" variant="ghost">
             Real estate industry
           </ButtonLink>
-          <ButtonLink href="/topics/real-estate-crm-software" variant="ghost">
+          <ButtonLink href="/services/crm-erp-solutions" variant="ghost">
             Real estate CRM
           </ButtonLink>
         </div>
@@ -55,8 +64,8 @@ export default function SocietiesPage() {
             <Link href="/portfolio/housing-society-property-portal" className="text-brand-700 hover:text-brand-800">
               Society portal demo
             </Link>
-            <Link href="/topics/property-listing-website" className="text-brand-700 hover:text-brand-800">
-              Listing websites
+            <Link href="/products/properties-pak" className="text-brand-700 hover:text-brand-800">
+              Properties Pak product
             </Link>
           </div>
         </div>

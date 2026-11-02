@@ -10,6 +10,7 @@ import { FaqSchema } from "@/components/jsonld";
 import { ArrowRight } from "@/components/icons";
 import { MegaServiceIcon } from "@/components/mega-service-icon";
 import { services, megaMenuGroups } from "@/lib/services";
+import { socialMetadata } from "@/lib/social-meta";
 import type { Faq } from "@/lib/types";
 
 export const metadata: Metadata = {
@@ -28,12 +29,12 @@ export const metadata: Metadata = {
     "Google Ads management",
     "Amazon store setup",
   ],
-  openGraph: {
+  ...socialMetadata({
     url: "/services",
-    title: "Software & Digital Services",
+    title: "Software & Digital Services | WordbitX",
     description:
       "Web, apps, marketplaces, SEO, ads and IT services — each with a dedicated page, process and deliverables.",
-  },
+  }),
 };
 
 /**

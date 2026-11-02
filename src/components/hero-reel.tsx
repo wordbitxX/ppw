@@ -132,7 +132,7 @@ export function HeroReel({ slides }: { slides: HeroSlide[] }) {
                 src={slide.src}
                 alt={slide.alt}
                 fill
-                priority
+                loading="lazy"
                 sizes="(max-width: 1024px) 100vw, 46vw"
                 className={`object-cover ${slide.position ?? "object-center"}`}
               />
@@ -143,8 +143,7 @@ export function HeroReel({ slides }: { slides: HeroSlide[] }) {
                 alt={slide.alt}
                 width={1800}
                 height={1125}
-                loading="eager"
-                fetchPriority="low"
+                loading="lazy"
                 decoding="async"
                 draggable={false}
                 onError={() => markFailed(slide.id)}

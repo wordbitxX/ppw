@@ -3,19 +3,34 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero, Section, SectionHeading, ButtonLink } from "@/components/ui";
 import { CtaBand } from "@/components/cta-band";
+import { WebPageSchema } from "@/components/jsonld";
 import { ArrowRight } from "@/components/icons";
 import { markets } from "@/lib/markets";
+import { socialMetadata } from "@/lib/social-meta";
+
+const globalDescription =
+  "Pakistan-based software development company serving clients in the USA, UK, UAE, Canada and Australia with remote squads and scheduled overlap hours.";
 
 export const metadata: Metadata = {
   title: "Global Software Delivery | Pakistan, USA, UK, UAE",
-  description:
-    "Pakistan-based software development company serving clients in the USA, UK, UAE, Canada and Australia with remote squads and scheduled overlap hours.",
+  description: globalDescription,
   alternates: { canonical: "/global" },
+  ...socialMetadata({
+    url: "/global",
+    title: "Global Software Delivery | Pakistan, USA, UK, UAE | WordbitX",
+    description: globalDescription,
+  }),
 };
 
 export default function GlobalMarketsPage() {
   return (
     <>
+      <WebPageSchema
+        type="CollectionPage"
+        title="Global Software Delivery | Pakistan, USA, UK, UAE"
+        description={globalDescription}
+        url="/global"
+      />
       <PageHero
         eyebrow="Global Markets"
         title="A Global Software Team, Operating from Pakistan"

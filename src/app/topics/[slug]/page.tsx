@@ -13,8 +13,9 @@ import { getPosts } from "@/lib/blog";
 import { industries, getIndustry } from "@/lib/industries";
 import { industrySlugsForServices } from "@/lib/related-content";
 import { contactHref, absoluteUrl, siteConfig } from "@/lib/site";
-import { isDuplicateTopic, noindexFollow, topicCanonical } from "@/lib/seo-focus";
-import { seoTitleAbsolute } from "@/lib/seo-title";
+import { isDuplicateTopic, noindexFollow } from "@/lib/seo-focus";
+import { seoTitle, seoTitleAbsolute } from "@/lib/seo-title";
+import { socialMetadata } from "@/lib/social-meta";
 
 export function generateStaticParams() {
   return topics.map((topic) => ({ slug: topic.slug }));
@@ -28,17 +29,18 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params;
   const topic = getTopic(slug);
   if (!topic) return { title: "Topic not found" };
+  const selfPath = `/topics/${topic.slug}`;
   return {
     title: seoTitleAbsolute(topic.metaTitle),
     description: topic.metaDescription,
     keywords: topic.keywords,
-    alternates: { canonical: topicCanonical(topic.slug) },
+    alternates: { canonical: selfPath },
     robots: isDuplicateTopic(topic.slug) ? noindexFollow : undefined,
-    openGraph: {
-      url: isDuplicateTopic(topic.slug) ? topicCanonical(topic.slug) : `/topics/${topic.slug}`,
-      title: topic.metaTitle,
+    ...socialMetadata({
+      url: selfPath,
+      title: seoTitle(topic.metaTitle),
       description: topic.metaDescription,
-    },
+    }),
   };
 }
 
@@ -52,7 +54,10 @@ export default async function TopicDetailPage({ params }: PageProps) {
   const relatedIndustries = industrySlugsForServices(topic.services)
     .map((slug) => getIndustry(slug))
     .filter((item): item is (typeof industries)[number] => Boolean(item));
-  const siblings = topicsInCategory(topic.category).filter((item) => item.slug !== topic.slug).slice(0, 4);
+  const duplicate = isDuplicateTopic(topic.slug);
+  const siblings = topicsInCategory(topic.category)
+    .filter((item) => item.slug !== topic.slug && (duplicate || !isDuplicateTopic(item.slug)))
+    .slice(0, 4);
 
   return (
     <>
@@ -199,7 +204,9 @@ export default async function TopicDetailPage({ params }: PageProps) {
             "@type": "Article",
             headline: topic.h1,
             description: topic.summary,
+            image: [absoluteUrl(relatedServices[0]?.image ?? "/opengraph-image")],
             mainEntityOfPage: { "@type": "WebPage", "@id": absoluteUrl(`/topics/${topic.slug}`) },
+            datePublished: topic.reviewed.date,
             dateModified: topic.reviewed.date,
             author: topic.author
               ? {

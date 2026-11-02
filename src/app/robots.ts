@@ -1,24 +1,40 @@
 import type { MetadataRoute } from "next";
-import { absoluteSitemapUrl } from "@/lib/sitemap-data";
 import { siteConfig } from "@/lib/site";
 
+/**
+ * Note on /societies/:
+ * The /societies hub is indexable (in sitemaps/core.xml), while all 18
+ * /societies/[slug] child pages carry `<meta name="robots" content="noindex, follow">`.
+ * /societies/ MUST stay crawlable in robots.txt so Googlebot can fetch the child
+ * pages and honour their `noindex` directive cleanly rather than flagging
+ * "Indexed, though blocked by robots.txt".
+ *
+ * Note on /_next/data/:
+ * Only internal Next.js JSON data routes (`/_next/data/`) are disallowed;
+ * `/_next/static/` (CSS, JS, fonts) and `/_next/image` MUST remain crawlable
+ * for Googlebot's Web Rendering Service (WRS) and Googlebot-Image.
+ *
+ * Per RFC 9309, a specific User-agent group overrides `User-agent: *`, so
+ * `DISALLOW_COMMON` is included on every named bot group as well.
+ */
+const DISALLOW_COMMON = ["/api/", "/_next/data/", "/admin/", "/private/", "/lab/", "/sample"];
+
+const AI_CRAWLERS = ["GPTBot", "ChatGPT-User", "CCBot", "PerplexityBot", "ClaudeBot", "Google-Extended"];
+
 export default function robots(): MetadataRoute.Robots {
-  const allowAi = ["GPTBot", "ChatGPT-User", "Google-Extended", "PerplexityBot", "ClaudeBot", "anthropic-ai"];
   return {
     rules: [
       {
         userAgent: "*",
         allow: "/",
-        // /societies (the hub) is a software page and is indexed. Its children are
-        // indicative plot-price tables that must not compete with our software
-        // pages or go stale in the index, so only the children are blocked.
-        disallow: ["/api/", "/admin", "/admin/", "/societies/", "/lab", "/lab/", "/sample"],
+        disallow: DISALLOW_COMMON,
       },
-      ...allowAi.map((userAgent) => ({ userAgent, allow: "/" as const })),
+      ...AI_CRAWLERS.map((bot) => ({
+        userAgent: bot,
+        allow: "/",
+        disallow: DISALLOW_COMMON,
+      })),
     ],
-    // Only the index is advertised. /sitemap.xml stays available as a debug dump
-    // but listing both made Search Console report the same URLs twice.
-    sitemap: absoluteSitemapUrl("/sitemap-index.xml"),
-    host: siteConfig.url.toLowerCase(),
+    sitemap: `${siteConfig.url}/sitemap-index.xml`,
   };
 }

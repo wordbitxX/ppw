@@ -8,6 +8,7 @@ import { ArrowRight } from "@/components/icons";
 import { careersFaqs, jobs } from "@/lib/careers";
 import { hireEnquiryHref, hireRoleGroups } from "@/lib/hire-roles";
 import { siteConfig } from "@/lib/site";
+import { socialMetadata } from "@/lib/social-meta";
 
 export const metadata: Metadata = {
   title: "Hire Developers, Designers & Growth Teams",
@@ -24,12 +25,12 @@ export const metadata: Metadata = {
     "software jobs Pakistan",
     "WordbitX careers",
   ],
-  openGraph: {
+  ...socialMetadata({
     url: "/careers",
-    title: "Hire Developers, Designers & Growth Teams",
+    title: "Hire Developers, Designers & Growth Teams | WordbitX",
     description:
       "Staff a named team across software, marketplace, SEO and ads — or apply to open roles this week.",
-  },
+  }),
 };
 
 export default function CareersPage() {
