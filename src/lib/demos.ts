@@ -65,7 +65,7 @@ export const demosDisclosure =
   "Items labelled Demo below are demo / sample websites created by WordbitX to showcase design and development capabilities. They are not real client projects, case studies or endorsements, and no client names, revenue figures or results are implied. Items labelled Live Project are real, publicly available products built by WordbitX. Where a card shows an illustrated cover instead of a screenshot, the cover is artwork representing the kind of business the software serves — open the link to see the actual site.";
 
 /** Hosts WordbitX owns or operates — these get normal (dofollow) links. */
-export const ownedHosts = ["wordbitx.pk"];
+export const ownedHosts = ["wordbitx.pk", "wordbitx.com"];
 
 export const demoWebsites: DemoWebsite[] = [
   {

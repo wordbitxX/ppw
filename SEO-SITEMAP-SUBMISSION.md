@@ -2,17 +2,21 @@
 
 ## Canonical host
 
-`https://wordbitx.pk/` redirects (308 permanent) to `https://www.wordbitx.pk/`.
+`https://wordbitx.com/` (apex, no `www`) is the primary domain since 3 Nov 2026. All 308 permanent redirects land on it:
 
-Submit sitemaps on the **URL-prefix property `https://www.wordbitx.pk/`** or the **Domain property `wordbitx.pk`** (never on `http://` or non-`www` URL-prefix properties, which will show `0 discovered pages` because every `<loc>` uses `https://www.wordbitx.pk/...`).
+- legacy `.pk` apex (`/`) → `https://wordbitx.com/`
+- legacy `.pk` `www` host → `https://wordbitx.com/`
+- `https://www.wordbitx.com/` → `https://wordbitx.com/`
+
+Submit sitemaps on the **URL-prefix property `https://wordbitx.com/`** or the **Domain property `wordbitx.com`** (never on `http://`, `www` or `.pk` URL-prefix properties, which will show `0 discovered pages` because every `<loc>` uses `https://wordbitx.com/...`). The old `.pk` property keeps its history and is the source for Search Console's **Change of Address**.
 
 ## Submit this one file
 
 ```text
-https://www.wordbitx.pk/sitemap-index.xml
+https://wordbitx.com/sitemap-index.xml
 ```
 
-Do **not** also submit `/sitemap.xml` alongside `/sitemap-index.xml` — both list the same 278 canonical URLs, so submitting both duplicates GSC sitemap counts. `robots.txt` points solely to `https://www.wordbitx.pk/sitemap-index.xml`.
+Do **not** also submit `/sitemap.xml` alongside `/sitemap-index.xml` — both list the same 278 canonical URLs, so submitting both duplicates GSC sitemap counts. `robots.txt` points solely to `https://wordbitx.com/sitemap-index.xml`.
 
 ## Child sitemaps (12 files referenced by `sitemap-index.xml` — 278 URLs total)
 
@@ -44,6 +48,6 @@ Do **not** also submit `/sitemap.xml` alongside `/sitemap-index.xml` — both li
 
 ## After deploy
 
-1. Search Console → Property `https://www.wordbitx.pk/` (or Domain property `wordbitx.pk`) → Sitemaps → keep **only** `sitemap-index.xml`.
+1. Search Console → Property `https://wordbitx.com/` (or Domain property `wordbitx.com`) → Sitemaps → keep **only** `sitemap-index.xml`.
 2. Remove any stale submissions for `sitemap.xml`, `sitemaps/technologies.xml`, or `sitemaps/societies.xml`.
 3. Use URL Inspection → **Request Indexing** only on priority `200 OK` canonical URLs, never on redirected or `noindex` URLs.

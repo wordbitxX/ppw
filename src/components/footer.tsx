@@ -243,6 +243,15 @@ export function Footer() {
             <p className="text-slate-500">
               © {year} {siteConfig.name}. All rights reserved.
             </p>
+            {/* Canonical domain, printed in the footer. Since the 3 Nov 2026
+                migration this reads wordbitx.com (apex, no www) — derived from
+                siteConfig so it can never drift from the canonical tags. */}
+            <a
+              href={siteConfig.url}
+              className="text-slate-400 transition-colors hover:text-brand-300"
+            >
+              {siteConfig.domain}
+            </a>
             {/* DMCA protection badge. The artwork DMCA serves is dark, so on
                 the navy-950 footer it has to sit on a light pill to be legible
                 — the previous transparent, 70%-opacity version was effectively

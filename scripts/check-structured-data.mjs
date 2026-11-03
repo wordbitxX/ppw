@@ -55,7 +55,7 @@ const work = portfolio.find((item) => hasType(item, "WebPage"))?.about;
 assert.equal(work?.["@type"], "CreativeWork");
 assert.equal(work.name, "Properties Pak");
 assert.equal(work.url, "https://dha.wordbitx.pk");
-assert.equal(work.author?.["@id"], "https://www.wordbitx.pk/#organization");
+assert.equal(work.author?.["@id"], "https://wordbitx.com/#organization");
 for (const property of ["offers", "review", "aggregateRating"]) assert.ok(!(property in work));
 
 const service = await schemas(join(root, "services/web-development.html"));

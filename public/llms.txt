@@ -13,11 +13,11 @@
 Clients own the code, repositories and accounts. Demos at *.wordbitx.pk are sample sites, not case studies.
 
 ## Primary pages
-- https://www.wordbitx.pk/
-- https://www.wordbitx.pk/services
-- https://www.wordbitx.pk/pricing
-- https://www.wordbitx.pk/portfolio
-- https://www.wordbitx.pk/contact
+- https://wordbitx.com/
+- https://wordbitx.com/services
+- https://wordbitx.com/pricing
+- https://wordbitx.com/portfolio
+- https://wordbitx.com/contact
 
 ## Contact
 - Email: info@wordbitx.pk
