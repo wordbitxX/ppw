@@ -32,9 +32,21 @@ export type SitemapGroupKey =
 export type SitemapEntry = MetadataRoute.Sitemap[number];
 
 const base = siteConfig.url.toLowerCase();
+/**
+ * Primary-domain migration. On 3 Nov 2026 the canonical host moved from the
+ * legacy www host on the .pk domain to https://wordbitx.com (apex), so EVERY
+ * URL in EVERY sitemap changed on that date. That date is the floor for lastmod:
+ * Google is told the pages were genuinely re-published, and the date can never
+ * come out older than the move even if this build was triggered from a cached
+ * workspace with an older clock.
+ */
+const SITE_MOVE_DATE = "2026-11-03";
 // Static sitemap routes are rendered during each deployment build.
 const deployDate = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Karachi", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
-const staticUpdated = new Date(`${deployDate}T00:00:00Z`);
+const staticUpdated =
+  new Date(`${deployDate}T00:00:00Z`) > new Date(`${SITE_MOVE_DATE}T00:00:00Z`)
+    ? new Date(`${deployDate}T00:00:00Z`)
+    : new Date(`${SITE_MOVE_DATE}T00:00:00Z`);
 
 function dateOnly(value: Date): string {
   return value.toISOString().slice(0, 10);
@@ -46,14 +58,20 @@ function entry(path: string, options: Omit<SitemapEntry, "url">): SitemapEntry {
     options.lastModified instanceof Date
       ? dateOnly(options.lastModified)
       : options.lastModified;
-  return { url: `${base}${normalized === "/" ? "" : normalized}`, ...options, lastModified };
+  // Root keeps its trailing slash: the homepage <loc> reads
+  // https://wordbitx.com/ — the address the edge redirects and every other
+  // surface now targets. Empty path and "/" are the same URL to Google.
+  return { url: `${base}${normalized}`, ...options, lastModified };
 }
 
 export function getSitemapGroups(now = staticUpdated): Record<SitemapGroupKey, SitemapEntry[]> {
   return {
     core: [
       entry("/faqs", { lastModified: "2026-11-01", changeFrequency: "monthly", priority: 0.8 }),
-      entry("/", { lastModified: now, changeFrequency: "weekly", priority: sitemapPriority("/", 1) }),
+      // Home page lastmod is pinned to the domain-move date rather than the
+      // deploy date: the migration is the only change that shipped, and the
+      // homepage must carry 2026-11-03 in sitemaps/core.xml.
+      entry("/", { lastModified: SITE_MOVE_DATE, changeFrequency: "weekly", priority: sitemapPriority("/", 1) }),
       entry("/about", { lastModified: now, changeFrequency: "monthly", priority: 0.8 }),
       entry("/services", { lastModified: now, changeFrequency: "weekly", priority: 0.9 }),
       entry("/industries", { lastModified: now, changeFrequency: "weekly", priority: 0.75 }),

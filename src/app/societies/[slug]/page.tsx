@@ -12,7 +12,7 @@ import { societies, getSociety, priceDisclaimer, pricesUpdatedLabel, societySoft
 import { getServices } from "@/lib/services";
 import { getPosts } from "@/lib/blog";
 import { getTopics } from "@/lib/topics";
-import { absoluteUrl } from "@/lib/site";
+import { absoluteUrl, siteConfig } from "@/lib/site";
 import { propertiesPak, showcaseRel } from "@/lib/demos";
 import { seoTitle, seoTitleAbsolute } from "@/lib/seo-title";
 import { socialMetadata } from "@/lib/social-meta";
@@ -318,7 +318,7 @@ export default async function SocietyPage({ params }: PageProps) {
           url: absoluteUrl(`/societies/${society.slug}`),
           name: title,
           description: societySoftwareDescription(society),
-          isPartOf: { "@id": `${absoluteUrl("/")}/#website` },
+          isPartOf: { "@id": `${siteConfig.url}/#website` },
         }}
       />
     </>

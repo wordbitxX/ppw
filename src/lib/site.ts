@@ -4,9 +4,21 @@ export const siteConfig = {
   legalName: "WordbitX TECHNOLOGY SMC – PVT. LTD.",
   /** Public footer / marketing legal line. */
   legalDisplayName: "WordbitX SMC – PVT. LTD.",
-  domain: "wordbitx.pk",
-  /** Canonical production URL. Apex redirects to www, so all canonicals and sitemaps use www. */
-  url: "https://www.wordbitx.pk",
+  domain: "wordbitx.com",
+  /**
+   * Canonical production URL — the APEX host, no www (primary domain since the
+   * 3 Nov 2026 migration). Every canonical, og:url, twitter:url, JSON-LD @id,
+   * sitemap <loc>, robots Sitemap: line and llms.txt link derives from this.
+   *
+   * The `www` variant of this domain and both hosts on the legacy `.pk` domain
+   * are handled by the Vercel domain config, which 308-redirects all three
+   * here at the edge. Never hardcode a host elsewhere; import siteConfig or
+   * absoluteUrl() so nothing can drift back to the old www canonical.
+   *
+   * Kept as a literal (not an env read) so a stray NEXT_PUBLIC_SITE_URL in a
+   * hosting project cannot silently re-point canonicals at the old www host.
+   */
+  url: "https://wordbitx.com",
   tagline: "Software Development Company for Businesses Worldwide",
   description:
     "WordbitX is a Pakistan-based software development company serving businesses in the USA, UK, UAE, Canada, Australia and worldwide. Custom websites, mobile apps, Shopify, POS, CRM/ERP, SEO and digital marketing — with practical AI where it helps. You own the code.",
@@ -122,6 +134,9 @@ export function contactHref(service?: string) {
 
 export function absoluteUrl(path = "/") {
   const clean = path.startsWith("/") ? path : `/${path}`;
+  // Root is emitted as the bare canonical origin ("https://wordbitx.com") —
+  // the same form Next renders for rel=canonical / og:url — so JSON-LD and
+  // breadcrumbs never build a "//" or a mismatched variant of the homepage URL.
   return `${siteConfig.url}${clean === "/" ? "" : clean}`;
 }
 
