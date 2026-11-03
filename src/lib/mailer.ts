@@ -21,7 +21,7 @@ import { siteConfig } from "@/lib/site";
  * ── OPTION C — CUSTOM SMTP (cPanel mailbox) ──────────────────────────────────
  *   SMTP_HOST=mail.wordbitx.pk
  *   SMTP_PORT=465
- *   SMTP_USER=info@wordbitx.pk
+ *   SMTP_USER=info@wordbitx.com
  *   SMTP_PASS=your-mailbox-password
  *
  * Optional for all: MAIL_TO (defaults to siteConfig.inboxEmail)

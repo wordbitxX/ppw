@@ -20,6 +20,6 @@ Clients own the code, repositories and accounts. Demos at *.wordbitx.pk are samp
 - https://wordbitx.com/contact
 
 ## Contact
-- Email: info@wordbitx.pk
+- Email: info@wordbitx.com
 - Pakistan: +92 325 1888841
 - USA: +1 (929) 619-7699
