@@ -602,8 +602,8 @@ export function MarketLanding({ market }: { market: MarketContent }) {
                 {market.contact.phoneDisplay}
               </a>
               <span aria-hidden="true">·</span>
-              <a href="mailto:info@wordbitx.pk" className="font-medium text-slate-200 hover:text-white">
-                info@wordbitx.pk
+              <a href="mailto:info@wordbitx.com" className="font-medium text-slate-200 hover:text-white">
+                info@wordbitx.com
               </a>
               <span aria-hidden="true">·</span>
               <span>{market.contact.hours}</span>

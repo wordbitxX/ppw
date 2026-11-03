@@ -26,7 +26,7 @@ export const siteConfig = {
   seoDescription:
     "Pakistan software company serving USA, UK, UAE and worldwide. Websites, apps, Shopify, POS, SEO and digital marketing. You own the code.",
   /** Public contact address shown across the website. */
-  email: "info@wordbitx.pk",
+  email: "info@wordbitx.com",
   /** CEO's direct line — shown on the founder card (owner's request, 11 Oct).
       Should be an alias forwarding to the same inbox. */
   ceoEmail: "ceo@wordbitx.pk",
